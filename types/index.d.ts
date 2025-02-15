@@ -49,3 +49,13 @@ type PathSpacer = {
 type TocProps = {
    tocs: { href: string; level: number; text: string }[]
 }
+type EachRoute = {
+   title: string;
+   href: string;
+   noLink?: true;
+   items?: EachRoute[];
+};
+type Page = {
+   title: string;
+   href: string
+};

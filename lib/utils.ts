@@ -1,5 +1,6 @@
 import { Paths } from "@/lib/pageRoutes"
 import searchData from "@/public/search-data/documents.json"
+import { DocsRouting } from "@/settings/DocsRouting"
 import { clsx, type ClassValue } from "clsx"
 import sanitizeHtml from "sanitize-html"
 import { twMerge } from "tailwind-merge"
@@ -30,60 +31,45 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-function isRoute(
-  node: Paths
-): node is Extract<Paths, { href: string; title: string }> {
-  return "href" in node && "title" in node
-}
-
 export function helperSearch(
   query: string,
-  node: Paths,
+  node: EachRoute,
   prefix: string,
-  currentLevel: number,
+  currenLevel: number,
   maxLevel?: number
 ) {
-  const res: Paths[] = []
-  let parentHas = false
-  const lowerQuery = query.toLowerCase()
+  const res: EachRoute[] = [];
+  let parentHas = false;
 
-  if (isRoute(node)) {
-    const nextLink = `${prefix}${node.href}`
-
-    const titleMatch = node.title.toLowerCase().includes(lowerQuery)
-    const titleDistance = memoizedSearchMatch(
-      lowerQuery,
-      node.title.toLowerCase()
-    )
-
-    if (titleMatch || titleDistance <= 2) {
-      res.push({ ...node, items: undefined, href: nextLink })
-      parentHas = true
-    }
-
-    const goNext = maxLevel ? currentLevel < maxLevel : true
-
-    if (goNext && node.items) {
-      node.items.forEach((item) => {
-        const innerRes = helperSearch(
-          query,
-          item,
-          nextLink,
-          currentLevel + 1,
-          maxLevel
-        )
-        if (innerRes.length && !parentHas && !node.noLink) {
-          res.push({ ...node, items: undefined, href: nextLink })
-          parentHas = true
-        }
-        res.push(...innerRes)
-      })
-    }
+  const nextLink = `${prefix}${node.href}`;
+  if (!node.noLink && node.title.toLowerCase().includes(query.toLowerCase())) {
+    res.push({ ...node, items: undefined, href: nextLink });
+    parentHas = true;
   }
-
-  return res
+  const goNext = maxLevel ? currenLevel < maxLevel : true;
+  if (goNext)
+    node.items?.forEach((item) => {
+      const innerRes = helperSearch(
+        query,
+        item,
+        nextLink,
+        currenLevel + 1,
+        maxLevel
+      );
+      if (!!innerRes.length && !parentHas && !node.noLink) {
+        res.push({ ...node, items: undefined, href: nextLink });
+        parentHas = true;
+      }
+      res.push(...innerRes);
+    });
+  return res;
 }
 
+export function advanceSearch(query: string) {
+  return DocsRouting.map((node) =>
+    helperSearch(query, node, "", 1, query.length == 0 ? 2 : undefined)
+  ).flat();
+}
 function searchMatch(a: string, b: string): number {
   if (typeof a !== "string" || typeof b !== "string") return 0
 
@@ -122,87 +108,6 @@ function searchMatch(a: string, b: string): number {
   return Math.min(prevRow[aLen], maxDistance)
 }
 
-function calculateRelevance(
-  query: string,
-  title: string,
-  content: string
-): number {
-  const lowerQuery = query.toLowerCase().trim()
-  const lowerTitle = title.toLowerCase()
-  const lowerContent = memoizedCleanMdxContent(content)
-  const queryWords = lowerQuery.split(/\s+/)
-
-  let score = 0
-
-  if (lowerTitle === lowerQuery) {
-    score += 200
-  } else if (lowerTitle.includes(lowerQuery)) {
-    score += 100
-  } else {
-    queryWords.forEach((word) => {
-      if (lowerTitle.includes(word)) {
-        score += 50
-      }
-    })
-  }
-
-  const titleDistances = queryWords.map((word) =>
-    memoizedSearchMatch(word, lowerTitle)
-  )
-  for (const distance of titleDistances) {
-    if (distance <= 2) {
-      score += 20
-    }
-  }
-
-  const exactMatches = lowerContent.match(
-    new RegExp(`\\b${lowerQuery}\\b`, "gi")
-  )
-  if (exactMatches) {
-    score += exactMatches.length * 20
-  }
-
-  queryWords.forEach((word) => {
-    if (lowerContent.includes(word)) {
-      score += 5
-    }
-  })
-
-  const proximityScore = calculateProximityScore(lowerQuery, lowerContent)
-  score += proximityScore * 2
-
-  const lengthNormalizationFactor = Math.log(content.length + 1)
-  return score / lengthNormalizationFactor
-}
-
-function calculateProximityScore(query: string, content: string): number {
-  if (typeof query !== "string" || typeof content !== "string") return 0
-
-  const words = content.split(/\s+/)
-  const queryWords = query.split(/\s+/)
-
-  let proximityScore = 0
-  let firstIndex = -1
-
-  queryWords.forEach((queryWord, queryIndex) => {
-    const wordIndex = words.indexOf(queryWord, firstIndex + 1)
-
-    if (wordIndex !== -1) {
-      if (queryIndex === 0) {
-        proximityScore += 30
-      } else if (wordIndex - firstIndex <= 3) {
-        proximityScore += 20 - (wordIndex - firstIndex)
-      }
-
-      firstIndex = wordIndex
-    } else {
-      firstIndex = -1
-    }
-  })
-
-  return proximityScore
-}
-
 function cleanMdxContent(content: string): string {
   let sanitizedContent = sanitizeHtml(content, {
     allowedTags: [],
@@ -227,114 +132,8 @@ function cleanMdxContent(content: string): string {
       return entities[entity.toLowerCase()] || ""
     }
   )
-
   return sanitizedContent
 }
-
-function safeURI(str: string): string {
-  try {
-    return decodeURIComponent(str)
-  } catch {
-    return str
-  }
-}
-
-function extractSnippet(content: string, query: string): string {
-  const lowerContent = content.toLowerCase()
-  const queryWords = query.toLowerCase().split(/\s+/)
-
-  const indices: number[] = []
-  queryWords.forEach((word) => {
-    const index = lowerContent.indexOf(word)
-    if (index !== -1) {
-      indices.push(index)
-    }
-  })
-
-  if (indices.length === 0) {
-    return content.slice(0, 100)
-  }
-
-  const avgIndex = Math.floor(indices.reduce((a, b) => a + b) / indices.length)
-  const snippetLength = 150
-  const contextLength = Math.floor(snippetLength / 2)
-  const start = Math.max(0, avgIndex - contextLength)
-  const end = Math.min(avgIndex + contextLength, content.length)
-
-  let snippet = content.slice(start, end).replace(/\n/g, " ").trim()
-  snippet = safeURI(snippet)
-  if (start > 0) snippet = `...${snippet}`
-  if (end < content.length) snippet += "..."
-
-  return snippet
-}
-
-export function advanceSearch(query: string) {
-  const lowerQuery = query.toLowerCase().trim()
-
-  const queryWords = lowerQuery.split(/\s+/).filter((word) => word.length >= 3)
-
-  if (queryWords.length === 0) return []
-
-  const chunks = chunkArray(searchData, 100)
-
-  const results = chunks.flatMap((chunk) =>
-    chunk
-      .map((doc) => {
-        const title = doc.title || ""
-        const content = doc.content || ""
-        const cleanedContent = memoizedCleanMdxContent(content)
-
-        let relevanceScore = calculateRelevance(
-          queryWords.join(" "),
-          title,
-          cleanedContent
-        )
-        const proximityScore = calculateProximityScore(
-          queryWords.join(" "),
-          cleanedContent
-        )
-        relevanceScore += proximityScore
-
-        const snippet = extractSnippet(cleanedContent, lowerQuery)
-        const highlightedSnippet = highlight(snippet, queryWords.join(" "))
-
-        return {
-          title: doc.title || "Untitled",
-          href: `${doc.slug}`,
-          snippet: highlightedSnippet,
-          description: doc.description || "",
-          relevance: relevanceScore,
-        }
-      })
-      .filter((doc) => {
-        const queryWords = lowerQuery.split(/\s+/)
-
-        return (
-          doc.relevance > 0 &&
-          queryWords.some(
-            (word) =>
-              doc.title.toLowerCase().includes(word) ||
-              (doc.description &&
-                doc.description.toLowerCase().includes(word)) ||
-              (doc.snippet && doc.snippet.toLowerCase().includes(word))
-          )
-        )
-      })
-      .sort((a, b) => b.relevance - a.relevance)
-  )
-
-  return results
-}
-
-function chunkArray<T>(array: T[], chunkSize: number): T[][] {
-  const chunks: T[][] = []
-  for (let i = 0; i < array.length; i += chunkSize) {
-    chunks.push(array.slice(i, i + chunkSize))
-  }
-  return chunks
-}
-
 function formatDateHelper(
   dateStr: string,
   options: Intl.DateTimeFormatOptions

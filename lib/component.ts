@@ -9,7 +9,7 @@ import ProseBadge from "@/components/markdown/ProseBadge"
 import Pre from "@/components/ui/pre"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-export const MdxComponent = {
+export const component = {
    Mermaid,
    Note,
    pre: Pre,

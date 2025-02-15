@@ -13,5 +13,5 @@ export const Navigations = [
 ]
 
 export const GitHubLink = {
-  href: "https://github.com/rubixvi/rubix-documents",
+  href: "https://github.com/ALiAbdelhadi/alphabyte-labs",
 }

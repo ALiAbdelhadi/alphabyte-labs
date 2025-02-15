@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 import { CodeBlockWrapperProps } from "@/types/components"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible"
 
+
 export function CodeBlockWrapper({
    expandButtonTitle = "View Code",
    className,
@@ -36,7 +37,7 @@ export function CodeBlockWrapper({
                )}
             >
                <CollapsibleTrigger asChild>
-                  <span className={cn("h-8 z-40 text-xs bg-white/10 backdrop-blur-[5px] backdrop-brightness-125 backdrop-saturate-200 text-gray-100 px-4 py-2 rounded-full shadow-md transition duration-300 ease-in-out relative", isOpened ? "top-[-18px]" : "top-[27px]")}>
+                  <span className={cn("z-40 text-xs bg-white/10 hover:bg-white/15 backdrop-blur-[5px] backdrop-brightness-125 backdrop-saturate-200 text-gray-100 px-4 py-2 rounded-full shadow-md transition duration-300 ease-in-out relative cursor-pointer", isOpened ? "top-[-18px]" : "top-[27px]")}>
                      {isOpened ? "Collapse" : expandButtonTitle}
                   </span>
                </CollapsibleTrigger>

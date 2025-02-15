@@ -1,33 +1,75 @@
-import { GitHubLink } from "@/settings/navigation"
-import { createReadStream, promises as fs } from "fs"
-import { Element, Text } from "hast"
-import { compileMDX } from "next-mdx-remote/rsc"
-import path from "path"
-import rehypeAutolinkHeadings from "rehype-autolink-headings"
-import rehypeCodeTitles from "rehype-code-titles"
-import rehypeKatex from "rehype-katex"
-import rehypePrism from "rehype-prism-plus"
-import rehypeSlug from "rehype-slug"
-import remarkGfm from "remark-gfm"
-import { Node } from "unist"
-import { visit } from "unist-util-visit"
+import { Settings } from "@/lib/meta";
+import { DocsRouting } from "@/settings/DocsRouting";
+import { GitHubLink } from "@/settings/navigation";
+import { createReadStream, promises as fs } from "fs";
+import matter from "gray-matter";
+import { compileMDX } from "next-mdx-remote/rsc";
+import path from "path";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeCodeTitles from "rehype-code-titles";
+import rehypeKatex from "rehype-katex";
+import rehypePrism from "rehype-prism-plus";
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
+import { visit } from "unist-util-visit";
+import { component } from "./component";
+// Types for routing
+export interface Page {
+  title: string;
+  href: string;
+}
 
-import { MdxComponent } from "@/lib/MdxComponent"
-import { Settings } from "@/lib/meta"
-import { PageRoutes } from "@/lib/pageRoutes"
+export interface EachRoute {
+  title: string;
+  href: string;
+  heading?: string;
+  items?: EachRoute[];
+  noLink?: boolean;
+  spacer?: boolean;
+}
 
-declare module "hast" {
-  interface Element {
-    raw?: string
+export type Paths = EachRoute;
+
+// Routing configuration
+
+
+// Helper function to get all links recursively
+function getRecursiveAllLinks(node: EachRoute): Page[] {
+  const ans: Page[] = [];
+  if (!node.noLink && !node.spacer) {
+    ans.push({ title: node.title, href: node.href });
   }
+  node.items?.forEach((subNode) => {
+    const temp = { ...subNode, href: `${node.href}${subNode.href}` };
+    ans.push(...getRecursiveAllLinks(temp));
+  });
+  return ans;
 }
 
-type BaseMdxFrontmatter = {
-  title: string
-  description: string
-  keywords: string
+// Generate flattened page routes
+export const page_routes = DocsRouting.filter(route => !route.spacer)
+  .map((it) => getRecursiveAllLinks(it))
+  .flat();
+
+// Types
+interface BaseMdxFrontmatter {
+  title: string;
+  description: string;
+  keywords: string;
 }
 
+interface BlogMdxFrontmatter extends BaseMdxFrontmatter {
+  date: string;
+  author: string;
+}
+
+// Cache for document paths
+const pathCache = new Map<string, string>();
+const pathIndexMap = new Map(
+  page_routes.map((route, index) => [route.href, index])
+);
+
+// MDX Parsing
 async function parseMdx<Frontmatter>(rawMdx: string) {
   return await compileMDX<Frontmatter>({
     source: rawMdx,
@@ -35,172 +77,244 @@ async function parseMdx<Frontmatter>(rawMdx: string) {
       parseFrontmatter: true,
       mdxOptions: {
         rehypePlugins: [
-          preCopy,
+          preProcess,
           rehypeCodeTitles,
           rehypeKatex,
           rehypePrism,
           rehypeSlug,
-          rehypeAutolinkHeadings,
-          postCopy,
+          [
+            rehypeAutolinkHeadings,
+            {
+              properties: {
+                className: ["subheading-anchor"],
+                ariaLabel: "Link to section",
+              },
+            },
+          ],
+          postProcess,
         ],
         remarkPlugins: [remarkGfm],
       },
     },
-    components: MdxComponent,
-  })
+    components: component,
+  });
 }
 
-const computeDocumentPath = (slug: string) => {
+// Path Helpers
+function computeDocumentPath(slug: string) {
   return Settings.gitload
     ? `${GitHubLink.href}/raw/main/contents/docs/${slug}/index.mdx`
-    : path.join(process.cwd(), "/contents/docs/", `${slug}/index.mdx`)
+    : path.join(process.cwd(), "/contents/docs/", `${slug}/index.mdx`);
 }
 
-const getDocumentPath = (() => {
-  const cache = new Map<string, string>()
-  return (slug: string) => {
-    if (!cache.has(slug)) {
-      cache.set(slug, computeDocumentPath(slug))
-    }
-    return cache.get(slug)!
+function getDocumentPath(slug: string) {
+  if (!pathCache.has(slug)) {
+    pathCache.set(slug, computeDocumentPath(slug));
   }
-})()
+  return pathCache.get(slug)!;
+}
 
+// Document Processing
 export async function getDocument(slug: string) {
   try {
-    const contentPath = getDocumentPath(slug)
-    let rawMdx = ""
-    let lastUpdated: string | null = null
+    const contentPath = getDocumentPath(slug);
+    let rawMdx = "";
+    let lastUpdated: string | null = null;
 
     if (Settings.gitload) {
-      const response = await fetch(contentPath)
+      const response = await fetch(contentPath);
       if (!response.ok) {
-        throw new Error(
-          `Failed to fetch content from GitHub: ${response.statusText}`
-        )
+        throw new Error(`Failed to fetch content from GitHub: ${response.statusText}`);
       }
-      rawMdx = await response.text()
-      lastUpdated = response.headers.get("Last-Modified") ?? null
+      rawMdx = await response.text();
+      lastUpdated = response.headers.get("Last-Modified") ?? null;
     } else {
-      rawMdx = await fs.readFile(contentPath, "utf-8")
-      const stats = await fs.stat(contentPath)
-      lastUpdated = stats.mtime.toISOString()
+      rawMdx = await fs.readFile(contentPath, "utf-8");
+      const stats = await fs.stat(contentPath);
+      lastUpdated = stats.mtime.toISOString();
     }
 
-    const parsedMdx = await parseMdx<BaseMdxFrontmatter>(rawMdx)
-    const tocs = await getTable(slug)
+    const parsedMdx = await parseMdx<BaseMdxFrontmatter>(rawMdx);
+    const tocs = await getTableOfContents(slug);
 
     return {
       frontmatter: parsedMdx.frontmatter,
       content: parsedMdx.content,
       tocs,
       lastUpdated,
-    }
+    };
   } catch (err) {
-    console.error(err)
-    return null
+    console.error(err);
+    return null;
   }
 }
 
-const headingsRegex = /^(#{2,4})\s(.+)$/gm
+// Table of Contents
+const headingsRegex = /^(#{2,4})\s(.+)$/gm;
 
-export async function getTable(
+export async function getTableOfContents(
   slug: string
 ): Promise<Array<{ level: number; text: string; href: string }>> {
   const extractedHeadings: Array<{
-    level: number
-    text: string
-    href: string
-  }> = []
-  let rawMdx = ""
+    level: number;
+    text: string;
+    href: string;
+  }> = [];
+  let rawMdx = "";
 
   if (Settings.gitload) {
-    const contentPath = `${GitHubLink.href}/raw/main/contents/docs/${slug}/index.mdx`
+    const contentPath = `${GitHubLink.href}/raw/main/contents/docs/${slug}/index.mdx`;
     try {
-      const response = await fetch(contentPath)
+      const response = await fetch(contentPath);
       if (!response.ok) {
-        throw new Error(
-          `Failed to fetch content from GitHub: ${response.statusText}`
-        )
+        throw new Error(`Failed to fetch content from GitHub: ${response.statusText}`);
       }
-      rawMdx = await response.text()
+      rawMdx = await response.text();
     } catch (error) {
-      console.error("Error fetching content from GitHub:", error)
-      return []
+      console.error("Error fetching content from GitHub:", error);
+      return [];
     }
   } else {
-    const contentPath = path.join(
-      process.cwd(),
-      "/contents/docs/",
-      `${slug}/index.mdx`
-    )
+    const contentPath = path.join(process.cwd(), "/contents/docs/", `${slug}/index.mdx`);
     try {
-      const stream = createReadStream(contentPath, { encoding: "utf-8" })
+      const stream = createReadStream(contentPath, { encoding: "utf-8" });
       for await (const chunk of stream) {
-        rawMdx += chunk
+        rawMdx += chunk;
       }
     } catch (error) {
-      console.error("Error reading local file:", error)
-      return []
+      console.error("Error reading local file:", error);
+      return [];
     }
   }
 
-  let match
+  let match;
   while ((match = headingsRegex.exec(rawMdx)) !== null) {
-    const level = match[1].length
-    const text = match[2].trim()
+    const level = match[1].length;
+    const text = match[2].trim();
     extractedHeadings.push({
-      level: level,
-      text: text,
-      href: `#${innerslug(text)}`,
-    })
+      level,
+      text,
+      href: `#${sluggify(text)}`,
+    });
   }
 
-  return extractedHeadings
+  return extractedHeadings;
 }
 
-function innerslug(text: string) {
-  return text
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-zA-Z0-9\u4e00-\u9fa5\-_]/g, "")
-}
-
-const pathIndexMap = new Map(
-  PageRoutes.map((route, index) => [route.href, index])
-)
-
+// Navigation
 export function getPreviousNext(path: string) {
-  const index = pathIndexMap.get(`/${path}`)
+  const index = pathIndexMap.get(`/${path}`);
 
   if (index === undefined || index === -1) {
-    return { prev: null, next: null }
+    return { prev: null, next: null };
   }
 
-  const prev = index > 0 ? PageRoutes[index - 1] : null
-  const next = index < PageRoutes.length - 1 ? PageRoutes[index + 1] : null
+  const prev = index > 0 ? page_routes[index - 1] : null;
+  const next = index < page_routes.length - 1 ? page_routes[index + 1] : null;
 
-  return { prev, next }
+  return { prev, next };
 }
 
-const preCopy = () => (tree: Node) => {
-  visit(tree, "element", (node: Element) => {
-    if (node.tagName === "pre") {
-      const [codeEl] = node.children as Element[]
-      if (codeEl?.tagName === "code") {
-        const textNode = codeEl.children?.[0] as Text
-        node.raw = textNode?.value || ""
-      }
+// Blog Handling
+export async function getAllBlogStaticPaths() {
+  try {
+    const blogFolder = path.join(process.cwd(), "/contents/blogs/");
+    const res = await fs.readdir(blogFolder);
+    return res.map((file) => file.split(".")[0]);
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
+}
+
+export async function getAllBlogs() {
+  const blogFolder = path.join(process.cwd(), "/contents/blogs/");
+  const files = await fs.readdir(blogFolder);
+  const uncheckedRes = await Promise.all(
+    files.map(async (file) => {
+      if (!file.endsWith(".mdx")) return undefined;
+      const filepath = path.join(process.cwd(), `/contents/blogs/${file}`);
+      const rawMdx = await fs.readFile(filepath, "utf-8");
+      return {
+        ...matter(rawMdx).data as BlogMdxFrontmatter,
+        slug: file.split(".")[0],
+      };
+    })
+  );
+  return uncheckedRes.filter((it) => !!it) as (BlogMdxFrontmatter & {
+    slug: string;
+  })[];
+}
+
+export async function getBlogForSlug(slug: string) {
+  const blogFile = path.join(process.cwd(), "/contents/blogs/", `${slug}.mdx`);
+  try {
+    const rawMdx = await fs.readFile(blogFile, "utf-8");
+    return await parseMdx<BlogMdxFrontmatter>(rawMdx);
+  } catch {
+    return undefined;
+  }
+}
+
+// Blocks Handling
+export async function getBlocksForSlug(slug: string) {
+  try {
+    const contentPath = getBlocksContentPath(slug);
+    const rawMdx = await fs.readFile(contentPath, "utf-8");
+    return await parseMdx<BaseMdxFrontmatter>(rawMdx);
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+function getBlocksContentPath(slug: string) {
+  return path.join(process.cwd(), "/contents/blocks/", `${slug}/index.mdx`);
+}
+
+export async function getAllBlocks() {
+  const blocksFolder = path.join(process.cwd(), "/contents/blocks/");
+  const files = await fs.readdir(blocksFolder);
+  const uncheckedRes = await Promise.all(
+    files.map(async (file) => {
+      if (!file.endsWith(".mdx")) return undefined;
+      const filepath = path.join(process.cwd(), `/contents/blocks/${file}`);
+      const rawMdx = await fs.readFile(filepath, "utf-8");
+      return {
+        ...matter(rawMdx).data as BaseMdxFrontmatter,
+        slug: file.split(".")[0],
+      };
+    })
+  );
+  return uncheckedRes.filter((it) => !!it) as (BaseMdxFrontmatter & {
+    slug: string;
+  })[];
+}
+
+// Utility Functions
+function sluggify(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-zA-Z0-9\u4e00-\u9fa5\-_]/g, "");
+}
+
+// Code Copy Helpers
+const preProcess = () => (tree: any) => {
+  visit(tree, (node) => {
+    if (node?.type === "element" && node?.tagName === "pre") {
+      const [codeEl] = node.children;
+      if (codeEl.tagName !== "code") return;
+      node.raw = codeEl.children?.[0].value;
     }
-  })
-}
+  });
+};
 
-const postCopy = () => (tree: Node) => {
-  visit(tree, "element", (node: Element) => {
-    if (node.tagName === "pre" && node.raw) {
-      node.properties = node.properties || {}
-      node.properties["raw"] = node.raw
+const postProcess = () => (tree: any) => {
+  visit(tree, "element", (node) => {
+    if (node?.type === "element" && node?.tagName === "pre") {
+      node.properties = node.properties || {};
+      node.properties["raw"] = node.raw;
     }
-  })
-}
+  });
+};
