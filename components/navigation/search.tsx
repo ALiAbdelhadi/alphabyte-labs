@@ -15,6 +15,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { advanceSearch, debounce, highlight, search } from "@/lib/utils"
 import { SearchIcon } from "lucide-react"
 import Anchor from "./anchor"
+import { Input } from "../ui/input"
 
 interface Document {
   title?: string
@@ -139,7 +140,7 @@ export default function Search() {
           <div className="border-b dark:border-neutral-800">
             <div className="relative">
               <SearchIcon className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-              <input
+              <Input
                 value={searchedInput}
                 onChange={(e) => setSearchedInput(e.target.value)}
                 placeholder="Search documentation..."
