@@ -1,0 +1,144 @@
+---
+title: Steps
+description: This section provides an overview of Introduction.
+---
+<ComponentPreview
+code={`<Step>
+  <StepItem title="Step one">
+    Make sure you have Node.js installed on your machine. You can download it from [here](https://nodejs.org).
+    To verify the installation, run the following command:
+
+  </StepItem>
+  <StepItem title="Step two">
+    After cloning the repository, navigate to the project directory and install the necessary dependencies:
+
+  </StepItem>
+  <StepItem title="step three">
+    Start the development server:
+  </StepItem>
+</Step>
+`}>
+<Step>
+  <StepItem title="Install Node.js">
+    Make sure you have Node.js installed on your machine. You can download it from [here](https://nodejs.org).
+    
+    To verify the installation, run the following command:
+
+    ```bash
+    node -v
+    ```
+
+  </StepItem>
+
+  <StepItem title="Install Dependencies">
+    After cloning the repository, navigate to the project directory and install the necessary dependencies:
+
+    ```bash
+    npm install
+    ```
+
+  </StepItem>
+
+  <StepItem title="Run the Project">
+    Start the development server:
+
+    ```bash
+    npm run dev
+    ```
+
+    You can access the application at:
+
+    ```bash
+    http://localhost:3000
+    ```
+
+  </StepItem>
+</Step>
+
+</ComponentPreview>
+
+## Installation
+<div className="not-prose">
+<Step>
+<StepItem title="install dependencies">
+First, you need to install some dependencies:
+```bash
+npm i install clsx tailwind-merge
+```
+</StepItem>
+  <StepItem title="Create utils.ts">
+  Second, you need to create a new folder called <ProseBadge>lib</ProseBadge> in you app directory and create a new file called <ProseBadge>utils.ts</ProseBadge> and paste the following code in it: 
+```ts
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+  </StepItem>
+  <StepItem title="Create Step component">
+    Now you can create in your <ProseBadge>components</ProseBadge> a Step.tsx file and add the following code in it :
+    <CodeBlockWrapper>
+    ```tsx
+    import { cn } from "@/lib/utils"
+import clsx from "clsx"
+import { Children, PropsWithChildren, ReactNode } from "react"
+
+interface StepItemProps {
+  title?: string
+  children: ReactNode
+}
+interface StepProps {
+  children: ReactNode
+}
+
+export function Step({ children }: PropsWithChildren<StepProps>) {
+  const length = Children.count(children)
+  return (
+    <div className="flex flex-col my-5">
+      {Children.map(children, (child, index) => (
+        <div
+          className={cn(
+            "relative border-l pl-9",
+            clsx({ "pb-5": index < length - 1 })
+          )}
+        >
+          <div className="absolute -left-4 flex items-center justify-center w-8 h-8 rounded-full bg-muted text-sm font-code font-medium -indent-[1px]">
+            {index + 1}
+          </div>
+          {child}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+
+export function StepItem({ children, title }: StepItemProps) {
+  return (
+    <div className="space-y-4">
+      {title && <h3 className="!mt-0 text-lg md:text-xl text-gray-950">{title}</h3>}
+      <div className="text-base text-muted-foreground space-y-3">{children}</div>
+    </div>
+  )
+}
+    ```
+    </CodeBlockWrapper>
+  </StepItem>
+  <StepItem title="Be comfortable to use it and make it yours"/>
+</Step>
+    </div>
+## Usage
+    <div className="not-prose">
+```tsx
+import { Step, StepItem } from "@/components/library/step"
+```
+```tsx
+<Step>
+    <StepItem title="development">localhost:3000</StepItem>
+    <StepItem title="production">localhost:3000</StepItem>
+</Step>
+```
+    </div>
+

@@ -1,0 +1,127 @@
+---
+title: Notes
+description: This section provides an overview of Introduction.
+---
+
+<ComponentPreview
+  code={`<Note type="note" title="Note">
+      This is a general note to convey information to the user.
+  </Note>
+  `}
+>
+  <Note type="note" title="Note">
+      This is a general note to convey information to the user.
+  </Note>
+</ComponentPreview>
+
+## Installation
+<Step>
+<StepItem title="Install Prism.js">
+First , you need to install prism.js
+```bash
+npm i prismjs clsx tailwind-merge
+```
+</StepItem>
+  <StepItem title="Create utils.ts">
+  Second, you need to create a new folder called <ProseBadge>lib</ProseBadge> in you app directory and create a new file called <ProseBadge>utils.ts</ProseBadge> and paste the following code in it: 
+```ts
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+  </StepItem>
+  <StepItem title="Create Note Component">
+  Now you can create in your <ProseBadge>components</ProseBadge> a Note.tsx file and add the following code in it :
+```tsx
+import { cn } from "@/lib/utils";
+import clsx from "clsx";
+
+export default function Note({
+  children,
+  title = "Note",
+  type = "note",
+}: NoteProps) {
+  const noteClassNames = clsx({
+    "dark:bg-stone-950/25 bg-stone-100/90": type == "note",
+    "dark:bg-red-950 bg-red-100 border-red-200 dark:border-red-900":
+      type === "danger",
+    "dark:bg-orange-950 bg-orange-100 border-orange-200 dark:border-orange-900":
+      type === "warning",
+    "dark:bg-green-950 bg-green-100 border-green-200 dark:border-green-900":
+      type === "success",
+  });
+  return (
+    <div
+      className={cn(
+        "border rounded-lg px-6 py-5 text-sm tracking-wide space-y-4 not-prose w-full",
+        noteClassNames
+      )}
+    >
+      <p className="font-bold -mb-3 text-foreground text-base">{title}:</p>
+      <div>{children}</div>
+    </div>
+  );
+}
+
+```
+  </StepItem>
+  <StepItem title="Here you go, Now you can edit and customize it for your needs and make it yours"/>
+</Step>
+
+
+
+## Example
+
+### Standard Note
+<ComponentPreview
+  code={`<Note type="note" title="Note">
+      This is a general note to convey information to the user.
+  </Note>
+  `}
+>
+  <Note type="note" title="Note">
+      This is a general note to convey information to the user.
+  </Note>
+</ComponentPreview>
+
+### Success Note
+
+<ComponentPreview
+  code={`<Note type="success" title="Note">
+      This is a general note to convey information to the user.
+  </Note>
+  `}
+>
+  <Note type="success" title="Note">
+      This is a general note to convey information to the user.
+  </Note>
+</ComponentPreview>
+
+### Warning Note
+
+<ComponentPreview
+  code={`<Note type="warning" title="Note">
+      This is a general note to convey information to the user.
+  </Note>
+  `}
+>
+  <Note type="warning" title="Note">
+      This is a general note to convey information to the user.
+  </Note>
+</ComponentPreview>
+
+### Danger Note
+
+<ComponentPreview
+  code={`<Note type="danger" title="Note">
+      This is a general note to convey information to the user.
+  </Note>
+  `}
+>
+  <Note type="danger" title="Note">
+      This is a general note to convey information to the user.
+  </Note>
+</ComponentPreview>
