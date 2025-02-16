@@ -3,34 +3,135 @@ title: Diagrams
 description: Add various diagram types, including flowcharts, decision trees and entity-relationship diagrams.
 ---
 
-Diagrams are powerful tools for visualizing processes, relationships, and decisions. This section showcases different types of diagrams created using **Mermaid**, complete with examples and reusable code snippets to integrate into your projects.
+
 
 ## Flowchart
-
-A flowchart represents a sequence of steps or processes in a visual format. Use this diagram to map workflows, decision-making processes, or operational flows.
-
+<div className="not-prose">
+<ComponentPreview code={`
+<Mermaid
+  chart={\`graph TD;
+    Start --> Task1;
+    Task1 --> Task2;
+    Task2 --> End;\`}
+/>
+`}>
 <Mermaid
   chart={`graph TD;
     Start --> Task1;
     Task1 --> Task2;
     Task2 --> End;`}
 />
-
-```jsx
-<Mermaid
-  chart={\`
-    graph TD;
-    Start --> Task1;
-    Task1 --> Task2;
-    Task2 --> End;
-  \`}
-/>
+</ComponentPreview>
+</div>
+## Installation
+<div className="not-prose">
+<Step>
+<StepItem title="install dependencies">
+First, To Start Creating Diagrams in your next.js app you need to install a library called <span className="underline text-gray-950">[Mermaid](https://mermaid.js.org/)</span> :
+```bash
+npm i install clsx tailwind-merge mermaid
 ```
+</StepItem>
+<StepItem title="Create utils.ts">
+Second, you need to create a <ProseBadge>lib</ProseBadge> in you root directory and create a file called <ProseBadge>utils.ts</ProseBadge> and add the following code :
+```ts
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-## Decision Tree
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+</StepItem>
+<StepItem title="Creating components">
+In Your <ProseBadge>component</ProseBadge> folder, Create a new file called <ProseBadge>Mermaid.tsx</ProseBadge> and add the following code:
+<CodeBlockWrapper>
+```tsx 
+"use client"
 
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
+import clsx from "clsx"
+import mermaid from "mermaid"
+
+interface MermaidProps {
+  chart: string
+  className?: string
+}
+
+mermaid.initialize({
+  theme: "neutral",
+})
+
+const Mermaid = ({ chart, className }: MermaidProps) => {
+  const ref = useRef<HTMLDivElement | null>(null)
+  const uniqueId = `mermaid-${Math.random().toString(36).slice(2, 11)}`
+  const [mounted, setMounted] = useState(false)
+
+  const renderMermaid = useCallback(async () => {
+    if (ref.current) {
+      try {
+        const { svg } = await mermaid.render(uniqueId, chart)
+        ref.current.innerHTML = svg
+      } catch (error) {
+        console.error("Mermaid diagram render error:", error)
+      }
+    }
+  }, [chart, uniqueId])
+
+  const memoizedClassName = useMemo(
+    () => clsx("mermaid", className),
+    [className]
+  )
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useLayoutEffect(() => {
+    if (mounted && ref.current) {
+      renderMermaid()
+    }
+  }, [mounted, renderMermaid])
+
+  if (!mounted) {
+    return null
+  }
+
+  return <div className={memoizedClassName} ref={ref} />
+}
+
+const MermaidMemo = React.memo(Mermaid)
+export default MermaidMemo
+```
+</CodeBlockWrapper>
+</StepItem>
+<StepItem title="Here you go, you can start creating diagrams like a designer"/>
+
+</Step>
+</div>
+## Example
+
+### Decision Tree
 Decision trees illustrate choices and possible outcomes, making them ideal for decision-making workflows or processes involving multiple paths.
-
+<div className="not-prose">
+<ComponentPreview 
+code={`<Mermaid
+  chart={\`graph TD;
+    A[Start] --> B{Is it raining?};
+    B -->|Yes| C[Take an umbrella];
+    B -->|No| D[Enjoy the weather];
+    C --> E[Go outside];
+    D --> E;\`}
+/>
+`}
+>
 <Mermaid
   chart={`graph TD;
     A[Start] --> B{Is it raining?};
@@ -39,9 +140,10 @@ Decision trees illustrate choices and possible outcomes, making them ideal for d
     C --> E[Go outside];
     D --> E;`}
 />
-
-```jsx
-<Mermaid
+</ComponentPreview>
+</div>
+<div className="not-prose">
+<ComponentPreview code={`<Mermaid
   chart={\`
     graph TD;
     A[Start] --> B{Is it raining?};
@@ -51,12 +153,49 @@ Decision trees illustrate choices and possible outcomes, making them ideal for d
     D --> E;
   \`}
 />
-```
-
-## Entity-Relationship Diagram
-
+`}> 
+<Mermaid
+  chart={`
+    graph TD;
+    A[Start] --> B{Is it raining?};
+    B -->|Yes| C[Take an umbrella];
+    B -->|No| D[Enjoy the weather];
+    C --> E[Go outside];
+    D --> E;
+  `}
+/>
+</ComponentPreview>
+</div>
+### Entity-Relationship Diagram
 Entity-relationship diagrams (ERDs) are used to model relationships between entities in a system. They are widely used in database design and system architecture planning.
 
+<div className="not-prose">
+<ComponentPreview
+code={`<Mermaid
+  chart={\`erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE-ITEM : contains
+    PRODUCT ||--o{ LINE-ITEM : "included in"
+    CUSTOMER {
+        string name
+        string email
+    }
+    ORDER {
+        int orderNumber
+        date orderDate
+    }
+    LINE-ITEM {
+        int quantity
+        float price
+    }
+    PRODUCT {
+        int productId
+        string name
+        float price
+    }\`}
+/>
+`}
+>
 <Mermaid
   chart={`erDiagram
     CUSTOMER ||--o{ ORDER : places
@@ -80,9 +219,11 @@ Entity-relationship diagrams (ERDs) are used to model relationships between enti
         float price
     }`}
 />
-
-```jsx
-<Mermaid
+</ComponentPreview>
+</div>
+<div className="not-prose">
+<ComponentPreview
+code={`<Mermaid
   chart={\`
     erDiagram
     CUSTOMER ||--o{ ORDER : places
@@ -107,6 +248,34 @@ Entity-relationship diagrams (ERDs) are used to model relationships between enti
     }
   \`}
 />
-```
+`}
+>
+<Mermaid
+  chart={`
+    erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE-ITEM : contains
+    PRODUCT ||--o{ LINE-ITEM : "included in"
+    CUSTOMER {
+        string name
+        string email
+    }
+    ORDER {
+        int orderNumber
+        date orderDate
+    }
+    LINE-ITEM {
+        int quantity
+        float price
+    }
+    PRODUCT {
+        int productId
+        string name
+        float price
+    }
+  `}
+/>
+</ComponentPreview>
+</div>
 
 Each of these diagrams serves a specific purpose and Mermaid makes it easy to generate them dynamically. Feel free to experiment with the provided code snippets and adapt them to your needs.

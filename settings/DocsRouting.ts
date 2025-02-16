@@ -24,6 +24,10 @@ export const DocsRouting: Paths[] = [
         href: "/diagrams",
       },
       {
+        title: "Product Card",
+        href: "/product-card",
+      },
+      {
         title: "Folder structure",
         href: "/folder-structure",
       },

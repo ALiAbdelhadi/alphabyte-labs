@@ -1,6 +1,7 @@
 import { CodeBlockWrapper } from "@/components/CodeBlockWrapper"
 import Mermaid from "@/components/library/mermaid"
 import Note from "@/components/library/note"
+import ProductCard from "@/components/library/ProductCard"
 import { Step, StepItem } from "@/components/library/step"
 import CodeBlock from "@/components/markdown/CodeBlock"
 import ComponentPreview from "@/components/markdown/ComponentPreview"
@@ -10,11 +11,7 @@ import Pre from "@/components/ui/pre"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export const component = {
-   Mermaid,
-   Note,
    pre: Pre,
-   Step,
-   StepItem,
    Tabs,
    TabsContent,
    TabsList,
@@ -25,4 +22,10 @@ export const component = {
    ProseBadge,
    CodeBlockWrapper,
    FolderTreeExampleMarkdown,
+   // custom components
+   ProductCard,
+   Step,
+   StepItem,
+   Mermaid,
+   Note,
 }

@@ -375,3 +375,180 @@ template {
     @apply bg-background text-foreground;
   }
 }
+
+/* diagrams */
+#mermaid-8q6y3lyod {
+  font-family: "trebuchet ms", verdana, arial, sans-serif;
+  font-size: 16px;
+  fill: #000000;
+}
+#mermaid-8q6y3lyod .error-icon {
+  fill: #552222;
+}
+#mermaid-8q6y3lyod .error-text {
+  fill: #552222;
+  stroke: #552222;
+}
+#mermaid-8q6y3lyod .edge-thickness-normal {
+  stroke-width: 1px;
+}
+#mermaid-8q6y3lyod .edge-thickness-thick {
+  stroke-width: 3.5px;
+}
+#mermaid-8q6y3lyod .edge-pattern-solid {
+  stroke-dasharray: 0;
+}
+#mermaid-8q6y3lyod .edge-thickness-invisible {
+  stroke-width: 0;
+  fill: none;
+}
+#mermaid-8q6y3lyod .edge-pattern-dashed {
+  stroke-dasharray: 3;
+}
+#mermaid-8q6y3lyod .edge-pattern-dotted {
+  stroke-dasharray: 2;
+}
+#mermaid-8q6y3lyod .marker {
+  fill: #666;
+  stroke: #666;
+}
+#mermaid-8q6y3lyod .marker.cross {
+  stroke: #666;
+}
+#mermaid-8q6y3lyod svg {
+  font-family: "trebuchet ms", verdana, arial, sans-serif;
+  font-size: 16px;
+}
+#mermaid-8q6y3lyod p {
+  margin: 0;
+}
+#mermaid-8q6y3lyod .label {
+  font-family: "trebuchet ms", verdana, arial, sans-serif;
+  color: #000000;
+}
+#mermaid-8q6y3lyod .cluster-label text {
+  fill: #333;
+}
+#mermaid-8q6y3lyod .cluster-label span {
+  color: #333;
+}
+#mermaid-8q6y3lyod .cluster-label span p {
+  background-color: transparent;
+}
+#mermaid-8q6y3lyod .label text,
+#mermaid-8q6y3lyod span {
+  fill: #000000;
+  color: #000000;
+}
+#mermaid-8q6y3lyod .node rect,
+#mermaid-8q6y3lyod .node circle,
+#mermaid-8q6y3lyod .node ellipse,
+#mermaid-8q6y3lyod .node polygon,
+#mermaid-8q6y3lyod .node path {
+  fill: #eee !important;
+  stroke: #999;
+  stroke-width: 1px;
+}
+#mermaid-8q6y3lyod .rough-node .label text,
+#mermaid-8q6y3lyod .node .label text,
+#mermaid-8q6y3lyod .image-shape .label,
+#mermaid-8q6y3lyod .icon-shape .label {
+  text-anchor: middle;
+}
+#mermaid-8q6y3lyod .node .katex path {
+  fill: #000;
+  stroke: #000;
+  stroke-width: 1px;
+}
+#mermaid-8q6y3lyod .rough-node .label,
+#mermaid-8q6y3lyod .node .label,
+#mermaid-8q6y3lyod .image-shape .label,
+#mermaid-8q6y3lyod .icon-shape .label {
+  text-align: center;
+}
+#mermaid-8q6y3lyod .node.clickable {
+  cursor: pointer;
+}
+#mermaid-8q6y3lyod .root .anchor path {
+  fill: #666 !important;
+  stroke-width: 0;
+  stroke: #666;
+}
+#mermaid-8q6y3lyod .arrowheadPath {
+  fill: #333333;
+}
+#mermaid-8q6y3lyod .edgePath .path {
+  stroke: #666;
+  stroke-width: 2px;
+}
+#mermaid-8q6y3lyod .flowchart-link {
+  stroke: #666;
+  fill: none;
+}
+#mermaid-8q6y3lyod .edgeLabel {
+  background-color: white;
+  text-align: center;
+}
+#mermaid-8q6y3lyod .edgeLabel p {
+  background-color: white;
+}
+#mermaid-8q6y3lyod .edgeLabel rect {
+  opacity: 0.5;
+  background-color: white;
+  fill: white;
+}
+#mermaid-8q6y3lyod .labelBkg {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+#mermaid-8q6y3lyod .cluster rect {
+  fill: hsl(0, 0%, 98.9215686275%);
+  stroke: #707070;
+  stroke-width: 1px;
+}
+#mermaid-8q6y3lyod .cluster text {
+  fill: #333;
+}
+#mermaid-8q6y3lyod .cluster span {
+  color: #333;
+}
+#mermaid-8q6y3lyod div.mermaidTooltip {
+  position: absolute;
+  text-align: center;
+  max-width: 200px;
+  padding: 2px;
+  font-family: "trebuchet ms", verdana, arial, sans-serif;
+  font-size: 12px;
+  background: hsl(-160, 0%, 93.3333333333%);
+  border: 1px solid #707070;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 100;
+}
+#mermaid-8q6y3lyod .flowchartTitleText {
+  text-anchor: middle;
+  font-size: 18px;
+  fill: #000000;
+}
+#mermaid-8q6y3lyod rect.text {
+  fill: none;
+  stroke-width: 0;
+}
+#mermaid-8q6y3lyod .icon-shape,
+#mermaid-8q6y3lyod .image-shape {
+  background-color: white;
+  text-align: center;
+}
+#mermaid-8q6y3lyod .icon-shape p,
+#mermaid-8q6y3lyod .image-shape p {
+  background-color: white;
+  padding: 2px;
+}
+#mermaid-8q6y3lyod .icon-shape rect,
+#mermaid-8q6y3lyod .image-shape rect {
+  opacity: 0.5;
+  background-color: white;
+  fill: white;
+}
+#mermaid-8q6y3lyod :root {
+  --mermaid-font-family: "trebuchet ms", verdana, arial, sans-serif;
+}

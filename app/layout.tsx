@@ -1,9 +1,11 @@
 import { ThemeProvider } from "@/components/context/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
 import { Settings } from "@/lib/meta"
 import { GoogleTagManager } from "@next/third-parties/google"
 import type { Metadata } from "next"
 import "./globals.css"
 import "./prism-theme.css"
+import { SplashScreen } from "./SplashScreen"
 const baseUrl = Settings.metadataBase
 
 export const metadata: Metadata = {
@@ -53,8 +55,10 @@ export default function RootLayout({
           disableTransitionOnChange
           enableColorScheme
         >
+          <SplashScreen />
           {children}
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
 

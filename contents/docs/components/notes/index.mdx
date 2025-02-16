@@ -17,10 +17,10 @@ description: This section provides an overview of Introduction.
 ## Installation
 <div className="not-prose"> 
 <Step>
-<StepItem title="Install Prism.js">
-First , you need to install prism.js
+<StepItem title="Install Dependencies">
+First , you need to install dependencies:
 ```bash
-npm i prismjs clsx tailwind-merge
+npm i clsx tailwind-merge
 ```
 </StepItem>
   <StepItem title="Create utils.ts">
@@ -35,7 +35,7 @@ export function cn(...inputs: ClassValue[]) {
 ```
   </StepItem>
   <StepItem title="Create Note Component">
-  Now you can create in your <ProseBadge>components</ProseBadge> a Note.tsx file and add the following code in it :
+  Now you can create in your <ProseBadge>components</ProseBadge> a <ProseBadge>Note.tsx</ProseBadge> file and add the following code in it :
 ```tsx
 import { cn } from "@/lib/utils";
 import clsx from "clsx";

@@ -140,7 +140,7 @@ export default function Search() {
           <div className="border-b dark:border-neutral-800">
             <div className="relative">
               <SearchIcon className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-              <Input
+              <input
                 value={searchedInput}
                 onChange={(e) => setSearchedInput(e.target.value)}
                 placeholder="Search documentation..."
