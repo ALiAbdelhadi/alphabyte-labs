@@ -101,7 +101,7 @@ export function Header() {
                             <Button variant="outline" className="w-full">
                               Sign In
                             </Button>
-                            <Button className="w-full">Get Started</Button>
+                            <Button className="w-full">All Access</Button>
                           </div>
                         </div>
                       </div>

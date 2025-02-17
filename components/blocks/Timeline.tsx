@@ -2,6 +2,7 @@
 
 import Container from "@/components/Container";
 import { cn } from "@/lib/utils";
+import { TimeLineProps } from "@/types/components";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 

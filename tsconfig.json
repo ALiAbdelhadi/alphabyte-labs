@@ -33,7 +33,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/CodeBlockWrapper.tsx"
+    "components/CodeBlockWrapper.tsx",
+    "contents/blocks/carousel/index.mdx"
   ],
   "exclude": [
     "node_modules"

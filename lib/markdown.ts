@@ -113,7 +113,6 @@ function getDocumentPath(slug: string) {
   }
   return pathCache.get(slug)!;
 }
-
 // Document Processing
 export async function getDocument(slug: string) {
   try {
@@ -148,7 +147,6 @@ export async function getDocument(slug: string) {
     return null;
   }
 }
-
 // Table of Contents
 const headingsRegex = /^(#{2,4})\s(.+)$/gm;
 
@@ -204,56 +202,12 @@ export async function getTableOfContents(
 // Navigation
 export function getPreviousNext(path: string) {
   const index = pathIndexMap.get(`/${path}`);
-
   if (index === undefined || index === -1) {
     return { prev: null, next: null };
   }
-
   const prev = index > 0 ? page_routes[index - 1] : null;
   const next = index < page_routes.length - 1 ? page_routes[index + 1] : null;
-
   return { prev, next };
-}
-
-// Blog Handling
-export async function getAllBlogStaticPaths() {
-  try {
-    const blogFolder = path.join(process.cwd(), "/contents/blogs/");
-    const res = await fs.readdir(blogFolder);
-    return res.map((file) => file.split(".")[0]);
-  } catch (err) {
-    console.error(err);
-    return [];
-  }
-}
-
-export async function getAllBlogs() {
-  const blogFolder = path.join(process.cwd(), "/contents/blogs/");
-  const files = await fs.readdir(blogFolder);
-  const uncheckedRes = await Promise.all(
-    files.map(async (file) => {
-      if (!file.endsWith(".mdx")) return undefined;
-      const filepath = path.join(process.cwd(), `/contents/blogs/${file}`);
-      const rawMdx = await fs.readFile(filepath, "utf-8");
-      return {
-        ...matter(rawMdx).data as BlogMdxFrontmatter,
-        slug: file.split(".")[0],
-      };
-    })
-  );
-  return uncheckedRes.filter((it) => !!it) as (BlogMdxFrontmatter & {
-    slug: string;
-  })[];
-}
-
-export async function getBlogForSlug(slug: string) {
-  const blogFile = path.join(process.cwd(), "/contents/blogs/", `${slug}.mdx`);
-  try {
-    const rawMdx = await fs.readFile(blogFile, "utf-8");
-    return await parseMdx<BlogMdxFrontmatter>(rawMdx);
-  } catch {
-    return undefined;
-  }
 }
 
 // Blocks Handling
@@ -271,7 +225,6 @@ export async function getBlocksForSlug(slug: string) {
 function getBlocksContentPath(slug: string) {
   return path.join(process.cwd(), "/contents/blocks/", `${slug}/index.mdx`);
 }
-
 export async function getAllBlocks() {
   const blocksFolder = path.join(process.cwd(), "/contents/blocks/");
   const files = await fs.readdir(blocksFolder);
@@ -290,7 +243,6 @@ export async function getAllBlocks() {
     slug: string;
   })[];
 }
-
 // Utility Functions
 function sluggify(text: string) {
   return text
@@ -298,7 +250,6 @@ function sluggify(text: string) {
     .replace(/\s+/g, "-")
     .replace(/[^a-zA-Z0-9\u4e00-\u9fa5\-_]/g, "");
 }
-
 // Code Copy Helpers
 const preProcess = () => (tree: any) => {
   visit(tree, (node) => {

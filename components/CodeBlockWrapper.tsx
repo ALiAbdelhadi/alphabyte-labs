@@ -36,8 +36,6 @@ export function CodeBlockWrapper({
                   isOpened ? "inset-x-0 bottom-5 h-12 bg-transparent" : "inset-0 top-[20px]  bg-gradient-to-t from-zinc-950/90 to-zinc-700/20"
                )}
             >
-
-
                <CollapsibleTrigger asChild>
                   <span className={cn("z-40 text-xs bg-[radial-gradient(rgba(0,0,0,0.14)_0%,rgba(255,255,255,0.12)_100%)] backdrop-blur-[5px] backdrop-brightness-125 backdrop-saturate-[1.8] text-gray-100 px-4 py-2 rounded-full shadow-md transition duration-300 ease-in-out relative cursor-pointer", isOpened ? "top-[-18px]" : "top-[27px]")}>
                      {isOpened ? "Collapse" : expandButtonTitle}

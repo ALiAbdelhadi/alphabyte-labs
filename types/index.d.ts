@@ -26,6 +26,15 @@ type ComponentPreviewProps = {
    className?: string
    id?: string
 }
+type BlockPreview = {
+   children?: React.ReactNode
+   code: string
+   language?: string
+   showPreview?: boolean
+   className?: string
+   id?: string
+   BlockName: String
+}
 
 type search = {
    title: string

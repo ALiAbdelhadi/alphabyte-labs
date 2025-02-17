@@ -1,7 +1,7 @@
 "use client"
 
 import Pre from "@/components/ui/pre"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/CustomeTab"
 import { cn } from "@/lib/utils"
 import { Maximize2, Minimize2 } from "lucide-react"
 import { useCallback, useState } from "react"

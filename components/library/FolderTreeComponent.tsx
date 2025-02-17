@@ -60,7 +60,7 @@ export function FolderTreeComponent({ items }: FileExplorerNavProps) {
   }
 
   return (
-    <div className="w-72 overflow-hidden rounded-lg bg-gray-900 p-2 ">
+    <div className="w-72 overflow-hidden rounded-lg bg-gray-950 p-2 ">
       <div className="space-y-0.5">{items.map((item) => renderItem(item))}</div>
     </div>
   )
