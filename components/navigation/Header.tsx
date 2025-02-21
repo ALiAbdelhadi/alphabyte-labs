@@ -31,7 +31,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky z-50 h-16 inset-[0%_0%_auto] top-0 w-full bg-white/40 backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] supports-[backdrop-filter]:bg-white/30 transition-all duration-300 ease-in-out",
+        "sticky z-50 h-16 inset-[0%_0%_auto] top-0 w-full bg-white/50 backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] transition-all duration-300 ease-in-out",
       )}
     >
       <Container className="flex items-center justify-between h-full">
@@ -72,8 +72,8 @@ export function Header() {
                   className="z-50 w-[20px] flex flex-wrap flex-col justify-end mt-[5px] cursor-pointer"
                   onClick={() => setIsOpen(!isOpen)}
                 >
-                  <span className="bg-[#333] mb-[5px] h-[2px] w-full" />
-                  <span className="bg-[#333] mb-[5px] h-[2px] w-full" />
+                  <span className="bg-[#000] mb-[5px] h-[2px] w-full" />
+                  <span className="bg-[#000] mb-[5px] h-[2px] w-full" />
                 </div>
               </SheetTrigger>
               <SheetContent side="top" className="w-full h-full transition-all">

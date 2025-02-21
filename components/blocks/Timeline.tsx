@@ -61,7 +61,7 @@ const Timeline = ({ data }: { data: TimeLineProps[] }) => {
    return (
       <div className="w-full my-24" ref={containerRef}>
          <Container>
-            <div>
+            <div className="mb-10 lg:mb-14">
                <h2 className="text-3xl md:text-4xl mb-4 text-center font-bold">
                   How it works?
                </h2>

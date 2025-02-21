@@ -16,8 +16,8 @@ export const urlImage = "/images/og-image.png"
 export const imageAlt = "Alphabyte-labs"
 export const twitterHandle = "@alphabyte-labs"
 
-export const companyName = "Alphabyte"
-export const companyLink = "https://www.rubixstudios.com.au"
+export const companyName = "Alphabytes"
+export const companyLink = "https://alphabytes.vercel.app"
 
 export const branding = true
 export const rightSidebar = true

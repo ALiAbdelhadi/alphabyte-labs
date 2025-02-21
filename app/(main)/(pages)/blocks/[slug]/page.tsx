@@ -1,9 +1,13 @@
 import Container from "@/components/Container";
-import { getBlocksForSlug } from "@/lib/markdown";
+import { getAllBlocks, getBlocksForSlug } from "@/lib/markdown";
 import { notFound } from "next/navigation";
 
-export default async function BlockPage({ params }: { params: { slug: string } }) {
+export default async function BlockPage({ params }: { params: { slug?: string } }) {
+   if (!params?.slug) {
+      return notFound();
+   }
    const block = await getBlocksForSlug(params.slug);
+
    if (!block) {
       return notFound();
    }
@@ -16,4 +20,8 @@ export default async function BlockPage({ params }: { params: { slug: string } }
          </Container>
       </div>
    );
+}
+export async function generateStaticParams() {
+   const blocks = await getAllBlocks();
+   return blocks.map((block) => ({ slug: block.slug }))
 }

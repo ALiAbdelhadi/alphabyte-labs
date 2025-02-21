@@ -1,5 +1,3 @@
-import { Paths } from "@/lib/pageRoutes"
-import searchData from "@/public/search-data/documents.json"
 import { DocsRouting } from "@/settings/DocsRouting"
 import { clsx, type ClassValue } from "clsx"
 import sanitizeHtml from "sanitize-html"

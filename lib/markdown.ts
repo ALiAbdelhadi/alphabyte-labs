@@ -221,7 +221,6 @@ export async function getBlocksForSlug(slug: string) {
     return null;
   }
 }
-
 function getBlocksContentPath(slug: string) {
   return path.join(process.cwd(), "/contents/blocks/", `${slug}/index.mdx`);
 }

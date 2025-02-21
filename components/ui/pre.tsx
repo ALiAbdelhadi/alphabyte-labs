@@ -88,7 +88,7 @@ export default function Pre({
   }
 
   return (
-    <div className="relative group bg-[#1E1E1E] rounded-[6px] custom-scrollbar my-5 w-full">
+    <div className="relative group bg-[#1E1E1E] rounded-[6px]  my-5 w-full">
       <div className="absolute top-0 right-3">
         <div className="flex items-center space-x-2">
           <div>
@@ -99,7 +99,7 @@ export default function Pre({
           </div>
         </div>
       </div>
-      <div className="rounded-[6px_6px_0_0] overflow-hidden bg-[#1E1E1E]">
+      <div className="rounded-[6px_6px_0_0] overflow-hidden bg-[#1E1E1E] ">
         <div className="flex items-center justify-between px-4 py-3 bg-[#2D2D2D]">
           <div className="flex space-x-2 items-center">
             <div className="w-3 h-3 rounded-full bg-red-500/30 border border-red-500/40" />
@@ -109,7 +109,7 @@ export default function Pre({
           </div>
         </div>
       </div>
-      <pre className={`${className} overflow-x-auto max-h-[650px] line-numbers border-none`}>
+      <pre className={`${className} overflow-x-auto max-h-[650px] line-numbers border-none custom-scrollbar`}>
         <code className={cn("language-" + language)}>{children}</code>
       </pre>
     </div>

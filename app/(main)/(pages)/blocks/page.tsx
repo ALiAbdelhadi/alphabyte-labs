@@ -3,7 +3,7 @@ import CarouselCompForProject from '@/components/blocks/Carousel/CarouselBigCont
 import CarouselContainer from '@/components/blocks/Carousel/CarouselContainer'
 import Timeline from '@/components/blocks/Timeline'
 import Container from '@/components/Container'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/library/Button'
 import { TimeLineData } from '@/constant/blocks'
 import Link from 'next/link'
 
@@ -22,29 +22,42 @@ const BlocksPage = () => {
                         Get started
                      </Button>
                   </Link>
+                  <Link href="#browse-all-blocks">
+                     <Button variant={"ghost"}>Browse All Blocks</Button>
+                  </Link>
                </div>
             </section>
          </Container>
          {/* Blocks */}
          {/* Block one */}
-         <Container>
-            <div className='space-y-8'>
-               <h1 className='text-4xl font-medium mb-4'>Carousels</h1>
-               <section className='border px-8 rounded-3xl'>
-                  <CarouselCompForProject />
-               </section>
-               {/* Block two */}
-               <h1 className='text-4xl font-medium mb-4'>Carousels Two</h1>
-               <section className='border px-8 rounded-3xl'>
-                  <CarouselContainer />
-               </section>
-               {/* Block Three */}
-               <h1 className='text-4xl font-medium mb-4'>Timeline</h1>
-               <section className='border px-8 rounded-3xl'>
-                  <Timeline data={TimeLineData} />
-               </section>
-            </div>
-         </Container>
+         <div className='py-10 md:py-12'>
+            <Container>
+               <h2 className='text-muted-foreground mb-3'>Latest Blocks</h2>
+               <div className='space-y-8'>
+                  <h3 className='text-3xl font-medium mb-4'>Carousels</h3>
+                  <section className='border px-8 rounded-3xl'>
+                     <CarouselCompForProject />
+                  </section>
+                  {/* Block two */}
+                  <h3 className='text-3xl font-medium mb-4'>Carousels Two</h3>
+                  <section className='border px-8 rounded-3xl'>
+                     <CarouselContainer />
+                  </section>
+                  {/* Block Three */}
+                  <h3 className='text-3xl font-medium mb-4'>Timeline</h3>
+                  <section className='border px-0 lg:px-8 rounded-3xl'>
+                     <Timeline data={TimeLineData} />
+                  </section>
+               </div>
+               {/* Tons Of Blocks Ready to copy and past or even download it */}
+               <div id='browse-all-blocks' className='py-10 md:py-14 lg:py-20'>
+                  <div className='space-y-2'>
+                     <h2 className='lg:text-3xl text-2xl font-semibold'>Shadcn ui blocks</h2>
+                     <p className='text-lg md:text-xl font-light text-foreground'>Ready to copy&paste</p>
+                  </div>
+               </div>
+            </Container>
+         </div>
       </div>
    )
 }

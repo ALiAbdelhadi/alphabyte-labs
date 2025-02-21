@@ -26,11 +26,13 @@ export default async function Pages({ params }: PageProps) {
     <div className="flex items-start gap-14">
       <div className="flex-[3] pt-20 lg:pt-2">
         <PageBreadcrumb paths={slug} />
-        <Typography>
-          <h1 className="text-3xl -mt-2">{frontmatter.title}</h1>
-          <p className="-mt-4 text-lg text-muted-foreground text-[16.5px]">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold">{frontmatter.title}</h1>
+          <p className="text-lg text-muted-foreground text-[16.5px]">
             {frontmatter.description}
           </p>
+        </div>
+        <Typography>
           <div>{content}</div>
           <Pagination pathname={pathName} />
         </Typography>

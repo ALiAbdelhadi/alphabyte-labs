@@ -1,7 +1,7 @@
 "use client"
 
 import { DocsRouting } from "@/settings/DocsRouting"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { LuFileText } from "react-icons/lu"
 
 import {
@@ -12,10 +12,9 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { advanceSearch, debounce, highlight, search } from "@/lib/utils"
+import { highlight, search } from "@/lib/utils"
 import { SearchIcon } from "lucide-react"
 import Anchor from "./anchor"
-import { Input } from "../ui/input"
 
 interface Document {
   title?: string
@@ -44,17 +43,6 @@ export default function Search() {
     DetectPlatform()
   }, [])
 
-  const debouncedSearch = useMemo(
-    () =>
-      debounce((input) => {
-        setIsLoading(true)
-        const results = advanceSearch(input.trim())
-        setFilteredResults(results)
-        setIsLoading(false)
-      }, 200),
-    []
-  )
-
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if ((platform === "mac" ? event.metaKey : event.ctrlKey) && event.key === "k") {
@@ -75,13 +63,6 @@ export default function Search() {
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [isOpen, filteredResults, platform])
 
-  useEffect(() => {
-    if (searchedInput.length >= 3) {
-      debouncedSearch(searchedInput)
-    } else {
-      setFilteredResults([])
-    }
-  }, [searchedInput, debouncedSearch])
 
   function renderDocuments(
     documents: Document[],
@@ -110,15 +91,7 @@ export default function Search() {
 
   return (
     <div className="relative w-full max-w-xl">
-      <Dialog
-        open={isOpen}
-        onOpenChange={(open) => {
-          setIsOpen(open)
-          if (!open) {
-            setTimeout(() => setSearchedInput(""), 200)
-          }
-        }}
-      >
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <div>
             <span className="lg:hidden flex items-center cursor-pointer">
@@ -156,7 +129,7 @@ export default function Search() {
               </DialogClose>
             </div>
           </div>
-          <ScrollArea className="max-h-[60vh]">
+          <ScrollArea className="max-h-[40vh]">
             <div className="p-2">
               {searchedInput.length > 0 && searchedInput.length < 3 && (
                 <p className="p-4 text-sm text-gray-500">

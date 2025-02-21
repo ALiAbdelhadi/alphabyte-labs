@@ -1,5 +1,5 @@
-import { Documents } from "../settings/documents.mjs";
-export const Routes = [...Documents];
+import { DocsRouting } from "../settings/DocsRouting";
+export const Routes = [...DocsRouting];
 function isRoute(node) {
     return "title" in node && "href" in node;
 }

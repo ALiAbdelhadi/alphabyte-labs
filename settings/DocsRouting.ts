@@ -1,4 +1,4 @@
-import type { Paths } from "@/lib/pageRoutes"
+import type { Paths } from "@/lib/pageRoutes";
 
 export const DocsRouting: Paths[] = [
   {
@@ -19,6 +19,10 @@ export const DocsRouting: Paths[] = [
     href: "/components",
     title: "Components",
     items: [
+      {
+        title: "Button",
+        href: "/button",
+      },
       {
         title: "Diagrams",
         href: "/diagrams",
@@ -42,16 +46,3 @@ export const DocsRouting: Paths[] = [
     ],
   },
 ];
-
-function getRecurrsiveAllLinks(node: EachRoute) {
-  const ans: Page[] = [];
-  if (!node.noLink) {
-    ans.push({ title: node.title, href: node.href });
-  }
-  node.items?.forEach((subNode) => {
-    const temp = { ...subNode, href: `${node.href}${subNode.href}` };
-    ans.push(...getRecurrsiveAllLinks(temp));
-  });
-  return ans;
-}
-export const page_routes = DocsRouting.map((it) => getRecurrsiveAllLinks(it)).flat();

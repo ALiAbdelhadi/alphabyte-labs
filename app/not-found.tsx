@@ -1,7 +1,6 @@
 import Link from "next/link"
-
 import { buttonVariants } from "@/components/ui/button"
-
+import { Button } from "@/components/library/Button"
 export default function NotFound() {
   return (
     <div className="min-h-[86.5vh] flex flex-col justify-center items-center text-center px-2 py-8">
@@ -10,12 +9,11 @@ export default function NotFound() {
         Page not found
       </p>
       <div className="flex items-center">
-        <Link
-          href="/"
-          className={buttonVariants({ className: "px-6", size: "lg" })}
-        >
-          Return Home
-        </Link>
+        <Button variant={"outline"}>
+          <Link href="/">
+            Return Home
+          </Link>
+        </Button>
       </div>
     </div>
   )
