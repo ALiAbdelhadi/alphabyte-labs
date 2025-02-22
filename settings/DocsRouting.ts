@@ -24,6 +24,10 @@ export const DocsRouting: Paths[] = [
         href: "/button",
       },
       {
+        title: "Code Block",
+        href: "/code-block",
+      },
+      {
         title: "Diagrams",
         href: "/diagrams",
       },

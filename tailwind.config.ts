@@ -19,6 +19,12 @@ export default {
       }
     },
     extend: {
+      boxShadow: {
+        'apple-menu': '0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 3px rgba(0, 0, 0, 0.06)',
+      },
+      transitionTimingFunction: {
+        'apple-ease-in-out': 'cubic-bezier(0.4, 0.0, 0.2, 1)',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

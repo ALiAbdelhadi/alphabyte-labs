@@ -54,33 +54,34 @@ code={`<Step>
 
   </StepItem>
 </Step>
-
 </ComponentPreview>
 
 ## Installation
 <div className="not-prose">
 <Step>
-<StepItem title="install dependencies">
-First, you need to install some dependencies:
-```bash
-npm i install clsx tailwind-merge
-```
+<StepItem title="Install Dependencies">
+First , you need to install dependencies:
+<Pre className="language-bash">
+{`npm i clsx tailwind-merge`}
+</Pre>
 </StepItem>
   <StepItem title="Create utils.ts">
   Second, you need to create a new folder called <ProseBadge>lib</ProseBadge> in you app directory and create a new file called <ProseBadge>utils.ts</ProseBadge> and paste the following code in it: 
-```ts
-import { type ClassValue, clsx } from "clsx";
+<Pre className="language-typescript" folderPath="lib/utils.ts" >
+  {`import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+    return twMerge(clsx(inputs));
 }
-```
-  </StepItem>
+`}
+</Pre>
+   </StepItem>
   <StepItem title="Create Step component">
     Now you can create in your <ProseBadge>components</ProseBadge> a Step.tsx file and add the following code in it :
     <CodeBlockWrapper>
-    ```tsx
+    <Pre className="language-typescript" folderPath="components/Step.tsx">
+    {`
     import { cn } from "@/lib/utils"
 import clsx from "clsx"
 import { Children, PropsWithChildren, ReactNode } from "react"
@@ -114,7 +115,6 @@ export function Step({ children }: PropsWithChildren<StepProps>) {
   )
 }
 
-
 export function StepItem({ children, title }: StepItemProps) {
   return (
     <div className="space-y-4">
@@ -123,7 +123,8 @@ export function StepItem({ children, title }: StepItemProps) {
     </div>
   )
 }
-    ```
+    `}
+    </Pre>
     </CodeBlockWrapper>
   </StepItem>
   <StepItem title="Be comfortable to use it and make it yours"/>
@@ -131,14 +132,14 @@ export function StepItem({ children, title }: StepItemProps) {
     </div>
 ## Usage
     <div className="not-prose">
-```tsx
-import { Step, StepItem } from "@/components/library/step"
-```
-```tsx
-<Step>
-    <StepItem title="development">localhost:3000</StepItem>
-    <StepItem title="production">localhost:3000</StepItem>
-</Step>
-```
-    </div>
+    <Pre>
+    {`import { Step, StepItem } from "@/components/library/step"`}
+    </Pre>
+    <Pre>
+    {`<Step>
+        <StepItem title="development">localhost:3000</StepItem>
+        <StepItem title="production">localhost:3000</StepItem>
+    </Step>`}
+    </Pre>
+  </div>
 

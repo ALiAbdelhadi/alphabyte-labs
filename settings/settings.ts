@@ -18,7 +18,6 @@ export const twitterHandle = "@alphabyte-labs"
 
 export const companyName = "Alphabytes"
 export const companyLink = "https://alphabytes.vercel.app"
-
 export const branding = true
 export const rightSidebar = true
 export const feedbackEdit = true
@@ -26,3 +25,5 @@ export const tableOfContent = true
 export const toTopScroll = true
 
 export const loadFromGithub = false
+// blocks website
+export const blocksWebsite = "https://library-alphabyte.vercel.app"

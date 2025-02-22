@@ -1,8 +1,8 @@
 import BlockPreview from "@/components/blocks/BlockPreview"
-import { Carousel } from "@/components/blocks/Carousel/Carousel"
 import CarouselCompForProject from "@/components/blocks/Carousel/CarouselBigContainer"
 import CarouselContainer from "@/components/blocks/Carousel/CarouselContainer"
-import Timeline from "@/components/blocks/Timeline"
+import { Navbar } from "@/components/blocks/NavBar"
+import TimelineContainer from "@/components/blocks/timeline/TimelineContainer"
 import { CodeBlockWrapper } from "@/components/CodeBlockWrapper"
 import { Button } from "@/components/library/Button"
 import Mermaid from "@/components/library/mermaid"
@@ -36,13 +36,14 @@ export const component = {
    StepItem,
    Mermaid,
    Note,
+   Pre,
    // Blocks
    // Block preview 
    BlockPreview,
-   Carousel,
-   Timeline,
+   TimelineContainer,
    CarouselContainer,
    CarouselCompForProject,
+   Navbar,
    // icons
    ChevronRightIcon
 }

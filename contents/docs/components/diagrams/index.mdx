@@ -28,26 +28,27 @@ description: Add various diagram types, including flowcharts, decision trees and
 <Step>
 <StepItem title="install dependencies">
 First, To Start Creating Diagrams in your next.js app you need to install a library called <span className="underline text-gray-950">[Mermaid](https://mermaid.js.org/)</span> :
-```bash
-npm i install clsx tailwind-merge mermaid
-```
+<Pre className="language-bash">
+{`npm i install clsx tailwind-merge mermaid`}
+</Pre>
 </StepItem>
 <StepItem title="Create utils.ts">
 Second, you need to create a <ProseBadge>lib</ProseBadge> in you root directory and create a file called <ProseBadge>utils.ts</ProseBadge> and add the following code :
-```ts
-import { type ClassValue, clsx } from "clsx";
+<Pre className="language-typescript" folderPath="lib/utils.ts" >
+  {`import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+    return twMerge(clsx(inputs));
 }
-```
+`}
+</Pre>
 </StepItem>
 <StepItem title="Creating components">
 In Your <ProseBadge>component</ProseBadge> folder, Create a new file called <ProseBadge>Mermaid.tsx</ProseBadge> and add the following code:
 <CodeBlockWrapper>
-```tsx 
-"use client"
+<Pre className="language-typescript" folderPath="components/mermaid.tsx">
+{`"use client"
 
 import React, {
   useCallback,
@@ -71,7 +72,7 @@ mermaid.initialize({
 
 const Mermaid = ({ chart, className }: MermaidProps) => {
   const ref = useRef<HTMLDivElement | null>(null)
-  const uniqueId = `mermaid-${Math.random().toString(36).slice(2, 11)}`
+  const uniqueId = \`mermaid-\${Math.random().toString(36).slice(2, 11)}\`
   const [mounted, setMounted] = useState(false)
 
   const renderMermaid = useCallback(async () => {
@@ -109,7 +110,8 @@ const Mermaid = ({ chart, className }: MermaidProps) => {
 
 const MermaidMemo = React.memo(Mermaid)
 export default MermaidMemo
-```
+`}
+</Pre>
 </CodeBlockWrapper>
 </StepItem>
 <StepItem title="Here you go, you can start creating diagrams like a designer"/>

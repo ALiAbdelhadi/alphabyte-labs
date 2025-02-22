@@ -102,28 +102,30 @@ export default function FolderMarkdown() {
 <Step>
 <StepItem title="Install dependencies">
 First , you need to install prism.js
-```bash
-npm i install clsx tailwind-merge
-```
-```bash
-npx shadcn@latest add sidebar
-```
+<Pre className="language-bash">
+{`npm i install clsx tailwind-merge`}
+</Pre>
+<Pre className="language-bash">
+{`npx shadcn@latest add sidebar`}
+</Pre>
+
 </StepItem>
 <StepItem title="utils.ts">
 Second, you need to create a <ProseBadge>lib</ProseBadge> in you root directory and create a file called <ProseBadge>utils.ts</ProseBadge> and add the following code :
-```ts
-import { type ClassValue, clsx } from "clsx";
+<Pre className="language-typescript" folderPath="lib/utils.ts" >
+  {`import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+    return twMerge(clsx(inputs));
 }
-```
+`}
+</Pre>
 </StepItem>
 <StepItem title="Create the hook">
 create in your root directory folder called <ProseBadge>hook</ProseBadge> and create a file called <ProseBadge>seSubmenuState.ts </ProseBadge>
-```ts
-import { useState, useCallback } from "react"
+<Pre className="language-typescript" folderPath="hooks/use-submenu-state.ts">
+{`import { useState, useCallback } from "react"
 
 export function useSubmenuState(initialState: Record<string, boolean> = {}) {
    const [openStates, setOpenStates] = useState(initialState)
@@ -134,13 +136,14 @@ export function useSubmenuState(initialState: Record<string, boolean> = {}) {
 
    return { openStates, toggleSubmenu }
 }
-```
+`}
+</Pre>
 </StepItem>
 <StepItem title="Create Components">
 In your <ProseBadge>Component</ProseBadge> folder start create fill called <ProseBadge>FolderTree</ProseBadge> and add the following code: 
 <CodeBlockWrapper>
-```tsx
-"use client"
+<Pre className="language-typescript" folderPath="components/FolderTree.tsx">  
+{`"use client"
 
 import * as React from "react"
 import { ChevronRight, File, Folder, FolderOpen } from 'lucide-react'
@@ -181,7 +184,7 @@ export function FolderTree({ items }: FileExplorerNavProps) {
             "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm text-gray-400 transition-colors hover:bg-white/5",
             isOpen && "text-white",
           )}
-          style={{ paddingLeft: `${(level + 1) * 12}px` }}
+          style={{ paddingLeft: \`\${(level + 1) * 12}px\` }}
         >
           {hasItems ? (
             <span className="flex items-center gap-2">
@@ -207,14 +210,16 @@ export function FolderTree({ items }: FileExplorerNavProps) {
     </div>
   )
 }
-```
+`}
+</Pre>
 </CodeBlockWrapper>
 </StepItem>
 <StepItem title="Create folder menu">
 and create another file in your <ProseBadge>component</ProseBadge> folder called <ProseBadge>FolderTreeMenu</ProseBadge> and add the following code:
 <CodeBlockWrapper>
-```tsx 
-"use client"
+<Pre className="language-typescript" folderPath="components/FolderTreeMenu.tsx">
+{`"use client"
+
 import { ChevronDown, ChevronRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -286,14 +291,15 @@ export function FolderTreeMenu({ items } : CardSidenavProps) {
       </Sidebar>
    )
 }
-```
+`}
+</Pre>
 </CodeBlockWrapper>
 </StepItem>
 <StepItem title="Create example folder">
 And last file create in your <ProseBadge>component</ProseBadge> folder file called <ProseBadge>FolderExample.tsx</ProseBadge> and add the following code :
 <CodeBlockWrapper>
-```tsx
-"use client"
+<Pre className="language-typescript" folderPath="components/FolderExample.tsx">
+{`"use client"
 
 import { FolderTree } from "./FolderTree"
 
@@ -380,7 +386,8 @@ export default function FolderTreeExample() {
       </div>
    )
 } 
-```
+`}
+</Pre>
 </CodeBlockWrapper>
 </StepItem>
 <StepItem title="Be comfortable to use it and make it yours"/>
@@ -389,8 +396,8 @@ export default function FolderTreeExample() {
 ## Usage 
 <div className="not-prose">
 start use it by creating an object with the following properties :
-```tsx
-type FileItem = {
+<Pre className="language-typescript">
+{`type FileItem = {
    id: string
    name: string
    type: "file" | "folder"
@@ -425,10 +432,12 @@ const fileStructure: FileItem[] = [
       ],
    },
 ]
-```
+`}
+</Pre>
 and then create a <ProseBadge>div tag</ProseBadge> and import  the obj in it
-```tsx
-"use client"
+<Pre className="language-typescript" folderPath="components/FolderTreeExample.tsx">
+{`"use client"
+
 import { FileExplorerNav } from "./FolderTree"
 export default function FolderTreeExample() {
    return (
@@ -437,5 +446,6 @@ export default function FolderTreeExample() {
       </div>
    )
 }  
-```
+`}
+</Pre>
 </div>

@@ -1,12 +1,12 @@
 
+import BlockForGrid from '@/components/BlockForGrid'
 import CarouselCompForProject from '@/components/blocks/Carousel/CarouselBigContainer'
 import CarouselContainer from '@/components/blocks/Carousel/CarouselContainer'
-import Timeline from '@/components/blocks/Timeline'
+import { Navbar } from '@/components/blocks/NavBar'
+import TimelineContainer from '@/components/blocks/timeline/TimelineContainer'
 import Container from '@/components/Container'
 import { Button } from '@/components/library/Button'
-import { TimeLineData } from '@/constant/blocks'
 import Link from 'next/link'
-
 const BlocksPage = () => {
    return (
       <div className='py-8'>
@@ -35,18 +35,18 @@ const BlocksPage = () => {
                <h2 className='text-muted-foreground mb-3'>Latest Blocks</h2>
                <div className='space-y-8'>
                   <h3 className='text-3xl font-medium mb-4'>Carousels</h3>
-                  <section className='border px-8 rounded-3xl'>
+                  <section className='border px-0 lg:px-8 rounded-3xl bg-[#fafafa]'>
                      <CarouselCompForProject />
                   </section>
                   {/* Block two */}
                   <h3 className='text-3xl font-medium mb-4'>Carousels Two</h3>
-                  <section className='border px-8 rounded-3xl'>
+                  <section className='border px-0 lg:px-8 rounded-3xl bg-[#fafafa]'>
                      <CarouselContainer />
                   </section>
                   {/* Block Three */}
                   <h3 className='text-3xl font-medium mb-4'>Timeline</h3>
-                  <section className='border px-0 lg:px-8 rounded-3xl'>
-                     <Timeline data={TimeLineData} />
+                  <section className='border px-0 lg:px-8 rounded-3xl bg-[#fafafa]'>
+                     <TimelineContainer />
                   </section>
                </div>
                {/* Tons Of Blocks Ready to copy and past or even download it */}
@@ -55,10 +55,27 @@ const BlocksPage = () => {
                      <h2 className='lg:text-3xl text-2xl font-semibold'>Shadcn ui blocks</h2>
                      <p className='text-lg md:text-xl font-light text-foreground'>Ready to copy&paste</p>
                   </div>
+                  <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
+                     <BlockForGrid
+                        title='Carousels'
+                        href='/blocks/carousel'
+                        src={'/block-mokeup/carousel-1.png'}
+                     />
+                     <BlockForGrid
+                        title='Timeline'
+                        href='/blocks/timeline'
+                        src={'/block-mokeup/timeline-1.png'}
+                     />
+                     <BlockForGrid
+                        title='Navbar'
+                        href='/blocks/navbar'
+                        src={'/block-mokeup/navbar-1.png'}
+                     />
+                  </div>
                </div>
             </Container>
          </div>
-      </div>
+      </div >
    )
 }
 

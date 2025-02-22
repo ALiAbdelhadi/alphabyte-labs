@@ -31,11 +31,11 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky z-50 h-16 inset-[0%_0%_auto] top-0 w-full bg-white/50 backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] transition-all duration-300 ease-in-out",
+        "sticky z-50 h-16 inset-[0%_0%_auto] top-0 w-full bg-white/40 backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] transition-all duration-300 ease-in-out",
       )}
     >
       <Container className="flex items-center justify-between h-full">
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-8">
           <Logo showIcon={true} showLogoText={true} />
           <nav
             className={cn("hidden lg:flex items-center", {
@@ -57,11 +57,13 @@ export function Header() {
             </NavigationMenu>
           </nav>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-6">
           <Search />
-          <div className="hidden lg:flex items-center space-x-6">
-            <Button variant="outline">Sign In</Button>
-            <Button className="bg-primary/90 hover:bg-primary text-primary-foreground">
+          <div className="hidden lg:flex items-center space-x-8">
+            <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400"> {/* Refined outline button */}
+              Sign In
+            </Button>
+            <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
               Get Started
             </Button>
           </div>

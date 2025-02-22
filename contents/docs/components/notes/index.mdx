@@ -1,73 +1,131 @@
 ---
-title: Notes
-description: This section provides an overview of Introduction.
+title: Note Component
+description: Introducing the Note Component Communicating Effectively in Your UI
 ---
-
+**Learn how to use the versatile Note component to communicate important information effectively within your user interface.**
 <ComponentPreview
-  code={`<Note type="note" title="Note">
-      This is a general note to convey information to the user.
-  </Note>
-  `}
+  code={`const MyComponent = () => {
+  return (
+    <div>
+      <Note variant="info"closable>  
+          Turbopack is a high-performance bundler and dev server for Next.js. Enabling this option ensures faster builds and an improved development experience.  
+      </Note>  
+    </div>
+  );
+};`}
 >
-  <Note type="note" title="Note">
-      This is a general note to convey information to the user.
-  </Note>
+      <Note variant="info"closable>  
+         **Turbopack** is a high-performance bundler and dev server for Next.js. Enabling this option ensures faster builds and an improved development experience.  
+      </Note>  
 </ComponentPreview>
 
 ## Installation
 <div className="not-prose"> 
 <Step>
 <StepItem title="Install Dependencies">
-First , you need to install dependencies:
-```bash
-npm i clsx tailwind-merge
-```
+First, you'll need to install the necessary dependencies for styling and utility functions. These include <ProseBadge>clsx</ProseBadge> for conditional class names and <ProseBadge>tailwind-merge</ProseBadge> to handle Tailwind CSS class conflicts efficiently.
+
+<Pre className="language-bash">
+{`npm install clsx tailwind-merge`}
+</Pre>
 </StepItem>
   <StepItem title="Create utils.ts">
   Second, you need to create a new folder called <ProseBadge>lib</ProseBadge> in you app directory and create a new file called <ProseBadge>utils.ts</ProseBadge> and paste the following code in it: 
-```ts
-import { type ClassValue, clsx } from "clsx";
+<Pre className="language-typescript" folderPath="lib/utils.ts" >
+  {`import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+    return twMerge(clsx(inputs));
 }
-```
+`}
+</Pre>
   </StepItem>
-  <StepItem title="Create Note Component">
+  <StepItem title="Create Note Component" >
   Now you can create in your <ProseBadge>components</ProseBadge> a <ProseBadge>Note.tsx</ProseBadge> file and add the following code in it :
-```tsx
-import { cn } from "@/lib/utils";
-import clsx from "clsx";
+  <Pre className="className-typescript" folderPath="components/note.tsx" highlightLines={[6]}>
+  {`"use client"
 
-export default function Note({
-  children,
-  title = "Note",
-  type = "note",
-}: NoteProps) {
-  const noteClassNames = clsx({
-    "dark:bg-stone-950/25 bg-stone-100/90": type == "note",
-    "dark:bg-red-950 bg-red-100 border-red-200 dark:border-red-900":
-      type === "danger",
-    "dark:bg-orange-950 bg-orange-100 border-orange-200 dark:border-orange-900":
-      type === "warning",
-    "dark:bg-green-950 bg-green-100 border-green-200 dark:border-green-900":
-      type === "success",
-  });
+import { cn } from "@/lib/utils"
+import { AlertTriangleIcon, CheckCircle2Icon, InfoIcon, X, XCircleIcon } from "lucide-react"
+import React, { useState } from "react"
+type NoteVariant = "info" | "warning" | "success" | "error"
+
+interface NoteProps {
+  variant?: NoteVariant
+  className?: string
+  closable?: boolean
+  children: React.ReactNode
+}
+
+const variantConfig = {
+  info: {
+    bg: "bg-blue-50/80 dark:bg-blue-900/20",
+    border: "border-l-4 border-blue-400",
+    icon: "text-blue-500",
+  },
+  warning: {
+    bg: "bg-yellow-50/80 dark:bg-yellow-900/20",
+    border: "border-l-4 border-yellow-400",
+    icon: "text-yellow-500",
+  },
+  success: {
+    bg: "bg-green-50/80 dark:bg-green-900/20",
+    border: "border-l-4 border-green-400",
+    icon: "text-green-500",
+  },
+  error: {
+    bg: "bg-red-50/80 dark:bg-red-900/20",
+    border: "border-l-4 border-red-400",
+    icon: "text-red-500",
+  },
+}
+
+const Note = ({
+  variant = "info",
+  className,
+  closable = false,
+  children
+}: NoteProps) => {
+  const [isClosed, setIsClosed] = useState(false)
+
+  if (isClosed) return null
+
   return (
     <div
       className={cn(
-        "border rounded-lg px-6 py-5 text-sm tracking-wide space-y-4 not-prose w-full",
-        noteClassNames
+        "p-4 rounded-lg relative backdrop-blur-sm",
+        variantConfig[variant].bg,
+        variantConfig[variant].border,
+        className
       )}
     >
-      <p className="font-bold -mb-3 text-foreground text-base">{title}:</p>
-      <div>{children}</div>
+      {closable && (
+        <button
+          onClick={() => setIsClosed(true)}
+          className="absolute top-2 right-2 p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10"
+        >
+          <X className="w-4 h-4 text-muted-foreground" />
+        </button>
+      )}
+
+      <div className="flex items-start gap-3">
+        <div className={cn("mt-0.5 flex-shrink-0", variantConfig[variant].icon)}>
+          {variant === "info" && <InfoIcon className="w-5 h-5" />}
+          {variant === "warning" && <AlertTriangleIcon className="w-5 h-5" />}
+          {variant === "success" && <CheckCircle2Icon className="w-5 h-5" />}
+          {variant === "error" && <XCircleIcon className="w-5 h-5" />}
+        </div>
+        <div className="[&>:last-child]:mb-0 [&>:first-child]:mt-0 text-sm">
+          {children}
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
-```
+export { Note }`}
+  </Pre>
   </StepItem>
   <StepItem title="Here you go, Now you can edit and customize it for your needs and make it yours"/>
 </Step>
@@ -78,51 +136,82 @@ export default function Note({
 
 ### Standard Note
 <ComponentPreview
-  code={`<Note type="note" title="Note">
-      This is a general note to convey information to the user.
-  </Note>
+  code={`<Note variant="info">
+      This is an informational note.
+</Note>
   `}
 >
-  <Note type="note" title="Note">
-      This is a general note to convey information to the user.
-  </Note>
+<Note variant="info">
+  This is an informational note.
+</Note>
 </ComponentPreview>
 
 ### Success Note
 
 <ComponentPreview
-  code={`<Note type="success" title="Note">
-      This is a general note to convey information to the user.
-  </Note>
+  code={`<Note variant="success">
+      Operation completed successfully!
+</Note>
   `}
 >
-  <Note type="success" title="Note">
-      This is a general note to convey information to the user.
-  </Note>
+<Note variant="success">
+  Operation completed successfully!
+</Note>
 </ComponentPreview>
 
 ### Warning Note
 
 <ComponentPreview
-  code={`<Note type="warning" title="Note">
-      This is a general note to convey information to the user.
-  </Note>
+  code={`<Note variant="warning">
+      Be careful with this action!
+</Note>
   `}
 >
-  <Note type="warning" title="Note">
-      This is a general note to convey information to the user.
-  </Note>
+<Note variant="warning">
+  Be careful with this action!
+</Note>
 </ComponentPreview>
 
 ### Danger Note
 
 <ComponentPreview
-  code={`<Note type="danger" title="Note">
-      This is a general note to convey information to the user.
-  </Note>
+  code={`<Note variant="error">
+      An error has occurred. Please try again.
+</Note>
   `}
 >
-  <Note type="danger" title="Note">
-      This is a general note to convey information to the user.
-  </Note>
+<Note variant="error">
+      An error has occurred. Please try again.
+</Note>
 </ComponentPreview>
+## Closable Notes
+To allow users to dismiss the note, set the <ProseBadge>closable</ProseBadge> prop to <ProseBadge>true</ProseBadge>.
+<ComponentPreview
+  code={`<Note variant="error" closable>
+      An error has occurred. Please try again.
+</Note>
+  `}
+>
+      <Note variant="info"closable>  
+         **Turbopack** is a high-performance bundler and dev server for Next.js. Enabling this option ensures faster builds and an improved development experience.  
+      </Note>  
+</ComponentPreview>
+## Usage
+<div className="not-prose">
+First, you have to import <ProseBadge>Note.tsx</ProseBadge> in your file:
+<Pre className="language-typescript">
+{`import { Note } from "@/components/Note"`}
+</Pre>
+Then, you can use the <ProseBadge>Note</ProseBadge> component in your file:
+<Pre className="language-jsx">
+{`const MyComponent = () => {
+  return (
+    <div>
+      <Note variant="info" closable>  
+          Turbopack is a high-performance bundler and dev server for Next.js. Enabling this option ensures faster builds and an improved development experience.  
+      </Note>  
+    </div>
+    );
+};`}
+</Pre>
+</div>

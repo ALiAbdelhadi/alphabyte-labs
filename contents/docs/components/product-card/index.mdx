@@ -69,25 +69,27 @@ export default function ProductCard() {
 <Step>
 <StepItem title="Install Dependencies">
 First , you need to install dependencies:
-```bash
-npm i clsx tailwind-merge
-```
+<Pre className="language-bash">
+{`npm i clsx tailwind-merge`}
+</Pre>
 </StepItem>
   <StepItem title="Create utils.ts">
   Second, you need to create a new folder called <ProseBadge>lib</ProseBadge> in you app directory and create a new file called <ProseBadge>utils.ts</ProseBadge> and paste the following code in it: 
-```ts
-import { type ClassValue, clsx } from "clsx";
+<Pre className="language-typescript" folderPath="lib/utils.ts" >
+  {`import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+    return twMerge(clsx(inputs));
 }
-```
-  </StepItem>
-  <StepItem>
-    Now you can create in your <ProseBadge>components</ProseBadge> a <ProseBadge>ProductCard.tsx</ProseBadge> file and add the following code in it :
-    ```tsx
-    "use client"
+`}
+</Pre>
+   </StepItem>
+   <StepItem>
+   Now you can create in your <ProseBadge>components</ProseBadge> a <ProseBadge>ProductCard.tsx</ProseBadge> file and add the following code in it :
+   <Pre className="language-typescript" folderPath="components/ProductCard.tsx">
+   {`"use client"
+
 import { cn } from "@/lib/utils";
 import { Truck } from "lucide-react";
 import { useState } from "react";
@@ -142,7 +144,8 @@ export default function ProductCard() {
          </div>
       </div>
    )} 
-   ```
-  </StepItem>
+   `}
+   </Pre>
+   </StepItem>
 </Step>
 </div>

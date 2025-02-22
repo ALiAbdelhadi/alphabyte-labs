@@ -3,16 +3,11 @@
 import Pre from "@/components/ui/pre"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
+import { blocksWebsite } from "@/settings/settings"
 import { Check, Clipboard, Fullscreen, Monitor, Smartphone, Tablet } from "lucide-react"
-import { ComponentProps, useCallback, useEffect, useState } from "react"
+import { ComponentProps, Suspense, useCallback, useEffect, useState } from "react"
 import { Separator } from "../ui/separator"
 
-interface PreProps extends ComponentProps<"pre"> {
-   raw?: string;
-   className?: string;
-   highlightLines?: number[];
-   folderPath?: string;
-}
 interface screenWidthProps {
    desktop: string,
    tablet: string,
@@ -43,7 +38,7 @@ const CopyButton = ({ content }: { content: string }) => {
    )
 }
 
-export default function BlockPreview({ children, code, className, id, BlockName }: BlockPreview) {
+export default function BlockPreview({ children, code, className, id, BlockName, BlockId }: BlockPreview) {
    const [active, setActive] = useState("desktop")
    const [isFullScreen, setIsFullScreen] = useState(false)
    const [previewWidth, setPreviewWidth] = useState("100%")
@@ -99,7 +94,8 @@ export default function BlockPreview({ children, code, className, id, BlockName 
    if (!code) {
       return <div className={cn("mt-4", className)}>{children}</div>
    }
-
+   const iframeSource = `${blocksWebsite}/blocks/${BlockId}`
+   console.log(iframeSource)
    return (
       <Tabs defaultValue="preview" className="mt-4">
          <nav className="flex flex-col md:flex-row justify-between gap-4 md:items-center items-start mb-4">
@@ -154,7 +150,7 @@ export default function BlockPreview({ children, code, className, id, BlockName 
          <div className="not-prose">
             <TabsContent
                value="preview"
-               className={cn("border rounded-xl", className, {
+               className={cn("border rounded-xl transition-all duration-300", className, {
                   "mr-auto": active !== "desktop"
                })}
                style={{
@@ -163,11 +159,9 @@ export default function BlockPreview({ children, code, className, id, BlockName 
                   overflowX: "auto"
                }}
             >
-               <div className="overflow-hidden" id={id}>
-                  <div className="preview px-6">
-                     {children}
-                  </div>
-               </div>
+               <Suspense fallback={<div className="min-h-[86.5vh] w-full bg-gray-100 dark:bg-gray-800" >Loading block...</div>}>
+                  <iframe className="overflow-hidden preview min-h-[86.5vh] w-full" id={id} src={iframeSource} sandbox="allow-scripts allow-same-origin" />
+               </Suspense>
             </TabsContent>
             <TabsContent value="code" className="rounded-xl">
                <Pre raw={code} className="language-tsx">

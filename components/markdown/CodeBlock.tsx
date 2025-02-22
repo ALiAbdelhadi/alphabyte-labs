@@ -10,7 +10,7 @@ const CodeBlock = ({ className }: { className: string }) => {
       </div>
    )};`
    return (
-      <Pre className={cn("", className)} highlightLines={[4]}>
+      <Pre className={cn("", className)} highlightLines={[4]} showLineNumbers={true} >
          {ExampleCode}
       </Pre>
    )

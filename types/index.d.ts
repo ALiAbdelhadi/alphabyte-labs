@@ -34,6 +34,7 @@ type BlockPreview = {
    className?: string
    id?: string
    BlockName: String
+   BlockId: string
 }
 
 type search = {

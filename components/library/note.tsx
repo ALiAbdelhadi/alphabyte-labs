@@ -57,13 +57,12 @@ const Note = ({
       {closable && (
         <button
           onClick={() => setIsClosed(true)}
-          className="absolute top-2 right-2 p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10"
+          className="absolute right-1 top-1 p-1 pb-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-foreground/50"
         >
           <X className="w-4 h-4 text-muted-foreground" />
         </button>
       )}
-
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-3 my-2">
         <div className={cn("mt-0.5 flex-shrink-0", variantConfig[variant].icon)}>
           {variant === "info" && <InfoIcon className="w-5 h-5" />}
           {variant === "warning" && <AlertTriangleIcon className="w-5 h-5" />}
