@@ -108,7 +108,7 @@ export default function BlockPreview({ children, code, className, id, BlockName,
                </div>
                <Separator orientation="vertical" className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden" />
                <TabsList className="inline-flex h-9 items-center text-muted-foreground max-w-fit justify-start rounded-none bg-transparent">
-                  <div className="bg-muted shadow-sm py-1 px-1 rounded-[7px] space-x-2">
+                  <div className="bg-muted shadow-sm py-1 px-0 sm:px-1 rounded-[7px] space-x-2">
                      <TabsTrigger value="preview" className="active:shadow-none text-sm border-none rounded-[6px] sm:px-3 px-1">
                         Preview
                      </TabsTrigger>

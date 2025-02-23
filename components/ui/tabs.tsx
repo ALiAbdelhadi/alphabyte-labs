@@ -4,6 +4,7 @@ import * as React from "react"
 import * as TabsPrimitive from "@radix-ui/react-tabs"
 
 import { cn } from "@/lib/utils"
+import { AnimatePresence, motion } from "framer-motion"
 
 const Tabs = TabsPrimitive.Root
 
@@ -14,7 +15,8 @@ const TabsList = React.forwardRef<
    <TabsPrimitive.List
       ref={ref}
       className={cn(
-         "inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground",
+         "inline-flex items-center justify-center rounded-lg bg-transparent p-0.5 text-muted-foreground",
+         "h-9",
          className
       )}
       {...props}
@@ -29,7 +31,13 @@ const TabsTrigger = React.forwardRef<
    <TabsPrimitive.Trigger
       ref={ref}
       className={cn(
-         "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow",
+         "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5",
+         "text-sm font-medium transition-all",
+         "data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
+         "hover:bg-gray-100 ",
+         "disabled:pointer-events-none disabled:opacity-50",
+         "transition-all duration-200 ease-in-out",
+         "data-[orientation=vertical]:justify-start data-[orientation=vertical]:w-full",
          className
       )}
       {...props}
@@ -41,14 +49,19 @@ const TabsContent = React.forwardRef<
    React.ElementRef<typeof TabsPrimitive.Content>,
    React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
 >(({ className, ...props }, ref) => (
-   <TabsPrimitive.Content
-      ref={ref}
-      className={cn(
-         "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-         className
-      )}
-      {...props}
-   />
+   <TabsPrimitive.Content ref={ref} className={cn("relative overflow-hidden", className)} {...props}>
+      <AnimatePresence mode="wait">
+         <motion.div
+            key={props.value}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+         >
+            {props.children}
+         </motion.div>
+      </AnimatePresence>
+   </TabsPrimitive.Content>
 ))
 TabsContent.displayName = TabsPrimitive.Content.displayName
 
