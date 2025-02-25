@@ -11,8 +11,6 @@
 .code-block-container {
   background-color: var(--code-background);
   border-radius: 6px;
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
   width: 100%;
   position: relative;
 }
@@ -282,13 +280,10 @@ pre[class*="language-"] {
 .token.namespace {
   color: #4ec9b0;
 }
-.plain-text {
-  color: hsl(var(--muted));
-}
-/*********************************************************
-* Language Specific (No changes here, kept for completeness)
-*/
 
+.plain-text {
+  color: hsl(var(--muted-foreground));
+}
 pre[class*="language-javascript"],
 code[class*="language-javascript"],
 pre[class*="language-jsx"],

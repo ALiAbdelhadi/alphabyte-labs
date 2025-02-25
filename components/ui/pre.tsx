@@ -105,7 +105,7 @@ export default function Pre({
   }
 
   return (
-    <div className="code-block-container relative group rounded-[6px]  my-5 w-full">
+    <div className="code-block-container relative group rounded-[6px] w-full">
       <div className="code-block-header code-block-toolbar overflow-hidden flex items-center justify-between">
         <div className="flex items-center justify-between space-x-4">
           <div className="flex space-x-2 items-center">

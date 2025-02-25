@@ -26,7 +26,7 @@ export function CodeBlockWrapper({
 
    return (
       <Collapsible open={isOpened} onOpenChange={setIsOpened}>
-         <div className={cn("relative overflow-hidden", className)} {...props}>
+         <div className={cn("relative overflow-hidden rounded-md", className)} {...props}>
             <CollapsibleContent forceMount className="overflow-hidden">
                <div ref={contentRef} className="overflow-hidden max-h-[650px] transition-colors">
                   {children}
@@ -37,7 +37,7 @@ export function CodeBlockWrapper({
                   "absolute flex items-center justify-center p-2 z-10 rounded-md",
                   isOpened
                      ? "inset-x-0 bottom-5 h-12 bg-transparent"
-                     : "inset-0 top-[20px] bg-gradient-to-t from-zinc-950/90 to-zinc-700/20"
+                     : "inset-0 top-[34px] bg-gradient-to-t from-zinc-950/90 to-zinc-700/20"
                )}
             >
                <CollapsibleTrigger asChild>

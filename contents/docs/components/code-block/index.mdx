@@ -2,7 +2,7 @@
 title: Code Block
 description: Showcase beautifully styled and customizable code snippets with advanced features like syntax highlighting, line numbering, and line highlighting.
 ---
-<ComponentPreview id="code-block-"
+<ComponentPreview
   code={`import { cn } from "@/lib/utils"
 import Pre from "@/components/pre"
 
@@ -50,9 +50,8 @@ export function cn(...inputs: ClassValue[]) {
   <StepItem title="Create Pre Component">
   Now you can create in your <ProseBadge>components</ProseBadge> a Pre.tsx file and add the following code in it :
   <CodeBlockWrapper>
-  <Pre className="language-typescript" folderPath="component/pre.ts" >
+  <Pre className="language-typescript" folderPath="component/pre.tsx" >
   {`"use client"
-
 import { cn } from "@/lib/utils";
 import { languageIcons } from "@/settings/LanguageIcon";
 import { Check, Clipboard, FileCode } from "lucide-react";
@@ -159,7 +158,7 @@ export default function Pre({
   }
 
   return (
-    <div className="code-block-container relative group rounded-[6px]  my-5 w-full">
+    <div className="code-block-container relative group rounded-[6px] w-full">
       <div className="code-block-header code-block-toolbar overflow-hidden flex items-center justify-between">
         <div className="flex items-center justify-between space-x-4">
           <div className="flex space-x-2 items-center">
@@ -218,8 +217,6 @@ export default function Pre({
 .code-block-container {
   background-color: var(--code-background);
   border-radius: 6px;
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
   width: 100%;
   position: relative;
 }
@@ -594,22 +591,22 @@ pre[class*="language-"] > code[class*="language-"] {
 </Step>
 </div>
 ## Usage
-    <div className="not-prose">
-```tsx
-import { Step, StepItem } from "@/components/Pre"
-```
-```tsx
-import { cn } from "@/lib/utils"
+    <div className="not-prose space-y-4">
+    <Pre>
+    {`import { Step, StepItem } from "@/components/Pre"`}
+    </Pre>
+    <Pre>
+    {`import { cn } from "@/lib/utils"
 import Pre from "@/components/Pre"
 
 const CodeBlock = () => {
-   const ExampleCode = `function MyComponent(props) {
+   const ExampleCode = \`function MyComponent(props) {
    return (
       <div>
          <h1>Hello, {props.name}!</h1>
          <p>This is an example React component.</p>
       </div>
-   )};`
+   )};\`
    return (
       <Pre highlightLines={[5]}>
          {ExampleCode}
@@ -617,6 +614,6 @@ const CodeBlock = () => {
    )
 }
 
-export default CodeBlock
-```
-    </div>
+export default CodeBlock`}
+  </Pre>
+</div>

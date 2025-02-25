@@ -34,7 +34,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "components/CodeBlockWrapper.tsx",
-    "contents/blocks/carousel/index.mdx"
+    "contents/blocks/carousel/index.mdx",
+    "components/blocks/NewCollection.jsx"
   ],
   "exclude": [
     "node_modules"

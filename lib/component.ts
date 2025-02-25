@@ -13,9 +13,10 @@ import CodeBlock from "@/components/markdown/CodeBlock"
 import ComponentPreview from "@/components/markdown/ComponentPreview"
 import FolderTreeExampleMarkdown from "@/components/markdown/FolderTreeExampleMarkdown"
 import ProseBadge from "@/components/markdown/ProseBadge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/CustomeTab"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/library/Tab"
 import Pre from "@/components/ui/pre"
 import { ChevronRightIcon } from "lucide-react"
+import TabsMarkdown from "@/components/markdown/TabsMarkdwon"
 
 export const component = {
    pre: Pre,
@@ -45,5 +46,7 @@ export const component = {
    CarouselCompForProject,
    Navbar,
    // icons
-   ChevronRightIcon
+   ChevronRightIcon,
+   // Markdown
+   TabsMarkdown
 }

@@ -394,8 +394,10 @@ export default function FolderTreeExample() {
 </Step>
 </div>
 ## Usage 
-<div className="not-prose">
+<div className="not-prose space space-y-4">
+<p className="text-base">
 start use it by creating an object with the following properties :
+</p>
 <Pre className="language-typescript">
 {`type FileItem = {
    id: string
@@ -434,7 +436,9 @@ const fileStructure: FileItem[] = [
 ]
 `}
 </Pre>
+<p className="text-base">
 and then create a <ProseBadge>div tag</ProseBadge> and import  the obj in it
+</p>
 <Pre className="language-typescript" folderPath="components/FolderTreeExample.tsx">
 {`"use client"
 

@@ -2,7 +2,6 @@
 import BlockForGrid from '@/components/BlockForGrid'
 import CarouselCompForProject from '@/components/blocks/Carousel/CarouselBigContainer'
 import CarouselContainer from '@/components/blocks/Carousel/CarouselContainer'
-import { Navbar } from '@/components/blocks/NavBar'
 import TimelineContainer from '@/components/blocks/timeline/TimelineContainer'
 import Container from '@/components/Container'
 import { Button } from '@/components/library/Button'
@@ -35,17 +34,17 @@ const BlocksPage = () => {
                <h2 className='text-muted-foreground mb-3'>Latest Blocks</h2>
                <div className='space-y-8'>
                   <h3 className='text-3xl font-medium mb-4'>Carousels</h3>
-                  <section className='border px-0 lg:px-8 rounded-3xl bg-[#fafafa]'>
+                  <section className='border px-2.5 lg:px-8 rounded-3xl bg-[#f8f8f9] dark:bg-[#111111]'>
                      <CarouselCompForProject />
                   </section>
                   {/* Block two */}
                   <h3 className='text-3xl font-medium mb-4'>Carousels Two</h3>
-                  <section className='border px-0 lg:px-8 rounded-3xl bg-[#fafafa]'>
+                  <section className='border px-2.5 lg:px-8 rounded-3xl bg-[#f8f8f9] dark:bg-[#111111]'>
                      <CarouselContainer />
                   </section>
                   {/* Block Three */}
                   <h3 className='text-3xl font-medium mb-4'>Timeline</h3>
-                  <section className='border px-0 lg:px-8 rounded-3xl bg-[#fafafa]'>
+                  <section className='border lg:px-8 rounded-3xl bg-[#f8f8f9] dark:bg-[#111111]'>
                      <TimelineContainer />
                   </section>
                </div>
@@ -70,6 +69,11 @@ const BlocksPage = () => {
                         title='Navbar'
                         href='/blocks/navbar'
                         src={'/block-mokeup/navbar-1.png'}
+                     />
+                     <BlockForGrid
+                        title='New Collection'
+                        href='/blocks/new-collection'
+                        src={'/block-mokeup/new-collection.png'}
                      />
                   </div>
                </div>

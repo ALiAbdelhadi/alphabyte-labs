@@ -43,6 +43,7 @@ export function cn(...inputs: ClassValue[]) {
   </StepItem>
   <StepItem title="Create Note Component" >
   Now you can create in your <ProseBadge>components</ProseBadge> a <ProseBadge>Note.tsx</ProseBadge> file and add the following code in it :
+  <CodeBlockWrapper>
   <Pre className="className-typescript" folderPath="components/note.tsx" highlightLines={[6]}>
   {`"use client"
 
@@ -126,6 +127,7 @@ const Note = ({
 
 export { Note }`}
   </Pre>
+  </CodeBlockWrapper>
   </StepItem>
   <StepItem title="Here you go, Now you can edit and customize it for your needs and make it yours"/>
 </Step>
@@ -197,12 +199,12 @@ To allow users to dismiss the note, set the <ProseBadge>closable</ProseBadge> pr
       </Note>  
 </ComponentPreview>
 ## Usage
-<div className="not-prose">
-First, you have to import <ProseBadge>Note.tsx</ProseBadge> in your file:
+<div className="not-prose space-y-4">
+<p className="text-base">First, you have to import <ProseBadge>Note.tsx</ProseBadge> in your file:</p>
 <Pre className="language-typescript">
 {`import { Note } from "@/components/Note"`}
 </Pre>
-Then, you can use the <ProseBadge>Note</ProseBadge> component in your file:
+<p className="text-base">Then, you can use the <ProseBadge>Note</ProseBadge> component in your file:</p>
 <Pre className="language-jsx">
 {`const MyComponent = () => {
   return (

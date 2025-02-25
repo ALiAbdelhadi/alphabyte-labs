@@ -5,7 +5,7 @@ const Logo = ({ className, showIcon, showLogoText }: { className?: string, showI
    return (
       <Link href="/" className="group relative flex items-center">
          {/* Simple Container */}
-         <div className="relative flex items-center space-x-1 md:space-x-3 py-2">
+         <div className="relative flex items-center space-x-0 md:space-x-3 py-2">
             {/* Icon */}
             {
                showIcon && (

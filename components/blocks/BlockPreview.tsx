@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 import { blocksWebsite } from "@/settings/settings"
 import { Check, Clipboard, Fullscreen, Monitor, Smartphone, Tablet } from "lucide-react"
-import { ComponentProps, Suspense, useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Separator } from "../ui/separator"
 
 interface screenWidthProps {
@@ -42,7 +42,7 @@ export default function BlockPreview({ children, code, className, id, BlockName,
    const [active, setActive] = useState("desktop")
    const [isFullScreen, setIsFullScreen] = useState(false)
    const [previewWidth, setPreviewWidth] = useState("100%")
-
+   const [isLoaded, setIsLoaded] = useState(false)
    const screensWidth: screenWidthProps = {
       desktop: "100%",
       tablet: "768px",
@@ -90,7 +90,15 @@ export default function BlockPreview({ children, code, className, id, BlockName,
          }
       }
    }, [id, isFullScreen])
-
+   useEffect(() => {
+      const handleFullscreenChange = () => {
+         setIsFullScreen(!!document.fullscreenElement);
+      };
+      document.addEventListener("fullscreenchange", handleFullscreenChange);
+      return () => {
+         document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      };
+   }, []);
    if (!code) {
       return <div className={cn("mt-4", className)}>{children}</div>
    }
@@ -101,10 +109,10 @@ export default function BlockPreview({ children, code, className, id, BlockName,
          <nav className="flex flex-row justify-between  md:gap-4 md:items-center items-start mb-4">
             <div className="flex items-center sm:gap-4 md:justify-start justify-between flex-row w-full">
                <div className="flex items-center gap-2">
-                  <h3 className="text-lg md:text-xl font-medium leading-5 text-gray-900 dark:text-gray-200">
+                  <h3 className="text-lg md:text-xl font-medium leading-5 text-gray-900 dark:text-gray-100">
                      {BlockName}
                   </h3>
-                  <span className="inline-flex items-center gap-1 bg-teal-200 px-2 py-1 text-xs font-medium text-teal-800 rounded-lg">Free</span>
+                  <span className="inline-flex items-center gap-1 bg-teal-200 px-2 py-1 text-xs font-medium text-teal-800 rounded-lg select-none">Free</span>
                </div>
                <Separator orientation="vertical" className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden" />
                <TabsList className="inline-flex h-9 items-center text-muted-foreground max-w-fit justify-start rounded-none bg-transparent">
@@ -127,7 +135,7 @@ export default function BlockPreview({ children, code, className, id, BlockName,
                   ].map((device) => (
                      <div key={device.id}>
                         <button
-                           className={`p-1.5 rounded-[6px] transition ${active === device.id ? "bg-gray-200/60" : "hover:bg-gray-100"}`}
+                           className={`p-1.5 rounded-[6px] transition ${active === device.id ? "bg-gray-200/60 dark:bg-muted-foreground/30" : "hover:bg-gray-100 dark:hover:bg-muted-foreground/10 "}`}
                            onClick={() => setActive(device.id)}
                         >
                            {device.icon}
@@ -159,9 +167,7 @@ export default function BlockPreview({ children, code, className, id, BlockName,
                   overflowX: "auto"
                }}
             >
-               <Suspense fallback={<div className="min-h-[86.5vh] w-full bg-gray-100 dark:bg-gray-800" >Loading block...</div>}>
-                  <iframe className="overflow-hidden preview min-h-[86.5vh] w-full" id={id} src={iframeSource} sandbox="allow-scripts allow-same-origin" />
-               </Suspense>
+               <iframe className={"overflow-hidden preview min-h-[86.5vh] transition-all w-full"} id={id} src={iframeSource} sandbox="allow-scripts allow-same-origin " onLoad={() => setIsLoaded(true)} />
             </TabsContent>
             <TabsContent value="code" className="rounded-xl">
                <Pre raw={code} className="language-tsx">

@@ -12,7 +12,7 @@ export default async function BlockPage({ params: { slug } }: { params: { slug?:
       return notFound();
    }
    return (
-      <div className="py-12 md:py-16 lg:py-20 xl:py-24 bg-[#f8f8f9]">
+      <div className="py-12 md:py-16 lg:py-20 xl:py-24 bg-[#f8f8f9] dark:bg-[#111111]">
          <Container>
             <div>{block.content}</div>
          </Container>

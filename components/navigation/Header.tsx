@@ -27,11 +27,10 @@ import { Separator } from "../ui/separator";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
   return (
     <header
       className={cn(
-        "sticky z-50 h-16 inset-[0%_0%_auto] top-0 w-full bg-white/40 backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] transition-all duration-300 ease-in-out",
+        "sticky z-50 md:h-16 h-14 inset-[0%_0%_auto] top-0 w-full bg-white/40 dark:bg-background/40 backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] transition-all duration-300 ease-in-out",
       )}
     >
       <Container className="flex items-center justify-between h-full">
@@ -47,7 +46,7 @@ export function Header() {
                 {navItems.map((item) => (
                   <NavigationMenuItem key={item.title}>
                     <Link href={item.href} legacyBehavior passHref>
-                      <NavigationMenuLink className="hover:text-primary group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-[15px] font-medium transition-colors disabled:pointer-events-none text-[rgba(0,_0,_0,_.85)] hover:text-[#000000] -tracking-[.01em]">
+                      <NavigationMenuLink className="hover:text-primary dark:text-primary group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-[15px] font-medium transition-colors disabled:pointer-events-none text-[rgba(0,_0,_0,_.85)] hover:text-[#000000] -tracking-[.01em]">
                         {item.title}
                       </NavigationMenuLink>
                     </Link>
@@ -57,10 +56,10 @@ export function Header() {
             </NavigationMenu>
           </nav>
         </div>
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-4">
           <Search />
-          <div className="hidden lg:flex items-center space-x-8">
-            <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400"> {/* Refined outline button */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <Button variant="outline" >
               Sign In
             </Button>
             <Button className="bg-primary text-primary-foreground hover:bg-primary/90">

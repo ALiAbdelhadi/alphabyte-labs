@@ -27,10 +27,12 @@ export default async function Pages({ params }: PageProps) {
       <div className="flex-[3] pt-20 lg:pt-2">
         <PageBreadcrumb paths={slug} />
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold">{frontmatter.title}</h1>
-          <p className="text-lg text-muted-foreground text-[16.5px]">
-            {frontmatter.description}
-          </p>
+          <h1 className="scroll-m-20  text-3xl font-bold tracking-tight">{frontmatter.title}</h1>
+          {frontmatter.description &&
+            <p className="text-muted-foreground text-lg leading-6 tracking-wide">
+              {frontmatter.description}
+            </p>
+          }
         </div>
         <Typography>
           <div>{content}</div>

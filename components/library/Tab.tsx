@@ -13,7 +13,6 @@ const TabsList = React.forwardRef<
 >(({ className, ...props }, ref) => {
   const [activeIndex, setActiveIndex] = React.useState(0)
   const tabRefs = React.useRef<(HTMLButtonElement | null)[]>([])
-
   const [activeStyle, setActiveStyle] = React.useState({ left: "0px", width: "0px" })
 
   React.useEffect(() => {
@@ -33,7 +32,6 @@ const TabsList = React.forwardRef<
       className={cn("relative flex items-center space-x-2 overflow-hidden border-b border-muted", className)}
       {...props}
     >
-      {/* Animated Active Indicator */}
       <motion.div
         className="absolute bottom-0 h-[2px] bg-primary"
         animate={activeStyle}
@@ -61,7 +59,7 @@ const TabsTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       "relative px-4 py-2 text-sm font-medium whitespace-nowrap transition-all",
-      isActive ? "text-foreground scale-105 font-semibold" : "text-muted-foreground scale-100",
+      isActive ? "text-foreground font-semibold" : "text-muted-foreground ",
       className
     )}
     {...props}

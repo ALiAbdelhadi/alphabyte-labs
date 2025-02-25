@@ -16,7 +16,7 @@ const Pagination = ({ pathname }: { pathname: string }) => {
               <span className=" text-muted-foreground text-xs sm:text-[13px]">
                 Previous
               </span>
-              <span className="flex no-underline items-center justify-center text-gray-900 hover:text-gray-950 transition-colors text-base md:text-lg mt-2">
+              <span className="flex no-underline items-center justify-center text-gray-900 hover:text-gray-950  dark:text-gray-200 hover:dark:text-gray-100 transition-colors text-base md:text-lg mt-2">
                 <ChevronLeftIcon className="w-6 h-6 text-muted-foreground mt-[1px] mr-[6px]" />
                 {res.prev.title}
               </span>
@@ -33,7 +33,7 @@ const Pagination = ({ pathname }: { pathname: string }) => {
             <span className=" text-muted-foreground text-xs sm:text-[13px]">
               Next
             </span>
-            <span className="flex no-underline items-center justify-center text-gray-900 hover:text-gray-950 transition-colors text-base md:text-lg mt-2">
+            <span className="flex no-underline items-center justify-center text-gray-900 hover:text-gray-950  dark:text-gray-200 hover:dark:text-gray-100  transition-colors text-base md:text-lg mt-2">
               {res.next.title}
               <ChevronRightIcon className="w-6 h-6 text-muted-foreground mt-[1px] ml-[6px]" />
             </span>

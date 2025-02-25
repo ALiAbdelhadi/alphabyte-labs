@@ -57,7 +57,7 @@ const Note = ({
       {closable && (
         <button
           onClick={() => setIsClosed(true)}
-          className="absolute right-1 top-1 p-1 pb-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-foreground/50"
+          className="absolute right-1 top-1 p-1 mb-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-foreground/50"
         >
           <X className="w-4 h-4 text-muted-foreground" />
         </button>

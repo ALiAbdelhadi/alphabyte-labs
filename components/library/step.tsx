@@ -1,14 +1,7 @@
 import { cn } from "@/lib/utils"
+import { StepItemProps, StepProps } from "@/types/components"
 import clsx from "clsx"
-import { Children, PropsWithChildren, ReactNode } from "react"
-
-interface StepItemProps {
-  title?: string
-  children: ReactNode
-}
-interface StepProps {
-  children: ReactNode
-}
+import { Children, PropsWithChildren } from "react"
 
 export function Step({ children }: PropsWithChildren<StepProps>) {
   const length = Children.count(children)
@@ -17,7 +10,7 @@ export function Step({ children }: PropsWithChildren<StepProps>) {
       {Children.map(children, (child, index) => (
         <div
           className={cn(
-            "relative border-l pl-9",
+            "relative border-l md:pl-9 pl-7",
             clsx({ "pb-5": index < length - 1 })
           )}
         >
@@ -30,7 +23,6 @@ export function Step({ children }: PropsWithChildren<StepProps>) {
     </div>
   )
 }
-
 
 export function StepItem({ children, title }: StepItemProps) {
   return (

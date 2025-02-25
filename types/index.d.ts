@@ -24,7 +24,6 @@ type ComponentPreviewProps = {
    language?: string
    showPreview?: boolean
    className?: string
-   id?: string
 }
 type BlockPreview = {
    children?: React.ReactNode

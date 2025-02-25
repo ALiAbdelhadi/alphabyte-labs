@@ -45,7 +45,7 @@ export default function SubLink(
 
   const Comp = (
     <Anchor
-      className="pl-4 text-sm font-medium -ml-[2px] "
+      className="pl-4 text-sm font-medium -ml-[2px]"
       href={href}
       activeClassName="border-l-[2px] border-primary text-primary"
     >

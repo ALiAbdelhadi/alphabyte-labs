@@ -47,6 +47,10 @@ export const DocsRouting: Paths[] = [
         title: "Steps",
         href: "/steps",
       },
+      {
+        title: "Tabs",
+        href: "/tabs",
+      },
     ],
   },
 ];

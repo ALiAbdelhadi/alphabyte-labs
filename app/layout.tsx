@@ -46,7 +46,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {Settings.gtmConnected && <GoogleTagManager gtmId={Settings.gtm} />}
+
+
       <body className="font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif]  font-medium antialiased" suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
@@ -55,6 +56,7 @@ export default function RootLayout({
           disableTransitionOnChange
           enableColorScheme
         >
+
           {/* <SplashScreen /> */}
           {children}
         </ThemeProvider>
