@@ -26,4 +26,4 @@ export const toTopScroll = true
 
 export const loadFromGithub = false
 // blocks website
-export const blocksWebsite = "http://localhost:3001/"
+export const blocksWebsite = "https://library-alphabyte.vercel.app"
