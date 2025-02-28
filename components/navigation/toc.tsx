@@ -74,18 +74,22 @@ export default function Toc({ tocs }: TocProps) {
     <div className="flex flex-col gap-3 w-full pl-2">
       <h3 className="text-sm font-semibold">On this page</h3>
       <ScrollArea className="pt-0.5 pb-4">
-        <nav className="flex flex-col gap-2.5 text-sm text-gray-500 ml-0.5">
-          {tocs.map(({ href, level, text }) => (
-            <Link
-              key={href}
-              href={href}
-              scroll={false}
-              onClick={(e) => handleSmoothScroll(e, href)}
-              className={getLinkClassName(level, activeId === href.slice(1))}
-            >
-              {text}
-            </Link>
-          ))}
+        <nav className="flex flex-col text-gray-500 dark:text-gray-400 ml-0.5 hide-scrollbar">
+          <ul className="space-y-[6px]">
+            {tocs.map(({ href, level, text }) => (
+              <li className="text-sm">
+                <Link
+                  key={href}
+                  href={href}
+                  scroll={false}
+                  onClick={(e) => handleSmoothScroll(e, href)}
+                  className={getLinkClassName(level, activeId === href.slice(1))}
+                >
+                  {text}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </nav>
       </ScrollArea>
     </div>

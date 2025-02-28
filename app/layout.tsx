@@ -5,6 +5,7 @@ import { GoogleTagManager } from "@next/third-parties/google"
 import type { Metadata } from "next"
 import "./globals.css"
 import "./prism-theme.css"
+import { Fragment } from "react"
 // import { SplashScreen } from "./SplashScreen"
 const baseUrl = Settings.metadataBase
 
@@ -45,24 +46,25 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-
-
-      <body className="font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif]  font-medium antialiased" suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-          enableColorScheme
-        >
-
-          {/* <SplashScreen /> */}
-          {children}
-        </ThemeProvider>
-        <Toaster />
-      </body>
-    </html>
-
+    <Fragment>
+      <html lang="en" suppressHydrationWarning>
+        <body className="font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif]  font-medium antialiased min-h-svh bg-background" suppressHydrationWarning>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            enableColorScheme
+          >
+            <div vaul-drawer-wrapper="">
+              <div className="relative flex min-h-svh flex-col bg-background">
+                {children}
+              </div>
+            </div>
+          </ThemeProvider>
+          <Toaster />
+        </body>
+      </html>
+    </Fragment>
   )
 }

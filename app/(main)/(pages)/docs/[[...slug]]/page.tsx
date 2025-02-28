@@ -23,8 +23,8 @@ export default async function Pages({ params }: PageProps) {
   const { frontmatter, content, tocs } = res
 
   return (
-    <div className="flex items-start gap-14">
-      <div className="flex-[3] pt-20 lg:pt-2">
+    <div className="flex items-start gap-14 ">
+      <div className="flex-[3] mt-20 lg:mt-6 ">
         <PageBreadcrumb paths={slug} />
         <div className="space-y-2">
           <h1 className="scroll-m-20  text-3xl font-bold tracking-tight">{frontmatter.title}</h1>
@@ -40,7 +40,7 @@ export default async function Pages({ params }: PageProps) {
         </Typography>
       </div>
       {Settings.rightbar && (
-        <div className="hidden xl:flex xl:flex-col sticky top-16 gap-3 py-8 min-w-[230px] h-[94.5vh] toc">
+        <div className="hidden xl:flex xl:flex-col sticky top-16 gap-3 py-6 min-w-[230px] h-[94.5vh] toc">
           {Settings.toc && <Toc tocs={tocs} />}
           {Settings.feedback && (
             <Feedback slug={pathName} title={frontmatter.title} />

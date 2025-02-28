@@ -1,18 +1,20 @@
 "use client"
-import { Fragment, useEffect, useState } from "react"
+
 import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
 import { LuChevronDown, LuChevronRight } from "react-icons/lu"
 
-import { Paths } from "@/lib/pageRoutes"
-import { cn } from "@/lib/utils"
+import Anchor from "@/components/navigation/anchor"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { SheetClose } from "@/components/ui/sheet"
-import Anchor from "@/components/navigation/anchor"
+import { Paths } from "@/lib/pageRoutes"
+import { cn } from "@/lib/utils"
 
 function isRoute(
   item: Paths
@@ -21,10 +23,11 @@ function isRoute(
 }
 
 export default function SubLink(
-  props: Paths & { level: number; isSheet: boolean }
+  props: Paths & { level: number; isSheet: boolean; isNew: (href: string) => boolean }
 ) {
   const path = usePathname()
   const [isOpen, setIsOpen] = useState(true)
+  const { title, href, items, noLink, level, isSheet, isNew } = props
 
   useEffect(() => {
     if (
@@ -41,15 +44,21 @@ export default function SubLink(
     return null
   }
 
-  const { title, href, items, noLink, level, isSheet } = props
+  const isNewComponent = isNew(href)
 
   const Comp = (
     <Anchor
-      className="pl-4 text-sm font-medium -ml-[2px]"
+      className="text-sm "
       href={href}
-      activeClassName="border-l-[2px] border-primary text-primary"
     >
-      {title}
+      <div className="space-x-3">
+        <span className="text-sm">
+          {title}
+        </span>
+        {isNewComponent && (
+          <span className="inline-flex items-center gap-1 bg-teal-200 px-1.5 py-0.5 text-xs font-medium text-teal-900 dark:text-teal-950 rounded-lg select-none">New</span>
+        )}
+      </div>
     </Anchor>
   )
 
@@ -60,52 +69,43 @@ export default function SubLink(
       Comp
     )
   ) : (
-    <h2 className="font-medium text-primary sm:text-sm">{title}</h2>
+    <h2 className="font-semibold text-primary text-sm">{title}</h2>
   )
 
   if (!items) {
-    return (
-      <div className="flex flex-col text-sm w-full transition-all">{titleOrLink}</div>
-    )
+    return <div className="flex flex-col text-sm transition-all text-foreground font-medium h-8 justify-center px-2 hover:bg-gray-100 dark:hover:bg-muted-foreground/10 w-full rounded-lg ">{titleOrLink}</div>
   }
 
   return (
     <div className="flex flex-col w-full gap-1">
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-        <div className="flex items-center gap-2 text-sm mr-3">
+        <div className="flex items-center gap-2 text-sm mr-3 ">
           {titleOrLink}
-          <CollapsibleTrigger asChild>
-            <Button className="ml-auto h-6 w-6" variant="link" size="icon">
-              {!isOpen ? (
-                <LuChevronRight className="h-[0.9rem text-gray-950 w-[0.9rem]" />
-              ) : (
-                <LuChevronDown className="h-[0.9rem] text-gray-950 w-[0.9rem]" />
-              )}
-              <span className="sr-only">Toggle</span>
-            </Button>
-          </CollapsibleTrigger>
         </div>
-        <CollapsibleContent className="CollapsibleContent">
+        <div className="mt-3">
           <ul
             className={cn(
-              "mt-2.5 flex flex-col items-start gap-3 text-sm border-l-[2px] text-gray-600 dark:text-gray-500",
-              level > 0 && "ml-1 pl-4 border-l"
+              "flex flex-col items-start  text-sm  ",
+              level > 0 && "ml-1 pl-4"
             )}
           >
-            {items?.map((innerLink) => {
+            {items.map((innerLink) => {
               if (!isRoute(innerLink)) {
                 return null
               }
-              const modifiedItems = {
-                ...innerLink,
-                href: `${href}${innerLink.href}`,
-                level: level + 1,
-                isSheet,
-              }
-              return <SubLink key={modifiedItems.href} {...modifiedItems} />
+              return (
+                <SubLink
+                  key={innerLink.href}
+                  {...innerLink}
+                  href={`${href}${innerLink.href}`}
+                  level={level + 1}
+                  isSheet={isSheet}
+                  isNew={isNew}
+                />
+              )
             })}
           </ul>
-        </CollapsibleContent>
+        </div>
       </Collapsible>
     </div>
   )

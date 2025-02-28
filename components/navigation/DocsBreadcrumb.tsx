@@ -24,11 +24,11 @@ export default function PageBreadcrumb({ paths }: { paths: string[] }) {
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   {index < paths.length - 1 ? (
-                    <BreadcrumbLink href={href} className="a">
+                    <BreadcrumbLink href={href} >
                       {toTitleCase(path)}
                     </BreadcrumbLink>
                   ) : (
-                    <BreadcrumbPage className="b">
+                    <BreadcrumbPage>
                       {toTitleCase(path)}
                     </BreadcrumbPage>
                   )}

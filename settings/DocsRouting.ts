@@ -2,13 +2,17 @@ import type { Paths } from "@/lib/pageRoutes";
 
 export const DocsRouting: Paths[] = [
   {
-    heading: "Getting started",
-    title: "Introduction",
-    href: "/introduction",
+    title: "Getting Started",
+    noLink: true,
+    href: "",
     items: [
       {
-        title: "Installation",
+        href: "/introduction",
+        title: "introduction",
+      },
+      {
         href: "/installation",
+        title: "Installation",
       },
     ],
   },
@@ -16,8 +20,9 @@ export const DocsRouting: Paths[] = [
     spacer: true,
   },
   {
-    href: "/components",
     title: "Components",
+    noLink: true,
+    href: "/components",
     items: [
       {
         title: "Button",

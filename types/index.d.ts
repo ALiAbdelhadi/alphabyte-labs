@@ -31,7 +31,7 @@ type BlockPreview = {
    language?: string
    showPreview?: boolean
    className?: string
-   id?: string
+   id: string
    BlockName: String
    BlockId: string
 }

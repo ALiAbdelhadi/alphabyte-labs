@@ -5,31 +5,32 @@ import { usePathname } from "next/navigation"
 import SubLink from "@/components/navigation/sublink"
 import { Routes } from "@/lib/pageRoutes"
 
+const NEW_COMPONENTS = ["diagrams", "steps", "product-card"]
+
 export default function DocsMenu({ isSheet = false }) {
   const pathname = usePathname()
   if (!pathname.startsWith("/docs")) return null
 
   return (
-    <div className="flex flex-col gap-2.5 mt-5 pb-6">
+    <div className="flex flex-col gap-2.5 mt-6">
       {Routes.map((item, index) => {
         if ("spacer" in item) {
           return (
             <div key={`spacer-${index}`} className="my-2 mr-3">
-              <hr className="border-t border-gray-300" />
+              <hr className="border-t border-border" />
             </div>
           )
         }
         return (
           <div key={item?.title + index} className="mb-2">
-            {item.heading && (
-              <h2 className="text-sm font-bold mb-2">{item.heading}</h2>
-            )}
             <SubLink
-              {...{
-                ...item,
-                href: `/docs${item.href}`,
-                level: 0,
-                isSheet,
+              {...item}
+              href={`/docs${item.href}`}
+              level={0}
+              isSheet={isSheet}
+              isNew={(componentPath) => {
+                const componentName = componentPath.split("/").pop() || ""
+                return NEW_COMPONENTS.includes(componentName)
               }}
             />
           </div>

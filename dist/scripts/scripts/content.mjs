@@ -1,12 +1,12 @@
 import { promises as fs } from "fs";
-import path from "path";
-import { Documents } from "../settings/documents.mjs";
 import grayMatter from "gray-matter";
+import path from "path";
 import remarkMdx from "remark-mdx";
 import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
+import { Documents } from "../settings/documents.mjs";
 const docsDir = path.join(process.cwd(), "contents/docs");
 const outputDir = path.join(process.cwd(), "public", "search-data");
 function isMdxJsxFlowElement(node) {

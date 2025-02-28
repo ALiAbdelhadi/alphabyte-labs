@@ -23,19 +23,24 @@ import Container from "@/components/Container";
 import Logo from "@/components/Logo";
 import Search from "@/components/navigation/search";
 import { navItems } from "@/constant";
+import { usePathname } from "next/navigation";
+import ChangeTheme from "../ChangeTheme";
 import { Separator } from "../ui/separator";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const routeName = usePathname()
+  const isDocsRoute = routeName.match("/docs")
   return (
     <header
       className={cn(
-        "sticky z-50 md:h-16 h-14 inset-[0%_0%_auto] top-0 w-full bg-white/40 dark:bg-background/40 backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] transition-all duration-300 ease-in-out",
+        "sticky z-50 lg:h-16 h-14 inset-[0%_0%_auto] top-0 w-full custom-transition-for-header bg-[rgba(250,250,252,0.4)] dark:bg-[#e2e8f003] backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] transition-all",
+        isDocsRoute && "border-b border-dashed"
       )}
     >
-      <Container className="flex items-center justify-between h-full">
+      <Container className={cn(isDocsRoute && "border-r border-l border-border border-dashed", "h-full flex items-center justify-between transition-all ")}>
         <div className="flex items-center space-x-8">
-          <Logo showIcon={true} showLogoText={true} />
+          <Logo showLogoText={true} />
           <nav
             className={cn("hidden lg:flex items-center", {
               hidden: isOpen,
@@ -62,9 +67,7 @@ export function Header() {
             <Button variant="outline" >
               Sign In
             </Button>
-            <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-              Get Started
-            </Button>
+            <ChangeTheme />
           </div>
           <div className="lg:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -73,8 +76,8 @@ export function Header() {
                   className="z-50 w-[20px] flex flex-wrap flex-col justify-end mt-[5px] cursor-pointer"
                   onClick={() => setIsOpen(!isOpen)}
                 >
-                  <span className="bg-[#000] mb-[5px] h-[2px] w-full" />
-                  <span className="bg-[#000] mb-[5px] h-[2px] w-full" />
+                  <span className="bg-[#000] dark:bg-[#FFF] mb-[5px] h-[2px] w-full" />
+                  <span className="bg-[#000] dark:bg-[#FFF] mb-[5px] h-[2px] w-full" />
                 </div>
               </SheetTrigger>
               <SheetContent side="top" className="w-full h-full transition-all">
@@ -118,6 +121,6 @@ export function Header() {
           </div>
         </div>
       </Container>
-    </header>
+    </header >
   );
 }

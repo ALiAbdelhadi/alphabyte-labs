@@ -56,24 +56,34 @@ const BlocksPage = () => {
                   </div>
                   <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
                      <BlockForGrid
-                        title='Carousels'
-                        href='/blocks/carousel'
-                        src={'/block-mokeup/carousel-1.png'}
+                        title='Carousel1'
+                        href='/blocks/carousel-1'
+                        src={'/block-mokeup/carousel/carousel-1.png'}
+                     />
+                     <BlockForGrid
+                        title='Carousel2'
+                        href='/blocks/carousel-2'
+                        src={'/block-mokeup/carousel/carousel-2.png'}
                      />
                      <BlockForGrid
                         title='Timeline'
                         href='/blocks/timeline'
-                        src={'/block-mokeup/timeline-1.png'}
+                        src={'/block-mokeup/timeline/timeline-1.png'}
                      />
                      <BlockForGrid
                         title='Navbar'
                         href='/blocks/navbar'
-                        src={'/block-mokeup/navbar-1.png'}
+                        src={'/block-mokeup/navbar/navbar-1.png'}
                      />
                      <BlockForGrid
                         title='New Collection'
                         href='/blocks/new-collection'
-                        src={'/block-mokeup/new-collection.png'}
+                        src={'/block-mokeup/new-collection/new-collection.png'}
+                     />
+                     <BlockForGrid
+                        title='About1'
+                        href='/blocks/about-1'
+                        src={'/block-mokeup/about/about-1.png'}
                      />
                   </div>
                </div>

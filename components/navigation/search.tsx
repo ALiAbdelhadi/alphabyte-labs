@@ -95,7 +95,7 @@ export default function Search() {
         <DialogTrigger asChild>
           <div>
             <span className="lg:hidden flex items-center cursor-pointer">
-              <SearchIcon className="h-5 w-5 text-gray-950" />
+              <SearchIcon className="h-5 w-5 text-gray-950 dark:text-gray-100" />
             </span>
             <button className="group hidden lg:flex w-full items-center gap-2 rounded-md hover:bg-gray-200 dark:hover:bg-neutral-950 bg-stone-100 dark:bg-neutral-900 px-3 py-2 text-left text-sm shadow-sm transition-colors">
               <SearchIcon className="h-5 w-5 text-gray-950 dark:text-gray-100 hidden lg:flex" />
