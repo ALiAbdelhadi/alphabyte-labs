@@ -11,7 +11,7 @@ const ChangeTheme = () => {
    }
    return (
       <div className="flex items-center justify-between">
-         <div className="flex items-center space-x-1">
+         <div className="flex items-center">
             <Button
                variant="ghost"
                size="icon"
@@ -19,8 +19,8 @@ const ChangeTheme = () => {
                onClick={toggleTheme}
             >
                {theme === "light" ?
-                  <LuMoon className="h-4 w-4" /> :
-                  <LuSun className="h-4 w-4" />
+                  <LuMoon className="!h-5 !w-5" /> :
+                  <LuSun className="!h-5 !w-5" />
                }
                <span className="sr-only">Toggle theme</span>
             </Button>

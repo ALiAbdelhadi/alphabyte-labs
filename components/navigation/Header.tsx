@@ -15,9 +15,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 import Container from "@/components/Container";
 import Logo from "@/components/Logo";
@@ -29,29 +29,41 @@ import { Separator } from "../ui/separator";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const routeName = usePathname()
-  const isDocsRoute = routeName.match("/docs")
+  const routeName = usePathname();
+  const isDocsRoute = routeName.includes("/docs");
+
   return (
     <header
       className={cn(
-        "sticky z-50 lg:h-16 h-14 inset-[0%_0%_auto] top-0 w-full custom-transition-for-header bg-[rgba(250,250,252,0.4)] dark:bg-[#e2e8f003] backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] transition-all",
+        "sticky z-50 h-14 sm:h-16 inset-0 top-0 w-full transition-all",
+        "bg-[rgba(250,250,252,0.4)] dark:bg-[#e2e8f003]",
+        "backdrop-blur-lg backdrop-filter backdrop-saturate-[200%]",
         isDocsRoute && "border-b border-dashed"
       )}
     >
-      <Container className={cn(isDocsRoute && "border-r border-l border-border border-dashed", "h-full flex items-center justify-between transition-all ")}>
-        <div className="flex items-center space-x-8">
-          <Logo showLogoText={true} />
-          <nav
-            className={cn("hidden lg:flex items-center", {
-              hidden: isOpen,
-            })}
-          >
+      <Container
+        className={cn(
+          "h-full flex items-center justify-between transition-all",
+          isDocsRoute && "border-r border-l border-border border-dashed"
+        )}
+      >
+        <div className="flex items-center gap-4 sm:gap-8">
+          <Logo showLogoText={true} className="flex-shrink-0" />
+          <nav className="hidden md:flex items-center">
             <NavigationMenu>
               <NavigationMenuList>
                 {navItems.map((item) => (
                   <NavigationMenuItem key={item.title}>
                     <Link href={item.href} legacyBehavior passHref>
-                      <NavigationMenuLink className="hover:text-primary dark:text-primary group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-[15px] font-medium transition-colors disabled:pointer-events-none text-[rgba(0,_0,_0,_.85)] hover:text-[#000000] -tracking-[.01em]">
+                      <NavigationMenuLink
+                        className={cn(
+                          "group inline-flex h-10 w-max items-center justify-center",
+                          "rounded-md bg-transparent px-3 sm:px-4 py-2 text-sm sm:text-[15px]",
+                          "font-medium transition-colors -tracking-[.01em]",
+                          "text-[rgba(0,_0,_0,_.85)] dark:text-[rgba(255,255,255,.85)]",
+                          "hover:text-[#000000] dark:hover:text-white"
+                        )}
+                      >
                         {item.title}
                       </NavigationMenuLink>
                     </Link>
@@ -61,23 +73,27 @@ export function Header() {
             </NavigationMenu>
           </nav>
         </div>
-        <div className="flex items-center space-x-4">
-          <Search />
-          <div className="hidden lg:flex items-center space-x-4">
-            <Button variant="outline" >
+        <div className="flex items-center gap-2 sm:gap-4">
+          <div className="hidden sm:block">
+            <Search />
+          </div>
+          <div className="hidden md:flex items-center gap-2 sm:gap-4">
+            <Button variant="outline">
               Sign In
             </Button>
             <ChangeTheme />
           </div>
-          <div className="lg:hidden">
+          <div className="flex items-center gap-2 md:hidden w-full">
+            <Search />
+            <ChangeTheme />
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <div
                   className="z-50 w-[20px] flex flex-wrap flex-col justify-end mt-[5px] cursor-pointer"
                   onClick={() => setIsOpen(!isOpen)}
                 >
-                  <span className="bg-[#000] dark:bg-[#FFF] mb-[5px] h-[2px] w-full" />
-                  <span className="bg-[#000] dark:bg-[#FFF] mb-[5px] h-[2px] w-full" />
+                  <span className="bg-[#000] dark:bg-[#FFF] mb-[5px] h-[2.2px] w-full" />
+                  <span className="bg-[#000] dark:bg-[#FFF] mb-[5px] h-[2.2px] w-full" />
                 </div>
               </SheetTrigger>
               <SheetContent side="top" className="w-full h-full transition-all">
@@ -121,6 +137,6 @@ export function Header() {
           </div>
         </div>
       </Container>
-    </header >
+    </header>
   );
 }

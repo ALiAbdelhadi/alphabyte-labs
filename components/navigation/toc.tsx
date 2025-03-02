@@ -77,7 +77,7 @@ export default function Toc({ tocs }: TocProps) {
         <nav className="flex flex-col text-gray-500 dark:text-gray-400 ml-0.5 hide-scrollbar">
           <ul className="space-y-[6px]">
             {tocs.map(({ href, level, text }) => (
-              <li className="text-sm">
+              <li className="text-sm" key={href}>
                 <Link
                   key={href}
                   href={href}

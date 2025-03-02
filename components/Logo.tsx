@@ -17,7 +17,6 @@ const Logo = ({
    size = 'md',
    href = '/'
 }: LogoProps) => {
-   // Size mappings for responsive design
    const sizeClasses = {
       sm: "text-base lg:text-lg",
       md: "text-lg lg:text-xl",

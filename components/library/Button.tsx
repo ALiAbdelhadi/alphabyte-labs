@@ -63,10 +63,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                   {children}
                </span>
             ) : (
-               <>
+               <span className="flex items-center justify-center gap-2">
                   {icon && <span className="mr-2">{icon}</span>}
                   {children}
-               </>
+               </span>
             )}
          </Comp>
       )

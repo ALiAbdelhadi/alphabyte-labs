@@ -27,7 +27,7 @@ export function Step({ children }: PropsWithChildren<StepProps>) {
 export function StepItem({ children, title }: StepItemProps) {
   return (
     <div className="space-y-4">
-      {title && <h3 className="!mt-0 text-lg md:text-xl text-gray-950">{title}</h3>}
+      {title && <h3 className="!mt-0 text-lg md:text-xl text-gray-950 dark:text-gray-50">{title}</h3>}
       <div className="text-base text-muted-foreground space-y-3">{children}</div>
     </div>
   )

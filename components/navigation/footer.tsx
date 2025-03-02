@@ -13,11 +13,11 @@ export function Footer() {
       <div className="flex flex-wrap items-center justify-center sm:justify-between gap-4 sm:gap-0 w-full h-full mx-auto container px-2 sm:py-0 py-3 sm:px-4 lg:px-8 text-sm text-muted-foreground">
         <p className="text-center text-muted-foreground">
           &copy; {new Date().getFullYear()}{" "}
-          <Link className="font-semibold underline " href={Company.link}>
+          <Link className="font-semibold underline " target="_blank" href={Company.link}>
             {Company.name}{" "}
           </Link>
           The source code is available on{" "}
-          <Link href={GitHubLink} target="_blank" className="underline">Github</Link>
+          <Link href={GitHubLink.href} target="_blank" className="underline">Github</Link>
           .
         </p>
         {Company.branding !== false && (
