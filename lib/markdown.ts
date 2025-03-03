@@ -116,37 +116,36 @@ function getDocumentPath(slug: string) {
 // Document Processing
 export async function getDocument(slug: string) {
   try {
-    const contentPath = getDocumentPath(slug);
-    let rawMdx = "";
-    let lastUpdated: string | null = null;
+    const contentPath = getDocumentPath(slug)
+    let rawMdx = ""
+    let lastUpdated: string | null = null
 
     if (Settings.gitload) {
-      const response = await fetch(contentPath);
+      const response = await fetch(contentPath)
       if (!response.ok) {
-        throw new Error(`Failed to fetch content from GitHub: ${response.statusText}`);
+        throw new Error(`Failed to fetch content from GitHub: ${response.statusText}`)
       }
-      rawMdx = await response.text();
-      lastUpdated = response.headers.get("Last-Modified") ?? null;
+      rawMdx = await response.text()
+      lastUpdated = response.headers.get("Last-Modified") ?? null
     } else {
-      rawMdx = await fs.readFile(contentPath, "utf-8");
-      const stats = await fs.stat(contentPath);
-      lastUpdated = stats.mtime.toISOString();
+      rawMdx = await fs.readFile(contentPath, "utf-8")
+      const stats = await fs.stat(contentPath)
+      lastUpdated = stats.mtime.toISOString()
     }
-
-    const parsedMdx = await parseMdx<BaseMdxFrontmatter>(rawMdx);
-    const tocs = await getTableOfContents(slug);
-
+    const parsedMdx = await parseMdx<BaseMdxFrontmatter>(rawMdx)
+    const tocs = await getTableOfContents(slug)
     return {
       frontmatter: parsedMdx.frontmatter,
       content: parsedMdx.content,
       tocs,
       lastUpdated,
-    };
+    }
   } catch (err) {
-    console.error(err);
-    return null;
+    console.error("Error in getDocument:", err)
+    return null
   }
 }
+
 // Table of Contents
 const headingsRegex = /^(#{2,4})\s(.+)$/gm;
 

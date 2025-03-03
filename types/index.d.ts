@@ -68,3 +68,8 @@ type Page = {
    title: string;
    href: string
 };
+
+// for [[...slug]]/page.tsx
+declare type DocsPageProps = {
+   params: Promise<{ slug: string[] }>;
+};

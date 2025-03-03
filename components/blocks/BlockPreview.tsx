@@ -103,7 +103,6 @@ export default function BlockPreview({ children, code, className, id, BlockName,
       return <div className={cn("mt-4", className)}>{children}</div>
    }
    const iframeSource = `${blocksWebsite}/blocks/${BlockId}`
-   console.log(iframeSource)
    return (
       <Tabs defaultValue="preview" className="mt-4">
          <nav className="flex flex-row justify-between  md:gap-4 md:items-center items-start mb-4">

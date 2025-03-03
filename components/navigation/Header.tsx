@@ -1,50 +1,67 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
-  NavigationMenuList
-} from "@/components/ui/navigation-menu";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
-import Link from "next/link";
-import { Fragment, useState } from "react";
-
-import Container from "@/components/Container";
-import Logo from "@/components/Logo";
-import Search from "@/components/navigation/search";
-import { navItems } from "@/constant";
-import { usePathname } from "next/navigation";
-import ChangeTheme from "../ChangeTheme";
-import { Separator } from "../ui/separator";
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { cn } from "@/lib/utils"
+import { X } from "lucide-react"
+import Link from "next/link"
+import { useRef, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import Container from "@/components/Container"
+import Logo from "@/components/Logo"
+import Search from "@/components/navigation/search"
+import { navItems } from "@/constant"
+import { usePathname } from "next/navigation"
+import ChangeTheme from "../ChangeTheme"
+import { Separator } from "../ui/separator"
 
 export function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const routeName = usePathname();
-  const isDocsRoute = routeName.includes("/docs");
+  const [isOpen, setIsOpen] = useState(false)
+  const routeName = usePathname()
+  const isDocsRoute = routeName.includes("/docs")
+  const listRef = useRef(null)
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.4,
+      },
+    },
+  }
+  const itemVariants = {
+    hidden: { opacity: 0, y: -15 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut",
+      },
+    },
+  }
 
   return (
     <header
       className={cn(
-        "sticky z-50 h-14 sm:h-16 inset-0 top-0 w-full transition-all",
+        "sticky z-50 h-14 lg:h-16 inset-0 top-0 w-full transition-all",
         "bg-[rgba(250,250,252,0.4)] dark:bg-[#e2e8f003]",
         "backdrop-blur-lg backdrop-filter backdrop-saturate-[200%]",
-        isDocsRoute && "border-b border-dashed"
+        isDocsRoute && "md:border-b border-dashed",
       )}
     >
       <Container
         className={cn(
           "h-full flex items-center justify-between transition-all",
-          isDocsRoute && "border-r border-l border-border border-dashed"
+          isDocsRoute && "md:border-r md:border-l border-border border-dashed",
         )}
       >
         <div className="flex items-center gap-4 sm:gap-8">
@@ -61,7 +78,7 @@ export function Header() {
                           "rounded-md bg-transparent px-3 sm:px-4 py-2 text-sm sm:text-[15px]",
                           "font-medium transition-colors -tracking-[.01em]",
                           "text-[rgba(0,_0,_0,_.85)] dark:text-[rgba(255,255,255,.85)]",
-                          "hover:text-[#000000] dark:hover:text-white"
+                          "hover:text-[#000000] dark:hover:text-white",
                         )}
                       >
                         {item.title}
@@ -74,13 +91,11 @@ export function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-2 sm:gap-4">
-          <div className="hidden sm:block">
+          <div className="hidden md:block">
             <Search />
           </div>
           <div className="hidden md:flex items-center gap-2 sm:gap-4">
-            <Button variant="outline">
-              Sign In
-            </Button>
+            <Button variant="outline">Sign In</Button>
             <ChangeTheme />
           </div>
           <div className="flex items-center gap-2 md:hidden w-full">
@@ -101,29 +116,39 @@ export function Header() {
                   <ScrollArea className="relative h-[calc(100vh-4rem)] flex-1 overflow-auto">
                     <div className="flex justify-between">
                       <div className="transition-all w-full mt-7">
-                        <div className="space-y-2">
-                          {navItems.map((item) => (
-                            <SheetClose
-                              asChild
-                              key={item.title}
-                              className={"flex"}
+                        <AnimatePresence>
+                          {isOpen && (
+                            <motion.ul
+                              className="space-y-2"
+                              ref={listRef}
+                              variants={containerVariants}
+                              initial="hidden"
+                              animate="show"
                             >
-                              <Link
-                                href={item.href}
-                                className="block transition-colors text-lg font-bold text-[#333336] hover:text-[#000000] tracking-[.007em]"
-                              >
-                                {item.title}
-                              </Link>
-                            </SheetClose>
-                          ))}
-                          <Separator className="!mt-[13px] mx-0 !mb-[20px]" />
-                          <div className="space-y-4">
-                            <Button variant="outline" className="w-full">
-                              Sign In
-                            </Button>
-                            <Button className="w-full">All Access</Button>
-                          </div>
-                        </div>
+                              {navItems.map((item, index) => (
+                                <motion.li key={item.title} variants={itemVariants} custom={index}>
+                                  <SheetClose asChild className={"flex"}>
+                                    <Link
+                                      href={item.href}
+                                      className="block transition-colors text-lg font-bold text-[#333336] dark:text-gray-100 dark:hover:text-gray-50 hover:text-[#000000] tracking-[.007em]"
+                                    >
+                                      {item.title}
+                                    </Link>
+                                  </SheetClose>
+                                </motion.li>
+                              ))}
+                              <motion.div variants={itemVariants}>
+                                <Separator className="!mt-[13px] mx-0 !mb-[20px]" />
+                              </motion.div>
+                              <motion.div className="space-y-4" variants={itemVariants}>
+                                <Button variant="outline" className="w-full">
+                                  Sign In
+                                </Button>
+                                <Button className="w-full">All Access</Button>
+                              </motion.div>
+                            </motion.ul>
+                          )}
+                        </AnimatePresence>
                       </div>
                     </div>
                   </ScrollArea>
@@ -138,5 +163,6 @@ export function Header() {
         </div>
       </Container>
     </header>
-  );
+  )
 }
+

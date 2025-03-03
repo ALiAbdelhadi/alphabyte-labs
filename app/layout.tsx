@@ -6,6 +6,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import "./prism-theme.css"
 import { Fragment } from "react"
+import { SheetWrapper } from "@/components/SheetWrapper"
 // import { SplashScreen } from "./SplashScreen"
 const baseUrl = Settings.metadataBase
 
@@ -48,7 +49,7 @@ export default function RootLayout({
   return (
     <Fragment>
       <html lang="en" suppressHydrationWarning>
-        <body className="font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif]  font-medium antialiased min-h-svh bg-background" suppressHydrationWarning>
+        <body className="font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif] font-medium antialiased min-h-svh" suppressHydrationWarning >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -56,11 +57,13 @@ export default function RootLayout({
             disableTransitionOnChange
             enableColorScheme
           >
-            <div vaul-drawer-wrapper="">
-              <div className="relative flex min-h-svh flex-col bg-background">
-                {children}
+            <SheetWrapper>
+              <div>
+                <div className="relative flex min-h-svh flex-col bg-background">
+                  {children}
+                </div>
               </div>
-            </div>
+            </SheetWrapper>
           </ThemeProvider>
           <Toaster />
         </body>

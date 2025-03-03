@@ -3,7 +3,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/library/Tab"
 import Pre from "@/components/ui/pre"
 import { cn } from "@/lib/utils"
-import { ComponentPreviewProps } from "@/types"
 
 export default function ComponentPreview({ children, code, className }: ComponentPreviewProps) {
    if (!code) {
