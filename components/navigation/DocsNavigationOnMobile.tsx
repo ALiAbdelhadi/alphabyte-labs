@@ -25,7 +25,7 @@ export function DocsNavigationOnMobile() {
                </SheetTrigger>
             </div>
          </div>
-         <SheetContent side="bottom" className="h-4/6 py-2 px-4">
+         <SheetContent side="bottom" className="h-4/6 py-2 px-4 rounded-[13px_13px_0_0]">
             <div className="flex justify-between items-center py-4">
                <span className="font-semibold text-lg">Menu</span>
                <SheetClose>
