@@ -1,0 +1,30 @@
+"use client"
+import ContainerWrapper from "@/components/container-wrapper"
+import { DocsNavigationOnMobile } from "@/components/navigation/DocsNavigationOnMobile"
+import Sidebar from "@/components/navigation/sidebar"
+import type React from "react"
+import { MDXProvider } from '@mdx-js/react'
+
+export default function Documents({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <ContainerWrapper>
+      <div className="px-4 container mx-auto">
+        <div className="flex items-start gap-6 lg:gap-14">
+          <Sidebar />
+          <div className="flex-1 md:flex-[6] min-w-0 -mb-7">
+            <MDXProvider>
+              <div>
+                {children}
+              </div>
+            </MDXProvider>
+          </div>
+        </div>
+        <DocsNavigationOnMobile />
+      </div>
+    </ContainerWrapper>
+  )
+}

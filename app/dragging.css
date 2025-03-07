@@ -1,0 +1,12 @@
+.dragging-sheet {
+  touch-action: none;
+}
+
+.drag-handle-area:hover .drag-handle {
+  background-color: rgba(156, 163, 175, 0.5);
+  width: 5rem;
+}
+
+.dragging-sheet * {
+  user-select: none;
+}
