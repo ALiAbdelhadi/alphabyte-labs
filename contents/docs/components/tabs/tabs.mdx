@@ -2,35 +2,10 @@
 title: Tabs
 description: A tabs component 
 ---
-A Tabs that stand out 
+ 
 
-<ComponentPreview code={
-   `import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tab"
-   
-   <Tabs defaultValue="preview" className="mt-4">
-         <TabsList className="inline-flex h-9 items-center text-muted-foreground w-full justify-start rounded-none border-b bg-transparent p-0 mb-2">
-            <TabsTrigger value="preview" className="active:shadow-none text-base">
-               tab 1
-            </TabsTrigger>
-            <TabsTrigger value="code" className="active:shadow-none text-base">
-               tab 2
-            </TabsTrigger>
-         </TabsList>
-         <div>
-            <TabsContent value="preview" className={cn("border rounded-xl", className)}>
-            <div>
-               Content One
-            </div>
-            </TabsContent>
-            <TabsContent value="code" className="rounded-xl">
-            <div>Content two</div>
-            </TabsContent>
-         </div>
-      </Tabs>
-   `
-}
-name="tabs-demo"
-/>
+<ComponentPreview name="tabs-demo"/>
+
 ## Installation
 <div className="not-prose">
 <Step>

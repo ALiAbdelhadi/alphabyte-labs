@@ -25,6 +25,10 @@ export const DocsRouting: Paths[] = [
     href: "/components",
     items: [
       {
+        title: "Alert Dialog",
+        href: "/alert-dialog",
+      },
+      {
         title: "Button",
         href: "/button",
       },

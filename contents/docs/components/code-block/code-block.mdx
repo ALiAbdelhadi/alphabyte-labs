@@ -2,28 +2,7 @@
 title: Code Block
 description: Showcase beautifully styled and customizable code snippets with advanced features like syntax highlighting, line numbering, and line highlighting.
 ---
-<ComponentPreview
-  code={`import { cn } from "@/lib/utils"
-import Pre from "@/components/pre"
-
-const CodeBlock = ({ className }: { className: string }) => {
-  const ExampleCode = \`function MyComponent(props) {
-    return (
-      <div>
-        <h1>Hello, {props.name}!</h1>
-        <p>This is an example React component.</p>
-      </div>
-    )};\`
-  return (
-    <Pre className={cn("", className)} highlightLines={[4]}>
-      {ExampleCode}
-    </Pre>
-  )
-}
-
-export default CodeBlock`}
-name="code-block-demo"
-/>
+<ComponentPreview name="code-block-demo"/>
 
 ## Installation
 <div className="not-prose">
@@ -71,6 +50,7 @@ interface PreProps extends ComponentProps<"pre"> {
   className?: string;
   highlightLines?: number[];
   folderPath?: string;
+  highlightStyle?: 'solid' | 'gradient' | 'border' | 'marker' | 'custom';
   customHighlightClass?: string;
   showLineNumbers?: boolean;
 }
@@ -108,6 +88,7 @@ export default function Pre({
   className,
   highlightLines = [],
   folderPath,
+  highlightStyle,
   customHighlightClass,
   showLineNumbers = true,
   ...rest
@@ -138,7 +119,7 @@ export default function Pre({
         codeBlock.innerHTML = highlightedLines.join('\n');
       }
     }
-  }, [children, highlightLines, customHighlightClass, isClient]);
+  }, [children, highlightLines, highlightStyle, customHighlightClass, isClient]);
 
   const language = className?.split('-')[1] || 'typescript';
   const code = typeof children === "string" ? children.trim() : " ";
@@ -156,20 +137,20 @@ export default function Pre({
 
   return (
     <div className="code-block-container relative group rounded-[6px] w-full">
-      <div className="code-block-header code-block-toolbar overflow-hidden flex items-center justify-between">
+      <div className="code-block-header code-block-toolbar overflow-x-auto hide-scrollbar flex items-center justify-between">
         <div className="flex items-center justify-between space-x-4">
           <div className="flex space-x-2 items-center">
             <div className="w-3 h-3 rounded-full bg-red-500/30 border border-red-500/40" />
             <div className="w-3 h-3 rounded-full bg-yellow-500/30 border border-yellow-500/40" />
             <div className="w-3 h-3 rounded-full bg-green-500/30 border border-green-500/40" />
           </div>
-          <span className="code-block-folder-path font-medium text-gray-400 text-sm">{folderPath}</span>
+          <span className="code-block-folder-path font-medium text-gray-400 text-sm text-nowrap max-w-md">{folderPath}</span>
         </div>
         <div className="flex items-center space-x-2">
           <div>
             <CopyButton content={raw || code} />
           </div>
-          <div>
+          <div className="w-4 h-4">
             {languageIcons[language] || <FileCode className="w-4 h-4 text-gray-400" />}
           </div>
         </div>
@@ -189,8 +170,7 @@ export default function Pre({
       </pre>
     </div>
   );
-}
-  `}
+}`}
   </Pre>
 </CodeBlockWrapper>
   </StepItem>
@@ -483,12 +463,10 @@ pre[class*="language-"] {
 .token.namespace {
   color: #4ec9b0;
 }
+
 .plain-text {
-  color: hsl(var(--muted));
+  color: #fff;
 }
-/*********************************************************
-* Language Specific (No changes here, kept for completeness)
-*/
 
 pre[class*="language-javascript"],
 code[class*="language-javascript"],
@@ -526,9 +504,29 @@ pre[class*="language-"] > code[class*="language-"] {
   z-index: 1;
 }
 
- `}
+`}
  </Pre>
 </CodeBlockWrapper>
+  </StepItem>
+  <StepItem title="Adding a code language">
+  this step is <MdxBadge>Optional</MdxBadge> it shows a the language of your code
+  you can pass an <MdxBadge>Images</MdxBadge> or <MdxBadge>Icons</MdxBadge> but if you choose icons make sure the library that you choose let you edit in colors of the icon
+  to do that you create a folder called <MdxBadge>language-icon.ts</MdxBadge> and add the following code in it: 
+  <Pre>{`import { Terminal } from "lucide-react"
+import Image from "next/image"
+import type { JSX } from "react"
+
+export const languageIcons: Record<string, JSX.Element> = {
+      javascript: <Image src="/icons/javascript.svg" className="w-[18px] h-[18px] rounded-sm" alt="javascript" width={10} height={10} quality={100} />,
+      js: <Image src="/icons/javascript.svg" className="w-[18px] h-[18px] rounded-sm" alt="javascript" width={10} height={10} quality={100} />,
+      jsx: <Image src="/icons/javascript.svg" className="w-[18px] h-[18px] rounded-sm" alt="jsx" width={10} height={10} quality={100} />,
+      typescript: <Image src="/icons/typescript.svg" className="w-[18px] h-[18px] rounded-sm" alt="typescript" width={10} height={10} quality={100} />,
+      ts: <Image src="/icons/typescript.svg" className="w-[18px] h-[18px] rounded-sm" alt="typescript" width={10} height={10} quality={100} />,
+      tsx: <Image src="/icons/typescript.svg" className="w-[18px] h-[18px] rounded-sm" alt="typescript" width={10} height={10} quality={100} />,
+      html: <Image src="/icons/html.svg" alt="html" className="w-[18px] h-[18px] rounded-sm" width={10} height={10} quality={100} />,
+      css: <Image src="/icons/css.svg" alt="css" className="w-[18px] h-[18px] rounded-sm" width={10} height={10} quality={100} />,
+      bash: <Terminal className="w-5 h-5 text-gray-100 rounded-lg" />,
+}`}</Pre>
   </StepItem>
   <StepItem title="Now, Feel  to use it and customize it"/>
 </Step>
@@ -536,13 +534,13 @@ pre[class*="language-"] > code[class*="language-"] {
 ## Usage
     <div className="not-prose space-y-4">
     <Pre>
-    {`import { Step, StepItem } from "@/components/Pre"`}
+    {`import Pre from "@/components/ui/pre"`}
     </Pre>
     <Pre>
-    {`import { cn } from "@/lib/utils"
-import Pre from "@/components/Pre"
+    {`import Pre from "@/components/ui/pre"
+import { cn } from "@/lib/utils"
 
-const CodeBlock = () => {
+const CodeBlockDemo = ({ className }: { className: string }) => {
    const ExampleCode = \`function MyComponent(props) {
    return (
       <div>
@@ -551,12 +549,12 @@ const CodeBlock = () => {
       </div>
    )};\`
    return (
-      <Pre highlightLines={[5]}>
+      <Pre className={cn("", className)} highlightLines={[4]} showLineNumbers={true}  >
          {ExampleCode}
       </Pre>
    )
 }
 
-export default CodeBlock`}
+export default CodeBlockDemo`}
   </Pre>
 </div>

@@ -21,7 +21,7 @@ import FolderTreeDemo from "@/registry-components/examples/folder-tree-demo"
 import TabsDemo from "@/registry-components/examples/tabs-demo"
 import { ChevronRightIcon } from "lucide-react"
 import { MDXComponents } from "mdx/types"
-
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 export const components: MDXComponents = {
    Pre,
    Tabs,
@@ -48,6 +48,15 @@ export const components: MDXComponents = {
    DialogTitle,
    DialogTrigger,
    DialogFooter,
+   AlertDialog,
+   AlertDialogAction,
+   AlertDialogCancel,
+   AlertDialogContent,
+   AlertDialogDescription,
+   AlertDialogFooter,
+   AlertDialogHeader,
+   AlertDialogTitle,
+   AlertDialogTrigger,
    Input,
    Label,
    // Blocks

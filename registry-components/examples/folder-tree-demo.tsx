@@ -1,7 +1,5 @@
 "use client"
-
 import { FolderTreeComponent } from "@/components/library/FolderTreeComponent"
-
 
 type FileItem = {
    id: string

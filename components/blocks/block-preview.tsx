@@ -105,17 +105,17 @@ export default function BlockPreview({ children, code, className, id, BlockName,
    const iframeSource = `${blocksWebsite}/blocks/${BlockId}`
    return (
       <Tabs defaultValue="preview" className="mt-4">
-         <nav className="flex flex-row justify-between  md:gap-4  md:items-center mb-4">
-            <div className="flex items-center gap-4 justify-start flex-row w-full">
-               <div className="flex items-center gap-2">
-                  <h3 className="text-lg md:text-xl font-medium leading-5 text-gray-900 dark:text-gray-100">
+         <nav className="flex flex-row justify-between  md:gap-4 gap-2  items-center mb-4">
+            <div className="flex items-center md:gap-4 gap-1 justify-start flex-row w-full">
+               <div className="flex items-center md:gap-2 gap-1">
+                  <h3 className="text-lg md:text-xl font-medium text-wrap text-gray-900 dark:text-gray-100">
                      {BlockName}
                   </h3>
                   <span className="inline-flex items-center gap-1 bg-teal-200 px-2 py-1 text-xs font-medium text-teal-800 rounded-lg select-none">Free</span>
                </div>
                <Separator orientation="vertical" className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden" />
                <TabsList className="inline-flex h-9 items-center text-muted-foreground max-w-fit justify-start rounded-none bg-transparent">
-                  <div className="bg-muted shadow-sm py-1 px-1 rounded-[7px] space-x-2">
+                  <div className="bg-muted shadow-sm py-1 px-1 rounded-[7px] space-x-2 flex">
                      <TabsTrigger value="preview" className="active:shadow-none text-sm border-none rounded-[6px] sm:px-3 px-1">
                         Preview
                      </TabsTrigger>

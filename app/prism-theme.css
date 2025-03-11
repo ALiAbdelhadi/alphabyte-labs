@@ -282,8 +282,9 @@ pre[class*="language-"] {
 }
 
 .plain-text {
-  color: hsl(var(--muted-foreground));
+  color: #fff;
 }
+
 pre[class*="language-javascript"],
 code[class*="language-javascript"],
 pre[class*="language-jsx"],

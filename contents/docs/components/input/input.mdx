@@ -1,14 +1,176 @@
 ---
-title: Input
-description: A Input component
+title: "مكون الإدخال"
+description: "مكون إدخال قابل للتخصيص مع دعم للأيقونات والأحجام المختلفة وحالات الخطأ"
 ---
 
-<ComponentPreview code={`
-import { Input } from '@/components/library/input'
+import { Input } from "@/components/library/input"
+import { Search, Mail, Eye, EyeOff } from "lucide-react"
+import { useState } from "react"
 
-const InputDemo = () => {
-   return <Input type="email" placeholder="Email" />
+# مكون الإدخال
+
+مكون إدخال قابل للتخصيص مع دعم للأيقونات والأحجام المختلفة وحالات الخطأ.
+
+## الاستخدام الأساسي
+
+```jsx
+import { Input } from "@/components/library/input"
+
+export function InputDemo() {
+  return <Input placeholder="أدخل نصًا هنا" />
+}
+```
+
+<div className="flex w-full max-w-sm items-center space-x-2">
+  <Input placeholder="أدخل نصًا هنا" />
+</div>
+
+## الأحجام المختلفة
+
+يمكنك استخدام ثلاثة أحجام مختلفة: `default` و `sm` و `lg`.
+
+```jsx
+<Input size="sm" placeholder="حجم صغير" />
+<Input size="default" placeholder="الحجم الافتراضي" />
+<Input size="lg" placeholder="حجم كبير" />
+```
+
+<div className="flex flex-col w-full max-w-sm items-start space-y-4 my-4">
+  <Input size="sm" placeholder="حجم صغير" />
+  <Input size="default" placeholder="الحجم الافتراضي" />
+  <Input size="lg" placeholder="حجم كبير" />
+</div>
+
+## مع الأيقونات
+
+يمكنك إضافة أيقونات على يمين أو يسار حقل الإدخال.
+
+```jsx
+import { Search, Mail } from "lucide-react"
+
+<Input leftIcon={<Search size={18} />} placeholder="بحث..." />
+<Input rightIcon={<Mail size={18} />} placeholder="البريد الإلكتروني" />
+<Input 
+  leftIcon={<Mail size={18} />} 
+  rightIcon={<Search size={18} />} 
+  placeholder="بحث في البريد الإلكتروني" 
+/>
+```
+
+<div className="flex flex-col w-full max-w-sm items-start space-y-4 my-4">
+  <Input leftIcon={<Search size={18} />} placeholder="بحث..." />
+  <Input rightIcon={<Mail size={18} />} placeholder="البريد الإلكتروني" />
+  <Input 
+    leftIcon={<Mail size={18} />} 
+    rightIcon={<Search size={18} />} 
+    placeholder="بحث في البريد الإلكتروني" 
+  />
+</div>
+
+## مع وصف مساعد
+
+يمكنك إضافة نص وصفي لتوفير معلومات إضافية للمستخدم.
+
+```jsx
+<Input 
+  id="email" 
+  placeholder="البريد الإلكتروني" 
+  description="لن نشارك بريدك الإلكتروني مع أي جهة أخرى." 
+/>
+```
+
+<div className="flex flex-col w-full max-w-sm items-start space-y-4 my-4">
+  <Input 
+    id="email" 
+    placeholder="البريد الإلكتروني" 
+    description="لن نشارك بريدك الإلكتروني مع أي جهة أخرى." 
+  />
+</div>
+
+## حالة الخطأ
+
+يمكنك عرض حالة الخطأ مع رسالة توضيحية.
+
+```jsx
+<Input 
+  error={true} 
+  errorMessage="يرجى إدخال بريد إلكتروني صالح" 
+  placeholder="البريد الإلكتروني" 
+/>
+```
+
+<div className="flex flex-col w-full max-w-sm items-start space-y-4 my-4">
+  <Input 
+    error={true} 
+    errorMessage="يرجى إدخال بريد إلكتروني صالح" 
+    placeholder="البريد الإلكتروني" 
+  />
+</div>
+
+## مثال تفاعلي: حقل كلمة المرور
+
+مثال على حقل كلمة مرور مع زر لإظهار/إخفاء كلمة المرور.
+
+```jsx
+import { useState } from "react"
+import { Eye, EyeOff } from "lucide-react"
+
+export function PasswordInput() {
+  const [showPassword, setShowPassword] = useState(false)
+  
+  return (
+    <Input 
+      type={showPassword ? "text" : "password"} 
+      placeholder="كلمة المرور" 
+      rightIcon={
+        <button 
+          type="button" 
+          onClick={() => setShowPassword(!showPassword)}
+          className="focus:outline-none"
+        >
+          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+        </button>
+      } 
+    />
+  )
+}
+```
+
+export function PasswordInput() {
+  const [showPassword, setShowPassword] = useState(false)
+  
+  return (
+    <Input 
+      type={showPassword ? "text" : "password"} 
+      placeholder="كلمة المرور" 
+      rightIcon={
+        <button 
+          type="button" 
+          onClick={() => setShowPassword(!showPassword)}
+          className="focus:outline-none"
+        >
+          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+        </button>
+      } 
+    />
+  )
 }
 
-export default InputDemo
-`}  name="input-demo"/>
+<div className="flex flex-col w-full max-w-sm items-start space-y-4 my-4">
+  <PasswordInput />
+</div>
+
+## واجهة البرمجة (API)
+
+### خصائص المكون
+
+| الخاصية | النوع | الافتراضي | الوصف |
+| ------- | ---- | --------- | ----- |
+| `size` | `"default" \| "sm" \| "lg"` | `"default"` | حجم حقل الإدخال |
+| `leftIcon` | `ReactNode` | - | أيقونة لعرضها على يسار حقل الإدخال |
+| `rightIcon` | `ReactNode` | - | أيقونة لعرضها على يمين حقل الإدخال |
+| `error` | `boolean` | `false` | تحديد ما إذا كان حقل الإدخال في حالة خطأ |
+| `errorMessage` | `string` | - | رسالة الخطأ لعرضها عندما يكون `error` بقيمة `true` |
+| `description` | `string` | - | نص وصفي لتوفير معلومات إضافية |
+
+بالإضافة إلى ذلك، يدعم المكون جميع خصائص عنصر `<input>` القياسية في HTML.

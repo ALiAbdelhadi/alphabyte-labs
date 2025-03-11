@@ -3,21 +3,7 @@ title: Note Component
 description: Introducing the Note Component Communicating Effectively in Your UI
 ---
 **Learn how to use the versatile Note component to communicate important information effectively within your user interface.**
-<ComponentPreview
-  code={`const MyComponent = () => {
-  return (
-    <div>
-      <Note variant="info"closable>  
-          Turbopack is a high-performance bundler and dev server for Next.js. Enabling this option ensures faster builds and an improved development experience.  
-      </Note>  
-    </div>
-  );
-};`}
->
-      <Note variant="info"closable>  
-         **Turbopack** is a high-performance bundler and dev server for Next.js. Enabling this option ensures faster builds and an improved development experience.  
-      </Note>  
-</ComponentPreview>
+<ComponentPreview name="note-demo" />
 
 ## Installation
 <div className="not-prose"> 
@@ -137,67 +123,23 @@ export { Note }`}
 ## Example
 
 ### Standard Note
-<ComponentPreview
-  code={`<Note variant="info">
-      This is an informational note.
-</Note>
-  `}
->
-<Note variant="info">
-  This is an informational note.
-</Note>
-</ComponentPreview>
+<ComponentPreview name="note-demo" />
 
 ### Success Note
 
-<ComponentPreview
-  code={`<Note variant="success">
-      Operation completed successfully!
-</Note>
-  `}
->
-<Note variant="success">
-  Operation completed successfully!
-</Note>
-</ComponentPreview>
+<ComponentPreview  name="note-demo" variant="success" />
 
 ### Warning Note
 
-<ComponentPreview
-  code={`<Note variant="warning">
-      Be careful with this action!
-</Note>
-  `}
->
-<Note variant="warning">
-  Be careful with this action!
-</Note>
-</ComponentPreview>
+<ComponentPreview  name="note-demo" variant="warning" />
 
 ### Danger Note
 
-<ComponentPreview
-  code={`<Note variant="error">
-      An error has occurred. Please try again.
-</Note>
-  `}
->
-<Note variant="error">
-      An error has occurred. Please try again.
-</Note>
-</ComponentPreview>
+<ComponentPreview name="note-demo" variant="error" />
+
 ## Closable Notes
 To allow users to dismiss the note, set the <MdxBadge>closable</MdxBadge> prop to <MdxBadge>true</MdxBadge>.
-<ComponentPreview
-  code={`<Note variant="error" closable>
-      An error has occurred. Please try again.
-</Note>
-  `}
->
-      <Note variant="info"closable>  
-         **Turbopack** is a high-performance bundler and dev server for Next.js. Enabling this option ensures faster builds and an improved development experience.  
-      </Note>  
-</ComponentPreview>
+<ComponentPreview name="note-demo" variant="closable" />
 ## Usage
 <div className="not-prose space-y-4">
 <p className="text-base">First, you have to import <MdxBadge>Note.tsx</MdxBadge> in your file:</p>

@@ -23,6 +23,10 @@ export const DocsRouting = [
       href: "/components",
       items: [
          {
+            title: "Alert Dialog",
+            href: "/alert-dialog",
+         },
+         {
             title: "Button",
             href: "/button",
          },
@@ -66,8 +70,6 @@ export const DocsRouting = [
             title: "Tabs",
             href: "/tabs",
          },
-
-
       ],
    },
 ];
