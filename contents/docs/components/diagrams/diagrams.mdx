@@ -3,26 +3,8 @@ title: Diagrams
 description: Add various diagram types, including flowcharts, decision trees and entity-relationship diagrams.
 ---
 
+<ComponentPreview name="diagram-demo" />
 
-
-## Flowchart
-<div className="not-prose">
-<ComponentPreview code={`
-<Mermaid
-  chart={\`graph TD;
-    Start --> Task1;
-    Task1 --> Task2;
-    Task2 --> End;\`}
-/>
-`}>
-<Mermaid
-  chart={`graph TD;
-    Start --> Task1;
-    Task1 --> Task2;
-    Task2 --> End;`}
-/>
-</ComponentPreview>
-</div>
 ## Installation
 <div className="not-prose">
 <Step>
@@ -120,164 +102,20 @@ export default MermaidMemo
 </div>
 ## Example
 
+### Flowchart
+
+<ComponentPreview name="diagram-demo" />
+
 ### Decision Tree
+
 Decision trees illustrate choices and possible outcomes, making them ideal for decision-making workflows or processes involving multiple paths.
-<div className="not-prose">
-<ComponentPreview 
-code={`<Mermaid
-  chart={\`graph TD;
-    A[Start] --> B{Is it raining?};
-    B -->|Yes| C[Take an umbrella];
-    B -->|No| D[Enjoy the weather];
-    C --> E[Go outside];
-    D --> E;\`}
-/>
-`}
->
-<Mermaid
-  chart={`graph TD;
-    A[Start] --> B{Is it raining?};
-    B -->|Yes| C[Take an umbrella];
-    B -->|No| D[Enjoy the weather];
-    C --> E[Go outside];
-    D --> E;`}
-/>
-</ComponentPreview>
-</div>
-<div className="not-prose">
-<ComponentPreview code={`<Mermaid
-  chart={\`
-    graph TD;
-    A[Start] --> B{Is it raining?};
-    B -->|Yes| C[Take an umbrella];
-    B -->|No| D[Enjoy the weather];
-    C --> E[Go outside];
-    D --> E;
-  \`}
-/>
-`}> 
-<Mermaid
-  chart={`
-    graph TD;
-    A[Start] --> B{Is it raining?};
-    B -->|Yes| C[Take an umbrella];
-    B -->|No| D[Enjoy the weather];
-    C --> E[Go outside];
-    D --> E;
-  `}
-/>
-</ComponentPreview>
-</div>
+
+<ComponentPreview name="diagram-demo" variant="decision-tree" />
+
 ### Entity-Relationship Diagram
+
 Entity-relationship diagrams (ERDs) are used to model relationships between entities in a system. They are widely used in database design and system architecture planning.
 
-<div className="not-prose">
-<ComponentPreview
-code={`<Mermaid
-  chart={\`erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    ORDER ||--|{ LINE-ITEM : contains
-    PRODUCT ||--o{ LINE-ITEM : "included in"
-    CUSTOMER {
-        string name
-        string email
-    }
-    ORDER {
-        int orderNumber
-        date orderDate
-    }
-    LINE-ITEM {
-        int quantity
-        float price
-    }
-    PRODUCT {
-        int productId
-        string name
-        float price
-    }\`}
-/>
-`}
->
-<Mermaid
-  chart={`erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    ORDER ||--|{ LINE-ITEM : contains
-    PRODUCT ||--o{ LINE-ITEM : "included in"
-    CUSTOMER {
-        string name
-        string email
-    }
-    ORDER {
-        int orderNumber
-        date orderDate
-    }
-    LINE-ITEM {
-        int quantity
-        float price
-    }
-    PRODUCT {
-        int productId
-        string name
-        float price
-    }`}
-/>
-</ComponentPreview>
-</div>
-<div className="not-prose">
-<ComponentPreview
-code={`<Mermaid
-  chart={\`
-    erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    ORDER ||--|{ LINE-ITEM : contains
-    PRODUCT ||--o{ LINE-ITEM : "included in"
-    CUSTOMER {
-        string name
-        string email
-    }
-    ORDER {
-        int orderNumber
-        date orderDate
-    }
-    LINE-ITEM {
-        int quantity
-        float price
-    }
-    PRODUCT {
-        int productId
-        string name
-        float price
-    }
-  \`}
-/>
-`}
->
-<Mermaid
-  chart={`
-    erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    ORDER ||--|{ LINE-ITEM : contains
-    PRODUCT ||--o{ LINE-ITEM : "included in"
-    CUSTOMER {
-        string name
-        string email
-    }
-    ORDER {
-        int orderNumber
-        date orderDate
-    }
-    LINE-ITEM {
-        int quantity
-        float price
-    }
-    PRODUCT {
-        int productId
-        string name
-        float price
-    }
-  `}
-/>
-</ComponentPreview>
-</div>
+<ComponentPreview name="diagram-demo" variant="entity-relationship" />
 
 Each of these diagrams serves a specific purpose and Mermaid makes it easy to generate them dynamically. Feel free to experiment with the provided code snippets and adapt them to your needs.

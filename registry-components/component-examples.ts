@@ -261,4 +261,30 @@ export const FILES = [
       ]
    },
    // End Alert Dialog
+   // Start Diagram
+   {
+      name: "diagram-demo",
+      files: [
+         {
+            path: "@/registry-components/examples/diagram-demo/diagram-demo.tsx"
+         }
+      ]
+   },
+   {
+      name: "diagram-decision-tree-demo",
+      files: [
+         {
+            path: "@/registry-components/examples/diagram-demo/diagram-decision-tree-demo.tsx"
+         }
+      ]
+   },
+   {
+      name: "diagram-entity-relationship-demo",
+      files: [
+         {
+            path: "@/registry-components/examples/diagram-demo/diagram-entity-relationship-demo.tsx"
+         }
+      ]
+   },
+   // End Diagram
 ]
