@@ -1,6 +1,6 @@
+import { CarouselsData } from "@/constant/blocks";
+import { Card, Carousel } from "./carousel";
 
-import { CarouselsData } from '@/constant/blocks';
-import { Card, Carousel } from './Carousel';
 
 const CarouselContainer = () => {
    const cards = CarouselsData.map((card, index) => (

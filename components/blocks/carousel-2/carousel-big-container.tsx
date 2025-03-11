@@ -1,6 +1,7 @@
-import { CarouselBigDataForBlock } from '@/constant/blocks';
+
 import Link from 'next/link';
-import { CardProject, CarouselProject } from './CarouselBigCard';
+import { CardProject, CarouselProject } from './carousel-big-card';
+import { CarouselBigDataForBlock } from '@/constant/blocks';
 
 const CarouselCompForProject = () => {
    const projectCards = CarouselBigDataForBlock.map((project, index) => (

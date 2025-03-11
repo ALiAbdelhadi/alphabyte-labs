@@ -15,7 +15,7 @@ const BlockForGrid = ({ href, children, className, title, src }: { href: string,
             </div>
             <div>
                <div className='flex items-center p-6 pt-0 justify-end rounded-md pb-0 pr-0 shadow-sm'>
-                  <img className='h-40 w-full rounded-br-lg rounded-tl-lg border-l border-t object-cover object-left-top' src={src} alt={title} />
+                  <img className='sm:h-72 lg:h-40 w-full rounded-br-lg rounded-tl-lg border-l border-t object-cover object-left-top' src={src} alt={title} />
                </div>
                <div>
                   {children}

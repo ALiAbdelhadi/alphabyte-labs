@@ -44,7 +44,7 @@ const page = async (props: DocsPageProps) => {
           </Typography>
         </div>
         {Settings.rightbar && (
-          <div className="hidden xl:flex xl:flex-col sticky top-16 gap-3 py-8 min-w-[230px] h-[94.5vh] toc">
+          <div className="hidden xl:flex xl:flex-col sticky top-16 gap-3 py-8 lg:min-w-[230px] min-w-[200px]  h-[94.5vh] toc">
             {Settings.toc && <Toc tocs={tocs} />}
             {Settings.feedback && <Feedback slug={pathName} title={frontmatter.title} />}
             {Settings.toTop && (

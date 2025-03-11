@@ -1,8 +1,7 @@
-
 import BlockForGrid from '@/components/BlockForGrid'
-import CarouselCompForProject from '@/components/blocks/Carousel/CarouselBigContainer'
-import CarouselContainer from '@/components/blocks/Carousel/CarouselContainer'
-import TimelineContainer from '@/components/blocks/timeline/TimelineContainer'
+import CarouselCompForProject from '@/components/blocks/carousel-2/carousel-big-container'
+import CarouselContainer from '@/components/blocks/carousel-1/carousel-container'
+import TimelineContainer from '@/components/blocks/timeline-1/TimelineContainer'
 import Container from '@/components/Container'
 import { Button } from '@/components/library/button'
 import Link from 'next/link'
@@ -67,17 +66,17 @@ const BlocksPage = () => {
                      />
                      <BlockForGrid
                         title='Timeline'
-                        href='/blocks/timeline'
+                        href='/blocks/timeline-1'
                         src={'/block-mokeup/timeline/timeline-1.png'}
                      />
                      <BlockForGrid
                         title='Navbar'
-                        href='/blocks/navbar'
+                        href='/blocks/navbar-1'
                         src={'/block-mokeup/navbar/navbar-1.png'}
                      />
                      <BlockForGrid
                         title='New Collection'
-                        href='/blocks/new-collection'
+                        href='/blocks/new-collection-1'
                         src={'/block-mokeup/new-collection/new-collection.png'}
                      />
                      <BlockForGrid

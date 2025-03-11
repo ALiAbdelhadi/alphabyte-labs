@@ -2,14 +2,15 @@
 title: Timeline
 description: Timeline component
 ---
-<BlockPreview id="timeline" BlockName="Timeline" BlockId="timeline"
-code={`"use client";
+<BlockPreview id="timeline-1" BlockName="Timeline" BlockId="timeline-1" code={`
+"use client";
 
 import Container from "@/components/Container";
 import { cn } from "@/lib/utils";
-import { TimeLineProps } from "@/types/components";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+
+
 const cardVariants: Variants = {
    offscreen: {
       y: 75,
@@ -23,6 +24,7 @@ const cardVariants: Variants = {
       },
    },
 };
+
 const pointVariants: Variants = {
    offscreen: {
       scale: 0,
@@ -36,6 +38,7 @@ const pointVariants: Variants = {
       },
    },
 };
+
 const Timeline = ({ data }: { data: TimeLineProps[] }) => {
    const ref = useRef<HTMLDivElement>(null);
    const containerRef = useRef<HTMLDivElement>(null);
@@ -111,7 +114,7 @@ const Timeline = ({ data }: { data: TimeLineProps[] }) => {
          </Container >
       </div >
    );
-};
 
-export default Timeline`}
-/>
+};
+export default Timeline
+`}/>

@@ -1,5 +1,4 @@
 "use client";
-
 import { useOutsideClick } from "@/hooks/out-side-click";
 import { cn } from "@/lib/utils";
 import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";

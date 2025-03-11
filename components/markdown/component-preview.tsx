@@ -7,9 +7,7 @@ import { Loader2 } from "lucide-react"
 import dynamic from "next/dynamic"
 import React, { useEffect, useState, useCallback, useRef } from "react"
 
-// Application-level cache for storing code
 const codeCache: Record<string, { code: string, timestamp: number }> = {};
-// Cache TTL in milliseconds (5 minutes)
 const CACHE_TTL = 5 * 60 * 1000;
 
 export interface ComponentPreviewProps {
@@ -76,14 +74,17 @@ export default function ComponentPreview({
   }, [providedCode, registryComponents, baseComponentName]);
 
   const DynamicComponent = registryComponents?.name
-    ? dynamic(() => {
+    ? dynamic(async () => {
         const folderName = `${baseComponentName}-demo`;
-
-        return import(`@/registry-components/examples/${folderName}/${registryComponents.name}.tsx`)
-          .catch(() => {
-            return import(`@/registry-components/examples/${registryComponents.name}.tsx`)
-              .catch(() => () => <div>Component not found</div>);
-          });
+        try {
+        return await import(`@/registry-components/examples/${folderName}/${registryComponents.name}.tsx`)
+      } catch {
+        try {
+          return await import(`@/registry-components/examples/${registryComponents.name}.tsx`)
+        } catch {
+          return () => <div>Component not found</div>
+        }
+      }
       }, {
         loading: () => (
           <div className="flex w-full items-center justify-center text-sm text-muted-foreground gap-2">

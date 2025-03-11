@@ -1,4 +1,4 @@
-import { Button } from "@/components/library/button";
+
 import {
    Accordion,
    AccordionContent,
@@ -23,6 +23,7 @@ import {
 import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { Button } from "../../library/button";
 
 interface MenuItem {
    title: string;

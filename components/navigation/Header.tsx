@@ -95,7 +95,7 @@ export function Header() {
             <Search />
           </div>
           <div className="hidden md:flex items-center gap-2 sm:gap-4">
-            <Button variant="outline">Sign In</Button>
+            <Button>Get Full Access</Button>
             <ChangeTheme />
           </div>
           <div className="flex items-center gap-2 md:hidden w-full">
@@ -144,7 +144,7 @@ export function Header() {
                                 <Button variant="outline" className="w-full">
                                   Sign In
                                 </Button>
-                                <Button className="w-full">All Access</Button>
+                                <Button className="w-full">Get full access</Button>
                               </motion.div>
                             </motion.ul>
                           )}

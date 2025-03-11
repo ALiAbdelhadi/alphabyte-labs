@@ -1,10 +1,4 @@
----
-title: About
-description: About component
----
-<div className="not-prose">
-<BlockPreview id="carousel" BlockId="about-1" BlockName="About1"
-code={`"use client"
+"use client"
 import Container from "@/components/Container";
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,7 +6,7 @@ import { useEffect, useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function About() {
+function About1() {
    const sectionRef = useRef(null);
    useEffect(() => {
       const elements = sectionRef.current.querySelectorAll('.animate-element');
@@ -148,5 +142,4 @@ function About() {
    );
 }
 
-export default About;`}/>
-</div>
+export default About1

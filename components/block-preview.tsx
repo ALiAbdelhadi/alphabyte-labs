@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 import { blocksWebsite } from "@/settings/settings"
 import { Check, Clipboard, Fullscreen, Monitor, Smartphone, Tablet } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
-import { Separator } from "../ui/separator"
+import { Separator } from "./ui/separator"
 
 interface screenWidthProps {
    desktop: string,

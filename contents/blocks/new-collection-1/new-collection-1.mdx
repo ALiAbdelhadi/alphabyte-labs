@@ -1,10 +1,10 @@
 ---
-title: Timeline
-description: Timeline component
+title: New Collection
+description: New Collection Block 
 ---
-<BlockPreview id="new-collection" BlockName="New Collection" BlockId="new-collection"
-code={`"use client"
 
+<BlockPreview id="new-collection-1" BlockName="New Collection" BlockId="new-collection-1" code={`
+"use client"
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
@@ -12,7 +12,8 @@ import React, { useEffect, useRef } from 'react';
 import Container from '../../Container';
 
 gsap.registerPlugin(ScrollTrigger);
-const NewCollection = () => {
+
+const NewCollection1 = () => {
    const sectionRef = useRef(null);
    useEffect(() => {
       const boxes = sectionRef.current.querySelectorAll('.animate-box');
@@ -67,7 +68,7 @@ const NewCollection = () => {
                            src="/blocks/new-collection/new-collection-3.jpg"
                         />
                         <div
-                           className={\`py-2 px-4 select-none bg-[linear-gradient(90deg,_transparent_0%,_#ffb96914_90%)] inline-flex w-fit items-center whitespace-nowrap rounded-full border text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent text-secondary dark:text-secondary-foreground absolute top-0 right-0 mt-4 mr-4 shadow-lg backdrop-blur-[6px] overflow-hidden  \`}>
+                           className={\`py-2 px-4 select-none bg-[linear-gradient(90deg,_transparent_0%,_#ffb96914_90%)] inline-flex w-fit items-center whitespace-nowrap rounded-full border text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent text-secondary dark:text-secondary-foreground absolute top-0 right-0 mt-4 mr-4 shadow-lg backdrop-blur-[6px] overflow-hidden\`}>
                            <p className='overflow-hidden'>
                               NEW
                            </p>
@@ -114,7 +115,7 @@ const NewCollection = () => {
                         src="/blocks/new-collection/new-collection-1.jpg"
                      />
                      <div
-                        className={\`py-2 px-4 select-none  bg-[linear-gradient(90deg,_transparent_0%,_#ffb96914_90%)] inline-flex text-[#FFF] dark:text-secondary-foreground w-fit items-center whitespace-nowrap rounded-full border text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent text-secondary absolute top-0 right-0 mt-4 mr-4 shadow-lg backdrop-blur-[6px] overflow-hidden  \`}>
+                        className={\`py-2 px-4 select-none  bg-[linear-gradient(90deg,_transparent_0%,_#ffb96914_90%)] inline-flex text-[#FFF] dark:text-secondary-foreground w-fit items-center whitespace-nowrap rounded-full border text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent text-secondary absolute top-0 right-0 mt-4 mr-4 shadow-lg backdrop-blur-[6px] overflow-hidden\`}>
                         <p className='overflow-hidden'>
                            NEW
                         </p>
@@ -135,6 +136,5 @@ const NewCollection = () => {
    )
 }
 
-export default NewCollection
-`}
-/>
+export default NewCollection1
+`}/>
