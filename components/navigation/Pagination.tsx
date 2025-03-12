@@ -1,7 +1,8 @@
 import Link from "next/link"
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 
 import { getPreviousNext } from "@/lib/markdown"
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
+
 const Pagination = ({ pathname }: { pathname: string }) => {
   const res = getPreviousNext(pathname)
   return (

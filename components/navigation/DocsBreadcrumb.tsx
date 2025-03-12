@@ -24,13 +24,11 @@ export default function PageBreadcrumb({ paths }: { paths: string[] }) {
                 <BreadcrumbSeparator />
                 <BreadcrumbItem className="font-normal ">
                   {index < paths.length - 1 ? (
-                    <BreadcrumbLink href={href} >
+                    <BreadcrumbLink href={href}>
                       {toTitleCase(path)}
                     </BreadcrumbLink>
                   ) : (
-                    <BreadcrumbPage>
-                      {toTitleCase(path)}
-                    </BreadcrumbPage>
+                    <BreadcrumbPage>{toTitleCase(path)}</BreadcrumbPage>
                   )}
                 </BreadcrumbItem>
               </Fragment>

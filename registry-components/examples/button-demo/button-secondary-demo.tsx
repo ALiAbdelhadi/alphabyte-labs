@@ -1,10 +1,9 @@
-import { Button } from '@/components/library/button'
-import React from 'react'
+import React from "react"
+
+import { Button } from "@/components/library/button"
 
 const ButtonSecondaryDemo = () => {
-  return (
-    <Button variant="secondary">Secondary button</Button>
-  )
+  return <Button variant="secondary">Secondary button</Button>
 }
 
-export default ButtonSecondaryDemo 
+export default ButtonSecondaryDemo

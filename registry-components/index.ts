@@ -1,8 +1,6 @@
-import { FILES } from "./component-examples";
+import { FILES } from "./component-examples"
 
 export const REGISTRY_COMPONENTS = {
-   name: "alphabyte-labs",
-   items: [
-      ...FILES
-   ]
+  name: "alphabyte-labs",
+  items: [...FILES],
 }

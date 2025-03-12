@@ -1,4 +1,3 @@
-import { Button } from '@/components/library/button';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,17 +8,18 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/library/button"
 
 const AlertDialogBottomDemo = () => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Bottom Dialog</Button> 
+        <Button variant="outline">Bottom Dialog</Button>
       </AlertDialogTrigger>
       <AlertDialogContent position="bottom">
         <AlertDialogHeader>
-          <AlertDialogTitle>Bottom Dialog</AlertDialogTitle> 
+          <AlertDialogTitle>Bottom Dialog</AlertDialogTitle>
           <AlertDialogDescription>
             This is an example of a dialog positioned at the bottom.
           </AlertDialogDescription>
@@ -30,7 +30,7 @@ const AlertDialogBottomDemo = () => {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  );
-};
+  )
+}
 
-export default AlertDialogBottomDemo;
+export default AlertDialogBottomDemo

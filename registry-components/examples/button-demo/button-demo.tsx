@@ -1,10 +1,9 @@
-import { Button } from '@/components/library/button'
-import React from 'react'
+import React from "react"
+
+import { Button } from "@/components/library/button"
 
 const ButtonDemo = () => {
-   return (
-      <Button variant={"default"}>Getting Started</Button>
-   )
+  return <Button variant={"default"}>Getting Started</Button>
 }
 
 export default ButtonDemo

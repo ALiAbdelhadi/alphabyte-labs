@@ -1,11 +1,7 @@
-import { Note } from '@/components/library/note'
+import { Note } from "@/components/library/note"
 
 const NoteWarningDemo = () => {
-    return (
-        <Note variant="warning">
-            Be careful with this action!
-        </Note>
-    )
+  return <Note variant="warning">Be careful with this action!</Note>
 }
 
 export default NoteWarningDemo

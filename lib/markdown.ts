@@ -1,10 +1,11 @@
-import { GitHubLink } from "@/settings/navigation"
 import { createReadStream, promises as fs } from "fs"
+import path from "path"
+import { ComponentType } from "react"
+import { GitHubLink } from "@/settings/navigation"
+import matter from "gray-matter"
 // Update the import to use @types/hast
 import { Element, Text } from "hast"
 import { compileMDX } from "next-mdx-remote/rsc"
-import matter from "gray-matter";
-import path from "path"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeCodeTitles from "rehype-code-titles"
 import rehypeKatex from "rehype-katex"
@@ -13,10 +14,10 @@ import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import { Node } from "unist"
 import { visit } from "unist-util-visit"
+
 import { components } from "@/lib/components"
 import { Settings } from "@/lib/meta"
 import { PageRoutes } from "@/lib/pageRoutes"
-import { ComponentType } from "react"
 
 declare module "hast" {
   interface Element {
@@ -53,11 +54,11 @@ async function parseMdx<Frontmatter>(rawMdx: string) {
 }
 
 function computeDocumentPath(slug: string) {
-  const segments = slug.split('/');
-  const lastSegment = segments[segments.length - 1];
+  const segments = slug.split("/")
+  const lastSegment = segments[segments.length - 1]
   return Settings.gitload
     ? `${GitHubLink.href}/raw/main/contents/docs/${slug}/${lastSegment}.mdx`
-    : path.join(process.cwd(), "/contents/docs/", `${slug}/${lastSegment}.mdx`);
+    : path.join(process.cwd(), "/contents/docs/", `${slug}/${lastSegment}.mdx`)
 }
 
 const getDocumentPath = (() => {
@@ -112,58 +113,64 @@ export async function getTableOfContents(
   slug: string
 ): Promise<Array<{ level: number; text: string; href: string }>> {
   const extractedHeadings: Array<{
-    level: number;
-    text: string;
-    href: string;
-  }> = [];
-  let rawMdx = "";
-  const segments = slug.split('/');
-  const lastSegment = segments[segments.length - 1];
+    level: number
+    text: string
+    href: string
+  }> = []
+  let rawMdx = ""
+  const segments = slug.split("/")
+  const lastSegment = segments[segments.length - 1]
 
   if (Settings.gitload) {
-    const contentPath = `${GitHubLink.href}/raw/main/contents/docs/${slug}/${lastSegment}.mdx`;
+    const contentPath = `${GitHubLink.href}/raw/main/contents/docs/${slug}/${lastSegment}.mdx`
     try {
-      const response = await fetch(contentPath);
+      const response = await fetch(contentPath)
       if (!response.ok) {
-        throw new Error(`Failed to fetch content from GitHub: ${response.statusText}`);
+        throw new Error(
+          `Failed to fetch content from GitHub: ${response.statusText}`
+        )
       }
-      rawMdx = await response.text();
+      rawMdx = await response.text()
     } catch (error) {
-      console.error("Error fetching content from GitHub:", error);
-      return [];
+      console.error("Error fetching content from GitHub:", error)
+      return []
     }
   } else {
-    const contentPath = path.join(process.cwd(), "/contents/docs/", `${slug}/${lastSegment}.mdx`);
+    const contentPath = path.join(
+      process.cwd(),
+      "/contents/docs/",
+      `${slug}/${lastSegment}.mdx`
+    )
     try {
       try {
-        await fs.access(contentPath, fs.constants.F_OK);
+        await fs.access(contentPath, fs.constants.F_OK)
       } catch (fileError) {
-        console.error(`File does not exist: ${contentPath}`);
-        return [];
+        console.error(`File does not exist: ${contentPath}`)
+        return []
       }
 
-      const stream = createReadStream(contentPath, { encoding: "utf-8" });
+      const stream = createReadStream(contentPath, { encoding: "utf-8" })
       for await (const chunk of stream) {
-        rawMdx += chunk;
+        rawMdx += chunk
       }
     } catch (error) {
-      console.error("Error reading local file:", error);
-      return [];
+      console.error("Error reading local file:", error)
+      return []
     }
   }
 
-  let match;
+  let match
   while ((match = headingsRegex.exec(rawMdx)) !== null) {
-    const level = match[1].length;
-    const text = match[2].trim();
+    const level = match[1].length
+    const text = match[2].trim()
     extractedHeadings.push({
       level,
       text,
       href: `#${sluggify(text)}`,
-    });
+    })
   }
 
-  return extractedHeadings;
+  return extractedHeadings
 }
 
 function sluggify(text: string) {
@@ -192,64 +199,67 @@ export function getPreviousNext(path: string) {
 
 export async function getBlocksForSlug(slug: string) {
   try {
-    const contentPath = getBlocksContentPath(slug);
+    const contentPath = getBlocksContentPath(slug)
     try {
-      await fs.access(contentPath, fs.constants.F_OK);
+      await fs.access(contentPath, fs.constants.F_OK)
     } catch (error) {
-      console.error(`Block file does not exist: ${contentPath}`);
-      return null;
+      console.error(`Block file does not exist: ${contentPath}`)
+      return null
     }
 
-    const rawMdx = await fs.readFile(contentPath, "utf-8");
-    return await parseMdx<BaseMdxFrontmatter>(rawMdx);
+    const rawMdx = await fs.readFile(contentPath, "utf-8")
+    return await parseMdx<BaseMdxFrontmatter>(rawMdx)
   } catch (err) {
-    console.error("Error in getBlocksForSlug:", err);
-    return null;
+    console.error("Error in getBlocksForSlug:", err)
+    return null
   }
 }
 
 function getBlocksContentPath(slug: string) {
-  const segments = slug.split('/');
-  const lastSegment = segments[segments.length - 1];
+  const segments = slug.split("/")
+  const lastSegment = segments[segments.length - 1]
 
-  return path.join(process.cwd(), "/contents/blocks/", `${lastSegment}/${lastSegment}.mdx`);
+  return path.join(
+    process.cwd(),
+    "/contents/blocks/",
+    `${lastSegment}/${lastSegment}.mdx`
+  )
 }
 
 export async function getAllBlocks() {
-  const blocksFolder = path.join(process.cwd(), "/contents/blocks/");
+  const blocksFolder = path.join(process.cwd(), "/contents/blocks/")
   try {
-    await fs.access(blocksFolder, fs.constants.F_OK);
+    await fs.access(blocksFolder, fs.constants.F_OK)
   } catch (error) {
-    console.error(`Blocks folder does not exist: ${blocksFolder}`);
-    return [];
+    console.error(`Blocks folder does not exist: ${blocksFolder}`)
+    return []
   }
 
-  const files = await fs.readdir(blocksFolder);
+  const files = await fs.readdir(blocksFolder)
   const uncheckedRes = await Promise.all(
     files.map(async (file) => {
-      const filePath = path.join(blocksFolder, file);
-      const stats = await fs.stat(filePath);
-      if (!stats.isDirectory()) return undefined;
-      const mdxPath = path.join(filePath, `${file}.mdx`);
+      const filePath = path.join(blocksFolder, file)
+      const stats = await fs.stat(filePath)
+      if (!stats.isDirectory()) return undefined
+      const mdxPath = path.join(filePath, `${file}.mdx`)
       try {
-        await fs.access(mdxPath, fs.constants.F_OK);
+        await fs.access(mdxPath, fs.constants.F_OK)
       } catch (error) {
-        console.warn(`MDX file not found in directory: ${mdxPath}`);
-        return undefined;
+        console.warn(`MDX file not found in directory: ${mdxPath}`)
+        return undefined
       }
 
-      const rawMdx = await fs.readFile(mdxPath, "utf-8");
+      const rawMdx = await fs.readFile(mdxPath, "utf-8")
       return {
-        ...matter(rawMdx).data as BaseMdxFrontmatter,
+        ...(matter(rawMdx).data as BaseMdxFrontmatter),
         slug: file,
-      };
+      }
     })
-  );
-  return (uncheckedRes.filter((it) => !!it) as (BaseMdxFrontmatter & {
-    slug: string;
-  })[]);
+  )
+  return uncheckedRes.filter((it) => !!it) as (BaseMdxFrontmatter & {
+    slug: string
+  })[]
 }
-
 
 const preCopy = () => (tree: Node) => {
   visit(tree, "element", (node: Element) => {

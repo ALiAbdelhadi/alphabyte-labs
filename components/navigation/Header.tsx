@@ -1,8 +1,13 @@
 "use client"
 
-import Container from "@/components/Container"
-import Logo from "@/components/Logo"
-import Search from "@/components/navigation/search"
+import { useRef, useState } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { navItems } from "@/constant"
+import { AnimatePresence, motion } from "framer-motion"
+import { X } from "lucide-react"
+
+import { cn } from "@/lib/utils"
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -10,14 +15,16 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { navItems } from "@/constant"
-import { cn } from "@/lib/utils"
-import { AnimatePresence, motion } from "framer-motion"
-import { X } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useRef, useState } from "react"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import Container from "@/components/Container"
+import Logo from "@/components/Logo"
+import Search from "@/components/navigation/search"
+
 import ChangeTheme from "../ChangeTheme"
 import { Button } from "../library/button"
 import { Separator } from "../ui/separator"
@@ -55,13 +62,13 @@ export function Header() {
         "sticky z-50 h-14 lg:h-16 inset-0 top-0 w-full transition-all",
         "bg-[rgba(250,250,252,0.4)] dark:bg-[#e2e8f003]",
         "backdrop-blur-lg backdrop-filter backdrop-saturate-[200%]",
-        isDocsRoute && "lg:border-b border-dashed",
+        isDocsRoute && "lg:border-b border-dashed"
       )}
     >
       <Container
         className={cn(
           "h-full flex items-center justify-between transition-all",
-          isDocsRoute && "lg:border-r lg:border-l border-border border-dashed",
+          isDocsRoute && "lg:border-r lg:border-l border-border border-dashed"
         )}
       >
         <div className="flex items-center gap-4 sm:gap-8">
@@ -78,7 +85,7 @@ export function Header() {
                           "rounded-md bg-transparent px-3 sm:px-4 py-2 text-sm sm:text-[15px]",
                           "font-medium transition-colors -tracking-[.01em]",
                           "text-[rgba(0,_0,_0,_.85)] dark:text-[rgba(255,255,255,.85)]",
-                          "hover:text-[#000000] dark:hover:text-white",
+                          "hover:text-[#000000] dark:hover:text-white"
                         )}
                       >
                         {item.title}
@@ -126,7 +133,11 @@ export function Header() {
                               animate="show"
                             >
                               {navItems.map((item, index) => (
-                                <motion.li key={item.title} variants={itemVariants} custom={index}>
+                                <motion.li
+                                  key={item.title}
+                                  variants={itemVariants}
+                                  custom={index}
+                                >
                                   <SheetClose asChild className={"flex"}>
                                     <Link
                                       href={item.href}
@@ -140,11 +151,16 @@ export function Header() {
                               <motion.div variants={itemVariants}>
                                 <Separator className="!mt-[13px] mx-0 !mb-[20px]" />
                               </motion.div>
-                              <motion.div className="space-y-4" variants={itemVariants}>
+                              <motion.div
+                                className="space-y-4"
+                                variants={itemVariants}
+                              >
                                 <Button variant="outline" className="w-full">
                                   Sign In
                                 </Button>
-                                <Button className="w-full">Get full access</Button>
+                                <Button className="w-full">
+                                  Get full access
+                                </Button>
                               </motion.div>
                             </motion.ul>
                           )}
@@ -165,4 +181,3 @@ export function Header() {
     </header>
   )
 }
-

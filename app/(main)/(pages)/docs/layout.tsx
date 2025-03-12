@@ -1,9 +1,11 @@
 "use client"
+
+import type React from "react"
+import { MDXProvider } from "@mdx-js/react"
+
 import ContainerWrapper from "@/components/container-wrapper"
 import { DocsNavigationOnMobile } from "@/components/navigation/DocsNavigationOnMobile"
 import Sidebar from "@/components/navigation/sidebar"
-import type React from "react"
-import { MDXProvider } from '@mdx-js/react'
 
 export default function Documents({
   children,
@@ -17,9 +19,7 @@ export default function Documents({
           <Sidebar />
           <div className="flex-1 md:flex-[6] min-w-0 -mb-7">
             <MDXProvider>
-              <div>
-                {children}
-              </div>
+              <div>{children}</div>
             </MDXProvider>
           </div>
         </div>

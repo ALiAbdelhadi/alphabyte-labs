@@ -2,15 +2,15 @@ import { DocsRouting } from "@/settings/DocsRouting"
 
 export type Paths =
   | {
-    title: string
-    href: string
-    noLink?: true
-    heading?: string
-    items?: Paths[]
-  }
+      title: string
+      href: string
+      noLink?: true
+      heading?: string
+      items?: Paths[]
+    }
   | {
-    spacer: true
-  }
+      spacer: true
+    }
 
 export const Routes: Paths[] = [...DocsRouting]
 

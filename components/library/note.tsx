@@ -1,8 +1,16 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-import { AlertTriangleIcon, CheckCircle2Icon, InfoIcon, X, XCircleIcon } from "lucide-react"
 import React, { useState } from "react"
+import {
+  AlertTriangleIcon,
+  CheckCircle2Icon,
+  InfoIcon,
+  X,
+  XCircleIcon,
+} from "lucide-react"
+
+import { cn } from "@/lib/utils"
+
 type NoteVariant = "info" | "warning" | "success" | "error"
 
 interface NoteProps {
@@ -39,7 +47,7 @@ const Note = ({
   variant = "info",
   className,
   closable = false,
-  children
+  children,
 }: NoteProps) => {
   const [isClosed, setIsClosed] = useState(false)
 
@@ -63,7 +71,9 @@ const Note = ({
         </button>
       )}
       <div className="flex items-start gap-3 my-2">
-        <div className={cn("mt-0.5 flex-shrink-0", variantConfig[variant].icon)}>
+        <div
+          className={cn("mt-0.5 flex-shrink-0", variantConfig[variant].icon)}
+        >
           {variant === "info" && <InfoIcon className="w-5 h-5" />}
           {variant === "warning" && <AlertTriangleIcon className="w-5 h-5" />}
           {variant === "success" && <CheckCircle2Icon className="w-5 h-5" />}

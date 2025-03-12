@@ -1,4 +1,4 @@
-import type { Paths } from "@/lib/pageRoutes";
+import type { Paths } from "@/lib/pageRoutes"
 
 export const DocsRouting: Paths[] = [
   {
@@ -74,4 +74,4 @@ export const DocsRouting: Paths[] = [
       },
     ],
   },
-];
+]

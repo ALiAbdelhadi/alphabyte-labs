@@ -21,13 +21,13 @@ export default function Anchor({
   ...props
 }: AnchorProps) {
   const path = usePathname()
-  let hrefString = props.href ? props.href.toString() : "";
+  let hrefString = props.href ? props.href.toString() : ""
 
   let isMatch = absolute
     ? hrefString.split("/")[1] == path.split("/")[1]
-    : path === props.href;
+    : path === props.href
 
-  if (hrefString.includes("https")) isMatch = false;
+  if (hrefString.includes("https")) isMatch = false
 
   if (disabled)
     return <div className={cn(className, "cursor-not-allowed")}>{children}</div>

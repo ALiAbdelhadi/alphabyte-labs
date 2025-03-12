@@ -2,8 +2,9 @@
 
 import * as React from "react"
 import * as TabsPrimitive from "@radix-ui/react-tabs"
+import { AnimatePresence, motion } from "framer-motion"
+
 import { cn } from "@/lib/utils"
-import { motion, AnimatePresence } from "framer-motion"
 
 const Tabs = TabsPrimitive.Root
 
@@ -13,7 +14,10 @@ const TabsList = React.forwardRef<
 >(({ className, ...props }, ref) => {
   const [activeIndex, setActiveIndex] = React.useState(0)
   const tabRefs = React.useRef<(HTMLButtonElement | null)[]>([])
-  const [activeStyle, setActiveStyle] = React.useState({ left: "0px", width: "0px" })
+  const [activeStyle, setActiveStyle] = React.useState({
+    left: "0px",
+    width: "0px",
+  })
 
   React.useEffect(() => {
     const activeElement = tabRefs.current[activeIndex]
@@ -29,7 +33,10 @@ const TabsList = React.forwardRef<
   return (
     <TabsPrimitive.List
       ref={ref}
-      className={cn("relative flex items-center space-x-2 overflow-hidden border-b border-muted", className)}
+      className={cn(
+        "relative flex items-center space-x-2 overflow-hidden border-b border-muted",
+        className
+      )}
       {...props}
     >
       <motion.div
@@ -40,10 +47,10 @@ const TabsList = React.forwardRef<
       {React.Children.map(props.children, (child, index) =>
         React.isValidElement(child)
           ? React.cloneElement(child, {
-            ref: (el: HTMLButtonElement) => (tabRefs.current[index] = el),
-            onClick: () => setActiveIndex(index),
-            isActive: index === activeIndex,
-          })
+              ref: (el: HTMLButtonElement) => (tabRefs.current[index] = el),
+              onClick: () => setActiveIndex(index),
+              isActive: index === activeIndex,
+            })
           : child
       )}
     </TabsPrimitive.List>
@@ -53,7 +60,9 @@ TabsList.displayName = TabsPrimitive.List.displayName
 
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> & { isActive?: boolean }
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> & {
+    isActive?: boolean
+  }
 >(({ className, isActive, ...props }, ref) => (
   <TabsPrimitive.Trigger
     ref={ref}
@@ -71,7 +80,11 @@ const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
 >(({ className, ...props }, ref) => (
-  <TabsPrimitive.Content ref={ref} className={cn("mt-2 relative overflow-hidden", className)} {...props}>
+  <TabsPrimitive.Content
+    ref={ref}
+    className={cn("mt-2 relative overflow-hidden", className)}
+    {...props}
+  >
     <AnimatePresence mode="wait">
       <motion.div
         key={props.value}

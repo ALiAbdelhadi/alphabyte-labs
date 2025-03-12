@@ -2,8 +2,8 @@
 
 import { usePathname } from "next/navigation"
 
-import SubLink from "@/components/navigation/sublink"
 import { Routes } from "@/lib/pageRoutes"
+import SubLink from "@/components/navigation/sublink"
 
 const NEW_COMPONENTS = ["diagrams", "steps", "product-card"]
 

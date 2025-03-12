@@ -1,12 +1,11 @@
 "use client"
 
-import cn from "clsx"
-import { CircleArrowUp } from "lucide-react"
 import type { ReactElement } from "react"
 import { useEffect, useRef } from "react"
+import cn from "clsx"
+import { CircleArrowUp } from "lucide-react"
 
 function ScrollUp() {
-
   if (typeof window !== "undefined") {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }

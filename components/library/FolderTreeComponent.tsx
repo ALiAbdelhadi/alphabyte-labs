@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ChevronRight, File, Folder, FolderOpen } from 'lucide-react'
+import { ChevronRight, File, Folder, FolderOpen } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -18,7 +18,9 @@ interface FileExplorerNavProps {
 }
 
 export function FolderTreeComponent({ items }: FileExplorerNavProps) {
-  const [openFolders, setOpenFolders] = React.useState<Record<string, boolean>>({})
+  const [openFolders, setOpenFolders] = React.useState<Record<string, boolean>>(
+    {}
+  )
 
   const toggleFolder = (id: string) => {
     setOpenFolders((prev) => ({ ...prev, [id]: !prev[id] }))
@@ -37,23 +39,36 @@ export function FolderTreeComponent({ items }: FileExplorerNavProps) {
           }}
           className={cn(
             "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm text-gray-400 transition-colors hover:bg-white/5",
-            isOpen && "text-white",
+            isOpen && "text-white"
           )}
           style={{ paddingLeft: `${(level + 1) * 12}px` }}
         >
           {hasItems ? (
             <span className="flex items-center gap-2">
-              <ChevronRight className={cn("h-3.5 w-3.5 transition-transform", isOpen && "rotate-90")} />
-              {isOpen ? <FolderOpen className="h-4 w-4" /> : <Folder className="h-4 w-4" />}
+              <ChevronRight
+                className={cn(
+                  "h-3.5 w-3.5 transition-transform",
+                  isOpen && "rotate-90"
+                )}
+              />
+              {isOpen ? (
+                <FolderOpen className="h-4 w-4" />
+              ) : (
+                <Folder className="h-4 w-4" />
+              )}
             </span>
           ) : (
             <File className="ml-5.5 h-4 w-4" />
           )}
           <span>{item.name}</span>
-          {item.path && <span className="ml-auto text-xs text-gray-500">{item.path}</span>}
+          {item.path && (
+            <span className="ml-auto text-xs text-gray-500">{item.path}</span>
+          )}
         </button>
         {hasItems && isOpen && (
-          <div className="relative">{item.items!.map((subItem) => renderItem(subItem, level + 1))}</div>
+          <div className="relative">
+            {item.items!.map((subItem) => renderItem(subItem, level + 1))}
+          </div>
         )}
       </div>
     )

@@ -1,4 +1,3 @@
-import { Button } from "@/components/library/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,7 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/library/button"
 
 export default function AlertDialogDemo() {
   return (
@@ -21,7 +21,8 @@ export default function AlertDialogDemo() {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. The data will be permanently deleted from the servers.
+            This action cannot be undone. The data will be permanently deleted
+            from the servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -30,5 +31,5 @@ export default function AlertDialogDemo() {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  );
+  )
 }

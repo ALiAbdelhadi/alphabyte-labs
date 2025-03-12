@@ -1,7 +1,7 @@
-import { DocsRouting } from "@/settings/DocsRouting"
 import { promises as fs } from "fs"
-import grayMatter from "gray-matter"
 import path from "path"
+import { DocsRouting } from "@/settings/DocsRouting"
+import grayMatter from "gray-matter"
 import remarkMdx from "remark-mdx"
 import remarkParse from "remark-parse"
 import remarkStringify from "remark-stringify"
@@ -166,7 +166,9 @@ export async function convertMdxToJson() {
       JSON.stringify(combinedData, null, 2)
     )
 
-    console.log(`Successfully generated search data with ${combinedData.length} documents`)
+    console.log(
+      `Successfully generated search data with ${combinedData.length} documents`
+    )
     return combinedData.length
   } catch (err) {
     console.error("Error processing MDX files:", err)

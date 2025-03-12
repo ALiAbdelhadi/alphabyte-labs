@@ -1,12 +1,15 @@
+import { Fragment } from "react"
+import type { Metadata } from "next"
+
+import { Settings } from "@/lib/meta"
+import { Toaster } from "@/components/ui/sonner"
 import { ThemeProvider } from "@/components/context/theme-provider"
 import { SheetWrapper } from "@/components/sheet-wrapper"
-import { Toaster } from "@/components/ui/sonner"
-import { Settings } from "@/lib/meta"
-import type { Metadata } from "next"
-import { Fragment } from "react"
+
 import "./dragging.css"
 import "./globals.css"
 import "./prism-theme.css"
+
 // import { SplashScreen } from "./SplashScreen"
 const baseUrl = Settings.metadataBase
 
@@ -49,7 +52,10 @@ export default function RootLayout({
   return (
     <Fragment>
       <html lang="en" suppressHydrationWarning>
-        <body className="font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif] font-medium antialiased min-h-svh" suppressHydrationWarning >
+        <body
+          className="font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif] font-medium antialiased min-h-svh"
+          suppressHydrationWarning
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

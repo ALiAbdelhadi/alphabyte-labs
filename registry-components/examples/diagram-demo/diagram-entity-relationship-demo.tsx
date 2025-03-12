@@ -1,9 +1,9 @@
-import Mermaid from '@/components/library/mermaid'
+import Mermaid from "@/components/library/mermaid"
 
 const DiagramsEntityRelationShipDemo = () => {
-    return (
-        <Mermaid
-            chart={`erDiagram
+  return (
+    <Mermaid
+      chart={`erDiagram
     CUSTOMER ||--o{ ORDER : places
     ORDER ||--|{ LINE-ITEM : contains
     PRODUCT ||--o{ LINE-ITEM : "included in"
@@ -24,8 +24,8 @@ const DiagramsEntityRelationShipDemo = () => {
         string name
         float price
     }`}
-        />
-    )
+    />
+  )
 }
 
 export default DiagramsEntityRelationShipDemo

@@ -1,14 +1,21 @@
 "use client"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/library/tabs"
-import Pre from "@/components/ui/pre"
-import { cn } from "@/lib/utils"
+
+import React, { useCallback, useEffect, useRef, useState } from "react"
+import dynamic from "next/dynamic"
 import { REGISTRY_COMPONENTS } from "@/registry-components"
 import { Loader2 } from "lucide-react"
-import dynamic from "next/dynamic"
-import React, { useEffect, useState, useCallback, useRef } from "react"
 
-const codeCache: Record<string, { code: string, timestamp: number }> = {};
-const CACHE_TTL = 5 * 60 * 1000;
+import { cn } from "@/lib/utils"
+import Pre from "@/components/ui/pre"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/library/tabs"
+
+const codeCache: Record<string, { code: string; timestamp: number }> = {}
+const CACHE_TTL = 5 * 60 * 1000
 
 export interface ComponentPreviewProps {
   children?: React.ReactNode
@@ -23,90 +30,102 @@ export default function ComponentPreview({
   code: providedCode,
   className,
   name,
-  variant
+  variant,
 }: ComponentPreviewProps) {
-  const [code, setCode] = useState<string | null>(providedCode || null);
-  const [isLoadingCode, setIsLoadingCode] = useState<boolean>(false);
-  const abortControllerRef = useRef<AbortController | null>(null);
-  const baseComponentName = name.replace('-demo', '');
-  const componentVariant = variant || '';
+  const [code, setCode] = useState<string | null>(providedCode || null)
+  const [isLoadingCode, setIsLoadingCode] = useState<boolean>(false)
+  const abortControllerRef = useRef<AbortController | null>(null)
+  const baseComponentName = name.replace("-demo", "")
+  const componentVariant = variant || ""
   const fullComponentName = componentVariant
     ? `${baseComponentName}-${componentVariant}-demo`
-    : `${baseComponentName}-demo`;
-  const registryComponents = REGISTRY_COMPONENTS.items.find(item => item.name === fullComponentName);
+    : `${baseComponentName}-demo`
+  const registryComponents = REGISTRY_COMPONENTS.items.find(
+    (item) => item.name === fullComponentName
+  )
   const fetchComponentCode = useCallback(async () => {
-    if (providedCode || !registryComponents) return;
-    const cacheKey = `${baseComponentName}-${registryComponents.name}`;
-    const now = Date.now();
-    if (codeCache[cacheKey] && (now - codeCache[cacheKey].timestamp) < CACHE_TTL) {
-      setCode(codeCache[cacheKey].code);
-      return;
+    if (providedCode || !registryComponents) return
+    const cacheKey = `${baseComponentName}-${registryComponents.name}`
+    const now = Date.now()
+    if (
+      codeCache[cacheKey] &&
+      now - codeCache[cacheKey].timestamp < CACHE_TTL
+    ) {
+      setCode(codeCache[cacheKey].code)
+      return
     }
-    setIsLoadingCode(true);
+    setIsLoadingCode(true)
     try {
       if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
+        abortControllerRef.current.abort()
       }
-      abortControllerRef.current = new AbortController();
+      abortControllerRef.current = new AbortController()
 
       const responseData = await fetch(
         `/api/get-component-code?name=${registryComponents.name}&baseComponent=${baseComponentName}`,
         { signal: abortControllerRef.current.signal }
-      );
+      )
 
-      const data = await responseData.json();
+      const data = await responseData.json()
 
       if (data.code) {
         codeCache[cacheKey] = {
           code: data.code,
-          timestamp: now
-        };
+          timestamp: now,
+        }
 
-        setCode(data.code);
+        setCode(data.code)
       }
     } catch (error) {
-      if ((error as Error).name !== 'AbortError') {
-        console.error("Error fetching component code:", error);
+      if ((error as Error).name !== "AbortError") {
+        console.error("Error fetching component code:", error)
       }
     } finally {
-      setIsLoadingCode(false);
+      setIsLoadingCode(false)
     }
-  }, [providedCode, registryComponents, baseComponentName]);
+  }, [providedCode, registryComponents, baseComponentName])
 
   const DynamicComponent = registryComponents?.name
-    ? dynamic(async () => {
-        const folderName = `${baseComponentName}-demo`;
-        try {
-        return await import(`@/registry-components/examples/${folderName}/${registryComponents.name}.tsx`)
-      } catch {
-        try {
-          return await import(`@/registry-components/examples/${registryComponents.name}.tsx`)
-        } catch {
-          return () => <div>Component not found</div>
+    ? dynamic(
+        async () => {
+          const folderName = `${baseComponentName}-demo`
+          try {
+            return await import(
+              `@/registry-components/examples/${folderName}/${registryComponents.name}.tsx`
+            )
+          } catch {
+            try {
+              return await import(
+                `@/registry-components/examples/${registryComponents.name}.tsx`
+              )
+            } catch {
+              return () => <div>Component not found</div>
+            }
+          }
+        },
+        {
+          loading: () => (
+            <div className="flex w-full items-center justify-center text-sm text-muted-foreground gap-2">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Loading...
+            </div>
+          ),
+          ssr: false,
         }
-      }
-      }, {
-        loading: () => (
-          <div className="flex w-full items-center justify-center text-sm text-muted-foreground gap-2">
-            <Loader2 className="h-4 w-4 animate-spin" />
-            Loading...
-          </div>
-        ),
-        ssr: false,
-      })
-    : () => <div>Component not found with name {fullComponentName}</div>;
+      )
+    : () => <div>Component not found with name {fullComponentName}</div>
 
   useEffect(() => {
-    fetchComponentCode();
+    fetchComponentCode()
     return () => {
       if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
+        abortControllerRef.current.abort()
       }
-    };
-  }, [fetchComponentCode]);
+    }
+  }, [fetchComponentCode])
 
   if (!registryComponents && !children) {
-    return <div className={cn("mt-4", className)}>Component not found</div>;
+    return <div className={cn("mt-4", className)}>Component not found</div>
   }
 
   return (
@@ -120,14 +139,19 @@ export default function ComponentPreview({
         </TabsTrigger>
       </TabsList>
       <div className="not-prose">
-        <TabsContent value="preview" className={cn("border rounded-xl", className)}>
+        <TabsContent
+          value="preview"
+          className={cn("border rounded-xl", className)}
+        >
           <div className="overflow-hidden">
-            <React.Suspense fallback={
-              <div className="flex w-full items-center justify-center text-sm text-muted-foreground">
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Loading...
-              </div>
-            }>
+            <React.Suspense
+              fallback={
+                <div className="flex w-full items-center justify-center text-sm text-muted-foreground">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Loading...
+                </div>
+              }
+            >
               {children ? (
                 <div className="preview flex min-h-[350px] w-full justify-center px-5 md:px-10 py-5 items-center">
                   {children}
@@ -162,5 +186,5 @@ export default function ComponentPreview({
         </TabsContent>
       </div>
     </Tabs>
-  );
+  )
 }

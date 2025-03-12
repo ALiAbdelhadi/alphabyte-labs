@@ -1,10 +1,9 @@
-import { Button } from '@/components/library/button'
-import React from 'react'
+import React from "react"
+
+import { Button } from "@/components/library/button"
 
 const ButtonPulseAnimationDemo = () => {
-    return (
-        <Button animation={"pulse"}>Pulse Animation button</Button>
-    )
+  return <Button animation={"pulse"}>Pulse Animation button</Button>
 }
 
-export default ButtonPulseAnimationDemo 
+export default ButtonPulseAnimationDemo

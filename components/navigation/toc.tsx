@@ -1,9 +1,10 @@
 "use client"
 
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import clsx from "clsx"
+
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { useState, useRef, useEffect } from "react"
 
 type TocProps = {
   tocs: { href: string; level: number; text: string }[]
@@ -60,15 +61,12 @@ export default function Toc({ tocs }: TocProps) {
   }
 
   const getLinkClassName = (level: number, isActive: boolean) =>
-    clsx(
-      "transition-colors duration-200 hover:text-primary",
-      {
-        "pl-0": level === 2,
-        "pl-4": level === 3,
-        "pl-8": level === 4,
-        "font-semibold text-primary -ml-[1px]": isActive,
-      }
-    )
+    clsx("transition-colors duration-200 hover:text-primary", {
+      "pl-0": level === 2,
+      "pl-4": level === 3,
+      "pl-8": level === 4,
+      "font-semibold text-primary -ml-[1px]": isActive,
+    })
 
   return (
     <div className="flex flex-col gap-3 w-full pl-2 not-prose">
@@ -83,7 +81,10 @@ export default function Toc({ tocs }: TocProps) {
                   href={href}
                   scroll={false}
                   onClick={(e) => handleSmoothScroll(e, href)}
-                  className={getLinkClassName(level, activeId === href.slice(1))}
+                  className={getLinkClassName(
+                    level,
+                    activeId === href.slice(1)
+                  )}
                 >
                   {text}
                 </Link>

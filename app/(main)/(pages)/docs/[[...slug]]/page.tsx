@@ -1,17 +1,17 @@
+import React from "react"
+import { notFound } from "next/navigation"
+import { DocsPageProps } from "@/types"
+
+import { ErrorBoundary } from "@/lib/debug-wrapper"
+import { getDocument } from "@/lib/markdown"
+import { Settings } from "@/lib/meta"
+import { PageRoutes } from "@/lib/pageRoutes"
+import { Typography } from "@/components/ui/typography"
 import { BackToTop } from "@/components/navigation/backToTop"
 import PageBreadcrumb from "@/components/navigation/DocsBreadcrumb"
 import Feedback from "@/components/navigation/feedback"
 import Pagination from "@/components/navigation/Pagination"
 import Toc from "@/components/navigation/toc"
-import { Typography } from "@/components/ui/typography"
-import { ErrorBoundary } from "@/lib/debug-wrapper"
-import { getDocument } from "@/lib/markdown"
-import { Settings } from "@/lib/meta"
-import { PageRoutes } from "@/lib/pageRoutes"
-import { DocsPageProps } from "@/types"
-import { notFound } from "next/navigation"
-
-import React from 'react'
 
 const page = async (props: DocsPageProps) => {
   try {
@@ -31,9 +31,13 @@ const page = async (props: DocsPageProps) => {
         <div className="flex-[3] mt-[4.5rem] md:mt-7">
           <PageBreadcrumb paths={slug} />
           <div className="space-y-2">
-            <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">{frontmatter.title}</h1>
+            <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">
+              {frontmatter.title}
+            </h1>
             {frontmatter.description && (
-              <p className="text-muted-foreground text-base font-normal tracking-wide">{frontmatter.description}</p>
+              <p className="text-muted-foreground text-base font-normal tracking-wide">
+                {frontmatter.description}
+              </p>
             )}
           </div>
           <Typography>
@@ -46,7 +50,9 @@ const page = async (props: DocsPageProps) => {
         {Settings.rightbar && (
           <div className="hidden xl:flex xl:flex-col sticky top-16 gap-3 py-8 lg:min-w-[230px] min-w-[200px]  h-[94.5vh] toc">
             {Settings.toc && <Toc tocs={tocs} />}
-            {Settings.feedback && <Feedback slug={pathName} title={frontmatter.title} />}
+            {Settings.feedback && (
+              <Feedback slug={pathName} title={frontmatter.title} />
+            )}
             {Settings.toTop && (
               <BackToTop className="mt-6 self-start text-sm text-neutral-800 dark:text-neutral-300/85" />
             )}
@@ -56,7 +62,12 @@ const page = async (props: DocsPageProps) => {
     )
   } catch (error) {
     console.error("Error in Pages component:", error)
-    return <div>An error occurred while rendering this page. Please check the console for more details.</div>
+    return (
+      <div>
+        An error occurred while rendering this page. Please check the console
+        for more details.
+      </div>
+    )
   }
 }
 

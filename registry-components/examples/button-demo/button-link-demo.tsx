@@ -1,13 +1,14 @@
-import { Button } from '@/components/library/button'
-import Link from 'next/link'
-import React from 'react'
+import React from "react"
+import Link from "next/link"
+
+import { Button } from "@/components/library/button"
 
 const ButtonLinkDemo = () => {
-    return (
-        <Button variant="link" asChild>
-            <Link href={"/href"}>Link button</Link>
-        </Button>
-    )
+  return (
+    <Button variant="link" asChild>
+      <Link href={"/href"}>Link button</Link>
+    </Button>
+  )
 }
 
-export default ButtonLinkDemo 
+export default ButtonLinkDemo
