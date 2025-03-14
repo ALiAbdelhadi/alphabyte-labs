@@ -16,7 +16,7 @@ const Home = () => {
               </span>
               Your Open Source Component Library.
             </h1>
-            <p className="text-lg md:text-xl font-light max-w-2xl text-foreground opacity-80">
+            <p className="text-lg md:text-xl font-normal max-w-2xl text-foreground opacity-80">
               Craft stunning user interfaces with our meticulously designed
               collection of accessible, and fully customizable components. Built
               by developers, for developers, and freely available to all.
@@ -26,7 +26,7 @@ const Home = () => {
             <Link href="/docs/introduction">
               <Button className="lg:h-11 lg:px-8">Get started</Button>
             </Link>
-            <Link href={"/blocks"}>
+            <Link href={"/ui-blocks"}>
               <Button variant={"ghost"} className="lg:h-11 lg:px-8">
                 Browse Blocks
               </Button>

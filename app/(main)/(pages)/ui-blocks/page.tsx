@@ -7,22 +7,22 @@ import TimelineContainer from "@/components/blocks/timeline-1/TimelineContainer"
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
 
-const BlocksPage = () => {
+const UiBlocksPage = () => {
   return (
-    <div className="py-8">
+    <div className="py-8 bg-[#f8f8f9] dark:bg-[#111111]">
       <Container>
         <section className="my-14 md:my-16 space-y-3">
           <div className="space-y-2">
             <h1 className="text-3xl md:text-4xl font-bold">
               Building Blocks for the Web
             </h1>
-            <p className="text-lg md:text-xl font-light max-w-2xl text-foreground">
+            <p className="text-lg md:text-xl font-normal max-w-2xl text-foreground opacity-80">
               Clean, modern building blocks. Copy and paste into your apps.
               Works with all React frameworks. Open Source. Free forever.
             </p>
           </div>
           <div className="space-x-2">
-            <Link href="/blocks/carousel">
+            <Link href="/ui-blocks/carousel-1">
               <Button>Get started</Button>
             </Link>
             <Link href="#browse-all-blocks">
@@ -65,32 +65,32 @@ const BlocksPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               <BlockForGrid
                 title="Carousel1"
-                href="/blocks/carousel-1"
+                href="/ui-blocks/carousel-1"
                 src={"/block-mokeup/carousel/carousel-1.png"}
               />
               <BlockForGrid
                 title="Carousel2"
-                href="/blocks/carousel-2"
+                href="/ui-blocks/carousel-2"
                 src={"/block-mokeup/carousel/carousel-2.png"}
               />
               <BlockForGrid
                 title="Timeline"
-                href="/blocks/timeline-1"
+                href="/ui-blocks/timeline-1"
                 src={"/block-mokeup/timeline/timeline-1.png"}
               />
               <BlockForGrid
                 title="Navbar"
-                href="/blocks/navbar-1"
+                href="/ui-blocks/navbar-1"
                 src={"/block-mokeup/navbar/navbar-1.png"}
               />
               <BlockForGrid
                 title="New Collection"
-                href="/blocks/new-collection-1"
+                href="/ui-blocks/new-collection-1"
                 src={"/block-mokeup/new-collection/new-collection.png"}
               />
               <BlockForGrid
                 title="About1"
-                href="/blocks/about-1"
+                href="/ui-blocks/about-1"
                 src={"/block-mokeup/about/about-1.png"}
               />
             </div>
@@ -101,4 +101,4 @@ const BlocksPage = () => {
   )
 }
 
-export default BlocksPage
+export default UiBlocksPage

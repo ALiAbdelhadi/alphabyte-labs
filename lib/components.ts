@@ -28,7 +28,6 @@ import Pre from "@/components/ui/pre"
 import BlockPreview from "@/components/block-preview"
 import CarouselContainer from "@/components/blocks/carousel-1/carousel-container"
 import CarouselCompForProject from "@/components/blocks/carousel-2/carousel-big-container"
-import { Navbar } from "@/components/blocks/navbar-1/navbar-1"
 import TimelineContainer from "@/components/blocks/timeline-1/TimelineContainer"
 import { CodeBlockWrapper } from "@/components/CodeBlockWrapper"
 import { Button } from "@/components/library/button"
@@ -89,7 +88,6 @@ export const components: MDXComponents = {
   TimelineContainer,
   CarouselContainer,
   CarouselCompForProject,
-  Navbar,
   // icons
   ChevronRightIcon,
   // Markdown
