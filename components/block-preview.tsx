@@ -172,17 +172,17 @@ const CopyButton = ({ content }: { content: string }) => {
   }
   return (
     <button
-      className="flex items-center bg-slate-100 dark:bg-slate-800 shadow-sm py-3 md:py-2.5 px-3 rounded-[7px] space-x-1 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+      className="flex items-center bg-muted hover:bg-gray-200/60 dark:hover:bg-muted-foreground/10 shadow-sm py-3 md:py-2.5 px-3 rounded-[7px] space-x-1 transition-colors"
       onClick={copyToClipboard}
     >
       <span className="inline-block">
         {isCopied ? (
           <Check className="w-4 h-4 text-emerald-500" />
         ) : (
-          <Clipboard className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+          <Clipboard className="w-4 h-4 text-slate-700 dark:text-gray-300" />
         )}
       </span>
-      <span className="font-medium text-xs text-nowrap hidden sm:block text-slate-800 dark:text-slate-200">
+      <span className="font-medium text-xs text-nowrap hidden sm:block text-gray-800 dark:text-gray-200">
         Copy Code
       </span>
     </button>
@@ -311,7 +311,7 @@ function BlockFileTree({
           ref={openButtonRef}
           onClick={toggleSidebar}
           aria-label="Open sidebar"
-          className="relative z-50 p-2 border-r flex border-gray-700 transition-colors"
+          className="relative z-50 p-2 border-r flex border-gray-700 transition-colors bg-[#252526] "
         >
           <PanelLeftOpen
             strokeWidth={2.5}
@@ -342,7 +342,7 @@ function BlockFileTree({
                   ref={closeButtonRef}
                   onClick={toggleSidebar}
                   aria-label="Close sidebar"
-                  className="p-1 rounded-md hover:bg-gray-900/20 transition-colors"
+                  className="p-1 rounded-md hover:bg-gray-900/20 transition-colors bg-[#252526]"
                 >
                   <PanelRightOpen
                     strokeWidth={2.5}
