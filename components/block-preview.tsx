@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { getFolderTree } from "@/folder-tree"
 import { getCodeFiles } from "@/folder-tree/code-structure"
 import { languageIcons } from "@/settings/LanguageIcon"
@@ -21,9 +21,13 @@ import {
   Tablet,
 } from "lucide-react"
 import Prism from "prismjs"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { cn } from "@/lib/utils"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 import {
   Sidebar,
   SidebarGroup,
@@ -36,7 +40,6 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { cn } from "@/lib/utils"
 
 import { Separator } from "./ui/separator"
 
@@ -49,8 +52,8 @@ import "prismjs/plugins/line-highlight/prism-line-highlight.css"
 import "prismjs/plugins/line-numbers/prism-line-numbers"
 import "prismjs/plugins/line-numbers/prism-line-numbers.css"
 
-import { motion } from "framer-motion"
 import type { ComponentProps } from "react"
+import { motion } from "framer-motion"
 
 interface PreProps extends ComponentProps<"pre"> {
   raw?: string
@@ -102,7 +105,9 @@ function Pre({
   if (!isClient) {
     return (
       <div className="code-block-container relative group rounded-[6px] custom-scrollbar my-5 w-full">
-        <pre className={`overflow-x-auto max-h-[650px] hide-scrollbar ${lineNumbersClass}`}>
+        <pre
+          className={`overflow-x-auto max-h-[650px] hide-scrollbar ${lineNumbersClass}`}
+        >
           <code>{children}</code>
         </pre>
       </div>
@@ -111,8 +116,15 @@ function Pre({
 
   return (
     <pre
-      className={cn(`language-${language}`, className, "overflow-x-auto", lineNumbersClass)}
-      data-line={highlightLines.length > 0 ? highlightLines.join(",") : undefined}
+      className={cn(
+        `language-${language}`,
+        className,
+        "overflow-x-auto",
+        lineNumbersClass
+      )}
+      data-line={
+        highlightLines.length > 0 ? highlightLines.join(",") : undefined
+      }
     >
       <code className={cn("language-" + language)}>{children}</code>
     </pre>
@@ -212,7 +224,10 @@ function Tree({
 
   return (
     <SidebarMenuItem>
-      <Collapsible className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90" defaultOpen>
+      <Collapsible
+        className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90"
+        defaultOpen
+      >
         <CollapsibleTrigger asChild>
           <SidebarMenuButton
             className="whitespace-nowrap rounded-none pl-[--index] text-gray-100 hover:text-gray-100 hover:!bg-gray-900/20 dark:focus:bg-gray-900/20 focus-visible:bg-gray-900/20   data-[active=true]:bg-gray-900/40 !data-[open=true]:hover:text-gray-100 data-[active=true]:text-gray-200"
@@ -230,7 +245,13 @@ function Tree({
         <CollapsibleContent>
           <SidebarMenuSub className="m-0 w-full border-none p-0">
             {item.children.map((subItem, key) => (
-              <Tree key={key} item={subItem} index={index + 1} activeFile={activeFile} setActiveFile={setActiveFile} />
+              <Tree
+                key={key}
+                item={subItem}
+                index={index + 1}
+                activeFile={activeFile}
+                setActiveFile={setActiveFile}
+              />
             ))}
           </SidebarMenuSub>
         </CollapsibleContent>
@@ -292,7 +313,11 @@ function BlockFileTree({
           aria-label="Open sidebar"
           className="relative z-50 p-2 border-r flex border-gray-700 transition-colors"
         >
-          <PanelLeftOpen strokeWidth={2.5} absoluteStrokeWidth className="w-6 h-6 text-gray-100" />
+          <PanelLeftOpen
+            strokeWidth={2.5}
+            absoluteStrokeWidth
+            className="w-6 h-6 text-gray-100"
+          />
         </button>
       )}
       <motion.aside
@@ -319,7 +344,11 @@ function BlockFileTree({
                   aria-label="Close sidebar"
                   className="p-1 rounded-md hover:bg-gray-900/20 transition-colors"
                 >
-                  <PanelRightOpen strokeWidth={2.5} absoluteStrokeWidth className="w-6 h-6 text-gray-100" />
+                  <PanelRightOpen
+                    strokeWidth={2.5}
+                    absoluteStrokeWidth
+                    className="w-6 h-6 text-gray-100"
+                  />
                 </button>
               )}
             </SidebarGroupLabel>
@@ -327,7 +356,13 @@ function BlockFileTree({
               <SidebarGroupContent>
                 <SidebarMenu className="gap-1.5">
                   {fileTree.map((file, index) => (
-                    <Tree key={index} item={file} index={1} activeFile={activeFile} setActiveFile={setActiveFile} />
+                    <Tree
+                      key={index}
+                      item={file}
+                      index={1}
+                      activeFile={activeFile}
+                      setActiveFile={setActiveFile}
+                    />
                   ))}
                 </SidebarMenu>
               </SidebarGroupContent>
@@ -405,7 +440,9 @@ export default function BlockPreview({
 
   const getActiveFileContent = useCallback(() => {
     if (resolvedCodeFiles.length > 0 && activeFile) {
-      const foundFile = resolvedCodeFiles.find((file) => file.path === activeFile)
+      const foundFile = resolvedCodeFiles.find(
+        (file) => file.path === activeFile
+      )
       if (foundFile) {
         return foundFile.content
       }
@@ -447,8 +484,14 @@ export default function BlockPreview({
       if (active === "desktop") {
         setPreviewWidth("100%")
       } else {
-        const targetWidth = Number.parseInt(screensWidth[active as keyof screenWidthProps])
-        setPreviewWidth(windowWidth < targetWidth ? "100%" : screensWidth[active as keyof screenWidthProps])
+        const targetWidth = Number.parseInt(
+          screensWidth[active as keyof screenWidthProps]
+        )
+        setPreviewWidth(
+          windowWidth < targetWidth
+            ? "100%"
+            : screensWidth[active as keyof screenWidthProps]
+        )
       }
     }
 
@@ -509,12 +552,17 @@ export default function BlockPreview({
       <nav className="flex flex-row justify-between md:gap-4 gap-2 items-center mb-4">
         <div className="flex items-center md:gap-4 gap-1 justify-start flex-row w-full">
           <div className="flex items-center md:gap-2 gap-1">
-            <h3 className="text-lg md:text-xl font-medium text-wrap text-gray-900 dark:text-gray-100">{BlockName}</h3>
+            <h3 className="text-lg md:text-xl font-medium text-wrap text-gray-900 dark:text-gray-100">
+              {BlockName}
+            </h3>
             <span className="inline-flex items-center gap-1 bg-teal-200 px-2 py-1 text-xs font-medium text-teal-800 rounded-lg select-none">
               Free
             </span>
           </div>
-          <Separator orientation="vertical" className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden" />
+          <Separator
+            orientation="vertical"
+            className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden"
+          />
           <TabsList className="inline-flex h-9 items-center text-muted-foreground max-w-fit justify-start rounded-none bg-transparent">
             <div className="bg-muted shadow-sm py-1 px-1 rounded-[7px] space-x-2 flex">
               <TabsTrigger
@@ -523,7 +571,10 @@ export default function BlockPreview({
               >
                 preview
               </TabsTrigger>
-              <TabsTrigger value="code" className="active:shadow-none text-sm border-none rounded-[6px] sm:px-3 px-1">
+              <TabsTrigger
+                value="code"
+                className="active:shadow-none text-sm border-none rounded-[6px] sm:px-3 px-1"
+              >
                 code
               </TabsTrigger>
             </div>
@@ -545,25 +596,37 @@ export default function BlockPreview({
                 </button>
               </div>
             ))}
-            <Separator orientation="vertical" className="shrink-0 bg-border w-[1.5px] h-5" />
+            <Separator
+              orientation="vertical"
+              className="shrink-0 bg-border w-[1.5px] h-5"
+            />
             <button
               className="!ml-[7px]"
               onClick={toggleFullScreen}
-              aria-label={isFullScreen ? "Exit full screen" : "Enter full screen"}
+              aria-label={
+                isFullScreen ? "Exit full screen" : "Enter full screen"
+              }
             >
               <Fullscreen className="w-4 h-4" />
             </button>
           </div>
-          <Separator orientation="vertical" className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden" />
+          <Separator
+            orientation="vertical"
+            className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden"
+          />
           <CopyButton content={code} />
         </div>
       </nav>
       <div className="not-prose">
         <TabsContent
           value="preview"
-          className={cn("border rounded-xl transition-all duration-300 dark:border-gray-700", className, {
-            "mr-auto": active !== "desktop",
-          })}
+          className={cn(
+            "border rounded-xl transition-all duration-300 dark:border-gray-700",
+            className,
+            {
+              "mr-auto": active !== "desktop",
+            }
+          )}
           style={{
             width: previewWidth,
             maxWidth: "100%",
@@ -571,7 +634,9 @@ export default function BlockPreview({
           }}
         >
           <iframe
-            className={"overflow-hidden preview min-h-[86.5vh] transition-all w-full"}
+            className={
+              "overflow-hidden preview min-h-[86.5vh] transition-all w-full"
+            }
             id={id}
             src={iframeSource}
             sandbox="allow-scripts allow-same-origin "
@@ -581,14 +646,22 @@ export default function BlockPreview({
         <TabsContent value="code" className="rounded-xl">
           {resolvedFileTree ? (
             <div className="flex overflow-hidden rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1e1e1e] text-foreground h-[70vh] md:h-[90vh]">
-              <BlockFileTree fileTree={resolvedFileTree} activeFile={activeFile} setActiveFile={setActiveFile} />
+              <BlockFileTree
+                fileTree={resolvedFileTree}
+                activeFile={activeFile}
+                setActiveFile={setActiveFile}
+              />
               <div className="flex min-w-0 flex-1 flex-col">
                 <div className="flex h-12 items-center gap-2 border-b border-gray-700 bg-[#1e1e1e] px-4 text-sm font-medium">
                   <div className="flex gap-2 items-center">
                     <div className="w-4 h-4">
-                      {languageIcons[language] || <FileCode className="w-4 h-4 text-gray-400" />}
+                      {languageIcons[language] || (
+                        <FileCode className="w-4 h-4 text-gray-400" />
+                      )}
                     </div>
-                    <span className="text-gray-100">{activeFile || "Select a file from the menu"}</span>
+                    <span className="text-gray-100">
+                      {activeFile || "Select a file from the menu"}
+                    </span>
                   </div>
                 </div>
                 <div className="relative flex-1 overflow-auto bg-[#1e1e1e]">
@@ -617,4 +690,3 @@ export default function BlockPreview({
     </Tabs>
   )
 }
-
