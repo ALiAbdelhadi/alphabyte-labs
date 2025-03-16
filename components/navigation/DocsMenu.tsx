@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-
+import { Drawer } from "vaul"
 import { Routes } from "@/lib/pageRoutes"
 import SubLink from "@/components/navigation/sublink"
 
@@ -12,7 +12,7 @@ export default function DocsMenu({ isSheet = false }) {
   if (!pathname.startsWith("/docs")) return null
 
   return (
-    <div className="flex flex-col gap-2.5 md:mt-0 mt-6 mb-14 md:mb-0">
+    <div className="flex flex-col gap-2.5 md:mt-0 my-6 md:mb-0 hide-scrollbar">
       {Routes.map((item, index) => {
         if ("spacer" in item) {
           return (

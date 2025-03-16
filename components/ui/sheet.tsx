@@ -3,41 +3,15 @@
 import * as React from "react"
 import * as SheetPrimitive from "@radix-ui/react-dialog"
 import { cva, type VariantProps } from "class-variance-authority"
+import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { useSheet } from "@/hooks/sheet-context"
 
 const Sheet = SheetPrimitive.Root
 
-const SheetTrigger = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Trigger>
->(({ ...props }, ref) => {
-  const { setIsOpen } = useSheet()
-  return (
-    <SheetPrimitive.Trigger
-      {...props}
-      ref={ref}
-      onClick={() => setIsOpen(true)}
-    />
-  )
-})
-SheetTrigger.displayName = SheetPrimitive.Trigger.displayName
+const SheetTrigger = SheetPrimitive.Trigger
 
-const SheetClose = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Close>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Close>
->(({ ...props }, ref) => {
-  const { setIsOpen } = useSheet()
-  return (
-    <SheetPrimitive.Close
-      {...props}
-      ref={ref}
-      onClick={() => setIsOpen(false)}
-    />
-  )
-})
-SheetClose.displayName = SheetPrimitive.Close.displayName
+const SheetClose = SheetPrimitive.Close
 
 const SheetPortal = SheetPrimitive.Portal
 
@@ -47,7 +21,7 @@ const SheetOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(
-      "fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
@@ -66,7 +40,7 @@ const sheetVariants = cva(
           "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
         left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm",
         right:
-          "inset-y-0 right-0 h-full w-3/4  border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
+          "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
       },
     },
     defaultVariants: {
@@ -77,34 +51,23 @@ const sheetVariants = cva(
 
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
-    VariantProps<typeof sheetVariants> {}
+  VariantProps<typeof sheetVariants> { }
 
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = "right", className, children, ...props }, ref) => {
-  const { setIsOpen } = useSheet()
-  return (
-    <SheetPortal>
-      <SheetOverlay />
-      <SheetPrimitive.Content
-        ref={ref}
-        className={cn(sheetVariants({ side }), className)}
-        onOpenAutoFocus={(event) => {
-          event.preventDefault()
-          setIsOpen(true)
-        }}
-        onCloseAutoFocus={(event) => {
-          event.preventDefault()
-          setIsOpen(false)
-        }}
-        {...props}
-      >
-        {children}
-      </SheetPrimitive.Content>
-    </SheetPortal>
-  )
-})
+>(({ side = "right", className, children, ...props }, ref) => (
+  <SheetPortal>
+    <SheetOverlay />
+    <SheetPrimitive.Content
+      ref={ref}
+      className={cn(sheetVariants({ side }), className)}
+      {...props}
+    >
+      {children}
+    </SheetPrimitive.Content>
+  </SheetPortal>
+))
 SheetContent.displayName = SheetPrimitive.Content.displayName
 
 const SheetHeader = ({
@@ -161,13 +124,13 @@ SheetDescription.displayName = SheetPrimitive.Description.displayName
 
 export {
   Sheet,
+  SheetPortal,
+  SheetOverlay,
+  SheetTrigger,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
-  SheetOverlay,
-  SheetPortal,
+  SheetFooter,
   SheetTitle,
-  SheetTrigger,
+  SheetDescription,
 }

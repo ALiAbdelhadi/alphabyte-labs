@@ -1,10 +1,9 @@
-import { Fragment } from "react"
 import type { Metadata } from "next"
+import { Fragment } from "react"
 
-import { Settings } from "@/lib/meta"
-import { Toaster } from "@/components/ui/sonner"
 import { ThemeProvider } from "@/components/context/theme-provider"
-import { SheetWrapper } from "@/components/sheet-wrapper"
+import { Toaster } from "@/components/ui/sonner"
+import { Settings } from "@/lib/meta"
 
 import "./dragging.css"
 import "./globals.css"
@@ -53,7 +52,7 @@ export default function RootLayout({
     <Fragment>
       <html lang="en" suppressHydrationWarning>
         <body
-          className="font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif] font-medium antialiased min-h-svh"
+          className="font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif] bg-background font-medium antialiased min-h-svh !mr-"
           suppressHydrationWarning
         >
           <ThemeProvider
@@ -63,13 +62,11 @@ export default function RootLayout({
             disableTransitionOnChange
             enableColorScheme
           >
-            <SheetWrapper>
-              <div>
-                <div className="relative flex min-h-svh flex-col bg-background">
-                  {children}
-                </div>
+            <div vaul-drawer-wrapper="">
+              <div className="relative flex min-h-svh flex-col bg-background">
+                {children}
               </div>
-            </SheetWrapper>
+            </div>
           </ThemeProvider>
           <Toaster />
         </body>
