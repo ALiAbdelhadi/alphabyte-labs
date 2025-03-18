@@ -197,7 +197,7 @@ export const FILES = [
     name: "tabs-demo",
     files: [
       {
-        path: "@/registry-components/examples/tabs-demo/tabs-demo.tsx",
+        path: "@/registry-components/examples/tabs-demo.tsx",
       },
     ],
   },

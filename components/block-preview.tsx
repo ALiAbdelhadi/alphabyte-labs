@@ -39,7 +39,7 @@ import {
   SidebarMenuSub,
   SidebarProvider,
 } from "@/components/ui/sidebar"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContainer, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import { Separator } from "./ui/separator"
 
@@ -158,24 +158,23 @@ interface BlockPreview {
   BlockId: string
   fileTree?: FileTree[] | string
 }
-
 const CopyButton = ({ content }: { content: string }) => {
-  const [isCopied, setIsCopied] = useState(false)
+  const [isCopied, setIsCopied] = useState(false);
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(content)
-      setIsCopied(true)
-      setTimeout(() => setIsCopied(false), 20000)
+      await navigator.clipboard.writeText(content);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
     } catch (error) {
-      console.error("Failed to copy:", error)
+      console.error("Failed to copy:", error);
     }
-  }
+  };
   return (
     <button
       className="flex items-center bg-muted hover:bg-gray-200/60 dark:hover:bg-muted-foreground/10 shadow-sm py-3 md:py-2.5 px-3 rounded-[7px] space-x-1 transition-colors"
       onClick={copyToClipboard}
     >
-      <span className="inline-block">
+      <span className="inline-block transition-transform duration-200 ease-in-out">
         {isCopied ? (
           <Check className="w-4 h-4 text-emerald-500" />
         ) : (
@@ -183,11 +182,22 @@ const CopyButton = ({ content }: { content: string }) => {
         )}
       </span>
       <span className="font-medium text-xs text-nowrap hidden sm:block text-gray-800 dark:text-gray-200">
-        Copy Code
+        <span className={cn("transition-all", isCopied && "mr-2.5")}>
+          Cop
+          <span className="relative">
+            <span className={`inline-block transition-opacity duration-300 ${isCopied ? 'opacity-0' : 'opacity-100'}`}>
+              y
+            </span>
+            <span className={`absolute left-0 transition-all duration-300 ${isCopied ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-1'}`}>
+              ied{" "}
+            </span>
+          </span>
+        </span>
+        {' '}code
       </span>
     </button>
-  )
-}
+  );
+};
 
 function Tree({
   item,
@@ -564,37 +574,36 @@ export default function BlockPreview({
             className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden"
           />
           <TabsList className="inline-flex h-9 items-center text-muted-foreground max-w-fit justify-start rounded-none bg-transparent">
-            <div className="bg-muted shadow-sm py-1 px-1 rounded-[7px] space-x-2 flex">
+            <TabsContainer className="bg-muted rounded-[7px]">
               <TabsTrigger
                 value="preview"
-                className="active:shadow-none text-sm border-none rounded-[6px] sm:px-3 px-1"
+                className="text-sm border-none rounded-[6px] sm:px-3 px-1"
               >
                 preview
               </TabsTrigger>
               <TabsTrigger
                 value="code"
-                className="active:shadow-none text-sm border-none rounded-[6px] sm:px-3 px-1"
+                className="text-sm border-none rounded-[6px] sm:px-3 px-1"
               >
                 code
               </TabsTrigger>
-            </div>
+            </TabsContainer>
           </TabsList>
         </div>
         <div className="flex items-center md:flex-row flex-col gap-4">
-          <div className="items-center bg-muted shadow-sm py-1 px-2 rounded-[7px] space-x-1 md:flex hidden">
+          <TabsContainer className="items-center shadow-sm py-1 px-2 rounded-[7px] space-x-1 md:flex hidden">
             {[
               { id: "desktop", icon: <Monitor className="w-4 h-4" /> },
               { id: "tablet", icon: <Tablet className="w-4 h-4" /> },
               { id: "smartphone", icon: <Smartphone className="w-4 h-4" /> },
             ].map((device) => (
-              <div key={device.id}>
-                <button
-                  className={`p-1.5 rounded-[6px] transition ${active === device.id ? "bg-gray-200/60 dark:bg-muted-foreground/30" : "hover:bg-gray-100 dark:hover:bg-muted-foreground/10 "}`}
-                  onClick={() => setActive(device.id)}
-                >
-                  {device.icon}
-                </button>
-              </div>
+              <button
+                key={device.id}
+                className="p-1.5 rounded-[6px] transition relative z-10"
+                onClick={() => setActive(device.id)}
+              >
+                {device.icon}
+              </button>
             ))}
             <Separator
               orientation="vertical"
@@ -609,7 +618,7 @@ export default function BlockPreview({
             >
               <Fullscreen className="w-4 h-4" />
             </button>
-          </div>
+          </TabsContainer>
           <Separator
             orientation="vertical"
             className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden"
