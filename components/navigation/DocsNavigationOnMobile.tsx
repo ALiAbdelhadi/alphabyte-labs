@@ -9,6 +9,7 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerTitle,
   DrawerTrigger
 } from "@/components/library/drawer";
 
@@ -34,13 +35,10 @@ export function DocsNavigationOnMobile() {
                 className="cursor-pointer w-full flex items-center mb-0.5"
               >
                 <ChevronRight />
-                <span className="font-semibold text-lg">Menu</span>
+                <DrawerTitle className="font-semibold text-lg">Menu</DrawerTitle>
               </div>
             </DrawerTrigger>
-            <DrawerContent className="h-[70svh] px-4">
-              {/* <span
-                className="w-20 h-1 bg-gray-300 rounded-full flex justify-center mx-auto cursor-grab active:cursor-grabbing"
-              /> */}
+            <DrawerContent className="h-[70svh] px-4 rounded-t-3xl ">
               <div>
                 <div className="flex justify-between items-center py-4">
                   <span className="font-semibold text-lg">Menu</span>
