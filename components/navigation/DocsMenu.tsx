@@ -12,7 +12,7 @@ export default function DocsMenu({ isSheet = false }) {
   if (!pathname.startsWith("/docs")) return null
 
   return (
-    <div className="flex flex-col gap-2.5 md:mt-0 my-6 md:mb-0 hide-scrollbar">
+    <div className="flex flex-col gap-2.5 md:mt-0 my-6 md:mb-0">
       {Routes.map((item, index) => {
         if ("spacer" in item) {
           return (

@@ -24,7 +24,7 @@ export function DocsNavigationOnMobile() {
     <>
       <div
         className={cn(
-          "md:hidden h-14 fixed top-[56px] border-b border-t border-gray-300 left-0 right-0 bg-[rgba(250,250,252,0.4)] dark:bg-[#e2e8f003] backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] transition-all duration-300"
+          "md:hidden z-50 h-14 fixed top-[56px] border-b border-t border-gray-300 left-0 right-0 bg-[rgba(250,250,252,0.4)] dark:bg-[#e2e8f003] backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] transition-all duration-300"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-center">

@@ -40,9 +40,7 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 import { Tabs, TabsContainer, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
 import { Separator } from "./ui/separator"
-
 import "prismjs/components/prism-javascript"
 import "prismjs/components/prism-jsx"
 import "prismjs/components/prism-tsx"
@@ -51,7 +49,6 @@ import "prismjs/plugins/line-highlight/prism-line-highlight"
 import "prismjs/plugins/line-highlight/prism-line-highlight.css"
 import "prismjs/plugins/line-numbers/prism-line-numbers"
 import "prismjs/plugins/line-numbers/prism-line-numbers.css"
-
 import type { ComponentProps } from "react"
 import { motion } from "framer-motion"
 
@@ -321,7 +318,7 @@ function BlockFileTree({
           ref={openButtonRef}
           onClick={toggleSidebar}
           aria-label="Open sidebar"
-          className="relative z-50 p-2 border-r flex border-gray-700 transition-colors bg-[#252526] "
+          className="relative z-20 p-2 border-r flex border-gray-700 transition-colors bg-[#252526] "
         >
           <PanelLeftOpen
             strokeWidth={2.5}
@@ -626,7 +623,7 @@ export default function BlockPreview({
           <CopyButton content={code} />
         </div>
       </nav>
-      <div className="not-prose">
+      <div>
         <TabsContent
           value="preview"
           className={cn(

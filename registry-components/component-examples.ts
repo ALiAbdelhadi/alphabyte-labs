@@ -194,10 +194,18 @@ export const FILES = [
   },
   // Start Tabs
   {
+    name: "tabs-line-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/tabs-demo/tabs-line-demo.tsx",
+      },
+    ],
+  },
+  {
     name: "tabs-demo",
     files: [
       {
-        path: "@/registry-components/examples/tabs-demo.tsx",
+        path: "@/registry-components/examples/tabs-demo/tabs-demo.tsx",
       },
     ],
   },
@@ -287,4 +295,22 @@ export const FILES = [
     ],
   },
   // End Diagram
+  // Start drawer
+  {
+    name: "drawer-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/drawer-demo/drawer-demo.tsx",
+      },
+    ],
+  },
+  {
+    name: "drawer-nested-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/drawer-demo/drawer-nested-demo.tsx",
+      },
+    ],
+  },
+  // End drawer
 ]

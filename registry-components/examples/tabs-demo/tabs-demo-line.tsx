@@ -1,12 +1,12 @@
-import { cn } from "@/lib/utils"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/components/library/tabs"
+import { cn } from "@/lib/utils"
 
-const TabsDemo = ({ className }: { className: string }) => {
+const TabsLineDemo = ({ className }: { className: string }) => {
   return (
     <Tabs defaultValue="preview" className="mt-4 w-full">
       <TabsList className="inline-flex h-9 items-center text-muted-foreground w-full justify-start rounded-none border-b bg-transparent p-0 mb-2">
@@ -32,4 +32,4 @@ const TabsDemo = ({ className }: { className: string }) => {
   )
 }
 
-export default TabsDemo
+export default TabsLineDemo

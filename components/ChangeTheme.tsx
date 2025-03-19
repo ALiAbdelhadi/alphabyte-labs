@@ -1,3 +1,4 @@
+"use client"
 import { useTheme } from "next-themes"
 import { LuMoon, LuSun } from "react-icons/lu"
 
@@ -17,11 +18,17 @@ const ChangeTheme = () => {
           className="h-8 w-8"
           onClick={toggleTheme}
         >
-          {theme === "light" ? (
-            <LuMoon className="!h-5 !w-5" />
-          ) : (
-            <LuSun className="!h-5 !w-5" />
-          )}
+          <span>
+            {theme === "light" ? (
+              <span>
+                <LuMoon className="!h-5 !w-5" />
+              </span>
+            ) : (
+              <span>
+                <LuSun className="!h-5 !w-5" />
+              </span>
+            )}
+          </span>
           <span className="sr-only">Toggle theme</span>
         </Button>
       </div>

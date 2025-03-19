@@ -45,6 +45,10 @@ export const DocsRouting: Paths[] = [
         href: "/diagrams",
       },
       {
+        title: "Drawer",
+        href: "/drawer",
+      },
+      {
         title: "Folder structure",
         href: "/folder-structure",
       },

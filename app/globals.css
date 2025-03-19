@@ -137,7 +137,14 @@
     linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
   background-size: 24px 24px;
 }
-
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 @layer utilities {
   .hide-scrollbar {
     -ms-overflow-style: none;

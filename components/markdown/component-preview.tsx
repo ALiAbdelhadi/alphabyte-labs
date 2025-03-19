@@ -1,18 +1,18 @@
 "use client"
 
-import React, { useCallback, useEffect, useRef, useState } from "react"
-import dynamic from "next/dynamic"
 import { REGISTRY_COMPONENTS } from "@/registry-components"
 import { Loader2 } from "lucide-react"
+import dynamic from "next/dynamic"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 
-import { cn } from "@/lib/utils"
-import Pre from "@/components/ui/pre"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/components/library/tabs"
+import Pre from "@/components/ui/pre"
+import { cn } from "@/lib/utils"
 
 const codeCache: Record<string, { code: string; timestamp: number }> = {}
 const CACHE_TTL = 5 * 60 * 1000
@@ -40,6 +40,7 @@ export default function ComponentPreview({
   const fullComponentName = componentVariant
     ? `${baseComponentName}-${componentVariant}-demo`
     : `${baseComponentName}-demo`
+  console.log(REGISTRY_COMPONENTS.items)
   const registryComponents = REGISTRY_COMPONENTS.items.find(
     (item) => item.name === fullComponentName
   )
@@ -87,32 +88,32 @@ export default function ComponentPreview({
 
   const DynamicComponent = registryComponents?.name
     ? dynamic(
-        async () => {
-          const folderName = `${baseComponentName}-demo`
+      async () => {
+        const folderName = `${baseComponentName}-demo`
+        try {
+          return await import(
+            `@/registry-components/examples/${folderName}/${registryComponents.name}.tsx`
+          )
+        } catch {
           try {
             return await import(
-              `@/registry-components/examples/${folderName}/${registryComponents.name}.tsx`
+              `@/registry-components/examples/${registryComponents.name}.tsx`
             )
           } catch {
-            try {
-              return await import(
-                `@/registry-components/examples/${registryComponents.name}.tsx`
-              )
-            } catch {
-              return () => <div>Component not found</div>
-            }
+            return () => <div>Component not found</div>
           }
-        },
-        {
-          loading: () => (
-            <div className="flex w-full items-center justify-center text-sm text-muted-foreground gap-2">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              Loading...
-            </div>
-          ),
-          ssr: false,
         }
-      )
+      },
+      {
+        loading: () => (
+          <div className="flex w-full items-center justify-center text-sm text-muted-foreground gap-2">
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Loading...
+          </div>
+        ),
+        ssr: false,
+      }
+    )
     : () => <div>Component not found with name {fullComponentName}</div>
 
   useEffect(() => {

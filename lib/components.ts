@@ -1,9 +1,23 @@
-import CodeBlockDemo from "@/registry-components/examples/code-block-demo"
-import FolderTreeDemo from "@/registry-components/examples/folder-tree-demo"
-import TabsDemo from "@/registry-components/examples/tabs-demo"
-import { ChevronRightIcon } from "lucide-react"
-import { MDXComponents } from "mdx/types"
-
+import BlockPreview from "@/components/block-preview"
+import CarouselContainer from "@/components/blocks/carousel-1/carousel-container"
+import CarouselCompForProject from "@/components/blocks/carousel-2/carousel-big-container"
+import TimelineContainer from "@/components/blocks/timeline-1/TimelineContainer"
+import { CodeBlockWrapper } from "@/components/CodeBlockWrapper"
+import { Button } from "@/components/library/button"
+import { Input } from "@/components/library/input"
+import { Label } from "@/components/library/label"
+import Mermaid from "@/components/library/mermaid"
+import { Note } from "@/components/library/note"
+import ProductCard from "@/components/library/product-card"
+import { Step, StepItem } from "@/components/library/step"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/library/tabs"
+import ComponentPreview from "@/components/markdown/component-preview"
+import MdxBadge from "@/components/markdown/mdx-badge"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,29 +39,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import Pre from "@/components/ui/pre"
-import BlockPreview from "@/components/block-preview"
-import CarouselContainer from "@/components/blocks/carousel-1/carousel-container"
-import CarouselCompForProject from "@/components/blocks/carousel-2/carousel-big-container"
-import TimelineContainer from "@/components/blocks/timeline-1/TimelineContainer"
-import { CodeBlockWrapper } from "@/components/CodeBlockWrapper"
-import { Button } from "@/components/library/button"
-import { Input } from "@/components/library/input"
-import { Label } from "@/components/library/label"
-import Mermaid from "@/components/library/mermaid"
-import { Note } from "@/components/library/note"
-import ProductCard from "@/components/library/product-card"
-import { Step, StepItem } from "@/components/library/step"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/library/tabs"
-import ComponentPreview from "@/components/markdown/component-preview"
-import MdxBadge from "@/components/markdown/mdx-badge"
+import CodeBlockDemo from "@/registry-components/examples/code-block-demo"
+import FolderTreeDemo from "@/registry-components/examples/folder-tree-demo"
+import { ChevronRightIcon } from "lucide-react"
+import { MDXComponents } from "mdx/types"
 
 export const components: MDXComponents = {
   Pre,
+  // Tab 1
   Tabs,
   TabsContent,
   TabsList,
@@ -90,6 +89,4 @@ export const components: MDXComponents = {
   CarouselCompForProject,
   // icons
   ChevronRightIcon,
-  // Markdown
-  TabsDemo,
 }
