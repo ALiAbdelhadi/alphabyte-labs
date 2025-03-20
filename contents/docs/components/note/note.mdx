@@ -6,7 +6,7 @@ description: Introducing the Note Component Communicating Effectively in Your UI
 <ComponentPreview name="note-demo" />
 
 ## Installation
-<div className="not-prose"> 
+<div className="not-prose px-4"> 
 <Step>
 <StepItem title="Install Dependencies">
 First, you'll need to install the necessary dependencies for styling and utility functions. These include <MdxBadge>clsx</MdxBadge> for conditional class names and <MdxBadge>tailwind-merge</MdxBadge> to handle Tailwind CSS class conflicts efficiently.
@@ -120,6 +120,22 @@ export { Note }`}
 
 </div>
 
+## Usage
+<div className="not-prose space-y-6">
+<Pre className="language-typescript">
+{`import { Note } from "@/components/Note"`}
+</Pre>
+<Pre className="language-tsx">
+{`import { Note } from "@/components/library/note"
+
+const NoteDemo = () => {
+     return <Note variant="info">This is an informational note.</Note>
+}
+
+export default NoteDemo`}
+</Pre>
+</div>
+
 ## Example
 
 ### Standard Note
@@ -142,23 +158,3 @@ export { Note }`}
 To allow users to dismiss the note, set the <MdxBadge>closable</MdxBadge> prop to <MdxBadge>true</MdxBadge>.
 
 <ComponentPreview name="note-demo" variant="closable" />
-
-## Usage
-<div className="not-prose space-y-4">
-<p className="text-base">First, you have to import <MdxBadge>Note.tsx</MdxBadge> in your file:</p>
-<Pre className="language-typescript">
-{`import { Note } from "@/components/Note"`}
-</Pre>
-<p className="text-base">Then, you can use the <MdxBadge>Note</MdxBadge> component in your file:</p>
-<Pre className="language-jsx">
-{`const MyComponent = () => {
-  return (
-    <div>
-      <Note variant="info" closable>  
-          Turbopack is a high-performance bundler and dev server for Next.js. Enabling this option ensures faster builds and an improved development experience.  
-      </Note>  
-    </div>
-    );
-};`}
-</Pre>
-</div>

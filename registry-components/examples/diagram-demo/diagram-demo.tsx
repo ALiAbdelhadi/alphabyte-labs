@@ -1,5 +1,3 @@
-import React from "react"
-
 import Mermaid from "@/components/library/mermaid"
 
 const DiagramsDemo = () => {

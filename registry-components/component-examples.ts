@@ -214,7 +214,39 @@ export const FILES = [
     name: "input-demo",
     files: [
       {
-        path: "@/registry-components/examples/input-demo.tsx",
+        path: "@/registry-components/examples/input-demo/input-demo.tsx",
+      },
+    ],
+  },
+  {
+    name: "input-file-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/input-demo/input-file-demo.tsx",
+      },
+    ],
+  },
+  {
+    name: "input-file-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/input-demo/input-file-demo.tsx",
+      },
+    ],
+  },
+  {
+    name: "input-disabled-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/input-demo/input-disabled-demo.tsx",
+      },
+    ],
+  },
+  {
+    name: "input-button-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/input-demo/input-button-demo.tsx",
       },
     ],
   },
