@@ -3,8 +3,6 @@
 import { cn } from "@/lib/utils"
 import { ChevronRight, X } from "lucide-react"
 import { useState } from "react"
-
-// Import directly from your Vaul drawer component
 import {
   Drawer,
   DrawerClose,

@@ -68,7 +68,7 @@ export function FolderTreeMenu({ items }: CardSidenavProps) {
   }
 
   return (
-    <Sidebar className="w-64 rounded-lg border bg-card text-card-foreground shadow-sm">
+    <Sidebar className="w-64 rounded-xl border bg-card text-card-foreground shadow-sm">
       <SidebarHeader className="px-4 py-2">
         <h2 className="text-lg font-semibold">Menu</h2>
       </SidebarHeader>

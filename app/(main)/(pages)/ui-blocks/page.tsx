@@ -6,6 +6,7 @@ import CarouselCompForProject from "@/components/blocks/carousel-2/carousel-big-
 import TimelineContainer from "@/components/blocks/timeline-1/TimelineContainer"
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
+import { cn } from "@/lib/utils"
 
 const UiBlocksPage = () => {
   return (
@@ -13,20 +14,20 @@ const UiBlocksPage = () => {
       <Container>
         <section className="my-14 md:my-16 space-y-3">
           <div className="space-y-2">
-            <h1 className="text-3xl md:text-4xl font-bold">
+            <h1 className="text-2xl lg:text-4xl md:text-3xl font-bold">
               Building Blocks for the Web
             </h1>
-            <p className="text-lg md:text-xl font-normal max-w-2xl text-foreground opacity-80">
+            <p className="text-base md:text-lg lg:text-xl font-normal max-w-2xl text-foreground opacity-80">
               Clean, modern building blocks. Copy and paste into your apps.
               Works with all React frameworks. Open Source. Free forever.
             </p>
           </div>
           <div className="space-x-2">
             <Link href="/ui-blocks/carousel-1">
-              <Button>Get started</Button>
+              <Button className="lg:h-11 lg:px-8 px-3.5 h-9">Get started</Button>
             </Link>
             <Link href="#browse-all-blocks">
-              <Button variant={"ghost"}>Browse All Blocks</Button>
+              <Button variant={"ghost"} className="lg:h-11 lg:px-8 px-3.5 h-9" >Browse All Blocks</Button>
             </Link>
           </div>
         </section>
