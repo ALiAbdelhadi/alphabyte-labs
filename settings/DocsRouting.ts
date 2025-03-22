@@ -37,6 +37,11 @@ export const DocsRouting: Paths[] = [
         href: "/code-block",
       },
       {
+        title: "Calendar",
+        
+        href: "/calendar",
+      },
+      {
         title: "Dialog",
         href: "/dialog",
       },
@@ -75,6 +80,14 @@ export const DocsRouting: Paths[] = [
       {
         title: "Tabs",
         href: "/tabs",
+      },
+      {
+        title: "Date Picker",
+        href: "/data-picker",
+      },
+      {
+        title: "Popover",
+        href: "/popover",
       },
     ],
   },

@@ -345,4 +345,40 @@ export const FILES = [
     ],
   },
   // End drawer
+  // Start date-picker
+  {
+    name: "date-picker-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/date-picker-demo/date-picker-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "date-picker-range-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/date-picker-demo/date-picker-range-demo.tsx",
+      }
+    ]
+  },
+  // End Date Picker
+  // Start Popover
+  {
+    name: "popover-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/popover-demo.tsx",
+      }
+    ]
+  },
+  // Start Calendar
+  {
+    name: "calendar-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/calendar-demo.tsx",
+      }
+    ]
+  },
 ]
