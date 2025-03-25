@@ -27,7 +27,7 @@ const page = async (props: DocsPageProps) => {
     const { frontmatter, content, tocs } = res
 
     return (
-      <div className="flex items-start gap-14 max-w-7xl">
+      <div className="flex items-start gap-14 max-w-7xl transition-all">
         <div className="flex-[3] mt-[4.5rem] md:mt-7">
           <PageBreadcrumb paths={slug} />
           <div className="space-y-2">

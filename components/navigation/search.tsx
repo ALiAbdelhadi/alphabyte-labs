@@ -12,7 +12,7 @@ import {
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/library/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
 import Anchor from "./anchor"

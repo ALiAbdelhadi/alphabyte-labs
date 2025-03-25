@@ -44,7 +44,7 @@ const AlertDialogOverlay = React.forwardRef<
 AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName
 
 const alertDialogContentVariants = cva(
-  "fixed z-50 w-[90%] max-w-md rounded-2xl border-none shadow-2xl",
+  "fixed z-50 lg:w-full w-[92%] max-w-md rounded-2xl border-none shadow-2xl",
   {
     variants: {
       appearance: {

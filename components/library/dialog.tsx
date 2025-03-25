@@ -47,7 +47,7 @@ const DialogOverlay = React.forwardRef<
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
 const dialogContentVariants = cva(
-  "fixed z-50 grid max-w-md gap-4 border bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+  "fixed z-50 grid max-w-md gap-4 border-border/90 bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0  lg:w-full w-[92%] max-w-md" ,
   {
     variants: {
       position: {
@@ -89,7 +89,7 @@ const DialogContent = React.forwardRef<
         className={cn(
           dialogContentVariants({ appearance, position }),
           className,
-          "p-6 rounded-2xl w-full"
+          "p-6 rounded-2xl"
         )}
         {...props}
       >

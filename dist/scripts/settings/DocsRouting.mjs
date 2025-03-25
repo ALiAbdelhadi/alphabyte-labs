@@ -35,12 +35,25 @@ export const DocsRouting = [
             href: "/code-block",
          },
          {
+            title: "Calendar",
+
+            href: "/calendar",
+         },
+         {
             title: "Dialog",
             href: "/dialog",
          },
          {
             title: "Diagrams",
             href: "/diagrams",
+         },
+         {
+            title: "Drawer",
+            href: "/drawer",
+         },
+         {
+            title: "Dropdown-menu",
+            href: "/dropdown-menu",
          },
          {
             title: "Folder structure",
@@ -69,6 +82,14 @@ export const DocsRouting = [
          {
             title: "Tabs",
             href: "/tabs",
+         },
+         {
+            title: "Date Picker",
+            href: "/data-picker",
+         },
+         {
+            title: "Popover",
+            href: "/popover",
          },
       ],
    },

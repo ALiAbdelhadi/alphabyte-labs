@@ -8,7 +8,7 @@ import {
     DialogDescription,
     DialogFooter,
     DialogAction
-} from "@/components/ui/dialog"
+} from "@/components/library/dialog"
 import { Button } from "@/components/library/button"
 import { Trash2, AlertTriangle } from "lucide-react"
 

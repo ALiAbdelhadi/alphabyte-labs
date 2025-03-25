@@ -382,4 +382,38 @@ export const FILES = [
       }
     ]
   },
+  // Start Dropdown Menu
+  {
+    name: "dropdown-menu-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/dropdown-menu-demo/dropdown-menu-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "dropdown-menu-checkbox-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/dropdown-menu-demo/dropdown-menu-checkbox-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "dropdown-menu-nested-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/dropdown-menu-demo/dropdown-menu-nested-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "dropdown-menu-radio-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/dropdown-menu-demo/dropdown-menu-radio-demo.tsx",
+      }
+    ]
+  },
+  // End Dropdown Menu
 ]

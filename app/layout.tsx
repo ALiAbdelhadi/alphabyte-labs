@@ -8,6 +8,7 @@ import { Settings } from "@/lib/meta"
 import "./dragging.css"
 import "./globals.css"
 import "./prism-theme.css"
+import Providers from "@/components/Providers"
 
 // import { SplashScreen } from "./SplashScreen"
 const baseUrl = Settings.metadataBase
@@ -64,7 +65,9 @@ export default function RootLayout({
           >
             <div vaul-drawer-wrapper="">
               <div className="relative flex min-h-svh flex-col bg-background">
-                {children}
+                <Providers>
+                  {children}
+                </Providers>
               </div>
             </div>
           </ThemeProvider>

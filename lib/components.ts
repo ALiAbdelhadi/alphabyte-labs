@@ -28,7 +28,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/library/alert-dialog"
 import {
   Dialog,
   DialogContent,
@@ -37,7 +37,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/library/dialog"
 import Pre from "@/components/ui/pre"
 import CodeBlockDemo from "@/registry-components/examples/code-block-demo"
 import FolderTreeDemo from "@/registry-components/examples/folder-tree-demo"

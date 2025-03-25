@@ -1,5 +1,4 @@
 import { Button } from '@/components/library/button'
-import { Label } from '@/components/library/label'
 import {
   Dialog,
   DialogAction,
@@ -9,7 +8,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger
-} from "@/components/ui/dialog"
+} from "@/components/library/dialog"
+import { Label } from '@/components/library/label'
 import { useState } from 'react'
 
 export default function DialogDemo() {
@@ -46,9 +46,9 @@ export default function DialogDemo() {
               Profile Visibility
             </Label>
             <select
-              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg"
+              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg "
             >
-              <option>Public</option>
+              <option >Public</option>
               <option>Private</option>
               <option>Friends Only</option>
             </select>

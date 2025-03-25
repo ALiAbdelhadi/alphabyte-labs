@@ -8,7 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/library/alert-dialog"
 import { Button } from "@/components/library/button"
 
 export default function AlertDialogDemo() {
