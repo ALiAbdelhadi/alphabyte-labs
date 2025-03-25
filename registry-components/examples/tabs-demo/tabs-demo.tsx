@@ -7,19 +7,19 @@ export default function TabsDemo() {
             <TabsContainer className="bg-muted rounded-[7px]">
                <TabsTrigger
                   value="tab1"
-                  className="text-sm border-none rounded-[6px] sm:px-3 px-1"
+                  className="text-sm sm:px-3 px-1"
                >
                   Tab 1
                </TabsTrigger>
                <TabsTrigger
                   value="tab2"
-                  className="text-sm border-none rounded-[6px] sm:px-3 px-1"
+                  className="text-sm sm:px-3 px-1"
                >
                   Tab 2
                </TabsTrigger>
                <TabsTrigger
                   value="tab3"
-                  className="text-sm border-none rounded-[6px] sm:px-3 px-1"
+                  className="text-sm sm:px-3 px-1"
                >
                   Tab 3
                </TabsTrigger>

@@ -107,7 +107,7 @@ const TabsContainer = React.forwardRef<
       {...props}
     >
       <motion.div
-        className="absolute rounded-[6px] bg-background shadow-sm"
+        className="absolute rounded-[6px] bg-background shadow-sm border-none"
         style={{
           willChange: "left, width",
           transitionProperty: "left, width",

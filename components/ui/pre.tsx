@@ -126,7 +126,7 @@ export default function Pre({
           <div>
             <CopyButton content={raw || code} />
           </div>
-          <div className="w-4 h-4">
+          <div className="w-4 h-4 rounded-sm">
             {languageIcons[language] || (
               <FileCode className="w-4 h-4 text-gray-400" />
             )}

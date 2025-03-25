@@ -6,7 +6,7 @@ export const languageIcons: Record<string, JSX.Element> = {
   javascript: (
     <Image
       src="/icons/javascript.svg"
-      className="w-[18px] h-[18px] rounded-sm"
+      className="w-[18px] h-[18px]"
       alt="javascript"
       width={10}
       height={10}
@@ -16,7 +16,7 @@ export const languageIcons: Record<string, JSX.Element> = {
   js: (
     <Image
       src="/icons/javascript.svg"
-      className="w-[18px] h-[18px] rounded-sm"
+      className="w-[18px] h-[18px]"
       alt="javascript"
       width={10}
       height={10}
@@ -26,7 +26,7 @@ export const languageIcons: Record<string, JSX.Element> = {
   jsx: (
     <Image
       src="/icons/javascript.svg"
-      className="w-[18px] h-[18px] rounded-sm"
+      className="w-[18px] h-[18px]"
       alt="jsx"
       width={10}
       height={10}
@@ -36,7 +36,7 @@ export const languageIcons: Record<string, JSX.Element> = {
   typescript: (
     <Image
       src="/icons/typescript.svg"
-      className="w-[18px] h-[18px] rounded-sm"
+      className="w-[18px] h-[18px]"
       alt="typescript"
       width={10}
       height={10}
@@ -46,7 +46,7 @@ export const languageIcons: Record<string, JSX.Element> = {
   ts: (
     <Image
       src="/icons/typescript.svg"
-      className="w-[18px] h-[18px] rounded-sm"
+      className="w-[18px] h-[18px]"
       alt="typescript"
       width={10}
       height={10}
@@ -56,7 +56,7 @@ export const languageIcons: Record<string, JSX.Element> = {
   tsx: (
     <Image
       src="/icons/typescript.svg"
-      className="w-[18px] h-[18px] rounded-sm"
+      className="w-[18px] h-[18px]"
       alt="typescript"
       width={10}
       height={10}
@@ -67,7 +67,7 @@ export const languageIcons: Record<string, JSX.Element> = {
     <Image
       src="/icons/html.svg"
       alt="html"
-      className="w-[18px] h-[18px] rounded-sm"
+      className="w-[18px] h-[18px]"
       width={10}
       height={10}
       quality={100}
@@ -77,7 +77,7 @@ export const languageIcons: Record<string, JSX.Element> = {
     <Image
       src="/icons/css.svg"
       alt="css"
-      className="w-[18px] h-[18px] rounded-sm"
+      className="w-[18px] h-[18px]"
       width={10}
       height={10}
       quality={100}

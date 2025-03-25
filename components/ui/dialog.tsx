@@ -1,13 +1,29 @@
 "use client"
-
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
+import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import { buttonVariants } from "@/components/library/button"
 
 const Dialog = DialogPrimitive.Root
 
-const DialogTrigger = DialogPrimitive.Trigger
+const DialogTrigger = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger>
+>(({ className, children, ...props }, ref) => (
+  <DialogPrimitive.Trigger
+    ref={ref}
+    className={cn(
+      "focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50",
+      className
+    )}
+    {...props}
+  >
+    {children}
+  </DialogPrimitive.Trigger>
+))
+DialogTrigger.displayName = DialogPrimitive.Trigger.displayName
 
 const DialogPortal = DialogPrimitive.Portal
 
@@ -20,7 +36,9 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 dark:bg-black/20 bg-black/20 backdrop-blur-lg backdrop-filter backdrop-saturate-[180%] transition data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-50 bg-black/40 backdrop-blur-md transition",
+      "data-[state=open]:animate-in data-[state=closed]:animate-out",
+      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
@@ -28,25 +46,59 @@ const DialogOverlay = React.forwardRef<
 ))
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
+const dialogContentVariants = cva(
+  "fixed z-50 grid max-w-md gap-4 border bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+  {
+    variants: {
+      position: {
+        default:
+          "left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
+        top: "left-[50%] top-[5%] translate-x-[-50%] translate-y-[30%] data-[state=closed]:slide-out-to-top-0 data-[state=open]:slide-in-from-top-0 data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0  data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[50%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[50%] ",
+        bottom:
+          "left-[50%] bottom-[5%] translate-x-[-50%] translate-y-[-30%] data-[state=closed]:slide-out-to-bottom-0 data-[state=open]:slide-in-from-bottom-0 data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0  data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-bottom-[50%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[50%] ",
+      },
+      appearance: {
+        default: "bg-white/95 dark:bg-neutral-900/95",
+        destructive: "bg-red-50/95 dark:bg-red-950/95",
+      },
+    },
+    defaultVariants: {
+      appearance: "default",
+      position: "default",
+    },
+  }
+)
+
+export interface DialogContentProps
+  extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
+  VariantProps<typeof dialogContentVariants> {
+  closeOnClickOutside?: boolean
+}
+
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <DialogPortal>
-    <DialogOverlay />
-    <DialogPrimitive.Content
-      ref={ref}
-      className={cn(
-        "fixed left-[50%] top-[50%] lg:!w-[92%] !w-[88%] z-50 grid max-w-sm translate-x-[-50%] translate-y-[-50%] gap-4 border-none bg-background p-6 shadow-xl duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-&lsqb;state=closed&rsqb;:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-&lsqb;state=open&rsqb;:slide-in-from-top-[48%] sm:rounded-lg",
-        "backdrop-blur dark:bg-gray-950/80",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </DialogPrimitive.Content>
-  </DialogPortal>
-))
+  DialogContentProps
+>(
+  ({ className, appearance, position = "default", closeOnClickOutside = true, children, ...props }, ref) => (
+    <DialogPortal>
+      <DialogOverlay
+        onClick={closeOnClickOutside ? undefined : (e) => e.stopPropagation()}
+      />
+      <DialogPrimitive.Content
+        ref={ref}
+        className={cn(
+          dialogContentVariants({ appearance, position }),
+          className,
+          "p-6 rounded-2xl w-full"
+        )}
+        {...props}
+      >
+        {children}
+      </DialogPrimitive.Content>
+    </DialogPortal>
+  )
+)
+
 DialogContent.displayName = DialogPrimitive.Content.displayName
 
 const DialogHeader = ({
@@ -55,7 +107,7 @@ const DialogHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "flex flex-col space-y-1.5 text-center sm:text-left",
+      "flex flex-col space-y-2 text-center sm:text-left",
       className
     )}
     {...props}
@@ -83,10 +135,7 @@ const DialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn(
-      "text-lg font-semibold leading-none tracking-tight",
-      className
-    )}
+    className={cn("text-lg font-bold", className)}
     {...props}
   />
 ))
@@ -104,10 +153,43 @@ const DialogDescription = React.forwardRef<
 ))
 DialogDescription.displayName = DialogPrimitive.Description.displayName
 
+const DialogAction = React.forwardRef<
+  React.ElementRef<typeof DialogClose>,
+  React.ComponentPropsWithoutRef<typeof DialogClose> & {
+    variant?: VariantProps<typeof buttonVariants>["variant"]
+    size?: VariantProps<typeof buttonVariants>["size"]
+  }
+>(({ className, variant = "default", size = "default", ...props }, ref) => (
+  <DialogClose
+    ref={ref}
+    className={cn(buttonVariants({ variant, size }), className)}
+    {...props}
+  />
+))
+DialogAction.displayName = "DialogAction"
+
+const DialogCancel = React.forwardRef<
+  React.ElementRef<typeof DialogClose>,
+  React.ComponentPropsWithoutRef<typeof DialogClose> & {
+    variant?: VariantProps<typeof buttonVariants>["variant"]
+    size?: VariantProps<typeof buttonVariants>["size"]
+  }
+>(({ className, variant = "outline", size = "default", ...props }, ref) => (
+  <DialogClose
+    ref={ref}
+    className={cn(buttonVariants({ variant, size }), "mt-2 sm:mt-0", className)}
+    {...props}
+  />
+))
+DialogCancel.displayName = "DialogCancel"
+
 export {
   Dialog,
+  DialogAction,
+  DialogCancel,
   DialogClose,
   DialogContent,
+  dialogContentVariants,
   DialogDescription,
   DialogFooter,
   DialogHeader,

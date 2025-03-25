@@ -123,6 +123,30 @@ export const FILES = [
       },
     ],
   },
+  {
+    name: "dialog-destructive-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/dialog-demo/dialog-destructive-demo.tsx",
+      },
+    ],
+  },
+  {
+    name: "dialog-bottom-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/dialog-demo/dialog-bottom-demo.tsx",
+      },
+    ],
+  },
+  {
+    name: "dialog-top-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/dialog-demo/dialog-top-demo.tsx",
+      },
+    ],
+  },
   // Start Folder Tree
   {
     name: "folder-tree-demo",
@@ -269,37 +293,14 @@ export const FILES = [
     ],
   },
   {
-    name: "alert-dialog-bottom-demo",
+    name: "alert-dialog-destructive-demo",
     files: [
       {
-        path: "@/registry-components/examples/alert-dialog-demo/alert-dialog-bottom-demo.tsx",
+        path: "@/registry-components/examples/alert-dialog-demo/alert-dialog-destructive-demo.tsx",
       },
     ],
   },
-  {
-    name: "alert-dialog-top-demo",
-    files: [
-      {
-        path: "@/registry-components/examples/alert-dialog-demo/alert-dialog-top-demo.tsx",
-      },
-    ],
-  },
-  {
-    name: "alert-dialog-sm-demo",
-    files: [
-      {
-        path: "@/registry-components/examples/alert-dialog-demo/alert-dialog-sm-demo.tsx",
-      },
-    ],
-  },
-  {
-    name: "alert-dialog-lg-demo",
-    files: [
-      {
-        path: "@/registry-components/examples/alert-dialog-demo/alert-dialog-lg-demo.tsx",
-      },
-    ],
-  },
+
   // End Alert Dialog
   // Start Diagram
   {

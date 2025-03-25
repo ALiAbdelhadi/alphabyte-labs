@@ -4,13 +4,14 @@ description: Data Picker component documentation.
 ---
 <ComponentPreview name="date-picker-demo" />
 ## Installation
+The Date Picker is built using a composition of  <MdxBadge>\<Popover \/></MdxBadge> component  and the  <MdxBadge>\<Calendar \/></MdxBadge> component.
+
+See installation instructions for the [Popover](https://alphabyte-labs.vercel.app/docs/components/popover) and the [Calendar](https://alphabyte-labs.vercel.app/docs/components/calendar/) components.
+for quick installation 
+
 <div className="not-prose md:px-0 px-4">
 <Step>
 <StepItem title="Install Dependencies">
-The Date Picker is built using a composition of  <MdxBadge>Popover</MdxBadge> component  and the  <MdxBadge>Calendar</MdxBadge> component.
-See installation instructions for the [Popover](https://alphabyte-labs.vercel.app/components/popover) and the [Calendar](https://alphabyte-labs.vercel.app/components/calendar/) components.
-for quick installation 
-
 <Pre className="language-bash">
 {`npm install clsx tailwind-merge @radix-ui/react-popover react-day-picker@8.10.1 date-fns `}
 </Pre>
@@ -32,8 +33,7 @@ export function cn(...inputs: ClassValue[]) {
 
 ## Usage
 <div className="not-prose">
-<Pre>{`
-"use client"
+<Pre>{`"use client"
 
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
@@ -74,8 +74,7 @@ export default function DatePickerDemo() {
          </PopoverContent>
       </Popover>
    )
-}
-`}</Pre>
+}`}</Pre>
 </div>
 ## Examples
 ### Date Picker Range

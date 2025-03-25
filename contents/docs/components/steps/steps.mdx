@@ -29,27 +29,20 @@ export function cn(...inputs: ClassValue[]) {
     Now you can create in your <MdxBadge>components</MdxBadge> a Step.tsx file and add the following code in it :
     <CodeBlockWrapper>
     <Pre className="language-typescript" folderPath="components/Step.tsx">
-    {`
-    import { cn } from "@/lib/utils"
+    {`import { Children, PropsWithChildren } from "react"
 import clsx from "clsx"
-import { Children, PropsWithChildren, ReactNode } from "react"
 
-interface StepItemProps {
-  title?: string
-  children: ReactNode
-}
-interface StepProps {
-  children: ReactNode
-}
+import { StepItemProps, StepProps } from "@/types/components"
+import { cn } from "@/lib/utils"
 
 export function Step({ children }: PropsWithChildren<StepProps>) {
   const length = Children.count(children)
   return (
-    <div className="flex flex-col my-5">
+    <div className="flex flex-col my-5 w-full">
       {Children.map(children, (child, index) => (
         <div
           className={cn(
-            "relative border-l pl-9",
+            "relative border-l md:pl-9 pl-7",
             clsx({ "pb-5": index < length - 1 })
           )}
         >
@@ -66,12 +59,18 @@ export function Step({ children }: PropsWithChildren<StepProps>) {
 export function StepItem({ children, title }: StepItemProps) {
   return (
     <div className="space-y-4">
-      {title && <h3 className="!mt-0 text-lg md:text-xl text-gray-950">{title}</h3>}
-      <div className="text-base text-muted-foreground space-y-3">{children}</div>
+      {title && (
+        <h3 className="!mt-0 text-lg md:text-xl text-gray-950 dark:text-gray-50">
+          {title}
+        </h3>
+      )}
+      <div className="text-base text-muted-foreground space-y-3">
+        {children}
+      </div>
     </div>
   )
 }
-    `}
+`}
     </Pre>
     </CodeBlockWrapper>
   </StepItem>

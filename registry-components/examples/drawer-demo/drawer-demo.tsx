@@ -20,7 +20,7 @@ export default function DrawerDemo() {
                <Button variant={"outline"}>Open Drawer</Button>
             </DrawerTrigger>
             <DrawerContent>
-               <div className="max-w-sm w-full mx-auto">
+               <div className="max-w-sm w-full mx-auto rounded-2xl">
                   <DrawerHeader>
                      <DrawerTitle>Edit Profile</DrawerTitle>
                      <DrawerDescription>Make changes to your profile here.</DrawerDescription>
