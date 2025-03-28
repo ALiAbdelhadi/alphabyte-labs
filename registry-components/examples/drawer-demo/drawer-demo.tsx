@@ -19,8 +19,8 @@ export default function DrawerDemo() {
             <DrawerTrigger asChild>
                <Button variant={"outline"}>Open Drawer</Button>
             </DrawerTrigger>
-            <DrawerContent>
-               <div className="max-w-sm w-full mx-auto rounded-2xl">
+            <DrawerContent >
+               <div className="mx-auto rounded-2xl max-w-md">
                   <DrawerHeader>
                      <DrawerTitle>Edit Profile</DrawerTitle>
                      <DrawerDescription>Make changes to your profile here.</DrawerDescription>

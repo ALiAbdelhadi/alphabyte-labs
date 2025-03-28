@@ -130,6 +130,43 @@
 .bg-noise {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
+/* Fix for navigation menu content z-index and positioning */
+.preview [data-radix-popper-content-wrapper] {
+  z-index: 9999 !important; /* Extremely high z-index to ensure it's on top */
+  position: absolute !important;
+}
+
+.preview [data-slot="navigation-menu-content"],
+.preview [data-slot="navigation-menu-viewport"] {
+  z-index: 9999 !important;
+  position: absolute !important;
+}
+
+/* Ensure the navigation menu has a proper stacking context */
+.preview [data-slot="navigation-menu"],
+.preview .navigation-menu {
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Ensure content doesn't collapse */
+.preview [data-slot="navigation-menu-content"] ul,
+.preview [data-radix-popper-content-wrapper] ul {
+  width: 100% !important;
+  min-width: 200px !important;
+}
+
+/* Make sure the preview container doesn't clip the dropdown */
+.preview {
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 1;
+}
+
+/* Ensure the tabs content doesn't clip the dropdown */
+.tabs-content {
+  overflow: visible !important;
+}
 
 .bg-grid-slate-200 {
   background-image:

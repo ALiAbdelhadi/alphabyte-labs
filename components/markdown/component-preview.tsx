@@ -1,7 +1,7 @@
 "use client"
 
 import { REGISTRY_COMPONENTS } from "@/registry-components"
-import { Loader2 } from "lucide-react"
+import { Loader2 } from 'lucide-react'
 import dynamic from "next/dynamic"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 
@@ -128,7 +128,6 @@ export default function ComponentPreview({
   if (!registryComponents && !children) {
     return <div className={cn("mt-4", className)}>Component not found</div>
   }
-
   return (
     <Tabs defaultValue="preview" className="mt-4">
       <TabsList className="inline-flex h-9 items-center text-muted-foreground w-full justify-start rounded-none border-b bg-transparent p-0 mb-2">
@@ -140,11 +139,8 @@ export default function ComponentPreview({
         </TabsTrigger>
       </TabsList>
       <div className="not-prose">
-        <TabsContent
-          value="preview"
-          className={cn("border rounded-xl", className)}
-        >
-          <div className="overflow-hidden">
+        <TabsContent value="preview" className={cn("border rounded-xl relative", className)}>
+          <div className="overflow-visible">
             <React.Suspense
               fallback={
                 <div className="flex w-full items-center justify-center text-sm text-muted-foreground">

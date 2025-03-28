@@ -6,3 +6,4 @@ export const navItems: LinkItems[] = [
   { title: "Blocks", href: "/ui-blocks" },
   { title: "About", href: "/about" },
 ]
+

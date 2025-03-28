@@ -48,7 +48,6 @@ const DropdownMenuSubContent = React.forwardRef<
         ref={ref}
         className={cn(
             "z-50 min-w-[8rem] overflow-hidden rounded-lg border border-gray-200 bg-white p-2 text-gray-900 shadow-lg backdrop-blur-sm",
-            // Using subtle fade/scale transitions inspired by Apple’s design language
             "data-[state=open]:animate-[fadeInScale_150ms_ease-out] data-[state=closed]:animate-[fadeOutScale_100ms_ease-in]",
             className
         )}
@@ -109,7 +108,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     >
         <span className="absolute left-3 flex h-4 w-4 items-center justify-center">
             <DropdownMenuPrimitive.ItemIndicator>
-                <Check className="h-4 w-4" />
+                <Check className="h-5 w-5" />
             </DropdownMenuPrimitive.ItemIndicator>
         </span>
         {children}

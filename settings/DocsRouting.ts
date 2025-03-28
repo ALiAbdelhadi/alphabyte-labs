@@ -54,7 +54,7 @@ export const DocsRouting: Paths[] = [
         href: "/drawer",
       },
       {
-        title: "Dropdown-menu",
+        title: "Dropdown menu",
         href: "/dropdown-menu",
       },
       {
@@ -92,6 +92,10 @@ export const DocsRouting: Paths[] = [
       {
         title: "Popover",
         href: "/popover",
+      },
+      {
+        title: "Tooltip",
+        href: "/tooltip",
       },
     ],
   },

@@ -3,7 +3,27 @@ import CarouselContainer from "@/components/blocks/carousel-1/carousel-container
 import CarouselCompForProject from "@/components/blocks/carousel-2/carousel-big-container"
 import TimelineContainer from "@/components/blocks/timeline-1/TimelineContainer"
 import { CodeBlockWrapper } from "@/components/CodeBlockWrapper"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/library/alert-dialog"
 import { Button } from "@/components/library/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/library/dialog"
 import { Input } from "@/components/library/input"
 import { Label } from "@/components/library/label"
 import Mermaid from "@/components/library/mermaid"
@@ -18,26 +38,6 @@ import {
 } from "@/components/library/tabs"
 import ComponentPreview from "@/components/markdown/component-preview"
 import MdxBadge from "@/components/markdown/mdx-badge"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/library/alert-dialog"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/library/dialog"
 import Pre from "@/components/ui/pre"
 import CodeBlockDemo from "@/registry-components/examples/code-block-demo"
 import FolderTreeDemo from "@/registry-components/examples/folder-tree-demo"

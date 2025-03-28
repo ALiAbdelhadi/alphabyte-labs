@@ -1,5 +1,5 @@
 ---
-title: Drawer Title
+title: Drawer
 description: Drawer component 
 ---
 
@@ -151,6 +151,19 @@ export {
 }`}
   </Pre>
   </CodeBlockWrapper>
+  </StepItem>
+  <StepItem title="edit layout.tsx for background scaling">
+  in Your main <MdxBadge>layout.tsx</MdxBadge> add <MdxBadge>vaul-drawer-wrapper</MdxBadge> to support scaling:
+  <Pre highlightLines={[4]}>{`<html lang="en" suppressHydrationWarning>
+  <body className="bg-background font-medium antialiased min-h-svh" suppressHydrationWarning>
+      {/* Create a div and passe it vaul-drawer-wrapper like this way */}
+      <div vaul-drawer-wrapper="">
+         <div className="relative flex min-h-svh flex-col bg-background">
+            {children}
+         </div>
+      </div>
+   </body>
+</html>`}</Pre>
   </StepItem>
 </Step>
 </div>

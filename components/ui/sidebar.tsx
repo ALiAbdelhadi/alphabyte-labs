@@ -16,7 +16,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/library/tooltip"
 
 import { Button } from "../library/button"
 

@@ -416,4 +416,54 @@ export const FILES = [
     ]
   },
   // End Dropdown Menu
+  // Start Tooltip
+  {
+    name: "tooltip-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/tooltip-demo/tooltip-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "tooltip-top-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/tooltip-demo/tooltip-top-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "tooltip-left-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/tooltip-demo/tooltip-left-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "tooltip-bottom-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/tooltip-demo/tooltip-bottom-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "tooltip-right-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/tooltip-demo/tooltip-right-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "tooltip-delay-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/tooltip-demo/tooltip-delay-demo.tsx",
+      }
+    ]
+  },
+  // End Tooltip
 ]
