@@ -97,6 +97,14 @@ export const DocsRouting: Paths[] = [
         title: "Tooltip",
         href: "/tooltip",
       },
+      {
+        title: "Accordion",
+        href: "/accordion",
+      },
+      {
+        title: "Collapsible",
+        href: "/collapsible",
+      },
     ],
   },
 ]

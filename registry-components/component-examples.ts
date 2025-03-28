@@ -466,4 +466,21 @@ export const FILES = [
     ]
   },
   // End Tooltip
+  // Start Accordion
+  {
+    name: "accordion-demo",
+    files : [
+      {
+        path: "@/registry-components/examples/accordion-demo/accordion-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "collapsible-demo",
+    files : [
+      {
+        path: "@/registry-components/examples/collapsible-demo/collapsible-demo.tsx",
+      }
+    ]
+  },
 ]

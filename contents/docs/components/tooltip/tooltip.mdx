@@ -5,12 +5,12 @@ description: A tooltip is a small pop-up box that appears when a user hovers ove
 
 <ComponentPreview name="tooltip-demo" />
 ## Installation
-<div className="not-prose">
+<div className="not-prose md:px-0 px-4">
 <Step>
 <StepItem title="Install Dependencies">
 First , you need to install dependencies:
 <Pre className="language-bash">
-{`npm install clsx tailwind-merge @radix-ui/react-tabs framer-motion`}
+{`npm install clsx tailwind-merge @radix-ui/react-tooltip`}
 </Pre>
 </StepItem>
   <StepItem title="Create utils.ts">
@@ -25,9 +25,10 @@ export function cn(...inputs: ClassValue[]) {
 `}
 </Pre>
   </StepItem>
-<StepItem>
+<StepItem title="Create Tooltip.tsx">
+  Third, you need to create a new folder called <MdxBadge>components</MdxBadge> in you app directory and create a new file called <MdxBadge>tooltip.tsx</MdxBadge> and paste the following code in it:
 <CodeBlockWrapper>
-<Pre>{`"use client"
+<Pre className="language-typescript" folderPath="components/tooltip.tsx">{`"use client"
 
 import * as React from "react"
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
@@ -72,6 +73,23 @@ export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }`}</Pre>
 </CodeBlockWrapper>
 </StepItem>
 </Step>
+</div>
+## Usage
+<div className="space-y-6">
+<Pre>
+{`import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip"`}
+</Pre>
+<Pre>
+{`<TooltipProvider>
+    <Tooltip>
+        <TooltipTrigger asChild>Hover</TooltipTrigger>
+            <TooltipContent >
+                <p>Default Tooltip</p>
+            </TooltipContent>
+        </Tooltip>
+    </TooltipProvider>
+`}
+</Pre>
 </div>
 ## Examples
 ### Top Tooltip
