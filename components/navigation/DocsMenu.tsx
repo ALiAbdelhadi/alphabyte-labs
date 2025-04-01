@@ -1,9 +1,8 @@
 "use client"
 
-import { usePathname } from "next/navigation"
-import { Drawer } from "vaul"
-import { Routes } from "@/lib/pageRoutes"
 import SubLink from "@/components/navigation/sublink"
+import { Routes } from "@/lib/pageRoutes"
+import { usePathname } from "next/navigation"
 
 const NEW_COMPONENTS = ["diagrams", "steps", "product-card"]
 

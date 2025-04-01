@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import Pre from "@/components/ui/pre"
+import Pre from "@/components/pre"
 
 const CodeBlockDemo = ({ className }: { className: string }) => {
   const ExampleCode = `function MyComponent(props) {

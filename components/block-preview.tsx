@@ -27,7 +27,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/library/collapsible"
 import {
   Sidebar,
   SidebarGroup,
@@ -40,7 +40,7 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 import { Tabs, TabsContainer, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Separator } from "./ui/separator"
+import { Separator } from "./library/separator"
 import "prismjs/components/prism-javascript"
 import "prismjs/components/prism-jsx"
 import "prismjs/components/prism-tsx"

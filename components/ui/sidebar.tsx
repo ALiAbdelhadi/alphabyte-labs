@@ -8,8 +8,8 @@ import { PanelLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Input } from "@/components/library/input"
-import { Separator } from "@/components/ui/separator"
-import { Sheet, SheetContent } from "@/components/ui/sheet"
+import { Separator } from "@/components/library/separator"
+import { Sheet, SheetContent } from "@/components/library/sheet"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Tooltip,

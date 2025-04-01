@@ -4,7 +4,7 @@ import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/library/collapsible"
 import { ChevronsUpDown } from "lucide-react"
 import * as React from "react"
 

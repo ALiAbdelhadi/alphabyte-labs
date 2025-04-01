@@ -25,29 +25,44 @@ export const DocsRouting: Paths[] = [
     href: "/components",
     items: [
       {
+        title: "Accordion",
+        href: "/accordion",
+      },
+      {
         title: "Alert Dialog",
         href: "/alert-dialog",
+      },
+      {
+        title: "Badge",
+        href: "/badge",
       },
       {
         title: "Button",
         href: "/button",
       },
       {
+        title: "Calendar",
+        href: "/calendar",
+      },
+      {
         title: "Code Block",
         href: "/code-block",
       },
       {
-        title: "Calendar",
-        
-        href: "/calendar",
+        title: "Collapsible",
+        href: "/collapsible",
       },
       {
-        title: "Dialog",
-        href: "/dialog",
+        title: "Date Picker",
+        href: "/data-picker",
       },
       {
         title: "Diagrams",
         href: "/diagrams",
+      },
+      {
+        title: "Dialog",
+        href: "/dialog",
       },
       {
         title: "Drawer",
@@ -74,8 +89,32 @@ export const DocsRouting: Paths[] = [
         href: "/note",
       },
       {
+        title: "Popover",
+        href: "/popover",
+      },
+      {
         title: "Product Card",
         href: "/product-card",
+      },
+      {
+        title: "Sheet",
+        href: "/sheet",
+      },
+      {
+        title: "Separator",
+        href: "/separator",
+      },
+      {
+        title: "Scroll Area",
+        href: "/scroll-area",
+      },
+      {
+        title: "Breadcrumb",
+        href: "/breadcrumb",
+      },
+      {
+        title: "Sonner",
+        href: "/sonner",
       },
       {
         title: "Steps",
@@ -86,25 +125,9 @@ export const DocsRouting: Paths[] = [
         href: "/tabs",
       },
       {
-        title: "Date Picker",
-        href: "/data-picker",
-      },
-      {
-        title: "Popover",
-        href: "/popover",
-      },
-      {
         title: "Tooltip",
         href: "/tooltip",
       },
-      {
-        title: "Accordion",
-        href: "/accordion",
-      },
-      {
-        title: "Collapsible",
-        href: "/collapsible",
-      },
-    ],
+    ]
   },
 ]

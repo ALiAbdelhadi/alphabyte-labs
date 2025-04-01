@@ -38,7 +38,7 @@ import {
 } from "@/components/library/tabs"
 import ComponentPreview from "@/components/markdown/component-preview"
 import MdxBadge from "@/components/markdown/mdx-badge"
-import Pre from "@/components/ui/pre"
+import Pre from "@/components/pre"
 import CodeBlockDemo from "@/registry-components/examples/code-block-demo"
 import FolderTreeDemo from "@/registry-components/examples/folder-tree-demo"
 import { ChevronRightIcon } from "lucide-react"

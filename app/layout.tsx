@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Fragment } from "react"
 
 import { ThemeProvider } from "@/components/context/theme-provider"
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/library/sonner"
 import { Settings } from "@/lib/meta"
 
 import "./dragging.css"

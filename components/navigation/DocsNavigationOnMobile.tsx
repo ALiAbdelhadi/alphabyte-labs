@@ -12,8 +12,8 @@ import {
 } from "@/components/library/drawer";
 
 import { Button } from "../library/button"
-import { ScrollArea } from "../ui/scroll-area"
-import { Separator } from "../ui/separator"
+import { ScrollArea } from "../library/scroll-area"
+import { Separator } from "../library/separator"
 import DocsMenu from "./DocsMenu"
 
 export function DocsNavigationOnMobile() {

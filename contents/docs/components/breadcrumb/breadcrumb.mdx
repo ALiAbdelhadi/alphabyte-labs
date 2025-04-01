@@ -1,8 +1,38 @@
-"use client"
+---
+title: breadcrumb
+description: breadcrumb
+---
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
+<ComponentPreview name="breadcrumb-demo"/>
+## Installation
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="Install Dependencies">
+First , you need to install dependencies:
+<Pre className="language-bash">
+{`npm install clsx tailwind-merge `}
+</Pre>
+</StepItem>
+  <StepItem title="Create utils.ts">
+  Second, you need to create a new folder called <MdxBadge>lib</MdxBadge> in you app directory and create a new file called <MdxBadge>utils.ts</MdxBadge> and paste the following code in it: 
+<Pre className="language-typescript" folderPath="lib/utils.ts" >
+  {`import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+}
+`}
+</Pre>
+  </StepItem>
+<StepItem>
+<CodeBlockWrapper>
+<Pre>
+{`"use client"
+
 import { Slot } from "@radix-ui/react-slot"
+import { useRouter } from "next/navigation"
+import * as React from "react"
 import { BsThreeDots } from "react-icons/bs"
 import { LuChevronRight } from "react-icons/lu"
 
@@ -121,11 +151,53 @@ const BreadcrumbEllipsis = ({
 BreadcrumbEllipsis.displayName = "BreadcrumbEllipsis"
 
 export {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  BreadcrumbEllipsis,
+  Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem,
+  BreadcrumbLink, BreadcrumbList, BreadcrumbPage,
+  BreadcrumbSeparator
 }
+`}
+</Pre>
+</CodeBlockWrapper>
+</StepItem>
+</Step>
+</div>
+## Usage
+<div className="not-prose space-y-6">
+<Pre>{`import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/library/breadcrumb"`}</Pre>
+<Pre>{`<Breadcrumb>
+    <BreadcrumbList>
+        <BreadcrumbItem>
+            <BreadcrumbLink href="#">
+                <HiHome className="h-4 w-4" />
+            </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbLink href="#">Documents</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbPage>Current Page</BreadcrumbPage>
+        </BreadcrumbItem>
+    </BreadcrumbList>
+</Breadcrumb>`}</Pre>
+</div>
+## Examples
+### Custom Separator
+<ComponentPreview name="breadcrumb-demo" variant="custom-separator" /> 
+### Ellipsis
+<ComponentPreview name="breadcrumb-demo" variant="ellipsis" /> 
+### Dropdown
+You can compose <MdxBadge>\<BreadcrumbItem /></MdxBadge> with a <MdxBadge>\<DropdownMenu /></MdxBadge> to create a dropdown in the breadcrumb.
+<ComponentPreview name="breadcrumb-demo" variant="dropdown" /> 
+### Icons
+<ComponentPreview name="breadcrumb-demo" variant="icons"/>
+### Responsive
+<ComponentPreview name="breadcrumb-demo" variant="responsive"/>

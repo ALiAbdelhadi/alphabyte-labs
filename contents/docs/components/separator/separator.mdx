@@ -1,0 +1,93 @@
+---
+title: Separator 
+description: Separator
+---
+<ComponentPreview name="separator-demo" />
+## Installation
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="Install Dependencies">
+First, you need to install dependencies:
+<Pre>
+{`npm install clsx tailwind-merge @radix-ui/react-separator`}
+</Pre>
+</StepItem>
+  <StepItem title="Create utils.ts">
+  Second, you need to create a new folder called <MdxBadge>lib</MdxBadge> in you app directory and create a new file called <MdxBadge>utils.ts</MdxBadge> and paste the following code in it: 
+<Pre className="language-typescript" folderPath="lib/utils.ts" >
+  {`import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...Inputs: ClassValue[]) {
+    return twMerge(clsx(Inputs));
+}
+`}
+</Pre>
+  </StepItem>
+  <StepItem>
+  <CodeBlockWrapper>
+  <Pre folderPath="component/separator.tsx">{`"use client"
+
+import { cn } from "@/lib/utils"
+import * as SeparatorPrimitive from "@radix-ui/react-separator"
+import * as React from "react"
+
+const Separator = React.forwardRef<
+  React.ElementRef<typeof SeparatorPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> & {
+    weight?: "ultralight" | "light" | "regular";
+  }
+>(
+  (
+    {
+      className,
+      orientation = "horizontal",
+      decorative = true,
+      weight = "regular",
+      ...props
+    },
+    ref
+  ) => {
+    const weightOpacity = {
+      ultralight: "opacity-[0.15]",
+      light: "opacity-[0.90]",
+      regular: "opacity-1"
+    }
+    return (
+      <SeparatorPrimitive.Root
+        ref={ref}
+        decorative={decorative}
+        orientation={orientation}
+        className={cn(
+          "shrink-0 bg-border transition-all",
+          weightOpacity[weight],
+          orientation === "horizontal" ? "h-[1.1] w-full" : "h-full w-px",
+          className
+        )}
+        {...props}
+      />
+    )
+  }
+)
+Separator.displayName = SeparatorPrimitive.Root.displayName
+
+export { Separator }`}</Pre>
+  </CodeBlockWrapper>
+  </StepItem>
+</Step>
+</div>
+## Usage
+<div className="not-prose space-y-6">
+<Pre>{`import { Separator } from "@/components/library/separator"`}</Pre>
+<Pre>{`<Separator />`}</Pre>
+</div>
+## Examples
+### Vertical
+<ComponentPreview name="separator-demo" variant="vertical" />
+### Weight
+#### Ultralight
+<ComponentPreview name="separator-demo" variant="ultralight" / >
+#### Light
+<ComponentPreview name="separator-demo" variant="light" />
+#### Regular
+<ComponentPreview name="separator-demo" variant="regular" />

@@ -1,7 +1,6 @@
 "use client"
 
 import { REGISTRY_COMPONENTS } from "@/registry-components"
-import { Loader2 } from 'lucide-react'
 import dynamic from "next/dynamic"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 
@@ -11,8 +10,9 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/library/tabs"
-import Pre from "@/components/ui/pre"
+import Pre from "@/components/pre"
 import { cn } from "@/lib/utils"
+import LoadingIcon from "../icons/loading-icon"
 
 const codeCache: Record<string, { code: string; timestamp: number }> = {}
 const CACHE_TTL = 5 * 60 * 1000
@@ -107,7 +107,7 @@ export default function ComponentPreview({
       {
         loading: () => (
           <div className="flex w-full items-center justify-center text-sm text-muted-foreground gap-2">
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <LoadingIcon size={14} />
             Loading...
           </div>
         ),
@@ -144,7 +144,7 @@ export default function ComponentPreview({
             <React.Suspense
               fallback={
                 <div className="flex w-full items-center justify-center text-sm text-muted-foreground">
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <LoadingIcon size={14} />
                   Loading...
                 </div>
               }
@@ -172,7 +172,7 @@ export default function ComponentPreview({
             </Pre>
           ) : isLoadingCode ? (
             <div className="flex w-full items-center justify-center text-sm text-muted-foreground p-4 gap-2">
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <LoadingIcon size={14} />
               Loading code...
             </div>
           ) : (

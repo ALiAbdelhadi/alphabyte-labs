@@ -14,20 +14,20 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from "@/components/library/scroll-area"
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/library/sheet"
 import Container from "@/components/Container"
 import Logo from "@/components/Logo"
 import Search from "@/components/navigation/search"
 
 import ChangeTheme from "../ChangeTheme"
 import { Button } from "../library/button"
-import { Separator } from "../ui/separator"
+import { Separator } from "../library/separator"
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)

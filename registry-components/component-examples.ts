@@ -469,17 +469,249 @@ export const FILES = [
   // Start Accordion
   {
     name: "accordion-demo",
-    files : [
+    files: [
       {
         path: "@/registry-components/examples/accordion-demo/accordion-demo.tsx",
       }
     ]
   },
+  // Start Collapsible
   {
     name: "collapsible-demo",
-    files : [
+    files: [
       {
         path: "@/registry-components/examples/collapsible-demo/collapsible-demo.tsx",
+      }
+    ]
+  },
+  // Start Badge
+  {
+    name: "badge-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/badge-demo/badge-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "badge-default-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/badge-demo/badge-default-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "badge-outline-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/badge-demo/badge-outline-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "badge-destructive-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/badge-demo/badge-destructive-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "badge-success-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/badge-demo/badge-success-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "badge-warning-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/badge-demo/badge-warning-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "badge-info-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/badge-demo/badge-info-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "badge-removable-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/badge-demo/badge-removable-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "badge-icon-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/badge-demo/badge-icon-demo.tsx",
+      }
+    ]
+  },
+  // Start sonner
+  {
+    name: "sonner-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/sonner-demo/sonner-demo.tsx",
+      }
+    ]
+  },
+  // Start Sheet
+  {
+    name: "sheet-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/sheet-demo/sheet-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "sheet-top-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/sheet-demo/sheet-top-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "sheet-bottom-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/sheet-demo/sheet-bottom-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "sheet-left-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/sheet-demo/sheet-left-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "sheet-right-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/sheet-demo/sheet-right-demo.tsx",
+      }
+    ]
+  },
+  // End Sheet
+  // Start Separator
+  {
+    name: "separator-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/separator-demo/separator-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "separator-horizontal-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/separator-demo/separator-horizontal-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "separator-ultralight-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/separator-demo/separator-ultralight-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "separator-light-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/separator-demo/separator-light-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "separator-regular-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/separator-demo/separator-regular-demo.tsx",
+      }
+    ]
+  },
+  // End Separator
+  {
+    name: "scroll-area-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/scroll-area-demo/scroll-area-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "scroll-area-horizontal-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/scroll-area-demo/scroll-area-horizontal-demo.tsx",
+      }
+    ]
+  },
+  // Start breadcrumb
+  {
+    name: "breadcrumb-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/breadcrumb-demo/breadcrumb-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "breadcrumb-ellipsis-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/breadcrumb-demo/breadcrumb-ellipsis-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "breadcrumb-icons-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/breadcrumb-demo/breadcrumb-icons-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "breadcrumb-custom-separator-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/breadcrumb-demo/breadcrumb-custom-separator-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "breadcrumb-dropdown-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/breadcrumb-demo/breadcrumb-dropdown-demo.tsx",
+      }
+    ]
+  },
+  {
+    name: "breadcrumb-responsive-demo",
+    files: [
+      {
+        path: "@/registry-components/examples/breadcrumb-demo/breadcrumb-responsive-demo.tsx",
       }
     ]
   },

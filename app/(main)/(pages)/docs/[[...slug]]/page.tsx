@@ -6,7 +6,7 @@ import { ErrorBoundary } from "@/lib/debug-wrapper"
 import { getDocument } from "@/lib/markdown"
 import { Settings } from "@/lib/meta"
 import { PageRoutes } from "@/lib/pageRoutes"
-import { Typography } from "@/components/ui/typography"
+import { Typography } from "@/components/typography"
 import { BackToTop } from "@/components/navigation/backToTop"
 import PageBreadcrumb from "@/components/navigation/DocsBreadcrumb"
 import Feedback from "@/components/navigation/feedback"
@@ -48,7 +48,7 @@ const page = async (props: DocsPageProps) => {
           </Typography>
         </div>
         {Settings.rightbar && (
-          <div className="hidden xl:flex xl:flex-col sticky top-16 gap-3 py-8 lg:min-w-[230px] min-w-[200px]  h-[94.5vh] toc">
+          <div className="hidden xl:flex xl:flex-col sticky top-16 gap-3 py-8 lg:min-w-[230px] min-w-[200px]  h-[94.5vh] toc transition-all ">
             {Settings.toc && <Toc tocs={tocs} />}
             {Settings.feedback && (
               <Feedback slug={pathName} title={frontmatter.title} />

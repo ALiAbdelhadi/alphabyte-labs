@@ -89,6 +89,14 @@ export default {
         "space-mono": ["Space Mono", "monospace"],
       },
       keyframes: {
+        pulse: {
+          '0%': {
+            opacity: '1',
+          },
+          '100%': {
+            opacity: '0.2',
+          },
+        },
         "accordion-down": {
           from: {
             height: "0",
@@ -109,6 +117,7 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        'pulse': 'pulse 1.2s linear infinite',
       },
     },
   },

@@ -10,7 +10,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "./ui/collapsible"
+} from "./library/collapsible"
 
 export function CodeBlockWrapper({
   expandButtonTitle = "View Code",

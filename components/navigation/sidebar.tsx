@@ -1,4 +1,4 @@
-import { ScrollArea } from "../ui/scroll-area"
+import { ScrollArea } from "../library/scroll-area"
 import DocsMenu from "./DocsMenu"
 
 const sidebar = () => {

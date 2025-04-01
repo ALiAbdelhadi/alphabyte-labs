@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import clsx from "clsx"
 
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from "@/components/library/scroll-area"
 
 type TocProps = {
   tocs: { href: string; level: number; text: string }[]
@@ -69,7 +69,7 @@ export default function Toc({ tocs }: TocProps) {
     })
 
   return (
-    <div className="flex flex-col gap-3 w-full pl-2 not-prose">
+    <div className="flex flex-col gap-3 w-full pl-2 not-prose transition-all ">
       <h3 className="text-sm font-semibold">On this page</h3>
       <ScrollArea className="pt-0.5 pb-4">
         <nav className="flex flex-col text-gray-500 dark:text-gray-400 ml-0.5 hide-scrollbar">

@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/library/dialog"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from "@/components/library/scroll-area"
 
 import Anchor from "./anchor"
 

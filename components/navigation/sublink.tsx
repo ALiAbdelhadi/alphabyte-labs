@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 
 import { Paths } from "@/lib/pageRoutes"
 import { cn } from "@/lib/utils"
-import { SheetClose } from "@/components/ui/sheet"
+import { SheetClose } from "@/components/library/sheet"
 import Anchor from "@/components/navigation/anchor"
 
 function isRoute(
