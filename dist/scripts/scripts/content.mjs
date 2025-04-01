@@ -18,15 +18,15 @@ function isRoute(node) {
 function createSlug(filePath) {
     const relativePath = path.relative(docsDir, filePath);
     const parsed = path.parse(relativePath);
-    const slugPath = parsed.dir ? `${parsed.dir}/${parsed.name}` : parsed.name;
-    const normalizedSlug = slugPath.replace(/\\/g, "/");
-    if (parsed.name === "index") {
-        return `/${parsed.dir.replace(/\\/g, "/")}` || "/";
+    let slugPath = parsed.dir ? `${parsed.dir}/${parsed.name}` : parsed.name;
+    slugPath = slugPath.replace(/\\/g, "/"); 
+    const dirParts = parsed.dir.split(path.sep).map(p => p.toLowerCase());
+    if (dirParts.length > 0 && dirParts[dirParts.length - 1] === parsed.name.toLowerCase()) {
+        slugPath = parsed.dir.replace(/\\/g, "/"); 
     }
-    else {
-        return `/${normalizedSlug}`;
-    }
+    return parsed.name === "index" ? `/${parsed.dir.replace(/\\/g, "/")}` || "/" : `/${slugPath}`;
 }
+
 function findDocumentBySlug(slug) {
     function searchDocs(docs, currentPath = "") {
         for (const doc of docs) {
