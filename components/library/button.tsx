@@ -1,11 +1,12 @@
 "use client"
 
+import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Loader } from "lucide-react"
-import * as React from "react"
 
 import { cn } from "@/lib/utils"
+
 import LoadingIcon from "../icons/loading-icon"
 
 const buttonVariants = cva(
@@ -79,7 +80,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading ? (
           <span className="flex items-center justify-center gap-2">
-            <LoadingIcon size={14}/>
+            <LoadingIcon size={14} />
             {children}
           </span>
         ) : (
@@ -96,4 +97,3 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button"
 
 export { Button, buttonVariants }
-

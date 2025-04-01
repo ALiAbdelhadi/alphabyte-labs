@@ -1,5 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
+
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
@@ -13,18 +14,18 @@ const badgeVariants = cva(
           "border-transparent bg-secondary/90 text-secondary-foreground backdrop-blur-sm shadow-sm hover:bg-secondary/80",
         destructive:
           "border-transparent bg-destructive/90 text-destructive-foreground backdrop-blur-sm shadow-sm hover:bg-destructive/80",
-        outline: "border border-border/40 text-foreground bg-background/50 backdrop-blur-sm hover:bg-muted/20",
+        outline:
+          "border border-border/40 text-foreground bg-background/50 backdrop-blur-sm hover:bg-muted/20",
         success:
           "border-transparent bg-green-500/90 text-white backdrop-blur-sm shadow-sm hover:bg-green-500/80",
         warning:
           "border-transparent bg-amber-500/90 text-white backdrop-blur-sm shadow-sm hover:bg-amber-500/80",
-        info:
-          "border-transparent bg-blue-500/90 text-white backdrop-blur-sm shadow-sm hover:bg-blue-500/80",
+        info: "border-transparent bg-blue-500/90 text-white backdrop-blur-sm shadow-sm hover:bg-blue-500/80",
       },
       removable: {
         true: "pr-1",
         false: "",
-      }
+      },
     },
     defaultVariants: {
       variant: "default",
@@ -35,10 +36,10 @@ const badgeVariants = cva(
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
-  VariantProps<typeof badgeVariants> {
-  removable?: boolean;
-  onRemove?: () => void;
-  icon?: React.ReactNode;
+    VariantProps<typeof badgeVariants> {
+  removable?: boolean
+  onRemove?: () => void
+  icon?: React.ReactNode
 }
 
 function Badge({
@@ -62,8 +63,8 @@ function Badge({
           type="button"
           className="ml-1 rounded-full p-0.5 text-current opacity-70 hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-ring"
           onClick={(e) => {
-            e.stopPropagation();
-            onRemove?.();
+            e.stopPropagation()
+            onRemove?.()
           }}
           aria-hidden="true"
         >

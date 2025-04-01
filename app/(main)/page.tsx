@@ -24,7 +24,9 @@ const Home = () => {
           </div>
           <div className="space-x-2 md:space-x-3">
             <Link href="/docs/introduction">
-              <Button className="lg:h-11 lg:px-8 px-3.5 h-9">Get started</Button>
+              <Button className="lg:h-11 lg:px-8 px-3.5 h-9">
+                Get started
+              </Button>
             </Link>
             <Link href={"/ui-blocks"}>
               <Button variant={"ghost"} className="lg:h-11 lg:px-8 px-3.5 h-9">

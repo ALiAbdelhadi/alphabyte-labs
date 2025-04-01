@@ -1,12 +1,12 @@
 import Link from "next/link"
 
+import { cn } from "@/lib/utils"
 import BlockForGrid from "@/components/BlockForGrid"
 import CarouselContainer from "@/components/blocks/carousel-1/carousel-container"
 import CarouselCompForProject from "@/components/blocks/carousel-2/carousel-big-container"
 import TimelineContainer from "@/components/blocks/timeline-1/TimelineContainer"
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
-import { cn } from "@/lib/utils"
 
 const UiBlocksPage = () => {
   return (
@@ -24,10 +24,14 @@ const UiBlocksPage = () => {
           </div>
           <div className="space-x-2">
             <Link href="/ui-blocks/carousel-1">
-              <Button className="lg:h-11 lg:px-8 px-3.5 h-9">Get started</Button>
+              <Button className="lg:h-11 lg:px-8 px-3.5 h-9">
+                Get started
+              </Button>
             </Link>
             <Link href="#browse-all-blocks">
-              <Button variant={"ghost"} className="lg:h-11 lg:px-8 px-3.5 h-9" >Browse All Blocks</Button>
+              <Button variant={"ghost"} className="lg:h-11 lg:px-8 px-3.5 h-9">
+                Browse All Blocks
+              </Button>
             </Link>
           </div>
         </section>

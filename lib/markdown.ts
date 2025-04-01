@@ -1,13 +1,10 @@
-import { components } from "@/lib/components"
-import { Settings } from "@/lib/meta"
-import { PageRoutes } from "@/lib/pageRoutes"
-import { GitHubLink } from "@/settings/navigation"
 import { createReadStream, promises as fs } from "fs"
+import path from "path"
+import { ComponentType } from "react"
+import { GitHubLink } from "@/settings/navigation"
 import matter from "gray-matter"
 import { Element, Text } from "hast"
 import { compileMDX } from "next-mdx-remote/rsc"
-import path from "path"
-import { ComponentType } from "react"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeCodeTitles from "rehype-code-titles"
 import rehypeKatex from "rehype-katex"
@@ -16,6 +13,10 @@ import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import { Node } from "unist"
 import { visit } from "unist-util-visit"
+
+import { components } from "@/lib/components"
+import { Settings } from "@/lib/meta"
+import { PageRoutes } from "@/lib/pageRoutes"
 
 declare module "hast" {
   interface Element {

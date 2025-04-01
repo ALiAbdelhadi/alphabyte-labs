@@ -1,0 +1,684 @@
+{
+  "FILES": [
+    {
+      "name": "button-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button-primary-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-primary-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button-secondary-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-secondary-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button-destructive-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-destructive-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button-ghost-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-ghost-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button-link-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-link-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button-outline-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-outline-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button-loading-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-loading-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button-icon-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-icon-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button-pulse-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-pulse-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button-bounce-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-bounce-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button-outline-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-outline-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button-neural-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/button-demo/button-neural-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "code-block-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/code-block-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dialog-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/dialog-demo/dialog-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dialog-destructive-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/dialog-demo/dialog-destructive-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dialog-bottom-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/dialog-demo/dialog-bottom-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dialog-top-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/dialog-demo/dialog-top-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "folder-tree-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/folder-tree-demo/folder-tree-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "note-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/note-demo/note-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "note-success-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/note-demo/note-success-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "note-warning-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/note-demo/note-warning-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "note-error-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/note-demo/note-error-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "note-closable-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/note-demo/note-closable-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "product-card-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/product-card-demo/product-card-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "steps-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/steps-demo/steps-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tabs-line-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/tabs-demo/tabs-line-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tabs-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/tabs-demo/tabs-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/input-demo/input-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input-file-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/input-demo/input-file-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input-file-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/input-demo/input-file-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input-disabled-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/input-demo/input-disabled-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input-button-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/input-demo/input-button-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "label-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/label-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/alert-dialog-demo/alert-dialog-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog-destructive-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/alert-dialog-demo/alert-dialog-destructive-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "diagram-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/diagram-demo/diagram-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "diagram-decision-tree-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/diagram-demo/diagram-decision-tree-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "diagram-entity-relationship-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/diagram-demo/diagram-entity-relationship-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "drawer-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/drawer-demo/drawer-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "drawer-nested-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/drawer-demo/drawer-nested-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/date-picker-demo/date-picker-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-range-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/date-picker-demo/date-picker-range-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "popover-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/popover-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "calendar-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/calendar-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/dropdown-menu-demo/dropdown-menu-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-checkbox-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/dropdown-menu-demo/dropdown-menu-checkbox-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-nested-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/dropdown-menu-demo/dropdown-menu-nested-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu-radio-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/dropdown-menu-demo/dropdown-menu-radio-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tooltip-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/tooltip-demo/tooltip-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tooltip-top-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/tooltip-demo/tooltip-top-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tooltip-left-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/tooltip-demo/tooltip-left-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tooltip-bottom-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/tooltip-demo/tooltip-bottom-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tooltip-right-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/tooltip-demo/tooltip-right-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tooltip-delay-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/tooltip-demo/tooltip-delay-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "accordion-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/accordion-demo/accordion-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "collapsible-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/collapsible-demo/collapsible-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "badge-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/badge-demo/badge-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "badge-default-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/badge-demo/badge-default-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "badge-outline-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/badge-demo/badge-outline-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "badge-destructive-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/badge-demo/badge-destructive-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "badge-success-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/badge-demo/badge-success-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "badge-warning-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/badge-demo/badge-warning-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "badge-info-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/badge-demo/badge-info-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "badge-removable-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/badge-demo/badge-removable-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "badge-icon-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/badge-demo/badge-icon-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sonner-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/sonner-demo/sonner-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sheet-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/sheet-demo/sheet-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sheet-top-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/sheet-demo/sheet-top-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sheet-bottom-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/sheet-demo/sheet-bottom-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sheet-left-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/sheet-demo/sheet-left-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sheet-right-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/sheet-demo/sheet-right-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "separator-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/separator-demo/separator-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "separator-horizontal-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/separator-demo/separator-horizontal-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "separator-ultralight-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/separator-demo/separator-ultralight-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "separator-light-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/separator-demo/separator-light-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "separator-regular-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/separator-demo/separator-regular-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/scroll-area-demo/scroll-area-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area-horizontal-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/scroll-area-demo/scroll-area-horizontal-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/breadcrumb-demo/breadcrumb-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-ellipsis-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/breadcrumb-demo/breadcrumb-ellipsis-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-icons-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/breadcrumb-demo/breadcrumb-icons-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-custom-separator-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/breadcrumb-demo/breadcrumb-custom-separator-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-dropdown-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/breadcrumb-demo/breadcrumb-dropdown-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb-responsive-demo",
+      "files": [
+        {
+          "path": "@/registry-components/examples/breadcrumb-demo/breadcrumb-responsive-demo.tsx"
+        }
+      ]
+    }
+  ]
+}

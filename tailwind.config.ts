@@ -90,11 +90,11 @@ export default {
       },
       keyframes: {
         pulse: {
-          '0%': {
-            opacity: '1',
+          "0%": {
+            opacity: "1",
           },
-          '100%': {
-            opacity: '0.2',
+          "100%": {
+            opacity: "0.2",
           },
         },
         "accordion-down": {
@@ -117,7 +117,7 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        'pulse': 'pulse 1.2s linear infinite',
+        pulse: "pulse 1.2s linear infinite",
       },
     },
   },

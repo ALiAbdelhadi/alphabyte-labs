@@ -1,9 +1,10 @@
 "use client"
 
-import { REGISTRY_COMPONENTS } from "@/registry-components"
-import dynamic from "next/dynamic"
 import React, { useCallback, useEffect, useRef, useState } from "react"
+import dynamic from "next/dynamic"
+import { REGISTRY_COMPONENTS } from "@/registry-components"
 
+import { cn } from "@/lib/utils"
 import {
   Tabs,
   TabsContent,
@@ -11,7 +12,7 @@ import {
   TabsTrigger,
 } from "@/components/library/tabs"
 import Pre from "@/components/pre"
-import { cn } from "@/lib/utils"
+
 import LoadingIcon from "../icons/loading-icon"
 
 const codeCache: Record<string, { code: string; timestamp: number }> = {}
@@ -88,32 +89,32 @@ export default function ComponentPreview({
 
   const DynamicComponent = registryComponents?.name
     ? dynamic(
-      async () => {
-        const folderName = `${baseComponentName}-demo`
-        try {
-          return await import(
-            `@/registry-components/examples/${folderName}/${registryComponents.name}.tsx`
-          )
-        } catch {
+        async () => {
+          const folderName = `${baseComponentName}-demo`
           try {
             return await import(
-              `@/registry-components/examples/${registryComponents.name}.tsx`
+              `@/registry-components/examples/${folderName}/${registryComponents.name}.tsx`
             )
           } catch {
-            return () => <div>Component not found</div>
+            try {
+              return await import(
+                `@/registry-components/examples/${registryComponents.name}.tsx`
+              )
+            } catch {
+              return () => <div>Component not found</div>
+            }
           }
+        },
+        {
+          loading: () => (
+            <div className="flex w-full items-center justify-center text-sm text-muted-foreground gap-2">
+              <LoadingIcon size={14} />
+              Loading...
+            </div>
+          ),
+          ssr: false,
         }
-      },
-      {
-        loading: () => (
-          <div className="flex w-full items-center justify-center text-sm text-muted-foreground gap-2">
-            <LoadingIcon size={14} />
-            Loading...
-          </div>
-        ),
-        ssr: false,
-      }
-    )
+      )
     : () => <div>Component not found with name {fullComponentName}</div>
 
   useEffect(() => {
@@ -139,7 +140,10 @@ export default function ComponentPreview({
         </TabsTrigger>
       </TabsList>
       <div className="not-prose">
-        <TabsContent value="preview" className={cn("border rounded-xl relative", className)}>
+        <TabsContent
+          value="preview"
+          className={cn("border rounded-xl relative", className)}
+        >
           <div className="overflow-visible">
             <React.Suspense
               fallback={

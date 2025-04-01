@@ -7,10 +7,10 @@ import { PanelLeft } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Input } from "@/components/library/input"
 import { Separator } from "@/components/library/separator"
 import { Sheet, SheetContent } from "@/components/library/sheet"
-import { Skeleton } from "@/components/ui/skeleton"
 import {
   Tooltip,
   TooltipContent,

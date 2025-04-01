@@ -16,7 +16,7 @@ export default function Documents({
     <ContainerWrapper>
       <div className="px-4 container mx-auto ">
         <div className="flex items-start gap-6 lg:gap-14 transition-all">
-            <Sidebar  />
+          <Sidebar />
           <div className="flex-1 md:flex-[6] min-w-0 -mb-7">
             <MDXProvider>
               <div>{children}</div>

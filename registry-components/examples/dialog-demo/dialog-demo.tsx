@@ -1,4 +1,6 @@
-import { Button } from '@/components/library/button'
+import { useState } from "react"
+
+import { Button } from "@/components/library/button"
 import {
   Dialog,
   DialogAction,
@@ -7,10 +9,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from "@/components/library/dialog"
-import { Label } from '@/components/library/label'
-import { useState } from 'react'
+import { Label } from "@/components/library/label"
 
 export default function DialogDemo() {
   const [isOpen, setIsOpen] = useState(false)
@@ -45,10 +46,8 @@ export default function DialogDemo() {
             <Label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Profile Visibility
             </Label>
-            <select
-              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg "
-            >
-              <option >Public</option>
+            <select className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg ">
+              <option>Public</option>
               <option>Private</option>
               <option>Friends Only</option>
             </select>

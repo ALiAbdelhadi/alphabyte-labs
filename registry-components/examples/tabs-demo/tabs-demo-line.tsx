@@ -1,10 +1,10 @@
+import { cn } from "@/lib/utils"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/components/library/tabs"
-import { cn } from "@/lib/utils"
 
 const TabsLineDemo = ({ className }: { className: string }) => {
   return (

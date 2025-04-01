@@ -1,8 +1,8 @@
 "use client"
 
-import { Slot } from "@radix-ui/react-slot"
-import { useRouter } from "next/navigation"
 import * as React from "react"
+import { useRouter } from "next/navigation"
+import { Slot } from "@radix-ui/react-slot"
 import { BsThreeDots } from "react-icons/bs"
 import { LuChevronRight } from "react-icons/lu"
 
@@ -121,8 +121,11 @@ const BreadcrumbEllipsis = ({
 BreadcrumbEllipsis.displayName = "BreadcrumbEllipsis"
 
 export {
-  Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem,
-  BreadcrumbLink, BreadcrumbList, BreadcrumbPage,
-  BreadcrumbSeparator
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
 }
-

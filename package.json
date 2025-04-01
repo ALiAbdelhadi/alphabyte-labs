@@ -13,9 +13,9 @@
     "start": "next start",
     "lint": "pnpm eslint .",
     "lint:fix": "pnpm eslint . --fix",
-    "format": "pnpm prettier --write .",
+    "format": "npx prettier --write .",
     "format:check": "npx prettier --check .",
-    "generate-content-json": "ts-node scripts/content.ts",
+    "generate-content-json": "node scripts/content.ts",
     "prepare": "husky"
   },
   "dependencies": {

@@ -1,15 +1,16 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-import { ChevronRight, X } from "lucide-react"
 import { useState } from "react"
+import { ChevronRight, X } from "lucide-react"
+
+import { cn } from "@/lib/utils"
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
   DrawerTitle,
-  DrawerTrigger
-} from "@/components/library/drawer";
+  DrawerTrigger,
+} from "@/components/library/drawer"
 
 import { Button } from "../library/button"
 import { ScrollArea } from "../library/scroll-area"
@@ -27,13 +28,17 @@ export function DocsNavigationOnMobile() {
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-center">
-          <Drawer shouldScaleBackground={true} open={open} onOpenChange={setOpen}>
+          <Drawer
+            shouldScaleBackground={true}
+            open={open}
+            onOpenChange={setOpen}
+          >
             <DrawerTrigger asChild>
-              <div
-                className="cursor-pointer w-full flex items-center mb-0.5"
-              >
+              <div className="cursor-pointer w-full flex items-center mb-0.5">
                 <ChevronRight />
-                <DrawerTitle className="font-semibold text-lg">Menu</DrawerTitle>
+                <DrawerTitle className="font-semibold text-lg">
+                  Menu
+                </DrawerTitle>
               </div>
             </DrawerTrigger>
             <DrawerContent className="h-[70svh] px-4 rounded-t-3xl ">
@@ -41,10 +46,7 @@ export function DocsNavigationOnMobile() {
                 <div className="flex justify-between items-center py-4">
                   <span className="font-semibold text-lg">Menu</span>
                   <DrawerClose asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                    >
+                    <Button variant="ghost" size="icon">
                       <X className="!h-5 !w-5" />
                     </Button>
                   </DrawerClose>

@@ -1,4 +1,5 @@
 "use client"
+
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -47,7 +48,7 @@ const DialogOverlay = React.forwardRef<
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
 const dialogContentVariants = cva(
-  "fixed z-50 grid max-w-md gap-4 border-border/90 bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0  lg:w-full w-[92%] max-w-md" ,
+  "fixed z-50 grid max-w-md gap-4 border-border/90 bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0  lg:w-full w-[92%] max-w-md",
   {
     variants: {
       position: {
@@ -71,7 +72,7 @@ const dialogContentVariants = cva(
 
 export interface DialogContentProps
   extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
-  VariantProps<typeof dialogContentVariants> {
+    VariantProps<typeof dialogContentVariants> {
   closeOnClickOutside?: boolean
 }
 
@@ -79,7 +80,17 @@ const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   DialogContentProps
 >(
-  ({ className, appearance, position = "default", closeOnClickOutside = true, children, ...props }, ref) => (
+  (
+    {
+      className,
+      appearance,
+      position = "default",
+      closeOnClickOutside = true,
+      children,
+      ...props
+    },
+    ref
+  ) => (
     <DialogPortal>
       <DialogOverlay
         onClick={closeOnClickOutside ? undefined : (e) => e.stopPropagation()}

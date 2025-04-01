@@ -1,3 +1,8 @@
+import CodeBlockDemo from "@/registry-components/examples/code-block-demo"
+import FolderTreeDemo from "@/registry-components/examples/folder-tree-demo"
+import { ChevronRightIcon } from "lucide-react"
+import { MDXComponents } from "mdx/types"
+
 import BlockPreview from "@/components/block-preview"
 import CarouselContainer from "@/components/blocks/carousel-1/carousel-container"
 import CarouselCompForProject from "@/components/blocks/carousel-2/carousel-big-container"
@@ -39,10 +44,6 @@ import {
 import ComponentPreview from "@/components/markdown/component-preview"
 import MdxBadge from "@/components/markdown/mdx-badge"
 import Pre from "@/components/pre"
-import CodeBlockDemo from "@/registry-components/examples/code-block-demo"
-import FolderTreeDemo from "@/registry-components/examples/folder-tree-demo"
-import { ChevronRightIcon } from "lucide-react"
-import { MDXComponents } from "mdx/types"
 
 export const components: MDXComponents = {
   Pre,

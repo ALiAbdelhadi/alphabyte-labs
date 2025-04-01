@@ -1,9 +1,7 @@
-import { Badge } from '@/components/library/badge'
+import { Badge } from "@/components/library/badge"
 
 const BadgeWarningDemo = () => {
-    return (
-        <Badge variant="warning">Warning</Badge>
-    )
+  return <Badge variant="warning">Warning</Badge>
 }
 
 export default BadgeWarningDemo

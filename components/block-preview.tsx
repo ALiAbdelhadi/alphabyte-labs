@@ -24,11 +24,6 @@ import Prism from "prismjs"
 
 import { cn } from "@/lib/utils"
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/library/collapsible"
-import {
   Sidebar,
   SidebarGroup,
   SidebarGroupContent,
@@ -39,8 +34,21 @@ import {
   SidebarMenuSub,
   SidebarProvider,
 } from "@/components/ui/sidebar"
-import { Tabs, TabsContainer, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+  Tabs,
+  TabsContainer,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/library/collapsible"
+
 import { Separator } from "./library/separator"
+
 import "prismjs/components/prism-javascript"
 import "prismjs/components/prism-jsx"
 import "prismjs/components/prism-tsx"
@@ -49,6 +57,7 @@ import "prismjs/plugins/line-highlight/prism-line-highlight"
 import "prismjs/plugins/line-highlight/prism-line-highlight.css"
 import "prismjs/plugins/line-numbers/prism-line-numbers"
 import "prismjs/plugins/line-numbers/prism-line-numbers.css"
+
 import type { ComponentProps } from "react"
 import { motion } from "framer-motion"
 
@@ -156,16 +165,16 @@ interface BlockPreview {
   fileTree?: FileTree[] | string
 }
 const CopyButton = ({ content }: { content: string }) => {
-  const [isCopied, setIsCopied] = useState(false);
+  const [isCopied, setIsCopied] = useState(false)
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(content);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
+      await navigator.clipboard.writeText(content)
+      setIsCopied(true)
+      setTimeout(() => setIsCopied(false), 2000)
     } catch (error) {
-      console.error("Failed to copy:", error);
+      console.error("Failed to copy:", error)
     }
-  };
+  }
   return (
     <button
       className="flex items-center bg-muted hover:bg-gray-200/60 dark:hover:bg-muted-foreground/10 shadow-sm py-3 md:py-2.5 px-3 rounded-[7px] space-x-1 transition-colors"
@@ -182,19 +191,23 @@ const CopyButton = ({ content }: { content: string }) => {
         <span className={cn("transition-all", isCopied && "mr-2.5")}>
           Cop
           <span className="relative">
-            <span className={`inline-block transition-opacity duration-300 ${isCopied ? 'opacity-0' : 'opacity-100'}`}>
+            <span
+              className={`inline-block transition-opacity duration-300 ${isCopied ? "opacity-0" : "opacity-100"}`}
+            >
               y
             </span>
-            <span className={`absolute left-0 transition-all duration-300 ${isCopied ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-1'}`}>
+            <span
+              className={`absolute left-0 transition-all duration-300 ${isCopied ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"}`}
+            >
               ied{" "}
             </span>
           </span>
-        </span>
-        {' '}code
+        </span>{" "}
+        code
       </span>
     </button>
-  );
-};
+  )
+}
 
 function Tree({
   item,

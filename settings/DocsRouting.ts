@@ -37,6 +37,10 @@ export const DocsRouting: Paths[] = [
         href: "/badge",
       },
       {
+        title: "Breadcrumb",
+        href: "/breadcrumb",
+      },
+      {
         title: "Button",
         href: "/button",
       },
@@ -97,20 +101,16 @@ export const DocsRouting: Paths[] = [
         href: "/product-card",
       },
       {
-        title: "Sheet",
-        href: "/sheet",
+        title: "Scroll Area",
+        href: "/scroll-area",
       },
       {
         title: "Separator",
         href: "/separator",
       },
       {
-        title: "Scroll Area",
-        href: "/scroll-area",
-      },
-      {
-        title: "Breadcrumb",
-        href: "/breadcrumb",
+        title: "Sheet",
+        href: "/sheet",
       },
       {
         title: "Sonner",
@@ -128,6 +128,6 @@ export const DocsRouting: Paths[] = [
         title: "Tooltip",
         href: "/tooltip",
       },
-    ]
+    ],
   },
 ]

@@ -1,11 +1,12 @@
-import { Badge } from '@/components/library/badge';
-import { useState } from 'react';
+import { useState } from "react"
+
+import { Badge } from "@/components/library/badge"
 
 const BadgeRemoveAbleDemo = () => {
-  const [isVisible, setIsVisible] = useState(true);
-  
+  const [isVisible, setIsVisible] = useState(true)
+
   if (!isVisible) {
-    return null; 
+    return null
   }
 
   return (

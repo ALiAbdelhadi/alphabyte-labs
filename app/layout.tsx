@@ -1,13 +1,14 @@
-import type { Metadata } from "next"
 import { Fragment } from "react"
+import type { Metadata } from "next"
 
+import { Settings } from "@/lib/meta"
 import { ThemeProvider } from "@/components/context/theme-provider"
 import { Toaster } from "@/components/library/sonner"
-import { Settings } from "@/lib/meta"
 
 import "./dragging.css"
 import "./globals.css"
 import "./prism-theme.css"
+
 import Providers from "@/components/Providers"
 
 // import { SplashScreen } from "./SplashScreen"
@@ -65,9 +66,7 @@ export default function RootLayout({
           >
             <div vaul-drawer-wrapper="">
               <div className="relative flex min-h-svh flex-col bg-background">
-                <Providers>
-                  {children}
-                </Providers>
+                <Providers>{children}</Providers>
               </div>
             </div>
           </ThemeProvider>

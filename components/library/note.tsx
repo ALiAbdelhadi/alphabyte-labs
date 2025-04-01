@@ -152,20 +152,22 @@ const Note = ({
                   onClick={onAction}
                   className={cn(
                     "text-sm font-medium mt-1",
-                    `text-${variant === "info"
-                      ? "blue"
-                      : variant === "warning"
-                        ? "amber"
-                        : variant === "success"
-                          ? "green"
-                          : "red"
-                    }-600 dark:text-${variant === "info"
-                      ? "blue"
-                      : variant === "warning"
-                        ? "amber"
-                        : variant === "success"
-                          ? "green"
-                          : "red"
+                    `text-${
+                      variant === "info"
+                        ? "blue"
+                        : variant === "warning"
+                          ? "amber"
+                          : variant === "success"
+                            ? "green"
+                            : "red"
+                    }-600 dark:text-${
+                      variant === "info"
+                        ? "blue"
+                        : variant === "warning"
+                          ? "amber"
+                          : variant === "success"
+                            ? "green"
+                            : "red"
                     }-400`
                   )}
                 >

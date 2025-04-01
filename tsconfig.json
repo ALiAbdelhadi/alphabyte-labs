@@ -22,6 +22,12 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "contents/docs/components/navigation-menu/navigation-menu.mdx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "contents/docs/components/navigation-menu/navigation-menu.mdx"
+  ],
   "exclude": ["node_modules"]
 }

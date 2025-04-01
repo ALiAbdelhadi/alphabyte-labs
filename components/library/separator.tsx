@@ -1,13 +1,14 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-import * as SeparatorPrimitive from "@radix-ui/react-separator"
 import * as React from "react"
+import * as SeparatorPrimitive from "@radix-ui/react-separator"
+
+import { cn } from "@/lib/utils"
 
 const Separator = React.forwardRef<
   React.ElementRef<typeof SeparatorPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> & {
-    weight?: "ultralight" | "light" | "regular";
+    weight?: "ultralight" | "light" | "regular"
   }
 >(
   (
@@ -23,7 +24,7 @@ const Separator = React.forwardRef<
     const weightOpacity = {
       ultralight: "opacity-[0.60]",
       light: "opacity-[0.85]",
-      regular: "opacity-1"
+      regular: "opacity-1",
     }
     return (
       <SeparatorPrimitive.Root
@@ -44,4 +45,3 @@ const Separator = React.forwardRef<
 Separator.displayName = SeparatorPrimitive.Root.displayName
 
 export { Separator }
-
