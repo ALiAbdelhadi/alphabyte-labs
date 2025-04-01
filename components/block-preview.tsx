@@ -1,28 +1,10 @@
 "use client"
 
-import type React from "react"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { getFolderTree } from "@/folder-tree"
-import { getCodeFiles } from "@/folder-tree/code-structure"
-import { languageIcons } from "@/settings/LanguageIcon"
-import { blocksWebsite } from "@/settings/settings"
 import {
-  Check,
-  ChevronRight,
-  Clipboard,
-  File,
-  FileCode,
-  Folder,
-  Fullscreen,
-  Monitor,
-  PanelLeftOpen,
-  PanelRightOpen,
-  Smartphone,
-  Tablet,
-} from "lucide-react"
-import Prism from "prismjs"
-
-import { cn } from "@/lib/utils"
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/library/collapsible"
 import {
   Sidebar,
   SidebarGroup,
@@ -41,14 +23,26 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import { getFolderTree } from "@/folder-tree"
+import { getCodeFiles } from "@/folder-tree/code-structure"
+import { cn } from "@/lib/utils"
+import { languageIcons } from "@/settings/LanguageIcon"
+import { blocksWebsite } from "@/settings/settings"
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/library/collapsible"
-
-import { Separator } from "./library/separator"
-
+  Check,
+  ChevronRight,
+  Clipboard,
+  File,
+  FileCode,
+  Folder,
+  Fullscreen,
+  Monitor,
+  PanelLeftOpen,
+  PanelRightOpen,
+  Smartphone,
+  Tablet,
+} from "lucide-react"
+import Prism from "prismjs"
 import "prismjs/components/prism-javascript"
 import "prismjs/components/prism-jsx"
 import "prismjs/components/prism-tsx"
@@ -57,9 +51,12 @@ import "prismjs/plugins/line-highlight/prism-line-highlight"
 import "prismjs/plugins/line-highlight/prism-line-highlight.css"
 import "prismjs/plugins/line-numbers/prism-line-numbers"
 import "prismjs/plugins/line-numbers/prism-line-numbers.css"
+import type React from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { Separator } from "./library/separator"
 
-import type { ComponentProps } from "react"
 import { motion } from "framer-motion"
+import type { ComponentProps } from "react"
 
 interface PreProps extends ComponentProps<"pre"> {
   raw?: string
@@ -164,6 +161,7 @@ interface BlockPreview {
   BlockId: string
   fileTree?: FileTree[] | string
 }
+
 const CopyButton = ({ content }: { content: string }) => {
   const [isCopied, setIsCopied] = useState(false)
   const copyToClipboard = async () => {
@@ -226,7 +224,7 @@ function Tree({
         <SidebarMenuButton
           isActive={item.path === activeFile}
           onClick={() => item.path && setActiveFile(item.path)}
-          className="whitespace-nowrap rounded-none pl-[--index] text-gray-100 hover:text-gray-100 hover:!bg-gray-900/20 dark:focus:bg-gray-900/20 focus-visible:bg-gray-900/20   data-[active=true]:bg-gray-900/40 !data-[open=true]:hover:text-gray-100 data-[active=true]:text-gray-200"
+          className="whitespace-nowrap rounded-none pl-[--index] text-gray-100 hover:text-gray-100 hover:!bg-gray-950/20 dark:focus:bg-gray-950/20 dark:focus:text-gray-200 focus-visible:bg-gray-950/20 data-[active=true]:bg-gray-950/40 !data-[open=true]:hover:text-gray-100 data-[active=true]:text-gray-200"
           data-index={index}
           style={
             {
@@ -235,7 +233,7 @@ function Tree({
           }
         >
           <ChevronRight className="invisible" />
-          <File className="h-4 w-4 text-blue-500 dark:text-blue-400" />
+          <File className="h-4 w-4 text-sky-500 dark:text-sky-400" />
           {item.name}
         </SidebarMenuButton>
       </SidebarMenuItem>
@@ -250,7 +248,7 @@ function Tree({
       >
         <CollapsibleTrigger asChild>
           <SidebarMenuButton
-            className="whitespace-nowrap rounded-none pl-[--index] text-gray-100 hover:text-gray-100 hover:!bg-gray-900/20 dark:focus:bg-gray-900/20 focus-visible:bg-gray-900/20   data-[active=true]:bg-gray-900/40 !data-[open=true]:hover:text-gray-100 data-[active=true]:text-gray-200"
+            className="whitespace-nowrap rounded-none pl-[--index] text-gray-100 hover:text-gray-100 hover:!bg-gray-950/20 dark:focus:bg-gray-950/20 focus-visible:bg-gray-950/20 data-[active=true]:bg-gray-950/40 !data-[open=true]:hover:text-gray-100 data-[active=true]:text-gray-200"
             style={
               {
                 "--index": `${index * (index === 1 ? 1 : 1.2)}rem`,
@@ -258,7 +256,7 @@ function Tree({
             }
           >
             <ChevronRight className="h-4 w-4 transition-transform" />
-            <Folder className="h-4 w-4 text-amber-500 dark:text-amber-400" />
+            <Folder className="h-4 w-4 text-yellow-500 dark:text-yellow-400" />
             {item.name}
           </SidebarMenuButton>
         </CollapsibleTrigger>

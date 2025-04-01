@@ -61,10 +61,10 @@ const UiBlocksPage = () => {
           <div id="browse-all-blocks" className="py-10 md:py-14 lg:py-20">
             <div className="space-y-2">
               <h2 className="lg:text-3xl text-2xl font-semibold">
-                Shadcn ui blocks
+              Ui Blocks
               </h2>
               <p className="text-lg md:text-xl font-light text-foreground">
-                Ready to copy&paste
+                Ready to copy&paste or even download it using your favorite npm package
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
