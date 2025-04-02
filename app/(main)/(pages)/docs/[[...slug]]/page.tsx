@@ -1,18 +1,20 @@
-import React from "react"
-import { notFound } from "next/navigation"
-import { DocsPageProps } from "@/types"
 
-import { ErrorBoundary } from "@/lib/debug-wrapper"
-import { getDocument } from "@/lib/markdown"
-import { Settings } from "@/lib/meta"
-import { PageRoutes } from "@/lib/pageRoutes"
+import { notFound } from "next/navigation"
 import { BackToTop } from "@/components/navigation/backToTop"
 import PageBreadcrumb from "@/components/navigation/DocsBreadcrumb"
 import Feedback from "@/components/navigation/feedback"
 import Pagination from "@/components/navigation/Pagination"
 import Toc from "@/components/navigation/toc"
 import { Typography } from "@/components/typography"
-
+import { ErrorBoundary } from "@/lib/debug-wrapper"
+import { getDocument } from "@/lib/markdown"
+import { Settings } from "@/lib/meta"
+import { PageRoutes } from "@/lib/pageRoutes"
+type DocsPageProps = {
+  params: Promise<{
+    slug: string[]
+  }>
+}
 const page = async (props: DocsPageProps) => {
   try {
     const DocsParams = await props.params

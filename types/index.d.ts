@@ -69,9 +69,11 @@ type Page = {
 }
 
 // for [[...slug]]/page.tsx
-declare type DocsPageProps = {
-  params: Promise<{ slug: string[] }>
-}
+type Params = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
 import type React from "react"
 // MDX and Document Types
 export interface BaseMdxFrontmatter {
