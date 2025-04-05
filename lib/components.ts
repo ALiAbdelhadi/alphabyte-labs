@@ -4,9 +4,6 @@ import { ChevronRightIcon } from "lucide-react"
 import { MDXComponents } from "mdx/types"
 
 import BlockPreview from "@/components/block-preview"
-import CarouselContainer from "@/components/blocks/carousel-1/carousel-container"
-import CarouselCompForProject from "@/components/blocks/carousel-2/carousel-big-container"
-import TimelineContainer from "@/components/blocks/timeline-1/TimelineContainer"
 import { CodeBlockWrapper } from "@/components/CodeBlockWrapper"
 import {
   AlertDialog,
@@ -85,9 +82,6 @@ export const components: MDXComponents = {
   Label,
   // Blocks
   BlockPreview,
-  TimelineContainer,
-  CarouselContainer,
-  CarouselCompForProject,
   // icons
   ChevronRightIcon,
 }

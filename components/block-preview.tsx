@@ -23,11 +23,13 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import { getFolderTree } from "@/folder-tree"
-import { getCodeFiles } from "@/folder-tree/code-structure"
+
 import { cn } from "@/lib/utils"
+import { getFolderTree } from "@/registry-blocks"
+import { getCodeFiles } from "@/registry-blocks/code-srouce"
 import { languageIcons } from "@/settings/LanguageIcon"
 import { blocksWebsite } from "@/settings/settings"
+import { motion } from "framer-motion"
 import {
   Check,
   ChevronRight,
@@ -52,11 +54,9 @@ import "prismjs/plugins/line-highlight/prism-line-highlight.css"
 import "prismjs/plugins/line-numbers/prism-line-numbers"
 import "prismjs/plugins/line-numbers/prism-line-numbers.css"
 import type React from "react"
+import type { ComponentProps } from "react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Separator } from "./library/separator"
-
-import { motion } from "framer-motion"
-import type { ComponentProps } from "react"
 
 interface PreProps extends ComponentProps<"pre"> {
   raw?: string
@@ -558,7 +558,7 @@ export default function BlockPreview({
     return <div className={cn("mt-4", className)}>{children}</div>
   }
 
-  const iframeSource = `${blocksWebsite}/blocks/${BlockId}`
+  const iframeSource = `${blocksWebsite}/${BlockId}`
 
   return (
     <Tabs

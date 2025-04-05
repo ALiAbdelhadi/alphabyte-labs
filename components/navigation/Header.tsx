@@ -71,20 +71,20 @@ export function Header() {
           isDocsRoute && "lg:border-r lg:border-l border-border border-dashed"
         )}
       >
-        <div className="flex items-center gap-4 sm:gap-8">
+        <div className="flex items-center gap-4">
           <Logo showLogoText={true} className="flex-shrink-0" />
           <nav className="hidden md:flex items-center">
-            <NavigationMenu>
-              <NavigationMenuList>
+            <NavigationMenu >
+              <NavigationMenuList className="md:space-x-2">
                 {navItems.map((item) => (
                   <NavigationMenuItem key={item.title}>
                     <Link href={item.href} legacyBehavior passHref>
                       <NavigationMenuLink
                         className={cn(
                           "group inline-flex h-10 w-max items-center justify-center",
-                          "rounded-md bg-transparent px-3 sm:px-4 py-2 text-sm sm:text-[15px]",
-                          "font-medium transition-colors -tracking-[.01em]",
-                          "text-[rgba(0,_0,_0,_.85)] dark:text-[rgba(255,255,255,.85)]",
+                          "rounded-md bg-transparent p-2 text-sm",
+                          "transition-colors -tracking-[.01em]",
+                          "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
                           "hover:text-[#000000] dark:hover:text-white"
                         )}
                       >
@@ -97,12 +97,12 @@ export function Header() {
             </NavigationMenu>
           </nav>
         </div>
-        <div className="flex items-center gap-2 sm:gap-4">
+        <div className="flex items-center gap-3">
           <div className="hidden md:block">
             <Search />
           </div>
-          <div className="hidden md:flex items-center gap-2 sm:gap-4">
-            <Button>Get Full Access</Button>
+          <div className="hidden md:flex items-center gap-3">
+            <Button className="lg:block hidden">Get Full Access</Button>
             <ChangeTheme />
           </div>
           <div className="flex items-center gap-2 md:hidden w-full">

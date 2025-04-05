@@ -1,9 +1,9 @@
-import { ReactNode } from "react"
 import Link from "next/link"
+import { ReactNode } from "react"
 
 import { cn } from "@/lib/utils"
 
-import { Badge } from "./library/badge"
+import { CustomImage } from "./custome-image"
 
 const BlockForGrid = ({
   href,
@@ -29,7 +29,10 @@ const BlockForGrid = ({
         </div>
         <div>
           <div className="flex items-center p-6 pt-0 justify-end rounded-md pb-0 pr-0 shadow-sm">
-            <img
+            <CustomImage
+              width={288}
+              height={160}
+              quality={100}
               className="sm:h-72 lg:h-40 w-full rounded-br-lg rounded-tl-lg border-l border-t object-cover object-left-top"
               src={src}
               alt={title}

@@ -146,7 +146,7 @@ export default function Search() {
             </button>
           </div>
         </DialogTrigger>
-        <DialogContent className="max-w-2xl overflow-hidden p-0 dark:bg-neutral-900 rounded-lg top-[40%] lg:top-[50%] !-p-2">
+        <DialogContent className="max-w-2xl overflow-hidden dark:bg-neutral-900 rounded-lg top-[40%] lg:top-[50%] !p-2">
           <DialogTitle className="px-4 py-2 text-lg font-semibold sr-only">
             Search documentation
           </DialogTitle>

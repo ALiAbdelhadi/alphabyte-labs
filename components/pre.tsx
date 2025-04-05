@@ -1,30 +1,31 @@
 "use client"
 
 import { languageIcons } from "@/settings/LanguageIcon"
-import { Check, Clipboard, FileCode } from "lucide-react"
+import { Check, Clipboard, FileCode } from 'lucide-react'
 import Prism from "prismjs"
 
 import { cn } from "@/lib/utils"
+import { useEffect, useRef, useState } from "react"
 
+// Import Prism components
+import "prismjs/components/prism-css"
 import "prismjs/components/prism-javascript"
 import "prismjs/components/prism-jsx"
 import "prismjs/components/prism-tsx"
 import "prismjs/components/prism-typescript"
-import "prismjs/plugins/line-numbers/prism-line-numbers"
-import "prismjs/plugins/line-numbers/prism-line-numbers.css"
 import "prismjs/plugins/line-highlight/prism-line-highlight"
 import "prismjs/plugins/line-highlight/prism-line-highlight.css"
+import "prismjs/plugins/line-numbers/prism-line-numbers"
+import "prismjs/plugins/line-numbers/prism-line-numbers.css"
 
-import { ComponentProps, useEffect, useState } from "react"
-
-interface PreProps extends ComponentProps<"pre"> {
+interface PreProps {
+  children?: React.ReactNode
   raw?: string
   className?: string
   highlightLines?: number[]
   folderPath?: string
-  highlightStyle?: "solid" | "gradient" | "border" | "marker" | "custom"
-  customHighlightClass?: string
   showLineNumbers?: boolean
+  contentKey?: string | number
 }
 
 const CopyButton = ({ content }: { content: string }) => {
@@ -57,53 +58,46 @@ const CopyButton = ({ content }: { content: string }) => {
 export default function Pre({
   children,
   raw,
-  className,
+  className = "",
   highlightLines = [],
   folderPath,
-  highlightStyle,
-  customHighlightClass,
   showLineNumbers = true,
-  ...rest
+  contentKey,
 }: PreProps) {
   const [isClient, setIsClient] = useState(false)
+  const preRef = useRef<HTMLPreElement>(null)
+  const codeRef = useRef<HTMLElement>(null)
+
+  const [content, setContent] = useState<string>("")
+  const language = className?.includes("language-")
+    ? className.split("language-")[1]?.split(" ")[0] || "css"
+    : "css"
+
+  useEffect(() => {
+    const newContent = typeof children === "string"
+      ? children.trim()
+      : children?.toString() || ""
+
+    setContent(newContent)
+  }, [children, contentKey])
 
   useEffect(() => {
     setIsClient(true)
   }, [])
 
   useEffect(() => {
-    if (isClient && typeof window !== "undefined") {
-      Prism.highlightAll()
-      const codeBlock = document.querySelector("pre code")
-      if (codeBlock) {
-        const lines = codeBlock.innerHTML
-          .replace(/^\n+|\n+$/g, "")
-          .replace(/\n\s*\n/g, "\n")
-          .replace(/\t/g, "  ")
-          .replace(/\r\n/g, "\n")
-          .split("\n")
-        const highlightedLines = lines.map((line, index) => {
-          if (highlightLines.includes(index + 1)) {
-            return `<span class="highlighted-line">${line}</span>`
-          }
-          return line
-        })
-        codeBlock.innerHTML = highlightedLines.join("\n")
-      }
-    }
-  }, [children, highlightLines, highlightStyle, customHighlightClass, isClient])
+    if (!isClient || !codeRef.current) return
+    codeRef.current.textContent = content
+    Prism.highlightElement(codeRef.current)
+  }, [content, isClient, contentKey])
 
-  const language = className?.split("-")[1] || "typescript"
-  const code = typeof children === "string" ? children.trim() : " "
   const lineNumbersClass = showLineNumbers ? "line-numbers" : ""
 
   if (!isClient) {
     return (
       <div className="code-block-container relative group rounded-[6px] custom-scrollbar my-5 w-full">
-        <pre
-          className={`overflow-x-auto max-h-[650px] hide-scrollbar ${lineNumbersClass}`}
-        >
-          <code>{children}</code>
+        <pre className={`overflow-x-auto max-h-[650px] hide-scrollbar ${lineNumbersClass}`}>
+          <code>{content}</code>
         </pre>
       </div>
     )
@@ -118,13 +112,15 @@ export default function Pre({
             <div className="w-3 h-3 rounded-full bg-yellow-500/30 border border-yellow-500/40" />
             <div className="w-3 h-3 rounded-full bg-green-500/30 border border-green-500/40" />
           </div>
-          <span className="code-block-folder-path font-medium text-gray-400 text-sm text-nowrap max-w-md">
-            {folderPath}
-          </span>
+          {folderPath && (
+            <span className="code-block-folder-path font-medium text-gray-400 text-sm text-nowrap max-w-md">
+              {folderPath}
+            </span>
+          )}
         </div>
         <div className="flex items-center space-x-2">
           <div>
-            <CopyButton content={raw || code} />
+            <CopyButton content={raw || content} />
           </div>
           <div className="w-4 h-4 rounded-sm">
             {languageIcons[language] || (
@@ -134,6 +130,7 @@ export default function Pre({
         </div>
       </div>
       <pre
+        ref={preRef}
         className={cn(
           `language-${language}`,
           className,
@@ -147,7 +144,9 @@ export default function Pre({
           highlightLines.length > 0 ? highlightLines.join(",") : undefined
         }
       >
-        <code className={cn("language-" + language)}>{children}</code>
+        <code ref={codeRef} className={`language-${language}`}>
+          {content}
+        </code>
       </pre>
     </div>
   )

@@ -1,10 +1,10 @@
-import type { JSX } from "react"
-import Image from "next/image"
+import { CustomImage } from "@/components/custome-image"
 import { Terminal } from "lucide-react"
+import type { JSX } from "react"
 
 export const languageIcons: Record<string, JSX.Element> = {
   javascript: (
-    <Image
+    <CustomImage
       src="/icons/javascript.svg"
       className="w-[18px] h-[18px]"
       alt="javascript"
@@ -14,7 +14,7 @@ export const languageIcons: Record<string, JSX.Element> = {
     />
   ),
   js: (
-    <Image
+    <CustomImage
       src="/icons/javascript.svg"
       className="w-[18px] h-[18px]"
       alt="javascript"
@@ -24,7 +24,7 @@ export const languageIcons: Record<string, JSX.Element> = {
     />
   ),
   jsx: (
-    <Image
+    <CustomImage
       src="/icons/javascript.svg"
       className="w-[18px] h-[18px]"
       alt="jsx"
@@ -34,7 +34,7 @@ export const languageIcons: Record<string, JSX.Element> = {
     />
   ),
   typescript: (
-    <Image
+    <CustomImage
       src="/icons/typescript.svg"
       className="w-[18px] h-[18px]"
       alt="typescript"
@@ -44,7 +44,7 @@ export const languageIcons: Record<string, JSX.Element> = {
     />
   ),
   ts: (
-    <Image
+    <CustomImage
       src="/icons/typescript.svg"
       className="w-[18px] h-[18px]"
       alt="typescript"
@@ -54,7 +54,7 @@ export const languageIcons: Record<string, JSX.Element> = {
     />
   ),
   tsx: (
-    <Image
+    <CustomImage
       src="/icons/typescript.svg"
       className="w-[18px] h-[18px]"
       alt="typescript"
@@ -64,7 +64,7 @@ export const languageIcons: Record<string, JSX.Element> = {
     />
   ),
   html: (
-    <Image
+    <CustomImage
       src="/icons/html.svg"
       alt="html"
       className="w-[18px] h-[18px]"
@@ -74,7 +74,7 @@ export const languageIcons: Record<string, JSX.Element> = {
     />
   ),
   css: (
-    <Image
+    <CustomImage
       src="/icons/css.svg"
       alt="css"
       className="w-[18px] h-[18px]"

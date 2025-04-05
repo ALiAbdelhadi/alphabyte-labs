@@ -1,17 +1,9 @@
-import { FOLDER_TREE_BLOCKS } from "./folder-tree"
 import about_1_folder_tree from "./folder-tree-blocks/about-1-folder-tree.json"
 import carousel_1_folder_tree from "./folder-tree-blocks/carousel-1-folder-tree.json"
 import carousel_2_folder_tree from "./folder-tree-blocks/carousel-2-folder-tree.json"
 import navbar_1_folder_tree from "./folder-tree-blocks/navbar-1-folder-tree.json"
 import new_collection_1_code_tree from "./folder-tree-blocks/new-collection-1-folder-tree.json"
 import timeline_1_folder_tree from "./folder-tree-blocks/timeline-1-folder-tree.json"
-
-export {
-  about_1_folder_tree,
-  FOLDER_TREE_BLOCKS,
-  navbar_1_folder_tree,
-  timeline_1_folder_tree,
-}
 
 export const folderTreeMap = {
   "timeline-1-tree": timeline_1_folder_tree,

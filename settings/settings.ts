@@ -25,4 +25,4 @@ export const toTopScroll = true
 
 export const loadFromGithub = false
 // blocks website
-export const blocksWebsite = "https://library-alphabyte.vercel.app"
+export const blocksWebsite = "/view/blocks"

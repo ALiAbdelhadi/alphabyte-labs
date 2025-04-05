@@ -121,3 +121,34 @@ export type Paths = EachRoute
 export interface DocsPageProps {
   params: Promise<{ slug?: string[] }>
 }
+// For colors groups
+export interface Color {
+  name: string
+  hex: string
+}
+
+export interface colorPalettes {
+  title: string
+  colors: Color[]
+}
+
+export interface RgbColor {
+  red: number
+  green: number
+  blue: number
+}
+
+export interface HslColor {
+  h: number
+  s: number
+  lightness: number
+}
+
+export interface OklchColor {
+  l: number
+  c: number
+  h: number
+}
+
+
+export type ColorFormat = "hex" | "rgb" | "hsl" | "oklch";

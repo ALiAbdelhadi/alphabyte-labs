@@ -7,6 +7,9 @@ const withMDX = require("@next/mdx")({
     rehypePlugins: [],
   },
 })
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
 const nextConfig: NextConfig = {
   typescript: {
@@ -16,4 +19,4 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 }
 
-module.exports = withMDX(nextConfig)
+module.exports = withBundleAnalyzer(withMDX(nextConfig))

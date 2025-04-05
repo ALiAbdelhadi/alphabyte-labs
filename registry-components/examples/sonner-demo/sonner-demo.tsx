@@ -7,7 +7,7 @@ const SonnerDemo = () => {
     <Button
       variant="outline"
       onClick={() =>
-        toast.loading("Event has been created", {
+        toast("Event has been created", {
           description: "Sunday, December 03, 2023 at 9:00 AM",
           action: {
             label: "Undo",

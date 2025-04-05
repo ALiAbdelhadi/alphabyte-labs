@@ -1,10 +1,7 @@
 import Link from "next/link"
 
-import { cn } from "@/lib/utils"
+import BlockPreview from "@/components/block-preview"
 import BlockForGrid from "@/components/BlockForGrid"
-import CarouselContainer from "@/components/blocks/carousel-1/carousel-container"
-import CarouselCompForProject from "@/components/blocks/carousel-2/carousel-big-container"
-import TimelineContainer from "@/components/blocks/timeline-1/TimelineContainer"
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
 
@@ -24,12 +21,12 @@ const UiBlocksPage = () => {
           </div>
           <div className="space-x-2">
             <Link href="/ui-blocks/carousel-1">
-              <Button className="lg:h-11 lg:px-8 px-3.5 h-9">
+              <Button className="lg:h-10 lg:px-7 px-3 h-8">
                 Get started
               </Button>
             </Link>
             <Link href="#browse-all-blocks">
-              <Button variant={"ghost"} className="lg:h-11 lg:px-8 px-3.5 h-9">
+              <Button variant={"ghost"} className="lg:h-10 lg:px-7 px-3 h-8">
                 Browse All Blocks
               </Button>
             </Link>
@@ -43,25 +40,34 @@ const UiBlocksPage = () => {
           <h2 className="text-muted-foreground mb-3">Latest Blocks</h2>
           <div className="space-y-8">
             <h3 className="text-3xl font-medium mb-4">Carousels</h3>
-            <section className="border px-2.5 lg:px-8 rounded-3xl bg-[#f8f8f9] dark:bg-[#111111]">
-              <CarouselCompForProject />
-            </section>
+            <BlockPreview
+              id="carousel-1"
+              BlockId="carousel-1"
+              BlockName="Carousel1"
+              fileTree={"carousel-1-tree"}
+            />
             {/* Block two */}
-            <h3 className="text-3xl font-medium mb-4">Carousels Two</h3>
-            <section className="border px-2.5 lg:px-8 rounded-3xl bg-[#f8f8f9] dark:bg-[#111111]">
-              <CarouselContainer />
-            </section>
+            <h3 className="text-3xl font-medium mb-4">Navbar</h3>
+            <BlockPreview
+              id="navbar-1"
+              BlockName="Navbar"
+              BlockId="navbar-1"
+              fileTree={"navbar-1-tree"}
+            />
             {/* Block Three */}
-            <h3 className="text-3xl font-medium mb-4">Timeline</h3>
-            <section className="border lg:px-8 rounded-3xl bg-[#f8f8f9] dark:bg-[#111111]">
-              <TimelineContainer />
-            </section>
+            <h3 className="text-3xl font-medium mb-4">New Collection</h3>
+            <BlockPreview
+              id="new-collection-1"
+              BlockName="New Collection"
+              BlockId="new-collection-1"
+              fileTree="new-collection-1-tree"
+            />
           </div>
           {/* Tons Of Blocks Ready to copy and past or even download it */}
           <div id="browse-all-blocks" className="py-10 md:py-14 lg:py-20">
             <div className="space-y-2">
               <h2 className="lg:text-3xl text-2xl font-semibold">
-              Ui Blocks
+                Ui Blocks
               </h2>
               <p className="text-lg md:text-xl font-light text-foreground">
                 Ready to copy&paste or even download it using your favorite npm package
@@ -97,6 +103,11 @@ const UiBlocksPage = () => {
                 title="About1"
                 href="/ui-blocks/about-1"
                 src={"/block-mokeup/about/about-1.png"}
+              />
+              <BlockForGrid
+                title="Service1"
+                href="/ui-blocks/service-1"
+                src={"/block-mokeup/service/service-1.png"}
               />
             </div>
           </div>

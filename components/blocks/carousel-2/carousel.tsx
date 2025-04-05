@@ -1,5 +1,9 @@
-"use client"
-
+"use client";
+import { useOutsideClick } from "@/hooks/out-side-click";
+import { cn } from "@/lib/utils";
+import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
+import { motion } from "framer-motion";
+import Image, { ImageProps } from "next/image";
 import {
   createContext,
   Fragment,
@@ -7,67 +11,61 @@ import {
   useEffect,
   useRef,
   useState,
-} from "react"
-import Image, { ImageProps } from "next/image"
-import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react"
-import { motion } from "framer-motion"
-
-import { cn } from "@/lib/utils"
-import { useOutsideClick } from "@/hooks/out-side-click"
+} from "react";
 
 interface CarouselProps {
-  items: JSX.Element[]
-  initialScroll?: number
-  cardGap?: number
-  scrollOffset?: number
+  items: JSX.Element[];
+  initialScroll?: number;
+  cardGap?: number;
+  scrollOffset?: number;
 }
 
 interface Card {
-  src: string
-  title: string
-  category: string
+  src: string;
+  title: string;
+  category: string;
 }
 const CarouselContext = createContext<{
-  onCardClick: (index: number) => void
-  currentIndex: number
+  onCardClick: (index: number) => void;
+  currentIndex: number;
 }>({
   onCardClick: () => {},
   currentIndex: 0,
-})
+});
 export const Carousel = ({
   items,
   initialScroll = 0,
   cardGap = 16,
   scrollOffset = 300,
 }: CarouselProps) => {
-  const carouselRef = useRef<HTMLDivElement>(null)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(true)
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const checkScrollAbility = () => {
     if (carouselRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current
-      setCanScrollLeft(scrollLeft > 0)
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth)
+      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth);
     }
-  }
+  };
   useEffect(() => {
     if (carouselRef.current) {
-      carouselRef.current.scrollLeft = initialScroll
-      checkScrollAbility()
+      carouselRef.current.scrollLeft = initialScroll;
+      checkScrollAbility();
     }
-  }, [initialScroll])
+  }, [initialScroll]);
   const scroll = (direction: "left" | "right") => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({
         left: direction === "left" ? -scrollOffset : scrollOffset,
         behavior: "smooth",
-      })
+      });
     }
-  }
+  };
   const handleCarsouelClick = (index: number) => {
-    setCurrentIndex(index)
-  }
+    setCurrentIndex(index);
+  };
   return (
     <CarouselContext.Provider
       value={{ onCardClick: handleCarsouelClick, currentIndex }}
@@ -115,31 +113,31 @@ export const Carousel = ({
         </div>
       </div>
     </CarouselContext.Provider>
-  )
-}
+  );
+};
 export const Card = ({
   card,
   index,
   layout = false,
 }: {
-  card: Card
-  index: number
-  layout?: boolean
+  card: Card;
+  index: number;
+  layout?: boolean;
 }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const cardRef = useRef<HTMLDivElement>(null)
-  useOutsideClick(containerRef, () => setIsOpen(false))
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  useOutsideClick(containerRef, () => setIsOpen(false));
   const handleCardClick = () => {
-    setIsOpen(true)
+    setIsOpen(true);
     if (cardRef.current) {
       cardRef.current.scrollIntoView({
         behavior: "smooth",
         block: "nearest",
         inline: "center",
-      })
+      });
     }
-  }
+  };
   return (
     <Fragment>
       <motion.div
@@ -171,8 +169,8 @@ export const Card = ({
         />
       </motion.div>
     </Fragment>
-  )
-}
+  );
+};
 export const BlurImage = ({
   height,
   width,
@@ -181,13 +179,13 @@ export const BlurImage = ({
   alt,
   ...rest
 }: ImageProps) => {
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(true);
   return (
     <Image
       className={cn(
         "transition duration-300",
         isLoading ? "blur-sm" : "blur-0",
-        className
+        className,
       )}
       onLoad={() => setLoading(false)}
       src={src}
@@ -199,5 +197,5 @@ export const BlurImage = ({
       alt={alt ? alt : "Background of a beautiful view"}
       {...rest}
     />
-  )
-}
+  );
+};

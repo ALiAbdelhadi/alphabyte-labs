@@ -24,12 +24,12 @@ const Home = () => {
           </div>
           <div className="space-x-2 md:space-x-3">
             <Link href="/docs/introduction">
-              <Button className="lg:h-11 lg:px-8 px-3.5 h-9">
+              <Button className="lg:h-10 lg:px-7 px-3 h-8">
                 Get started
               </Button>
             </Link>
             <Link href={"/ui-blocks"}>
-              <Button variant={"ghost"} className="lg:h-11 lg:px-8 px-3.5 h-9">
+              <Button variant={"ghost"} className="lg:h-10 lg:px-7 px-3 h-8">
                 Browse Blocks
               </Button>
             </Link>

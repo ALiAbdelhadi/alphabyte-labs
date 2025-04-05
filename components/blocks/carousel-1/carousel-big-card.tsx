@@ -1,5 +1,8 @@
 "use client"
 
+import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react"
+import { motion } from "framer-motion"
+import Image, { ImageProps } from "next/image"
 import {
   createContext,
   Fragment,
@@ -8,12 +11,8 @@ import {
   useRef,
   useState,
 } from "react"
-import Image, { ImageProps } from "next/image"
-import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react"
-import { motion } from "framer-motion"
-
-import { cn } from "@/lib/utils"
 import { useOutsideClick } from "@/hooks/out-side-click"
+import { cn } from "@/lib/utils"
 
 interface CarouselProps {
   items: JSX.Element[]
@@ -35,7 +34,7 @@ const CarouselContext = createContext<{
   onCardClick: (index: number) => void
   currentIndex: number
 }>({
-  onCardClick: () => {},
+  onCardClick: () => { },
   currentIndex: 0,
 })
 

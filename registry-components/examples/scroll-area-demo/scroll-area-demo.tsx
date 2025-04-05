@@ -1,4 +1,4 @@
-import { ScrollArea } from "@/components/library/scroll-area"
+import { ScrollArea } from "@/components/library/scroll-area";
 
 export default function ScrollAreaDemo() {
   return (
@@ -13,8 +13,12 @@ export default function ScrollAreaDemo() {
             <p className="text-xs text-gray-500">3 participants</p>
           </div>
         </div>
-        <div className="flex-1">
-          <ScrollArea className="h-[25.5rem]">
+        <div className="flex-1 flex flex-col" >
+          <ScrollArea className="h-72">
+            <div
+              aria-hidden="true"
+              className="absolute z-10 inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent dark:from-[#252525] dark:to-transparent pointer-events-none"
+            />
             <div className="p-4 space-y-6">
               {[
                 {
@@ -96,22 +100,20 @@ export default function ScrollAreaDemo() {
                   className={`flex ${message.isCurrentUser ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[70%] rounded-lg p-3 ${
-                      message.isCurrentUser
+                    className={`max-w-[70%] rounded-lg p-3 ${message.isCurrentUser
                         ? "bg-blue-500 text-white"
                         : "bg-gray-100 dark:bg-gray-800"
-                    }`}
+                      }`}
                   >
                     {!message.isCurrentUser && (
                       <p className="font-medium text-sm mb-1">{message.user}</p>
                     )}
                     <p className="text-sm">{message.message}</p>
                     <p
-                      className={`text-xs mt-1 ${
-                        message.isCurrentUser
+                      className={`text-xs mt-1 ${message.isCurrentUser
                           ? "text-blue-100"
                           : "text-gray-500"
-                      }`}
+                        }`}
                     >
                       {message.time}
                     </p>
@@ -135,5 +137,5 @@ export default function ScrollAreaDemo() {
         </div>
       </div>
     </div>
-  )
+  );
 }
