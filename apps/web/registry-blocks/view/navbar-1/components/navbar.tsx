@@ -21,7 +21,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import React from "react";
 
 interface MenuItem {

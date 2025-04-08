@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 import { Heart, Menu, Settings, ShoppingCart, User } from "lucide-react"
 
 import { Button } from "@/components/library/button"

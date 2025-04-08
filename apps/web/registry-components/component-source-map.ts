@@ -585,7 +585,7 @@ const ButtonIconDemo = () => {
 export default ButtonIconDemo
 `,
   "@/registry-components/examples/button-demo/button-link-demo": `import React from "react"
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 
 import { Button } from "@/components/library/button"
 
@@ -2099,7 +2099,7 @@ const SheetDemo = () => {
 
 export default SheetDemo
 `,
-  "@/registry-components/examples/sheet-demo/sheet-left-demo": `import Link from "next/link"
+  "@/registry-components/examples/sheet-demo/sheet-left-demo": `import { Link } from "@/i18n/routing"
 import { Heart, Menu, Settings, ShoppingCart, User } from "lucide-react"
 
 import { Button } from "@/components/library/button"
@@ -2315,7 +2315,7 @@ const SonnerDemo = () => {
 
 export default SonnerDemo
 `,
-  "@/registry-components/examples/steps-demo": `import Link from "next/link"
+  "@/registry-components/examples/steps-demo": `import { Link } from "@/i18n/routing"
 
 import { Step, StepItem } from "@/components/library/step"
 

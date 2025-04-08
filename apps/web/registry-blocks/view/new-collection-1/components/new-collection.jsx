@@ -1,6 +1,6 @@
 import Container from "@/components/Container"
 import Image from "next/image"
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 export default function NewCollection() {
   return (
     <div>

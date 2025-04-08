@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 
 import BlockPreview from "@/components/block-preview"
 import BlockForGrid from "@/components/BlockForGrid"

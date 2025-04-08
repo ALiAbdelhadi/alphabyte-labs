@@ -1,5 +1,5 @@
 import { CarouselBigDataForBlock } from "@/constant/blocks";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { Card, Carousel } from "./carousel";
 
 const CarouselContainer = () => {

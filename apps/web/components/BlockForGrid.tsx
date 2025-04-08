@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 import { ReactNode } from "react"
 import { CustomImage } from "./custome-image"
 

@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 import { GitHubLink } from "@/settings/navigation"
 import { LuArrowUpRight } from "react-icons/lu"
 
