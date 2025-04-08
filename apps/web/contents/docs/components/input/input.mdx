@@ -1,0 +1,85 @@
+---
+title: Input
+description: A Input component
+---
+
+<ComponentPreview name="input-demo"/>
+
+## Installation
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="install dependencies">
+First, To Start Creating Diagrams in your next.js app you need to install a library called <span className="underline text-gray-950">[Mermaid](https://mermaid.js.org/)</span> :
+<Pre className="language-bash">
+{`npm i install clsx tailwind-merge`}
+</Pre>
+</StepItem>
+<StepItem title="Create utils.ts">
+Second, you need to create a <MdxBadge>lib</MdxBadge> in you root directory and create a file called <MdxBadge>utils.ts</MdxBadge> and add the following code :
+<Pre className="language-typescript" folderPath="lib/utils.ts" >
+  {`import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+}
+`}
+</Pre>
+</StepItem>
+  <StepItem title="Create Input Component" >
+  Now you can create in your <MdxBadge>components</MdxBadge> a <MdxBadge>input.tsx</MdxBadge> file and add the following code in it :
+  <CodeBlockWrapper>
+  <Pre className="className-typescript" folderPath="components/input.tsx" highlightLines={[6]}>
+  {`import * as React from "react"
+
+import { cn } from "@/lib/utils"
+
+const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
+  ({ className, type, ...props }, ref) => {
+    return (
+      <input
+        type={type}
+        className={cn(
+          "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+Input.displayName = "Input"
+
+export { Input }
+`}
+  </Pre>
+  </CodeBlockWrapper>
+  </StepItem>
+
+</Step>
+</div>
+
+## Usage
+<div className="not-prose space-y-6">
+<Pre>{`import { Input } from "@/components/library/input"`}</Pre>
+<Pre>{`const InputDemo = () => {
+  return <Input className="w-56" type="email" placeholder="Email" />
+}
+
+export default InputDemo`}</Pre>
+
+</div>
+## Examples
+### Default
+<ComponentPreview name="input-demo" />
+
+### File
+upload file 
+<ComponentPreview name="input" variant="file" />
+### Disabled
+<ComponentPreview name="input" variant="disabled" />
+### With Label
+<ComponentPreview name="input" variant="label" />
+### With button
+<ComponentPreview name="input" variant="button" />

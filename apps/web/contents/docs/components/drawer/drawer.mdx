@@ -1,0 +1,207 @@
+---
+title: Drawer
+description: Drawer component 
+links:
+  doc: https://vaul.emilkowal.ski/getting-started
+---
+
+<ComponentPreview name="drawer-demo" />
+## About
+<MdxBadge>Drawer</MdxBadge> is built on top of [Vaul](https://github.com/emilkowalski/vaul) by [emilkowalski_](https://x.com/emilkowalski_).
+## Installation
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="Install Dependencies">
+First, you need to install dependencies:
+<Pre>
+{`npm install clsx tailwind-merge vaul`}
+</Pre>
+</StepItem>
+  <StepItem title="Create utils.ts">
+  Second, you need to create a new folder called <MdxBadge>lib</MdxBadge> in you app directory and create a new file called <MdxBadge>utils.ts</MdxBadge> and paste the following code in it: 
+<Pre className="language-typescript" folderPath="lib/utils.ts" >
+  {`import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+}
+`}
+</Pre>
+  </StepItem>
+  <StepItem title="Create drawer component">
+    Now you can create in your <MdxBadge>components</MdxBadge> a <MdxBadge>drawer.tsx</MdxBadge> file and add the following code in it :
+  <CodeBlockWrapper>
+  <Pre>
+  {`"use client"
+
+import * as React from "react"
+import { Drawer as DrawerPrimitive } from "vaul"
+
+import { cn } from "@/lib/utils"
+
+const Drawer = ({
+   shouldScaleBackground = true,
+   ...props
+}: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
+   <DrawerPrimitive.Root
+      shouldScaleBackground={shouldScaleBackground}
+      {...props}
+   />
+)
+Drawer.displayName = "Drawer"
+
+const DrawerTrigger = DrawerPrimitive.Trigger
+
+const DrawerPortal = DrawerPrimitive.Portal
+
+const DrawerClose = DrawerPrimitive.Close
+
+const DrawerOverlay = React.forwardRef<
+   React.ElementRef<typeof DrawerPrimitive.Overlay>,
+   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
+>(({ className, ...props }, ref) => (
+   <DrawerPrimitive.Overlay
+      ref={ref}
+      className={cn("fixed inset-0 z-50 bg-black/40 backdrop-blur-sm", className)}
+      {...props}
+   />
+))
+DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
+
+const DrawerContent = React.forwardRef<
+   React.ElementRef<typeof DrawerPrimitive.Content>,
+   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> & {
+      description?: string;
+   }
+>(({ className, children, description, ...props }, ref) => (
+   <DrawerPortal>
+      <DrawerOverlay />
+      <DrawerPrimitive.Content
+         ref={ref}
+         className={cn(
+            "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-2xl bg-background",
+            className
+         )}
+         aria-describedby={description ? "drawer-description" : undefined}
+         {...props}
+      >
+         <div className="mx-auto mt-4 w-[100px] !min-h-[4px] bg-muted rounded-full " />
+         {description && (
+            <div id="drawer-description" className="sr-only">
+               {description}
+            </div>
+         )}
+         {children}
+      </DrawerPrimitive.Content>
+   </DrawerPortal>
+))
+DrawerContent.displayName = "DrawerContent"
+
+const DrawerHeader = ({
+   className,
+   ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+   <div
+      className={cn("grid gap-1.5 p-4 text-center sm:text-left", className)}
+      {...props}
+   />
+)
+DrawerHeader.displayName = "DrawerHeader"
+
+const DrawerFooter = ({
+   className,
+   ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+   <div
+      className={cn("mt-auto flex flex-col gap-2 p-4", className)}
+      {...props}
+   />
+)
+DrawerFooter.displayName = "DrawerFooter"
+
+const DrawerTitle = React.forwardRef<
+   React.ElementRef<typeof DrawerPrimitive.Title>,
+   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>
+>(({ className, ...props }, ref) => (
+   <DrawerPrimitive.Title
+      ref={ref}
+      className={cn(
+         "text-lg font-semibold leading-none tracking-tight",
+         className
+      )}
+      {...props}
+   />
+))
+DrawerTitle.displayName = DrawerPrimitive.Title.displayName
+
+const DrawerDescription = React.forwardRef<
+   React.ElementRef<typeof DrawerPrimitive.Description>,
+   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
+>(({ className, ...props }, ref) => (
+   <DrawerPrimitive.Description
+      ref={ref}
+      className={cn("text-sm text-muted-foreground", className)}
+      {...props}
+   />
+))
+DrawerDescription.displayName = DrawerPrimitive.Description.displayName
+
+export {
+   Drawer, DrawerClose,
+   DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger
+}`}
+  </Pre>
+  </CodeBlockWrapper>
+  </StepItem>
+  <StepItem title="Edit layout.tsx for background scaling">
+  in Your main <MdxBadge>layout.tsx</MdxBadge> add <MdxBadge>vaul-drawer-wrapper</MdxBadge> to support scaling:
+  <Pre highlightLines={[4]}>{`<html lang="en" suppressHydrationWarning>
+  <body className="bg-background font-medium antialiased min-h-svh" suppressHydrationWarning>
+      {/* Create a div and passe it vaul-drawer-wrapper like this way */}
+      <div vaul-drawer-wrapper="">
+         <div className="relative flex min-h-svh flex-col bg-background">
+            {children}
+         </div>
+      </div>
+   </body>
+</html>`}</Pre>
+  </StepItem>
+</Step>
+</div>
+## Usage
+<div className="space-y-6 not-prose">
+<Pre>
+{`import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+`}
+</Pre>
+<Pre>
+{`<Drawer>
+  <DrawerTrigger>Open</DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+      <DrawerDescription>This action cannot be undone.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      <Button>Submit</Button>
+      <DrawerClose>
+        <Button variant="outline">Cancel</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>`}
+</Pre>
+</div>
+## Examples
+### Nested Drawer
+<ComponentPreview name="drawer-demo" variant="nested" />

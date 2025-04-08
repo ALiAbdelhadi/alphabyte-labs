@@ -1,0 +1,28 @@
+{
+    "companyName": {
+        "name": "Alphabyte Labs"
+    },
+    "companyInfo": {
+        "beta": "beta" 
+    },
+    "header": {
+        "docs": "Docs",
+        "components": "Components",
+        "blocks": "Blocks",
+        "themes": "themes",
+        "colors": "Colors",
+        "community": "Community",
+        "cta-button": "Get Full Access"
+    },
+    "search": {
+        "search" :"Search docs...",
+        "search-dialog" : "Search documentation"
+    },
+    "about": {
+        "header-1": "Build Beautifully.",
+        "header-2": "Your Open Source Component Library.",
+        "description": "Craft stunning user interfaces with our meticulously designed collection of accessible, and fully customizable components. Built by developers, for developers, and freely available to all.",
+        "cta-button": "Get Started",
+        "browse-blocks": "Browse Blocks"
+    }
+}

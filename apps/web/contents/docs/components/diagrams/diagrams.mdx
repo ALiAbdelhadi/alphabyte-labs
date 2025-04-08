@@ -1,0 +1,137 @@
+---
+title: Diagrams
+description: Add various diagram types, including flowcharts, decision trees and entity-relationship diagrams.
+---
+
+<ComponentPreview name="diagram-demo" />
+
+## Installation
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="install dependencies">
+First, To Start Creating Diagrams in your next.js app you need to install a library called <span className="underline text-gray-950">[Mermaid](https://mermaid.js.org/)</span> :
+<Pre className="language-bash">
+{`npm i install clsx tailwind-merge mermaid`}
+</Pre>
+</StepItem>
+<StepItem title="Create utils.ts">
+Second, you need to create a <MdxBadge>lib</MdxBadge> in you root directory and create a file called <MdxBadge>utils.ts</MdxBadge> and add the following code :
+<Pre className="language-typescript" folderPath="lib/utils.ts" >
+  {`import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs));
+}
+`}
+</Pre>
+</StepItem>
+<StepItem title="Creating components">
+In Your <MdxBadge>component</MdxBadge> folder, Create a new file called <MdxBadge>Mermaid.tsx</MdxBadge> and add the following code:
+<CodeBlockWrapper>
+<Pre className="language-typescript" folderPath="components/mermaid.tsx">
+{`"use client"
+
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
+import clsx from "clsx"
+import mermaid from "mermaid"
+
+interface MermaidProps {
+  chart: string
+  className?: string
+}
+
+mermaid.initialize({
+  theme: "neutral",
+})
+
+const Mermaid = ({ chart, className }: MermaidProps) => {
+  const ref = useRef<HTMLDivElement | null>(null)
+  const uniqueId = \`mermaid-\${Math.random().toString(36).slice(2, 11)}\`
+  const [mounted, setMounted] = useState(false)
+
+  const renderMermaid = useCallback(async () => {
+    if (ref.current) {
+      try {
+        const { svg } = await mermaid.render(uniqueId, chart)
+        ref.current.innerHTML = svg
+      } catch (error) {
+        console.error("Mermaid diagram render error:", error)
+      }
+    }
+  }, [chart, uniqueId])
+
+  const memoizedClassName = useMemo(
+    () => clsx("mermaid", className),
+    [className]
+  )
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useLayoutEffect(() => {
+    if (mounted && ref.current) {
+      renderMermaid()
+    }
+  }, [mounted, renderMermaid])
+
+  if (!mounted) {
+    return null
+  }
+
+  return <div className={memoizedClassName} ref={ref} />
+}
+
+const MermaidMemo = React.memo(Mermaid)
+export default MermaidMemo
+`}
+</Pre>
+</CodeBlockWrapper>
+</StepItem>
+<StepItem title="Here you go, you can start creating diagrams like a designer"/>
+
+</Step>
+</div>
+## Usage
+<div className="not-prose space-y-6">
+<Pre>{`import Mermaid from "@/components/library/mermaid"`}</Pre>
+<Pre>{`const DiagramsDemo = () => {
+  return (
+    <Mermaid
+      chart={\`graph TD;
+    Start --> Task1;
+    Task1 --> Task2;
+    Task2 --> End;\`}
+    />
+  )
+}
+
+export default DiagramsDemo`}</Pre>
+</div>
+## Example
+
+### Flowchart
+
+<ComponentPreview name="diagram-demo" />
+
+### Decision Tree
+
+Decision trees illustrate choices and possible outcomes, making them ideal for decision-making workflows or processes involving multiple paths.
+
+<ComponentPreview name="diagram-demo" variant="decision-tree" />
+
+### Entity-Relationship Diagram
+
+Entity-relationship diagrams (ERDs) are used to model relationships between entities in a system. They are widely used in database design and system architecture planning.
+
+<ComponentPreview name="diagram-demo" variant="entity-relationship" />
+
+Each of these diagrams serves a specific purpose and Mermaid makes it easy to generate them dynamically. Feel free to experiment with the provided code snippets and adapt them to your needs.
