@@ -1,0 +1,64 @@
+---
+title: شريط التنقل
+description: شريط التنقل
+---
+
+<ComponentPreview name="breadcrumb-demo"/>
+## التثبيت
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="تثبيت الاعتماديات">
+اولا ، تحتاج إلى تثبيت الاعتماديات التالية:
+<Pre className="language-bash">
+{`npm install clsx tailwind-merge `}
+</Pre>
+</StepItem>
+  <StepItem title="إنشاء ملف utils.ts">
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+<StepItem title="إنشاء مكون Breadcrumb">
+<ComponentSource name="breadcrumb-demo"/>
+</StepItem>
+</Step>
+</div>
+## الاستخدام
+<div className="not-prose space-y-6">
+<Pre>{`import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/library/breadcrumb"`}</Pre>
+<Pre>{`<Breadcrumb>
+    <BreadcrumbList>
+        <BreadcrumbItem>
+            <BreadcrumbLink href="#">
+                <HiHome className="h-4 w-4" />
+            </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbLink href="#">المستندات</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbPage>الصفحة الحالية</BreadcrumbPage>
+        </BreadcrumbItem>
+    </BreadcrumbList>
+</Breadcrumb>`}</Pre>
+</div>
+## أمثلة
+### فاصل مخصص
+<ComponentPreview name="breadcrumb-demo" variant="custom-separator" />
+### حذف جزئي
+<ComponentPreview name="breadcrumb-demo" variant="ellipsis" />
+### قائمة منسدلة
+يمكنك دمج مكون <MdxBadge>\<BreadcrumbItem /></MdxBadge> مع مكون <MdxBadge>\<DropdownMenu /></MdxBadge> لإنشاء قائمة منسدلة داخل شريط التنقل.
+<ComponentPreview name="breadcrumb-demo" variant="dropdown" />
+### أيقونات
+<ComponentPreview name="breadcrumb-demo" variant="icons"/>
+### متجاوب
+<ComponentPreview name="breadcrumb-demo" variant="responsive"/>

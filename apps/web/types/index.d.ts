@@ -152,3 +152,22 @@ export interface OklchColor {
 
 
 export type ColorFormat = "hex" | "rgb" | "hsl" | "oklch";
+
+
+// sidebar
+export interface NavItem {
+  id?: string
+  title: string
+  href?: string
+  disabled?: boolean
+  external?: boolean
+  icon?: keyof typeof Icons
+  label?: string
+}
+export interface NavItemWithChildren extends NavItem {
+  items?: NavItemWithChildren[]
+}
+
+export interface MainSidebar extends NavItem { }
+
+export interface SidebarItem extends NavItemWithChildren { }

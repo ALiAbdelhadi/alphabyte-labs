@@ -107,38 +107,7 @@
       sans-serif;
     scroll-padding-top: 100px;
   }
-  .dir-rtl {
-    --tw-space-x-reverse: 1 !important;
-  }
 
-  html[dir="rtl"] .reverse-margins {
-    margin-left: var(--margin-right, 0);
-    margin-right: var(--margin-left, 0);
-  }
-
-  html[dir="rtl"] .reverse-paddings {
-    padding-left: var(--padding-right, 0);
-    padding-right: var(--padding-left, 0);
-  }
-
-  html[dir="rtl"] .reverse-position {
-    left: var(--right, auto);
-    right: var(--left, auto);
-  }
-
-  html[dir="rtl"] .reverse-grid {
-    direction: rtl;
-  }
-
-  html[dir="rtl"] .preserve-ltr {
-    direction: ltr;
-    text-align: left;
-  }
-
-  html[dir="rtl"] .numbers-ltr {
-    direction: ltr;
-    display: inline-block;
-  }
   html,
   body {
     overscroll-behavior: none;

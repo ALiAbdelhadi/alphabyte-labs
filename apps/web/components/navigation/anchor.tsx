@@ -26,12 +26,9 @@ export default function Anchor({
   let isMatch = absolute
     ? hrefString.split("/")[1] == path.split("/")[1]
     : path === props.href
-
   if (hrefString.includes("https")) isMatch = false
-
   if (disabled)
     return <div className={cn(className, "cursor-not-allowed")}>{children}</div>
-
   return (
     <Link className={cn(className, isMatch && activeClassName)} {...props}>
       {children}

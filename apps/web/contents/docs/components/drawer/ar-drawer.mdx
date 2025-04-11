@@ -1,0 +1,77 @@
+---
+title: درج جانبي
+description: مكون الدرج الجانبي
+links:
+  doc: https://vaul.emilkowal.ski/getting-started
+---
+
+<ComponentPreview name="drawer-demo" />
+## حول
+مكون <MdxBadge>الدرج الجانبي</MdxBadge> مبني على مكتبة [Vaul](https://github.com/emilkowalski/vaul) بواسطة [emilkowalski_](https://x.com/emilkowalski_).
+## التثبيت
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="تثبيت الاعتماديات">
+أولا ، تحتاج إلى تثبيت الاعتماديات التالية:
+<Pre>
+{`npm install clsx tailwind-merge vaul`}
+</Pre>
+</StepItem>
+  <StepItem title="إنشاء ملف utils.ts">
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+<StepItem title="إنشاء مكون drawer.tsx ">
+<ComponentSource name="drawer"/>
+</StepItem>
+  <StepItem title="تعديل ملف layout.tsx لدعم تغيير حجم الخلفية">
+  في ملف <MdxBadge>layout.tsx</MdxBadge> الرئيسي الخاص بك، أضف <MdxBadge>vaul-drawer-wrapper</MdxBadge> لدعم تغيير الحجم:
+  <Pre highlightLines={[4]}>{`<html lang="en" suppressHydrationWarning>
+  <body className="bg-background font-medium antialiased min-h-svh" suppressHydrationWarning>
+      {/* Create a div and passe it vaul-drawer-wrapper like this way*/}
+      <div vaul-drawer-wrapper="">
+         <div className="relative flex min-h-svh flex-col bg-background">
+            {children}
+         </div>
+      </div>
+   </body>
+</html>`}</Pre>
+  </StepItem>
+</Step>
+</div>
+## الاستخدام
+<div className="space-y-6 not-prose">
+<Pre>
+{`import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+`}
+</Pre>
+<Pre>
+{`<Drawer>
+  <DrawerTrigger>فتح</DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>هل أنت متأكد تمامًا؟</DrawerTitle>
+      <DrawerDescription>لا يمكن التراجع عن هذا الإجراء.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      <Button>إرسال</Button>
+      <DrawerClose>
+        <Button variant="outline">إلغاء</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>`}
+</Pre>
+</div>
+## أمثلة
+### درج جانبي متداخل
+<ComponentPreview name="drawer-demo" variant="nested" />

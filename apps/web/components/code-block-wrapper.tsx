@@ -1,15 +1,14 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-import { CodeBlockWrapperProps } from "@/types/components"
-import gsap from "gsap"
-import * as React from "react"
-
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "./library/collapsible"
+} from "@/components/library/collapsible"
+import { cn } from "@/lib/utils"
+import { CodeBlockWrapperProps } from "@/types/components"
+import gsap from "gsap"
+import * as React from "react"
 
 export function CodeBlockWrapper({
   expandButtonTitle = "View Code",
@@ -56,7 +55,7 @@ export function CodeBlockWrapper({
             "absolute flex items-center justify-center p-2 z-10 rounded-md",
             isOpened
               ? "inset-x-0 bottom-5 h-12 bg-transparent"
-              : "inset-0 top-[34px] bg-gradient-to-t from-zinc-950/90 to-zinc-700/20"
+              : "inset-0 bg-gradient-to-t from-zinc-950/90 to-zinc-700/20"
           )}
         >
           <CollapsibleTrigger asChild>

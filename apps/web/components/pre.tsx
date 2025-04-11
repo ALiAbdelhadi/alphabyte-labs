@@ -16,133 +16,131 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.css"
 import { useEffect, useRef, useState } from "react"
 
 interface PreProps {
-  children?: React.ReactNode
-  raw?: string
-  className?: string
-  highlightLines?: number[]
-  folderPath?: string
-  showLineNumbers?: boolean
-  contentKey?: string | number
+    children?: React.ReactNode
+    raw?: string
+    className?: string
+    highlightLines?: number[]
+    folderPath?: string
+    showLineNumbers?: boolean
+    contentKey?: string | number
 }
 
 const CopyButton = ({ content }: { content: string }) => {
-  const [copied, setCopied] = useState(false)
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(content)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch (error) {
-      console.error("Failed to copy:", error)
+    const [copied, setCopied] = useState(false)
+    const copyToClipboard = async () => {
+        try {
+            await navigator.clipboard.writeText(content)
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+        } catch (error) {
+            console.error("Failed to copy:", error)
+        }
     }
-  }
 
-  return (
-    <button
-      onClick={copyToClipboard}
-      className="text-gray-400 hover:text-white transition-colors p-2 rounded-md hover:bg-gray-600/50"
-      aria-label="Copy code"
-    >
-      {copied ? (
-        <Check className="w-[18px] h-[18px] text-green-500" />
-      ) : (
-        <Clipboard className="w-[18px] h-[18px] text-gray-100" />
-      )}
-    </button>
-  )
+    return (
+        <button
+            onClick={copyToClipboard}
+            className="text-gray-400 hover:text-white transition-colors p-1 rounded-md hover:bg-gray-600/50"
+            aria-label="Copy code"
+        >
+            {copied ? (
+                <Check className="w-4 h-4 text-green-500" />
+            ) : (
+                <Clipboard className="w-4 h-4 text-gray-100" />
+            )}
+        </button>
+    )
 }
 
 export default function Pre({
-  children,
-  raw,
-  className = "",
-  highlightLines = [],
-  folderPath,
-  showLineNumbers = true,
-  contentKey,
+    children,
+    raw,
+    className = "",
+    highlightLines = [],
+    folderPath,
+    showLineNumbers = true,
+    contentKey,
 }: PreProps) {
-  const [isClient, setIsClient] = useState(false)
-  const preRef = useRef<HTMLPreElement>(null)
-  const codeRef = useRef<HTMLElement>(null)
+    const [isClient, setIsClient] = useState(false)
+    const preRef = useRef<HTMLPreElement>(null)
+    const codeRef = useRef<HTMLElement>(null)
 
-  const [content, setContent] = useState<string>("")
-  const language = className?.includes("language-") ? className.split("language-")[1]?.split(" ")[0] : "tsx"
+    const [content, setContent] = useState<string>("")
+    const language = className?.includes("language-") ? className.split("language-")[1]?.split(" ")[0] : "tsx"
 
-  useEffect(() => {
-    const newContent = typeof children === "string"
-      ? children.trim()
-      : children?.toString() || ""
+    useEffect(() => {
+        const newContent = typeof children === "string"
+            ? children.trim()
+            : children?.toString() || ""
 
-    setContent(newContent)
-  }, [children, contentKey])
+        setContent(newContent)
+    }, [children, contentKey])
 
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
 
-  useEffect(() => {
-    if (!isClient || !codeRef.current) return
-    codeRef.current.textContent = content
-    Prism.highlightElement(codeRef.current)
-  }, [content, isClient, contentKey])
+    useEffect(() => {
+        if (!isClient || !codeRef.current) return
+        codeRef.current.textContent = content
+        Prism.highlightElement(codeRef.current)
+    }, [content, isClient, contentKey])
 
-  const lineNumbersClass = showLineNumbers ? "line-numbers" : ""
+    const lineNumbersClass = showLineNumbers ? "line-numbers" : ""
 
-  if (!isClient) {
+    if (!isClient) {
+        return (
+            <div className="code-block-container relative group rounded-[6px] custom-scrollbar my-5 w-full">
+                <pre className={`overflow-x-auto max-h-[650px] hide-scrollbar ${lineNumbersClass}`}>
+                    <code>{content}</code>
+                </pre>
+            </div>
+        )
+    }
+
     return (
-      <div className="code-block-container relative group rounded-[6px] custom-scrollbar my-5 w-full">
-        <pre className={`overflow-x-auto max-h-[650px] hide-scrollbar ${lineNumbersClass}`}>
-          <code>{content}</code>
-        </pre>
-      </div>
+        <div className="code-block-container relative group rounded-[6px] w-full">
+            <div className="code-block-header code-block-toolbar overflow-x-auto hide-scrollbar flex items-center justify-between h-[34px]">
+                <div className="flex items-center justify-between space-x-4 rtl:space-x-reverse">
+                    <div className="flex space-x-2 items-center rtl:space-x-reverse">
+                        <div className="w-3 h-3 rounded-full bg-red-500/30 border border-red-500/40" />
+                        <div className="w-3 h-3 rounded-full bg-yellow-500/30 border border-yellow-500/40" />
+                        <div className="w-3 h-3 rounded-full bg-green-500/30 border border-green-500/40" />
+                    </div>
+                    {folderPath && (
+                        <span className="font-medium text-gray-400 text-sm text-nowrap max-w-md" dir="ltr">
+                            {folderPath}
+                        </span>
+                    )}
+                </div>
+                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                    <CopyButton content={raw || content} />
+                    <div className="w-4 h-4 rounded-sm">
+                        {languageIcons[language] || (
+                            <FileCode className="w-4 h-4 text-gray-400" />
+                        )}
+                    </div>
+                </div>
+            </div>
+            <pre
+                ref={preRef}
+                className={cn(
+                    `language-${language}`,
+                    className,
+                    "overflow-x-auto",
+                    "max-h-[650px]",
+                    "border-none",
+                    "custom-scrollbar",
+                    lineNumbersClass
+                )}
+                data-line={
+                    highlightLines.length > 0 ? highlightLines.join(",") : undefined
+                }
+            >
+                <code ref={codeRef}>
+                    {content}
+                </code>
+            </pre>
+        </div>
     )
-  }
-
-  return (
-    <div className="code-block-container relative group rounded-[6px] w-full">
-      <div className="code-block-header code-block-toolbar overflow-x-auto hide-scrollbar flex items-center justify-between">
-        <div className="flex items-center justify-between space-x-4">
-          <div className="flex space-x-2 items-center">
-            <div className="w-3 h-3 rounded-full bg-red-500/30 border border-red-500/40" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500/30 border border-yellow-500/40" />
-            <div className="w-3 h-3 rounded-full bg-green-500/30 border border-green-500/40" />
-          </div>
-          {folderPath && (
-            <span className="code-block-folder-path font-medium text-gray-400 text-sm text-nowrap max-w-md">
-              {folderPath}
-            </span>
-          )}
-        </div>
-        <div className="flex items-center space-x-2">
-          <div>
-            <CopyButton content={raw || content} />
-          </div>
-          <div className="w-4 h-4 rounded-sm">
-            {languageIcons[language] || (
-              <FileCode className="w-4 h-4 text-gray-400" />
-            )}
-          </div>
-        </div>
-      </div>
-      <pre
-        ref={preRef}
-        className={cn(
-          `language-${language}`,
-          className,
-          "overflow-x-auto",
-          "max-h-[650px]",
-          "border-none",
-          "custom-scrollbar",
-          lineNumbersClass
-        )}
-        data-line={
-          highlightLines.length > 0 ? highlightLines.join(",") : undefined
-        }
-      >
-        <code ref={codeRef} className={`language-${language}`}>
-          {content}
-        </code>
-      </pre>
-    </div>
-  )
 }

@@ -1,0 +1,37 @@
+---
+title: خطوات
+description: يقدم هذا القسم نظرة عامة على المقدمة.
+---
+<ComponentPreview name="steps-demo"/>
+
+## التثبيت
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="تثبيت الاعتماديات">
+في البداية، تحتاج إلى تثبيت الاعتماديات التالية:
+<Pre className="language-bash">
+{`npm i clsx tailwind-merge`}
+</Pre>
+</StepItem>
+<StepItem title="إنشاء ملف utils.ts">
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+</StepItem>
+<StepItem title="انشاء مكون steps.tsx">
+  <ComponentSource name="steps-demo"/>
+</StepItem>
+  <StepItem title="كن مرتاحًا لاستخدامه واجعله خاصًا بك"/>
+</Step>
+</div>
+## الاستخدام
+    <div className="not-prose space-y-4">
+    <Pre>
+    {`import { Step, StepItem } from "@/components/library/step"`}
+    </Pre>
+    <Pre>
+    {`<Step>
+        <StepItem title="التطوير">localhost:3000</StepItem>
+        <StepItem title="الإنتاج">localhost:3000</StepItem>
+    </Step>`}
+    </Pre>
+  </div>

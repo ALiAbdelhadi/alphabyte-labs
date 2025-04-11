@@ -1,0 +1,55 @@
+---
+title: تلميح 
+description: تلميح هو مربع منبثق صغير يظهر عندما يحوم المستخدم فوق عنصر ما، ويوفر معلومات إضافية حول هذا العنصر.
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/tooltip
+  api: https://www.radix-ui.com/docs/primitives/components/tooltip#api-reference
+---
+
+<ComponentPreview name="tooltip-demo" />
+## التثبيت
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="تثبيت الاعتماديات">
+في البداية، تحتاج إلى تثبيت الاعتماديات التالية:
+<Pre className="language-bash">
+{`npm install clsx tailwind-merge @radix-ui/react-tooltip`}
+</Pre>
+</StepItem>
+  <StepItem title="إنشاء ملف utils.ts">
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+<StepItem title="إنشاء مكون tooltip.tsx">
+<ComponentSource name="tooltip-demo"/>
+</StepItem>
+</Step>
+</div>
+## الاستخدام
+<div className="space-y-6">
+<Pre>
+{`import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip"`}
+</Pre>
+<Pre>
+{`<TooltipProvider>
+    <Tooltip>
+        <TooltipTrigger asChild>حرك الفأرة</TooltipTrigger>
+            <TooltipContent >
+                <p>تلميح الافتراضي</p>
+            </TooltipContent>
+        </Tooltip>
+    </TooltipProvider>
+`}
+</Pre>
+</div>
+## أمثلة
+### تلميح العلوي
+<ComponentPreview name="tooltip-demo" variant="top" />
+### تلميح الأيمن
+<ComponentPreview name="tooltip-demo" variant="right" />
+### تلميح السفلي
+<ComponentPreview name="tooltip-demo" variant="bottom" />
+### تلميح الأيسر
+<ComponentPreview name="tooltip-demo" variant="left" />
+### تلميح مع مدة تأخير مخصصة
+<ComponentPreview name="tooltip-demo" variant="delay" />

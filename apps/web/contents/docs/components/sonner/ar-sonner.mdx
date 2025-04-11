@@ -1,0 +1,53 @@
+---
+title: تنبيهات
+description: مكون إشعار بسيط لتطبيق React.
+links:
+  doc: https://sonner.emilkowal.ski
+---
+
+
+<ComponentPreview name="sonner-demo" />
+## حول
+مكون <MdxBadge>سونر</MdxBadge> مبني على مكتبة [Sonner](https://sonner.emilkowal.ski/) بواسطة [emilkowalski_](https://x.com/emilkowalski_).
+## التثبيت
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="تثبيت الاعتماديات">
+في البداية، تحتاج إلى تثبيت الاعتماديات التالية:
+<Pre>
+{`npm install clsx tailwind-merge sonner next-themes`}
+</Pre>
+</StepItem>
+  <StepItem title="إنشاء ملف utils.ts">
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+  <StepItem title="إنشاء مكون سونر">
+  <ComponentSource name="sonner-demo"/>
+  </StepItem>
+  <StepItem title="تعديل ملف layout.tsx لمكون Toaster">
+  في ملف <MdxBadge>layout.tsx</MdxBadge> الرئيسي الخاص بك، أضف مكون <MdxBadge>\<Toaster/></MdxBadge> لإظهار الإشعارات:
+  <Pre highlightLines={[8]}>{`import { Toaster } from "@/components/library/sonner"
+ 
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <main>{children}</main>
+        <Toaster />
+      </body>
+    </html>
+   )
+}`}</Pre>
+  </StepItem>
+</Step>
+</div>
+## الاستخدام
+<div className="space-y-6 not-prose">
+<Pre>
+{`import { toast } from "sonner"`}
+</Pre>
+<Pre>
+{`toast("تم إنشاء الحدث.")`}
+</Pre>
+</div>

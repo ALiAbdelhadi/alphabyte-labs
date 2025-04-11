@@ -55,13 +55,13 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
+  const direction = locale === 'ar' ? 'rtl' : 'ltr';
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} suppressHydrationWarning>
+    <html lang={locale} dir={direction} suppressHydrationWarning>
       <body
         className={cn(
           "font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif]",
-          "bg-background font-medium antialiased min-h-svh",
-          locale === "ar" ? "text-right dir-rtl" : "text-left dir-ltr"
+          "bg-background font-medium antialiased min-h-svh"
         )}
         suppressHydrationWarning
       >

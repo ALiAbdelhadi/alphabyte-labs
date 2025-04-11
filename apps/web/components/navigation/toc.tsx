@@ -5,6 +5,8 @@ import { Link } from "@/i18n/routing"
 import clsx from "clsx"
 
 import { ScrollArea } from "@/components/library/scroll-area"
+import { useTranslations } from "next-intl"
+import { sluggify } from "@/lib/markdown"
 
 type TocProps = {
   tocs: { href: string; level: number; text: string }[]
@@ -13,8 +15,9 @@ type TocProps = {
 export default function Toc({ tocs }: TocProps) {
   const [activeId, setActiveId] = useState<string | null>(null)
   const observerRef = useRef<IntersectionObserver | null>(null)
-
   useEffect(() => {
+    console.log("TOC items:", tocs)
+
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -28,10 +31,13 @@ export default function Toc({ tocs }: TocProps) {
       rootMargin: "-20px 0px -20px 0px",
       threshold: 0.1,
     })
-
     tocs.forEach((item) => {
-      const element = document.getElementById(item.href.slice(1))
-      if (element && observerRef.current) {
+      const targetId = item.href.slice(1)
+      const element = document.getElementById(targetId)
+
+      if (!element) {
+        console.warn(`TOC target not found: ${targetId} for text "${item.text}"`)
+      } else if (observerRef.current) {
         observerRef.current.observe(element)
       }
     })
@@ -51,8 +57,11 @@ export default function Toc({ tocs }: TocProps) {
     const id = href.startsWith("#") ? href.slice(1) : href
     const targetElement = document.getElementById(id)
     if (targetElement) {
+      console.log(`Scrolling to element: ${id}`)
       targetElement.scrollIntoView({ behavior: "smooth" })
       window.history.pushState(null, "", href)
+    } else {
+      console.error(`Element not found: ${id}`)
     }
   }
 
@@ -68,23 +77,21 @@ export default function Toc({ tocs }: TocProps) {
       "font-semibold text-primary -ml-[1px]": isActive,
     })
 
+  const translate = useTranslations("toc")
+
   return (
-    <div className="flex flex-col gap-3 w-full pl-2 not-prose transition-all ">
-      <h3 className="text-sm font-semibold">On this page</h3>
+    <div className="flex flex-col gap-3 w-full pl-2 not-prose transition-all" dir="auto">
+      <h3 className="text-sm font-semibold">{translate("heading")}</h3>
       <ScrollArea className="pt-0.5 pb-4">
         <nav className="flex flex-col text-gray-500 dark:text-gray-400 ml-0.5 hide-scrollbar">
           <ul className="space-y-[6px]">
-            {tocs.map(({ href, level, text }) => (
+            {[...new Set(tocs.filter((item) => item.href !== "#-"))].map(({ href, level, text }) => (
               <li className="text-sm" key={href}>
                 <Link
-                  key={href}
-                  href={href}
+                  href={sluggify(href)}
                   scroll={false}
                   onClick={(e) => handleSmoothScroll(e, href)}
-                  className={getLinkClassName(
-                    level,
-                    activeId === href.slice(1)
-                  )}
+                  className={getLinkClassName(level, activeId === href.slice(1))}
                 >
                   {text}
                 </Link>

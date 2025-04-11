@@ -1,0 +1,74 @@
+---
+title: زر
+description: زر يعرض قائمة من الخيارات عند النقر عليه.
+---
+زر بارز
+
+<ComponentPreview name="button" />
+
+## التثبيت
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="تثبيت الاعتماديات">
+اولا ، تحتاج إلى تثبيت الاعتماديات التالية:
+<Pre className="language-bash">
+{`npm install clsx tailwind-merge`}
+</Pre>
+</StepItem>
+  <StepItem title="إنشاء ملف utils.ts">
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+<StepItem title="إنشاء مكون الزر">
+<ComponentSource name="button" />
+</StepItem>
+  <StepItem title="تفضل، الآن يمكنك تعديله وتخصيصه ليناسب احتياجاتك وجعله خاصًا بك"/>
+</Step>
+</div>
+## الاستخدام
+<div className="not-prose space-y-6">
+<Pre>
+{`import { Button } from "@/components/library/button"`}
+</Pre>
+<Pre>
+{`export default function ButtonDemo() {
+    return <Button variant={"default"}>ابدأ الآن</Button>
+}`}
+</Pre>
+</div>
+## أمثلة
+
+### أساسي
+<ComponentPreview name="button" variant="primary" />
+
+### ثانوي
+
+<ComponentPreview name="button" variant="secondary" />
+### خطر
+
+<ComponentPreview name="button" variant="destructive"/>
+### شفاف
+
+<ComponentPreview name="button" variant="ghost"/>
+### رابط
+
+<ComponentPreview name="button" variant="link"/>
+### مخطط
+
+<ComponentPreview name="button" variant="outline"/>
+### عصبي
+
+<ComponentPreview name="button" variant="neural"/>
+### عمليه تحميل
+
+<ComponentPreview name="button" variant="loading"/>
+### مع ايقون
+
+<ComponentPreview name="button" variant="icon"/>
+
+### تأثير الارتداد
+
+<ComponentPreview name="button" variant="bounce"/>
+### تأثير النبض
+
+<ComponentPreview name="button" variant="pulse"/>

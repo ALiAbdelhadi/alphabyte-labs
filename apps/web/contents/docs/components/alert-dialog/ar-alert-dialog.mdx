@@ -1,0 +1,73 @@
+---
+title: "نافذة تنبيه"
+description: "مكون نافذة تنبيه متعدد الاستخدامات للتفاعلات الهامة مع المستخدم."
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/alert-dialog
+  api: https://www.radix-ui.com/docs/primitives/components/alert-dialog#api-reference
+---
+
+<ComponentPreview name="alert-dialog-demo" />
+
+## Installation
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="Install Dependencies">
+اولا يجب عليك تنزيل بعض المتطلبات :
+<Pre className="language-bash">
+{`npm install clsx tailwind-merge @radix-ui/react-alert-dialog class-variance-authority`}
+</Pre>
+</StepItem>
+  <StepItem title="Create utils.ts"> 
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+<StepItem title="Create Alert dialog Component">
+<ComponentSource name="alert-dialog-demo" />
+</StepItem>
+</Step>
+</div>
+## Usage
+<div className="not-prose space-y-6">
+<Pre>
+{`import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/library/button"`}
+</Pre>
+<Pre>
+{`export default function AlertDialogDemo() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline">Open Dialog</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. The data will be permanently deleted
+            from the servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
+}`}
+</Pre>
+</div>
+## Examples
+
+### Destructive
+<ComponentPreview name="alert-dialog" variant="destructive" />

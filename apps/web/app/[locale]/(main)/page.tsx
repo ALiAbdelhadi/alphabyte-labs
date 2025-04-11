@@ -23,7 +23,7 @@ const Home = () => {
               {tAbout("description")}
             </p>
           </div>
-          <div className="space-x-2 md:space-x-3">
+          <div className="space-x-2 md:space-x-3 rtl:space-x-reverse">
             <Link href="/docs/introduction">
               <Button className="lg:h-10 lg:px-7 px-3 h-8 text-xs md:text-base">
                 {tAbout("cta-button")}

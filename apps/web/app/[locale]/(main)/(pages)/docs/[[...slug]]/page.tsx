@@ -1,19 +1,22 @@
 
-import { notFound } from "next/navigation"
-import { BackToTop } from "@/components/navigation/backToTop"
-import PageBreadcrumb from "@/components/navigation/DocsBreadcrumb"
+import { Separator } from "@/components/library/separator"
+import { BackToTop } from "@/components/navigation/back-to-top"
+import PageBreadcrumb from "@/components/navigation/docs-breadcrumb"
 import Feedback from "@/components/navigation/feedback"
-import Pagination from "@/components/navigation/Pagination"
+import Pagination from "@/components/navigation/pagination"
 import Toc from "@/components/navigation/toc"
 import { Typography } from "@/components/typography"
+import { routing } from "@/i18n/routing"
 import { ErrorBoundary } from "@/lib/debug-wrapper"
 import { getDocument } from "@/lib/markdown"
 import { Settings } from "@/lib/meta"
 import { PageRoutes } from "@/lib/pageRoutes"
-import { Separator } from "@/components/library/separator"
+import { hasLocale } from "next-intl"
+import { notFound } from "next/navigation"
 type DocsPageProps = {
   params: Promise<{
     slug: string[]
+    locale: string
   }>
 }
 const page = async (props: DocsPageProps) => {
@@ -21,14 +24,18 @@ const page = async (props: DocsPageProps) => {
     const DocsParams = await props.params
     const { slug = [] } = DocsParams
     const pathName = slug.join("/")
-    const res = await getDocument(pathName)
+    const locale = (await props.params).locale
+    if (!hasLocale(routing.locales, locale)) {
+      notFound()
+    }
+    const res = await getDocument(pathName, locale)
     if (!res) {
       notFound()
     }
     const { frontmatter, content, tocs } = res
     return (
-      <div className="flex items-start gap-14 max-w-7xl transition-all">
-        <div className="flex-[3] mt-[4.5rem] md:mt-7">
+      <div className="flex items-start gap-14 max-w-6xl transition-all">
+        <div className="flex-[8] mt-[4.5rem] md:mt-7">
           <PageBreadcrumb paths={slug} />
           <div className="space-y-2">
             <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">
@@ -49,9 +56,9 @@ const page = async (props: DocsPageProps) => {
         </div>
         {Settings.rightbar && (
           <>
-            <div className="hidden xl:flex xl:flex-col sticky top-16 gap-3 py-8 lg:min-w-[230px] min-w-[200px]  h-[94.5vh] toc transition-all ">
+            <div className=" rtl:text-right hidden xl:flex xl:flex-col sticky gap-3 py-8 flex-col transition-all top-14 z-30 h-[calc(100vh-3.5rem)] toc lg:min-w-[230px] min-w-[200px]">
               {Settings.toc && <Toc tocs={tocs} />}
-            <Separator className="shrink-0 w-full h-[1.5]" />
+              <Separator className="shrink-0 w-full h-[1.5]" />
               {Settings.feedback && (
                 <Feedback slug={pathName} title={frontmatter.title} />
               )}
@@ -79,7 +86,11 @@ export async function generateMetadata(props: DocsPageProps) {
   const DocsParams = await props.params
   const { slug = [] } = DocsParams
   const pathName = slug.join("/")
-  const res = await getDocument(pathName)
+  const locale = (await props.params).locale
+  if (!hasLocale(routing.locales, locale)) {
+    notFound()
+  }
+  const res = await getDocument(pathName, locale)
 
   if (!res) return null
 

@@ -1,6 +1,5 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import {
   AlertTriangleIcon,
@@ -9,6 +8,7 @@ import {
   X,
   XCircleIcon,
 } from "lucide-react"
+import React, { useEffect, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -28,25 +28,25 @@ interface NoteProps {
 const variantConfig = {
   info: {
     bg: "bg-blue-50/90 dark:bg-blue-900/30",
-    border: "border-l-4 border-blue-500",
+    border: "border-blue-500",
     icon: "text-blue-500",
     shadowColor: "shadow-blue-500/10",
   },
   warning: {
     bg: "bg-amber-50/90 dark:bg-amber-900/30",
-    border: "border-l-4 border-amber-500",
+    border: "border-amber-500",
     icon: "text-amber-500",
     shadowColor: "shadow-amber-500/10",
   },
   success: {
     bg: "bg-green-50/90 dark:bg-green-900/30",
-    border: "border-l-4 border-green-500",
+    border: "border-green-500",
     icon: "text-green-500",
     shadowColor: "shadow-green-500/10",
   },
   error: {
     bg: "bg-red-50/90 dark:bg-red-900/30",
-    border: "border-l-4 border-red-500",
+    border: "border-red-500",
     icon: "text-red-500",
     shadowColor: "shadow-red-500/10",
   },
@@ -119,7 +119,6 @@ const Note = ({
               <X className="w-4 h-4 text-black/40 dark:text-white/40" />
             </button>
           )}
-
           <div className="flex gap-3">
             <div className={cn("mt-0.5 flex-shrink-0", config.icon)}>
               {variant === "info" && (
@@ -135,39 +134,34 @@ const Note = ({
                 <XCircleIcon className="w-5 h-5" strokeWidth={2} />
               )}
             </div>
-
             <div className="space-y-2 flex-1">
               {title && (
                 <h4 className="font-medium text-sm leading-tight text-black dark:text-white">
                   {title}
                 </h4>
               )}
-
               <div className="text-sm text-black/80 dark:text-white/80 leading-relaxed">
                 {children}
               </div>
-
               {actionLabel && onAction && (
                 <button
                   onClick={onAction}
                   className={cn(
                     "text-sm font-medium mt-1",
-                    `text-${
-                      variant === "info"
-                        ? "blue"
-                        : variant === "warning"
-                          ? "amber"
-                          : variant === "success"
-                            ? "green"
-                            : "red"
-                    }-600 dark:text-${
-                      variant === "info"
-                        ? "blue"
-                        : variant === "warning"
-                          ? "amber"
-                          : variant === "success"
-                            ? "green"
-                            : "red"
+                    `text-${variant === "info"
+                      ? "blue"
+                      : variant === "warning"
+                        ? "amber"
+                        : variant === "success"
+                          ? "green"
+                          : "red"
+                    }-600 dark:text-${variant === "info"
+                      ? "blue"
+                      : variant === "warning"
+                        ? "amber"
+                        : variant === "success"
+                          ? "green"
+                          : "red"
                     }-400`
                   )}
                 >
@@ -176,7 +170,6 @@ const Note = ({
               )}
             </div>
           </div>
-
           {dismissible && (
             <div className="absolute bottom-0 left-0 h-1 bg-black/10 dark:bg-white/10 rounded-bl-lg overflow-hidden">
               <motion.div

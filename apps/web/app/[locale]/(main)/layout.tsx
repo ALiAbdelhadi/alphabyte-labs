@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
 
 import { Footer } from "@/components/navigation/footer"
-import { Header } from "@/components/navigation/Header"
+import { Header } from "@/components/navigation/header"
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   return (

@@ -19,9 +19,9 @@ const UiBlocksPage = () => {
               Works with all React frameworks. Open Source. Free forever.
             </p>
           </div>
-          <div className="space-x-2">
+          <div className="space-x-2 md:space-x-3 rtl:space-x-reverse">
             <Link href="/ui-blocks/carousel-1">
-              <Button  className="lg:h-10 lg:px-7 px-3 h-8 text-xs md:text-base">
+              <Button className="lg:h-10 lg:px-7 px-3 h-8 text-xs md:text-base">
                 Get started
               </Button>
             </Link>

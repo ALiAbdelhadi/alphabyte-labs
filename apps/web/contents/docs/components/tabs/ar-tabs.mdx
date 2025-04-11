@@ -1,0 +1,61 @@
+---
+title: علامات تبويب
+description: مكون علامات تبويب
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/tabs
+  api: https://www.radix-ui.com/docs/primitives/components/tabs#api-reference
+---
+
+
+<ComponentPreview name="tabs-demo"/>
+
+## التثبيت
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="تثبيت الاعتماديات">
+في البداية، تحتاج إلى تثبيت الاعتماديات التالية:
+<Pre className="language-bash">
+{`npm install clsx tailwind-merge @radix-ui/react-tabs framer-motion`}
+</Pre>
+</StepItem>
+  <StepItem title="إنشاء ملف utils.ts">
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+<StepItem title="إنشاء مكون tabs.tsx">
+<ComponentSource name="tabs-demo" />
+</StepItem>
+  <StepItem title="تفضل، الآن يمكنك تعديله وتخصيصه ليناسب احتياجاتك وجعله خاصًا بك"/>
+</Step>
+</div>
+
+## الاستخدام
+<div className="not-prose space-y-4">
+<p className="text-base">في البداية، قم باستيراد مكون علامات التبويب في ملفك هكذا:</p>
+<Pre>
+{`import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tab"`}
+</Pre>
+<p className="text-base">ثم يمكنك استخدام مكون علامات التبويب هكذا:</p>
+<Pre>
+{`<Tabs defaultValue="preview" className="mt-4">
+         <TabsList className="inline-flex h-9 items-center text-muted-foreground w-full justify-start rounded-none border-b bg-transparent p-0 mb-2">
+            <TabsTrigger value="preview" className="active:shadow-none text-base">
+               علامة تبويب 1
+            </TabsTrigger>
+            <TabsTrigger value="code" className="active:shadow-none text-base">
+               علامة تبويب 2
+            </TabsTrigger>
+         </TabsList>
+         <div>
+            <TabsContent value="preview" className={cn("border rounded-xl", className)}>
+            <div>
+               المحتوى الأول
+            </div>
+            </TabsContent>
+            <TabsContent value="code" className="rounded-xl">
+            <div>المحتوى الثاني</div>
+            </TabsContent>
+         </div>
+      </Tabs>`}
+</Pre>
+</div>

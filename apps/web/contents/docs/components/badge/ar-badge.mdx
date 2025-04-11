@@ -1,0 +1,55 @@
+---
+title: "شارة"
+description: "الشارة هي عنصر مرئي صغير، غالبًا ما يكون دائريًا، يوفر معلومات أو سياقًا حول عنصر ما. يمكن استخدامه للإشارة إلى الحالة أو الإشعارات أو تفاصيل أخرى ذات صلة."
+---
+
+<ComponentPreview name="badge-demo" />
+
+## Installation
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="تثبيت الاعتماديات">
+اولا ، تحتاج إلى تثبيت الاعتماديات التالية:
+<Pre className="language-bash">
+{`npm install clsx tailwind-merge `}
+</Pre>
+</StepItem>
+  <StepItem title="انشاء utils.ts"> 
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+<StepItem title="انشاء مكون الشارة">
+<ComponentSource name="badge-demo"/>
+</StepItem>
+</Step>
+</div>
+
+## Usage 
+<div className="not-prose space-y-6">
+<Pre>{`import { Badge } from '@/components/library/badge'`}</Pre>
+<Pre>{`<Badge variant="outline">Badge</Badge>`}</Pre>
+</div>
+## Tips
+- يمكنك ايضا ان تستخدم <MdxBadge>class-variance-authority</MdxBadge> مثل (`default`، `secondary`، `destructive`) لتستخدمها في مكان اخر وتنشئ  مكون badge الخاص بك
+
+<div className="not-prose space-y-6">
+<Pre>{`import { Badge } from '@/components/library/badge'`}</Pre>
+<Pre>{`<Link className={badgeVariants({ variant: "outline" })}>Badge</Link>`}</Pre>
+</div>
+## Examples
+### Default
+<ComponentPreview name="badge-demo" />
+### Outline
+<ComponentPreview name="badge-demo" variant="outline" />
+### Destructive
+<ComponentPreview name="badge-demo" variant="destructive" />
+### Success
+<ComponentPreview name="badge-demo" variant="success" />
+### Warning
+<ComponentPreview name="badge-demo" variant="warning" />
+### Info
+<ComponentPreview name="badge-demo" variant="info" />
+### Removable
+<ComponentPreview name="badge-demo" variant="removable" />
+### With icon 
+<ComponentPreview name="badge-demo" variant="icon" />

@@ -1,0 +1,42 @@
+---
+title: فاصل
+description: فاصل
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/separator
+  api: https://www.radix-ui.com/docs/primitives/components/separator#api-reference
+---
+
+<ComponentPreview name="separator-demo" />
+## التثبيت
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="تثبيت الاعتماديات">
+في البداية، تحتاج إلى تثبيت الاعتماديات التالية:
+<Pre>
+{`npm install clsx tailwind-merge @radix-ui/react-separator`}
+</Pre>
+</StepItem>
+  <StepItem title="إنشاء ملف utils.ts">
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+<StepItem title="انشاء مكون separator.tsx">
+  <ComponentSource name="separator-demo"/>
+</StepItem>
+</Step>
+</div>
+## الاستخدام
+<div className="not-prose space-y-6">
+<Pre>{`import { Separator } from "@/components/library/separator"`}</Pre>
+<Pre>{`<Separator />`}</Pre>
+</div>
+## أمثلة
+### عمودي
+<ComponentPreview name="separator-demo" variant="vertical" />
+### الوزن
+#### خفيف جداً
+<ComponentPreview name="separator-demo" variant="ultralight" / >
+#### خفيف
+<ComponentPreview name="separator-demo" variant="light" />
+#### عادي
+<ComponentPreview name="separator-demo" variant="regular" />

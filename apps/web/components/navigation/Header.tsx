@@ -17,20 +17,19 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu"
 import { useNavItems } from "@/constant"
+import { Link } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 import { AnimatePresence, motion } from "framer-motion"
 import { X } from "lucide-react"
-import { Link } from "@/i18n/routing"
+import { useTranslations } from "next-intl"
 import { usePathname } from "next/navigation"
 import { useRef, useState } from "react"
 import ChangeTheme from "../ChangeTheme"
 import { Button } from "../library/button"
 import { Separator } from "../library/separator"
-import { useTranslations } from "next-intl"
 
 export function Header() {
   const tHeader = useTranslations("header")
-
   const [isOpen, setIsOpen] = useState(false)
   const routeName = usePathname()
   const isDocsRoute = routeName.includes("/docs")
@@ -74,24 +73,24 @@ export function Header() {
       >
         <div className="flex items-center gap-4">
           <Logo showLogoText={true} className="flex-shrink-0" />
-          <nav className="hidden md:flex items-center">
-            <NavigationMenu >
-              <NavigationMenuList className="md:space-x-2">
+          <nav className="hidden md:flex items-center ">
+            <NavigationMenu>
+              <NavigationMenuList className="md:space-x-2 rtl:space-x-reverse">
                 {navItems.map((item) => (
                   <NavigationMenuItem key={item.title}>
-                    <Link href={item.href} legacyBehavior passHref>
-                      <NavigationMenuLink
-                        className={cn(
+                    <NavigationMenuLink asChild>
+                      <Link href={item.href}>
+                        <span className={cn(
                           "group inline-flex h-10 w-max items-center justify-center",
                           "rounded-md bg-transparent p-2 text-sm",
                           "transition-colors -tracking-[.01em]",
                           "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
                           "hover:text-[#000000] dark:hover:text-white"
-                        )}
-                      >
-                        {item.title}
-                      </NavigationMenuLink>
-                    </Link>
+                        )}>
+                          {item.title}
+                        </span>
+                      </Link>
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
                 ))}
               </NavigationMenuList>

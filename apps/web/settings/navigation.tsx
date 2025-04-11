@@ -1,13 +1,12 @@
-import { PageRoutes } from "@/lib/pageRoutes"
 
 export const Navigations = [
   {
     title: "Docs",
-    href: `/docs/${PageRoutes[0].href}`,
+    href: `/docs`,
   },
   {
     title: "Components",
-    href: `/docs/components${PageRoutes[0].href}`,
+    href: `/docs/components/accordion`,
   },
 ]
 

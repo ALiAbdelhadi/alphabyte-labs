@@ -1,28 +1,82 @@
 {
-    "companyName": {
-        "name": "Alphabyte Labs"
-    },
-    "companyInfo": {
-        "beta": "beta" 
-    },
-    "header": {
-        "docs": "Docs",
-        "components": "Components",
-        "blocks": "Blocks",
-        "themes": "themes",
-        "colors": "Colors",
-        "community": "Community",
-        "cta-button": "Get Full Access"
-    },
-    "search": {
-        "search" :"Search docs...",
-        "search-dialog" : "Search documentation"
-    },
-    "about": {
-        "header-1": "Build Beautifully.",
-        "header-2": "Your Open Source Component Library.",
-        "description": "Craft stunning user interfaces with our meticulously designed collection of accessible, and fully customizable components. Built by developers, for developers, and freely available to all.",
-        "cta-button": "Get Started",
-        "browse-blocks": "Browse Blocks"
-    }
+  "companyName": {
+    "name": "Alphabyte Labs"
+  },
+  "companyInfo": {
+    "beta": "beta"
+  },
+  "header": {
+    "docs": "Docs",
+    "components": "Components",
+    "blocks": "Blocks",
+    "themes": "themes",
+    "colors": "Colors",
+    "community": "Community",
+    "cta-button": "Get Full Access"
+  },
+  "search": {
+    "search": "Search docs...",
+    "search-dialog": "Search documentation"
+  },
+  "about": {
+    "header-1": "Build Beautifully.",
+    "header-2": "Your Open Source Component Library.",
+    "description": "Craft stunning user interfaces with our meticulously designed collection of accessible, and fully customizable components. Built by developers, for developers, and freely available to all.",
+    "cta-button": "Get Started",
+    "browse-blocks": "Browse Blocks"
+  },
+  "component-source-1": {
+    "des-1": "Third, you need to create a new folder called",
+    "des-2": " in you app directory and create a new file called",
+    "des-3": "and paste the following code in it"
+  },
+  "component-utils": {
+    "des-1": "Second, you need to create a new folder called",
+    "des-2": "in you app directory and create a new file called",
+    "des-3": "and paste the following code in it"
+  },
+  "docs-routing": {
+    "getting-started": "Getting Started",
+    "introduction": "Introduction",
+    "installation": "Installation",
+    "rtl": "RTL Direction",
+    "components": "Components",
+    "accordion": "Accordion",
+    "alert-dialog": "Alert Dialog",
+    "badge": "Badge",
+    "breadcrumb": "Breadcrumb",
+    "button": "Button",
+    "calendar": "Calendar",
+    "code-block": "Code Block",
+    "collapsible": "Collapsible",
+    "data-picker": "Date Picker",
+    "diagrams": "Diagrams",
+    "dialog": "Dialog",
+    "drawer": "Drawer",
+    "dropdown-menu": "Dropdown menu",
+    "folder-structure": "Folder structure",
+    "input": "Input",
+    "label": "Label",
+    "note": "Notes",
+    "popover": "Popover",
+    "product-card": "Product Card",
+    "scroll-area": "Scroll Area",
+    "separator": "Separator",
+    "sheet": "Sheet",
+    "sonner": "Sonner",
+    "steps": "Steps",
+    "tabs": "Tabs",
+    "tooltip": "Tooltip"
+  },
+  "toc": {
+    "heading": "On this page"
+  },
+  "feedback": {
+    "heading": "This content",
+    "feedback": "feedback",
+    "edit-page": "Edit page"
+  },
+  "scroll": {
+    "heading": "Scroll to top"
+  }
 }

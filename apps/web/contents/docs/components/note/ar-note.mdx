@@ -1,0 +1,71 @@
+---
+title: مكون ملاحظة
+description: تقديم مكون الملاحظة تواصل بفعالية في واجهة المستخدم الخاصة بك
+---
+
+<ComponentPreview name="note-demo" />
+
+## التثبيت
+
+<div className="not-prose md:px-0 px-4">
+  <Step>
+    <StepItem title="تثبيت الاعتماديات">
+      في البداية، تحتاج إلى تثبيت الاعتماديات التالية:
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge`}
+      </Pre>
+    </StepItem>
+
+    <StepItem title="إنشاء ملف utils.ts">
+      <ComponentUtilsText />
+      <ComponentUtils />
+    </StepItem>
+
+    <StepItem title="إنشاء مكون note.tsx">
+      <ComponentSource name="note-demo" />
+    </StepItem>
+
+    <StepItem title="تفضل، الآن يمكنك تعديله وتخصيصه ليناسب احتياجاتك وجعله خاصًا بك" />
+  </Step>
+</div>
+
+## الاستخدام
+
+<div className="not-prose space-y-6">
+  <Pre className="language-typescript">
+    {`import { Note } from "@/components/Note"`}
+  </Pre>
+  <Pre className="language-tsx">
+    {`import { Note } from "@/components/library/note"
+
+const NoteDemo = () => {
+  return <Note variant="info">هذه ملاحظة إعلامية.</Note>
+}
+
+export default NoteDemo`}
+  </Pre>
+</div>
+
+## مثال
+
+### ملاحظة قياسية
+
+<ComponentPreview name="note-demo" variant="info" />
+
+### ملاحظة نجاح
+
+<ComponentPreview name="note-demo" variant="success" />
+
+### ملاحظة تحذير
+
+<ComponentPreview name="note-demo" variant="warning" />
+
+### ملاحظة خطر
+
+<ComponentPreview name="note-demo" variant="error" />
+
+## ملاحظات قابلة للإغلاق
+
+للسماح للمستخدمين برفض الملاحظة، قم بتعيين خاصية <MdxBadge>closable</MdxBadge> إلى <MdxBadge>true</MdxBadge>.
+
+<ComponentPreview name="note-demo" variant="closable" />

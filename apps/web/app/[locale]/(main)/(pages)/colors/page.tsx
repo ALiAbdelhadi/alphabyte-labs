@@ -23,7 +23,7 @@ const ColorsPage = () => {
                             A comprehensive collection of Tailwind CSS colors in RGB, HSL, OKLCH, and HEX formats.
                         </p>
                     </div>
-                    <div className="space-x-2">
+                    <div className="space-x-2 md:space-x-3 rtl:space-x-reverse">
                         <Link href="#browse-colors">
                             <Button className="lg:h-10 lg:px-7 px-3 h-8 text-xs md:text-base">
                                 Browse Colors

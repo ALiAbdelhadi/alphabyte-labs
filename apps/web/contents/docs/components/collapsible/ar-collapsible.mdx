@@ -1,0 +1,48 @@
+---
+title: قابل للطي
+description: مكون قابل للطي لإخفاء وإظهار المحتوى.
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/collapsible
+  api: https://www.radix-ui.com/docs/primitives/components/collapsible#api-reference
+---
+
+
+<ComponentPreview name="collapsible-demo" />
+
+## التثبيت
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="تثبيت الاعتماديات">
+أولا، تحتاج إلى تثبيت الاعتماديات التالية:
+<Pre className="language-bash">
+{`npm install clsx tailwind-merge @radix-ui/react-collapsible `}
+</Pre>
+</StepItem>
+  <StepItem title="إنشاء ملف utils.ts">
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+<StepItem title="إنشاء مكون collapsible.tsx">
+<ComponentSource name="collapsible-demo" />
+</StepItem>
+</Step>
+</div>
+
+## الاستخدام
+<div className="not-prose space-y-6">
+<Pre>
+{`import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "@/components/ui/collapsible"`}
+</Pre>
+
+
+<Pre>{`<Collapsible>
+  <CollapsibleTrigger>هل يمكنني استخدام هذا في مشروعي؟</CollapsibleTrigger>
+  <CollapsibleContent>
+    نعم. مجاني للاستخدام في المشاريع الشخصية والتجارية. لا يلزم الإسناد.
+  </CollapsibleContent>
+</Collapsible>`}</Pre>
+</div>

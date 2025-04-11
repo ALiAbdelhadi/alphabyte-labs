@@ -1,6 +1,6 @@
 "use client"
 
-import { DocsRouting } from "@/settings/DocsRouting"
+import { DocsRouting } from "@/settings/docs-routing"
 import { SearchIcon } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
 import { LuFileText } from "react-icons/lu"

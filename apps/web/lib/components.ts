@@ -1,5 +1,6 @@
 import BlockPreview from "@/components/block-preview"
 import { CodeBlockWrapper } from "@/components/code-block-wrapper"
+import ComponentSource from "@/components/component-source-code"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,7 +27,7 @@ import { Label } from "@/components/library/label"
 import Mermaid from "@/components/library/mermaid"
 import { Note } from "@/components/library/note"
 import ProductCard from "@/components/library/product-card"
-import { Step, StepItem } from "@/components/library/step"
+import { Step, StepItem } from "@/components/library/steps"
 import {
   Tabs,
   TabsContent,
@@ -34,13 +35,12 @@ import {
   TabsTrigger,
 } from "@/components/library/tabs"
 import ComponentPreview from "@/components/markdown/component-preview"
+import ComponentUtils, { ComponentUtilsText } from "@/components/markdown/component-utils"
 import MdxBadge from "@/components/markdown/mdx-badge"
 import Pre from "@/components/pre"
 import CodeBlockDemo from "@/registry-components/examples/code-block-demo"
-import FolderTreeDemo from "@/registry-components/examples/folder-tree-demo"
 import { ChevronRightIcon } from "lucide-react"
 import { MDXComponents } from "mdx/types"
-
 export const components: MDXComponents = {
   Pre,
   // Tab 1
@@ -50,10 +50,12 @@ export const components: MDXComponents = {
   TabsTrigger,
   // Markdown Components
   ComponentPreview,
+  ComponentSource,
   CodeBlockDemo,
   MdxBadge,
   CodeBlockWrapper,
-  FolderTreeDemo,
+  ComponentUtils,
+  ComponentUtilsText,
   // custom components
   Button,
   ProductCard,

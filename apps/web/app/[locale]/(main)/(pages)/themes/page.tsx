@@ -86,7 +86,7 @@ export default function ThemeGenerator() {
                       size={"sm"}
                       variant={primaryColor === preset.value ? "default" : "outline"}
                       onClick={() => setPrimaryColor(preset.value)}
-                      className="flex items-center space-x-2 transition-all duration-300 ease-in-out"
+                      className="flex items-center space-x-2 rtl:space-x-reverse transition-all duration-300 ease-in-out"
                     >
                       <span
                         className={`w-4 h-4 rounded-full flex items-center justify-center overflow-hidden`}

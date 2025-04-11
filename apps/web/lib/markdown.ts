@@ -1,10 +1,12 @@
-import { createReadStream, promises as fs } from "fs"
-import path from "path"
-import { ComponentType } from "react"
+import { components } from "@/lib/components"
+import { Settings } from "@/lib/meta"
+import { PageRoutes } from "@/lib/pageRoutes"
 import { GitHubLink } from "@/settings/navigation"
 import matter from "gray-matter"
 import { Element, Text } from "hast"
 import { compileMDX } from "next-mdx-remote/rsc"
+import path from "path"
+import { ComponentType } from "react"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeCodeTitles from "rehype-code-titles"
 import rehypeKatex from "rehype-katex"
@@ -13,10 +15,10 @@ import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import { Node } from "unist"
 import { visit } from "unist-util-visit"
+const isServer = typeof window === 'undefined';
+const fs = isServer ? require('fs').promises : null;
+const createReadStream = isServer ? require('fs').createReadStream : null;
 
-import { components } from "@/lib/components"
-import { Settings } from "@/lib/meta"
-import { PageRoutes } from "@/lib/pageRoutes"
 declare module "hast" {
   interface Element {
     raw?: string
@@ -52,30 +54,30 @@ async function parseMdx<Frontmatter>(rawMdx: string) {
   })
 }
 
-function computeDocumentPath(slug: string) {
+function computeDocumentPath(slug: string, locale: string) {
   const segments = slug.split("/")
   const lastSegment = segments[segments.length - 1]
   return Settings.gitload
-    ? `${GitHubLink.href}/raw/main/contents/docs/${slug}/${lastSegment}.mdx`
-    : path.join(process.cwd(), "/contents/docs/", `${slug}/${lastSegment}.mdx`)
+    ? `${GitHubLink.href}/raw/main/contents/docs/${slug}/${locale}-${lastSegment}.mdx`
+    : path.join(process.cwd(), "/contents/docs/", `${slug}/${locale}-${lastSegment}.mdx`)
 }
-
 const getDocumentPath = (() => {
   const cache = new Map<string, string>()
-  return (slug: string) => {
-    if (!cache.has(slug)) {
-      cache.set(slug, computeDocumentPath(slug))
+  return (slug: string, locale: string) => {
+    const cacheKey = `${slug}-${locale}`
+    if (!cache.has(cacheKey)) {
+      cache.set(cacheKey, computeDocumentPath(slug, locale))
     }
-    return cache.get(slug)!
+    return cache.get(cacheKey)!
   }
 })()
 
-export async function getDocument(slug: string) {
+export async function getDocument(slug: string, locale: string) {
   try {
-    const contentPath = getDocumentPath(slug)
+    const contentPath = getDocumentPath(slug, locale)
     let rawMdx = ""
     let lastUpdated: string | null = null
-    if (Settings.gitload) {
+    if (Settings.gitload || !isServer) {
       const response = await fetch(contentPath)
       if (!response.ok) {
         throw new Error(
@@ -91,7 +93,7 @@ export async function getDocument(slug: string) {
     }
 
     const parsedMdx = await parseMdx<BaseMdxFrontmatter>(rawMdx)
-    const tocs = await getTableOfContents(slug)
+    const tocs = await getTableOfContents(slug, locale)
 
     return {
       frontmatter: parsedMdx.frontmatter,
@@ -108,7 +110,8 @@ export async function getDocument(slug: string) {
 const headingsRegex = /^(#{2,4})\s(.+)$/gm
 
 export async function getTableOfContents(
-  slug: string
+  slug: string,
+  locale: string
 ): Promise<Array<{ level: number; text: string; href: string }>> {
   const extractedHeadings: Array<{
     level: number
@@ -119,8 +122,8 @@ export async function getTableOfContents(
   const segments = slug.split("/")
   const lastSegment = segments[segments.length - 1]
 
-  if (Settings.gitload) {
-    const contentPath = `${GitHubLink.href}/raw/main/contents/docs/${slug}/${lastSegment}.mdx`
+  if (Settings.gitload || !isServer) {
+    const contentPath = `${GitHubLink.href}/raw/main/contents/docs/${slug}/${locale}-${lastSegment}.mdx`
     try {
       const response = await fetch(contentPath)
       if (!response.ok) {
@@ -137,19 +140,21 @@ export async function getTableOfContents(
     const contentPath = path.join(
       process.cwd(),
       "/contents/docs/",
-      `${slug}/${lastSegment}.mdx`
+      `${slug}/${locale}-${lastSegment}.mdx`
     )
     try {
-      try {
-        await fs.access(contentPath, fs.constants.F_OK)
-      } catch (fileError) {
-        console.error(`File does not exist: ${contentPath}`)
-        return []
-      }
+      if (isServer) {
+        try {
+          await fs.access(contentPath, fs.constants.F_OK)
+        } catch (fileError) {
+          console.error(`File does not exist: ${contentPath}`)
+          return []
+        }
 
-      const stream = createReadStream(contentPath, { encoding: "utf-8" })
-      for await (const chunk of stream) {
-        rawMdx += chunk
+        const stream = createReadStream(contentPath, { encoding: "utf-8" })
+        for await (const chunk of stream) {
+          rawMdx += chunk
+        }
       }
     } catch (error) {
       console.error("Error reading local file:", error)
@@ -170,7 +175,7 @@ export async function getTableOfContents(
   return extractedHeadings
 }
 
-function sluggify(text: string) {
+export function sluggify(text: string) {
   return text
     .trim()
     .toLowerCase()
@@ -196,15 +201,29 @@ export function getPreviousNext(path: string) {
 export async function getBlocksForSlug(slug: string) {
   try {
     const contentPath = getBlocksContentPath(slug)
-    try {
-      await fs.access(contentPath, fs.constants.F_OK)
-    } catch (error) {
-      console.error(`Block file does not exist: ${contentPath}`)
-      return null
-    }
+    if (isServer) {
+      try {
+        await fs.access(contentPath, fs.constants.F_OK)
+      } catch (error) {
+        console.error(`Block file does not exist: ${contentPath}`)
+        return null
+      }
 
-    const rawMdx = await fs.readFile(contentPath, "utf-8")
-    return await parseMdx<BaseMdxFrontmatter>(rawMdx)
+      const rawMdx = await fs.readFile(contentPath, "utf-8")
+      return await parseMdx<BaseMdxFrontmatter>(rawMdx)
+    } else {
+      try {
+        const response = await fetch(contentPath)
+        if (!response.ok) {
+          throw new Error(`Failed to fetch block content: ${response.statusText}`)
+        }
+        const rawMdx = await response.text()
+        return await parseMdx<BaseMdxFrontmatter>(rawMdx)
+      } catch (error) {
+        console.error("Error fetching block content:", error)
+        return null
+      }
+    }
   } catch (err) {
     console.error("Error in getBlocksForSlug:", err)
     return null
@@ -222,6 +241,11 @@ function getBlocksContentPath(slug: string) {
 }
 
 export async function getAllBlocks() {
+  if (!isServer) {
+    console.warn("getAllBlocks is only available on the server")
+    return []
+  }
+
   const blocksFolder = path.join(process.cwd(), "/contents/blocks/")
   try {
     await fs.access(blocksFolder, fs.constants.F_OK)
@@ -232,7 +256,7 @@ export async function getAllBlocks() {
 
   const files = await fs.readdir(blocksFolder)
   const uncheckedRes = await Promise.all(
-    files.map(async (file) => {
+    files.map(async (file: string) => {
       const filePath = path.join(blocksFolder, file)
       const stats = await fs.stat(filePath)
       if (!stats.isDirectory()) return undefined
@@ -243,7 +267,6 @@ export async function getAllBlocks() {
         console.warn(`MDX file not found in directory: ${mdxPath}`)
         return undefined
       }
-
       const rawMdx = await fs.readFile(mdxPath, "utf-8")
       return {
         ...(matter(rawMdx).data as BaseMdxFrontmatter),

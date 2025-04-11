@@ -40,30 +40,27 @@ export default function ComponentPreview({
     (item) => item.name === fullComponentName
   )
   const DynamicComponent = registryComponent?.component
-  const componentPath = registryComponent?.componentPath
+  const componentDemoPath = registryComponent?.componentDemoPath
 
   useEffect(() => {
-    if (providedCode || !componentPath) return
+    if (providedCode || !componentDemoPath) return
 
-    if (sourceMapCache[componentPath]) {
-      setComponentCode(sourceMapCache[componentPath])
+    if (sourceMapCache[componentDemoPath]) {
+      setComponentCode(sourceMapCache[componentDemoPath])
       return
     }
 
     setIsLoadingCode(true)
-
-    import("@/registry-components/component-source-map.json")
+    import("@/registry-components/component-demo-source-map.json")
       .then(module => {
         const sourceMap = module.default
-
         Object.entries(sourceMap).forEach(([path, code]) => {
           sourceMapCache[path] = code as string
         })
-
-        if (sourceMapCache[componentPath]) {
-          setComponentCode(sourceMapCache[componentPath])
+        if (sourceMapCache[componentDemoPath]) {
+          setComponentCode(sourceMapCache[componentDemoPath])
         } else {
-          console.warn(`Source code not found for ${componentPath}`)
+          console.warn(`Source code not found for ${componentDemoPath}`)
         }
       })
       .catch(error => {
@@ -72,7 +69,7 @@ export default function ComponentPreview({
       .finally(() => {
         setIsLoadingCode(false)
       })
-  }, [providedCode, componentPath])
+  }, [providedCode, componentDemoPath])
 
   if (!registryComponent) {
     return <div className={cn("mt-4 w-full", className)}>Component not found</div>

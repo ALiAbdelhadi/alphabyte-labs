@@ -1,0 +1,38 @@
+---
+title: منطقة قابلة للتمرير
+description: مكون منطقة قابلة للتمرير
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/scroll-area
+  api: https://www.radix-ui.com/docs/primitives/components/scroll-area#api-reference
+---
+
+<ComponentPreview name="scroll-area-demo" />
+## التثبيت
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="تثبيت الاعتماديات">
+في البداية، ستحتاج إلى تثبيت الاعتماديات الضرورية للتصميم ووظائف الأدوات المساعدة. يتضمن ذلك <MdxBadge>clsx</MdxBadge> لأسماء الفئات الشرطية و <MdxBadge>tailwind-merge</MdxBadge> للتعامل مع تعارضات فئات Tailwind CSS بكفاءة.
+
+<Pre className="language-bash">
+{`npm install clsx tailwind-merge @radix-ui/react-scroll-area`}
+</Pre>
+</StepItem>
+  <StepItem title="إنشاء ملف utils.ts">
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+<StepItem title="انشاء مكون scroll-area.tsx">
+  <ComponentSource name="scroll-area" />
+</StepItem>
+</Step>
+</div>
+## الاستخدام
+<div className="not-prose space-y-6">
+<Pre>{`import { ScrollArea } from "@/components/ui/scroll-area"`}</Pre>
+<Pre>{`<ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+  بدأ جوكستر بالتسلل إلى القلعة في منتصف الليل وترك النكات في كل مكان: تحت وسادة الملك، وفي حسائه، وحتى في مرحاضه الملكي. كان الملك غاضبًا، لكنه لم يستطع إيقاف جوكستر. ثم، ذات يوم، اكتشف أهل المملكة أن النكات التي تركها جوكستر كانت مضحكة للغاية لدرجة أنهم لم يتمكنوا من التوقف عن الضحك. وبمجرد أن بدأوا في الضحك، لم يتمكنوا من التوقف.
+</ScrollArea>`}</Pre>
+</div>
+## أمثلة
+### أفقي
+<ComponentPreview name="scroll-area-demo" variant="horizontal" />
