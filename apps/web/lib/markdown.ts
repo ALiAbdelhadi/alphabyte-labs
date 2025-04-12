@@ -2,6 +2,7 @@ import { components } from "@/lib/components"
 import { Settings } from "@/lib/meta"
 import { PageRoutes } from "@/lib/pageRoutes"
 import { GitHubLink } from "@/settings/navigation"
+import { createReadStream, promises as fs } from "fs"
 import matter from "gray-matter"
 import { Element, Text } from "hast"
 import { compileMDX } from "next-mdx-remote/rsc"
@@ -15,10 +16,6 @@ import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import { Node } from "unist"
 import { visit } from "unist-util-visit"
-const isServer = typeof window === 'undefined';
-const fs = isServer ? require('fs').promises : null;
-const createReadStream = isServer ? require('fs').createReadStream : null;
-
 declare module "hast" {
   interface Element {
     raw?: string
@@ -77,7 +74,7 @@ export async function getDocument(slug: string, locale: string) {
     const contentPath = getDocumentPath(slug, locale)
     let rawMdx = ""
     let lastUpdated: string | null = null
-    if (Settings.gitload || !isServer) {
+    if (Settings.gitload) {
       const response = await fetch(contentPath)
       if (!response.ok) {
         throw new Error(
@@ -122,7 +119,7 @@ export async function getTableOfContents(
   const segments = slug.split("/")
   const lastSegment = segments[segments.length - 1]
 
-  if (Settings.gitload || !isServer) {
+  if (Settings.gitload) {
     const contentPath = `${GitHubLink.href}/raw/main/contents/docs/${slug}/${locale}-${lastSegment}.mdx`
     try {
       const response = await fetch(contentPath)
@@ -143,18 +140,16 @@ export async function getTableOfContents(
       `${slug}/${locale}-${lastSegment}.mdx`
     )
     try {
-      if (isServer) {
-        try {
-          await fs.access(contentPath, fs.constants.F_OK)
-        } catch (fileError) {
-          console.error(`File does not exist: ${contentPath}`)
-          return []
-        }
+      try {
+        await fs.access(contentPath, fs.constants.F_OK)
+      } catch (fileError) {
+        console.error(`File does not exist: ${contentPath}`)
+        return []
+      }
 
-        const stream = createReadStream(contentPath, { encoding: "utf-8" })
-        for await (const chunk of stream) {
-          rawMdx += chunk
-        }
+      const stream = createReadStream(contentPath, { encoding: "utf-8" })
+      for await (const chunk of stream) {
+        rawMdx += chunk
       }
     } catch (error) {
       console.error("Error reading local file:", error)
@@ -201,29 +196,15 @@ export function getPreviousNext(path: string) {
 export async function getBlocksForSlug(slug: string) {
   try {
     const contentPath = getBlocksContentPath(slug)
-    if (isServer) {
-      try {
-        await fs.access(contentPath, fs.constants.F_OK)
-      } catch (error) {
-        console.error(`Block file does not exist: ${contentPath}`)
-        return null
-      }
-
-      const rawMdx = await fs.readFile(contentPath, "utf-8")
-      return await parseMdx<BaseMdxFrontmatter>(rawMdx)
-    } else {
-      try {
-        const response = await fetch(contentPath)
-        if (!response.ok) {
-          throw new Error(`Failed to fetch block content: ${response.statusText}`)
-        }
-        const rawMdx = await response.text()
-        return await parseMdx<BaseMdxFrontmatter>(rawMdx)
-      } catch (error) {
-        console.error("Error fetching block content:", error)
-        return null
-      }
+    try {
+      await fs.access(contentPath, fs.constants.F_OK)
+    } catch (error) {
+      console.error(`Block file does not exist: ${contentPath}`)
+      return null
     }
+
+    const rawMdx = await fs.readFile(contentPath, "utf-8")
+    return await parseMdx<BaseMdxFrontmatter>(rawMdx)
   } catch (err) {
     console.error("Error in getBlocksForSlug:", err)
     return null
@@ -241,11 +222,6 @@ function getBlocksContentPath(slug: string) {
 }
 
 export async function getAllBlocks() {
-  if (!isServer) {
-    console.warn("getAllBlocks is only available on the server")
-    return []
-  }
-
   const blocksFolder = path.join(process.cwd(), "/contents/blocks/")
   try {
     await fs.access(blocksFolder, fs.constants.F_OK)
@@ -256,7 +232,7 @@ export async function getAllBlocks() {
 
   const files = await fs.readdir(blocksFolder)
   const uncheckedRes = await Promise.all(
-    files.map(async (file: string) => {
+    files.map(async (file) => {
       const filePath = path.join(blocksFolder, file)
       const stats = await fs.stat(filePath)
       if (!stats.isDirectory()) return undefined

@@ -4,7 +4,7 @@ import {
     hsl,
     oklch,
 } from "culori"
-import { hexToHSL } from "../lib/color-utils";
+import { hexToHSL } from "./color-utils";
 
 export function hexToHSLImproved(hex: string): HslColor | null {
     if (!hex || !hex.startsWith('#')) return null;

@@ -7,7 +7,7 @@ import { Label } from "@/components/library/label"
 import { Separator } from "@/components/library/separator"
 import Pre from "@/components/pre"
 import { Tabs, TabsContainer, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { generateDarkTheme, generateTheme } from "@/scripts/color-generation-utils"
+import { generateDarkTheme, generateTheme } from "@/lib/color-generation-utils"
 import { ArrowDownToLine, Moon, Paintbrush, Sun } from "lucide-react"
 import { useEffect, useState } from "react"
 

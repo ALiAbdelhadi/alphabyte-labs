@@ -3,10 +3,8 @@
 import { useEffect, useRef, useState } from "react"
 import { Link } from "@/i18n/routing"
 import clsx from "clsx"
-
 import { ScrollArea } from "@/components/library/scroll-area"
 import { useTranslations } from "next-intl"
-import { sluggify } from "@/lib/markdown"
 
 type TocProps = {
   tocs: { href: string; level: number; text: string }[]
@@ -88,7 +86,7 @@ export default function Toc({ tocs }: TocProps) {
             {[...new Set(tocs.filter((item) => item.href !== "#-"))].map(({ href, level, text }) => (
               <li className="text-sm" key={href}>
                 <Link
-                  href={sluggify(href)}
+                  href={href}
                   scroll={false}
                   onClick={(e) => handleSmoothScroll(e, href)}
                   className={getLinkClassName(level, activeId === href.slice(1))}
