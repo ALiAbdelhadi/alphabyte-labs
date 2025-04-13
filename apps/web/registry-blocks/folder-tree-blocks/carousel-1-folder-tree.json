@@ -1,0 +1,35 @@
+{
+  "carousel_1_folder_tree": [
+    {
+      "name": "components",
+      "children": [
+        {
+          "name": "carousel.tsx",
+          "path": "components/carousel.tsx"
+        },
+        {
+          "name": "carousel-container.tsx",
+          "path": "components/carousel-container.tsx"
+        }
+      ]
+    },
+    {
+      "name": "constant",
+      "children": [
+        {
+          "name": "index.ts",
+          "path": "constant/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "hooks",
+      "children": [
+        {
+          "name": "outside-click.ts",
+          "path": "hooks/outside-click.ts"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+---
+title: Input
+description: A Input component
+---
+
+<ComponentPreview name="input-demo" />
+
+## Installation
+
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="Install Dependencies">
+      First, you need to install dependencies:
+      <Pre className="language-bash">{`npm i install clsx tailwind-merge`}</Pre>
+    </StepItem>
+    <StepItem title="Create utils.ts">
+      <ComponentUtilsText />
+      <ComponentUtils />
+    </StepItem>
+    <StepItem title="Create Input Component">
+      <ComponentSource name="input-demo" />
+    </StepItem>
+  </Step>
+</div>
+
+## Usage
+
+<div className="not-prose space-y-6">
+<Pre>{`import { Input } from "@/components/library/input"`}</Pre>
+<Pre>{`const InputDemo = () => {
+  return <Input className="w-56" type="email" placeholder="Email" />
+}
+
+export default InputDemo`}</Pre>
+
+</div>
+## Examples
+### Default
+<ComponentPreview name="input-demo" />
+
+### File
+
+upload file
+
+<ComponentPreview name="input" variant="file" />
+### Disabled
+<ComponentPreview name="input" variant="disabled" />
+### With Label
+<ComponentPreview name="input" variant="label" />
+### With button
+<ComponentPreview name="input" variant="button" />

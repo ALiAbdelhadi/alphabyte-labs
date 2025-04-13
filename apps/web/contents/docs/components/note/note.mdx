@@ -1,0 +1,71 @@
+---
+title: Note Component
+description: Introducing the Note Component Communicating Effectively in Your UI
+---
+
+**Learn how to use the versatile Note component to communicate important information effectively within your user interface.**
+
+<ComponentPreview name="note-demo" />
+
+## Installation
+
+<div className="not-prose md:px-0 px-4"> 
+<Step>
+<StepItem title="Install Dependencies">
+First, you need to install dependencies:
+<Pre className="language-bash">
+{`npm install clsx tailwind-merge`}
+</Pre>
+</StepItem>
+  <StepItem title="Create utils.ts"> 
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+  <StepItem title="Create Note Component" >
+  <ComponentSource name="note-demo"/>
+  </StepItem>
+  <StepItem title="Here you go, Now you can edit and customize it for your needs and make it yours"/>
+</Step>
+
+</div>
+
+## Usage
+
+<div className="not-prose space-y-6">
+<Pre className="language-typescript">
+{`import { Note } from "@/components/Note"`}
+</Pre>
+<Pre className="language-tsx">
+{`import { Note } from "@/components/library/note"
+
+const NoteDemo = () => {
+return <Note variant="info">This is an informational note.</Note>
+}
+
+export default NoteDemo`}
+</Pre>
+</div>
+
+## Example
+
+### Standard Note
+
+<ComponentPreview name="note-demo" />
+
+### Success Note
+
+<ComponentPreview name="note-demo" variant="success" />
+
+### Warning Note
+
+<ComponentPreview name="note-demo" variant="warning" />
+
+### Danger Note
+
+<ComponentPreview name="note-demo" variant="error" />
+
+## Closable Notes
+
+To allow users to dismiss the note, set the <MdxBadge>closable</MdxBadge> prop to <MdxBadge>true</MdxBadge>.
+
+<ComponentPreview name="note-demo" variant="closable" />

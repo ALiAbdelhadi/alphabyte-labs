@@ -1,0 +1,63 @@
+---
+title: Diagrams
+description: Add various diagram types, including flowcharts, decision trees and entity-relationship diagrams.
+---
+
+<ComponentPreview name="diagram-demo" />
+
+## Installation
+
+<div className="not-prose md:px-0 px-4">
+<Step>
+<StepItem title="install dependencies">
+First, To Start Creating Diagrams in your next.js app you need to install a library called <span className="underline text-gray-950">[Mermaid](https://mermaid.js.org/)</span> :
+<Pre className="language-bash">
+{`npm i install clsx tailwind-merge mermaid`}
+</Pre>
+</StepItem>
+  <StepItem title="Create utils.ts"> 
+  <ComponentUtilsText/>
+  <ComponentUtils/>
+  </StepItem>
+<StepItem title="Create Diagram Component">
+<ComponentSource name="diagram-demo" />
+</StepItem>
+<StepItem title="Here you go, you can start creating diagrams like a designer"/>
+
+</Step>
+</div>
+## Usage
+<div className="not-prose space-y-6">
+<Pre>{`import Mermaid from "@/components/library/mermaid"`}</Pre>
+<Pre>{`const DiagramsDemo = () => {
+  return (
+    <Mermaid
+      chart={\`graph TD;
+    Start --> Task1;
+    Task1 --> Task2;
+    Task2 --> End;\`}
+    />
+  )
+}
+
+export default DiagramsDemo`}</Pre>
+</div>
+## Example
+
+### Flowchart
+
+<ComponentPreview name="diagram-demo" />
+
+### Decision Tree
+
+Decision trees illustrate choices and possible outcomes, making them ideal for decision-making workflows or processes involving multiple paths.
+
+<ComponentPreview name="diagram-demo" variant="decision-tree" />
+
+### Entity-Relationship Diagram
+
+Entity-relationship diagrams (ERDs) are used to model relationships between entities in a system. They are widely used in database design and system architecture planning.
+
+<ComponentPreview name="diagram-demo" variant="entity-relationship" />
+
+Each of these diagrams serves a specific purpose and Mermaid makes it easy to generate them dynamically. Feel free to experiment with the provided code snippets and adapt them to your needs.

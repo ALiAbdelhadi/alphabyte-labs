@@ -1,0 +1,88 @@
+---
+title: Sheet
+description: A sheet is a component that slides in from the bottom of the screen, typically used for displaying additional content or options without navigating away from the current screen.
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/dialog
+  api: https://www.radix-ui.com/docs/primitives/components/dialog#api-reference
+---
+
+<ComponentPreview name="sheet-demo" />
+<div className="not-prose mdx:px-0 px-4">
+  <Step>
+    <StepItem title="Install Dependencies">
+      First, you need to install dependencies:
+      <Pre>{`npm install clsx tailwind-merge @radix-ui/react-dialog`}</Pre>
+    </StepItem>
+    <StepItem title="Create utils.ts">
+      <ComponentUtilsText />
+      <ComponentUtils />
+    </StepItem>
+    <StepItem title="Create Sheet Component">
+      <ComponentSource name="sheet-demo" />
+    </StepItem>
+  </Step>
+</div>
+
+## Usage
+
+<div className="not-prose space-y-6">
+  <Pre>{`import {
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger
+} from '@/components/library/sheet';`}</Pre>
+  <Pre>{`<Sheet>
+    <SheetTrigger asChild>
+        <Button variant="outline" className="flex items-center gap-2">
+            <Settings size={16} />
+            Open Settings
+        </Button>
+    </SheetTrigger>
+    <SheetContent side="right">
+    <SheetHeader>
+        <SheetTitle>Settings</SheetTitle>
+        <SheetDescription>Configure your application preferences here</SheetDescription>
+    </SheetHeader>
+    <div className="py-6">
+        <div className="space-y-4">
+            <div className="flex items-center justify-between">
+                <Label htmlFor="dark-mode" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Dark Mode</Label>
+                <Checkbox id="dark-mood" />
+            </div>
+            <div className="flex items-center justify-between">
+                <Label htmlFor="notification" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Notification</Label>
+                <Checkbox id="notification" />
+            </div>
+            <div className="flex items-center justify-between">
+                <Label htmlFor="email-updates" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email Updates</Label>
+                <Checkbox id="email-updates" />
+            </div>
+        </div>
+    </div>
+    <SheetFooter>
+        <SheetClose asChild>
+            <Button>Save Changes</Button>
+        </SheetClose>
+    </SheetFooter>
+  </SheetContent>
+</Sheet>`}</Pre>
+</div>
+
+## Examples
+
+### Control Side
+
+#### Top
+
+<ComponentPreview name="sheet-demo" variant="top" />
+#### Right
+<ComponentPreview name="sheet-demo" variant="right" />
+#### Bottom
+<ComponentPreview name="sheet-demo" variant="bottom" />
+#### Left
+<ComponentPreview name="sheet-demo" variant="left" />

@@ -1,0 +1,17 @@
+{
+  "timeline_1_folder_tree": [
+    {
+      "name": "components",
+      "children": [
+        {
+          "name": "Timeline.tsx",
+          "path": "components/Timeline.tsx"
+        },
+        {
+          "name": "timeline-container.tsx",
+          "path": "components/timeline-container.tsx"
+        }
+      ]
+    }
+  ]
+}

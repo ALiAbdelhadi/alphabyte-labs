@@ -1,0 +1,68 @@
+---
+title: breadcrumb
+description: breadcrumb
+---
+
+<ComponentPreview name="breadcrumb-demo" />
+## Installation
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="Install Dependencies">
+      First , you need to install dependencies:
+      <Pre className="language-bash">{`npm install clsx tailwind-merge `}</Pre>
+    </StepItem>
+    <StepItem title="Create utils.ts">
+      <ComponentUtilsText />
+      <ComponentUtils />
+    </StepItem>
+    <StepItem title="Create Breadcrumb Component">
+      <ComponentSource name="breadcrumb-demo" />
+    </StepItem>
+  </Step>
+</div>
+## Usage
+<div className="not-prose space-y-6">
+  <Pre>{`import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/library/breadcrumb"`}</Pre>
+  <Pre>{`<Breadcrumb>
+    <BreadcrumbList>
+        <BreadcrumbItem>
+            <BreadcrumbLink href="#">
+                <HiHome className="h-4 w-4" />
+            </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbLink href="#">Documents</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbPage>Current Page</BreadcrumbPage>
+        </BreadcrumbItem>
+    </BreadcrumbList>
+</Breadcrumb>`}</Pre>
+</div>
+## Examples ### Custom Separator
+<ComponentPreview name="breadcrumb-demo" variant="custom-separator" />
+### Ellipsis
+<ComponentPreview name="breadcrumb-demo" variant="ellipsis" />
+### Dropdown You can compose
+<MdxBadge>
+  \<BreadcrumbItem />
+</MdxBadge>
+with a
+<MdxBadge>
+  \<DropdownMenu />
+</MdxBadge>
+to create a dropdown in the breadcrumb.
+<ComponentPreview name="breadcrumb-demo" variant="dropdown" />
+### Icons
+<ComponentPreview name="breadcrumb-demo" variant="icons" />
+### Responsive
+<ComponentPreview name="breadcrumb-demo" variant="responsive" />

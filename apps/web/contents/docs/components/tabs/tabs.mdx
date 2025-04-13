@@ -1,0 +1,64 @@
+---
+title: Tabs
+description: A tabs component
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/tabs
+  api: https://www.radix-ui.com/docs/primitives/components/tabs#api-reference
+---
+
+<ComponentPreview name="tabs-demo" />
+
+## Installation
+
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="Install Dependencies">
+      First , you need to install dependencies:
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge @radix-ui/react-tabs framer-motion`}
+      </Pre>
+    </StepItem>
+    <StepItem title="Create utils.ts">
+      <ComponentUtilsText />
+      <ComponentUtils />
+    </StepItem>
+    <StepItem title="Create Tabs component">
+      <ComponentSource name="tabs-demo" />
+    </StepItem>
+    <StepItem title="Here you go, Now you can edit and customize it for your needs and make it yours" />
+  </Step>
+</div>
+
+## Usage
+
+<div className="not-prose space-y-4">
+  <p className="text-base">
+    First import the tabs component in your file like this:
+  </p>
+  <Pre>
+    {`import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tab"`}
+  </Pre>
+  <p className="text-base">Then you can use the tabs component like this:</p>
+  <Pre>
+    {`<Tabs defaultValue="preview" className="mt-4">
+         <TabsList className="inline-flex h-9 items-center text-muted-foreground w-full justify-start rounded-none border-b bg-transparent p-0 mb-2">
+            <TabsTrigger value="preview" className="active:shadow-none text-base">
+               tab 1
+            </TabsTrigger>
+            <TabsTrigger value="code" className="active:shadow-none text-base">
+               tab 2
+            </TabsTrigger>
+         </TabsList>
+         <div>
+            <TabsContent value="preview" className={cn("border rounded-xl", className)}>
+            <div>
+               Content One
+            </div>
+            </TabsContent>
+            <TabsContent value="code" className="rounded-xl">
+            <div>Content two</div>
+            </TabsContent>
+         </div>
+      </Tabs>`}
+  </Pre>
+</div>

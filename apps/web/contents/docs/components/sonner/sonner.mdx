@@ -1,0 +1,53 @@
+---
+title: Sonner
+description: An opinionated toast component for React.
+links:
+  doc: https://sonner.emilkowal.ski
+---
+
+<ComponentPreview name="sonner-demo" />
+## About
+<MdxBadge>Sonner</MdxBadge> is built on top of
+[Sonner](https://sonner.emilkowal.ski/) by
+[emilkowalski_](https://x.com/emilkowalski_). ## Installation
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="Install Dependencies">
+      First, you need to install dependencies:
+      <Pre>{`npm install clsx tailwind-merge sonner next-themes`}</Pre>
+    </StepItem>
+    <StepItem title="Create utils.ts">
+      <ComponentUtilsText />
+      <ComponentUtils />
+    </StepItem>
+    <StepItem title="Create Sonner Component">
+      <ComponentSource name="sonner-demo" />
+    </StepItem>
+    <StepItem title="edit layout.tsx for Toaster component">
+      in Your main <MdxBadge>layout.tsx</MdxBadge> add{" "}
+      <MdxBadge>
+        \<Toaster />
+      </MdxBadge>{" "}
+      to show the toast :
+      <Pre
+        highlightLines={[8]}
+      >{`import { Toaster } from "@/components/library/sonner"
+ 
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <main>{children}</main>
+        <Toaster />
+      </body>
+    </html>
+   )
+}`}</Pre>
+    </StepItem>
+  </Step>
+</div>
+## Usage
+<div className="not-prose space-y-6">
+  <Pre>{`import { toast } from "sonner"`}</Pre>
+  <Pre>{`toast("Event has been created.")`}</Pre>
+</div>

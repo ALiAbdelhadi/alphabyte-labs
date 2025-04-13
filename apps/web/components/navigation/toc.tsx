@@ -1,0 +1,98 @@
+"use client"
+
+import { useEffect, useRef, useState } from "react"
+import Link from "next/link"
+import clsx from "clsx"
+
+import { ScrollArea } from "@/components/library/scroll-area"
+
+type TocProps = {
+  tocs: { href: string; level: number; text: string }[]
+}
+
+export default function Toc({ tocs }: TocProps) {
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const observerRef = useRef<IntersectionObserver | null>(null)
+
+  useEffect(() => {
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveId(entry.target.id)
+        }
+      })
+    }
+
+    observerRef.current = new IntersectionObserver(handleIntersect, {
+      root: null,
+      rootMargin: "-20px 0px -20px 0px",
+      threshold: 0.1,
+    })
+
+    tocs.forEach((item) => {
+      const element = document.getElementById(item.href.slice(1))
+      if (element && observerRef.current) {
+        observerRef.current.observe(element)
+      }
+    })
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect()
+      }
+    }
+  }, [tocs])
+
+  const handleSmoothScroll = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault()
+    const id = href.startsWith("#") ? href.slice(1) : href
+    const targetElement = document.getElementById(id)
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" })
+      window.history.pushState(null, "", href)
+    }
+  }
+
+  if (!tocs.length) {
+    return null
+  }
+
+  const getLinkClassName = (level: number, isActive: boolean) =>
+    clsx("transition-colors duration-200 hover:text-primary", {
+      "pl-0": level === 2,
+      "pl-4": level === 3,
+      "pl-8": level === 4,
+      "font-semibold text-primary -ml-[1px]": isActive,
+    })
+
+  return (
+    <div className="flex flex-col gap-3 w-full pl-2 not-prose transition-all ">
+      <h3 className="text-sm font-semibold">On this page</h3>
+      <ScrollArea className="pt-0.5 pb-4">
+        <nav className="flex flex-col text-gray-500 dark:text-gray-400 ml-0.5 hide-scrollbar">
+          <ul className="space-y-[6px]">
+            {tocs.map(({ href, level, text }) => (
+              <li className="text-sm" key={href}>
+                <Link
+                  key={href}
+                  href={href}
+                  scroll={false}
+                  onClick={(e) => handleSmoothScroll(e, href)}
+                  className={getLinkClassName(
+                    level,
+                    activeId === href.slice(1)
+                  )}
+                >
+                  {text}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </ScrollArea>
+    </div>
+  )
+}
