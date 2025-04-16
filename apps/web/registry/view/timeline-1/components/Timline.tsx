@@ -1,10 +1,8 @@
-"use client"
-
-import { useEffect, useRef, useState } from "react"
-import { motion, useScroll, useTransform, Variants } from "framer-motion"
-
-import { cn } from "@/lib/utils"
-import Container from "@/components/Container"
+"use client";
+import Container from "@/components/Container";
+import { cn } from "@/lib/utils";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 const cardVariants: Variants = {
   offscreen: {
@@ -18,7 +16,7 @@ const cardVariants: Variants = {
       duration: 0.4,
     },
   },
-}
+};
 
 const pointVariants: Variants = {
   offscreen: {
@@ -32,30 +30,30 @@ const pointVariants: Variants = {
       duration: 0.3,
     },
   },
-}
+};
 
 const Timeline = ({ data }: { data: TimeLineProps[] }) => {
-  const ref = useRef<HTMLDivElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [height, setHeight] = useState(0)
+  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
   useEffect(() => {
     const updateHeight = () => {
       if (ref.current) {
-        const rect = ref.current.getBoundingClientRect()
-        setHeight(rect.height)
+        const rect = ref.current.getBoundingClientRect();
+        setHeight(rect.height);
       }
-    }
-    updateHeight()
-    window.addEventListener("resize", updateHeight)
-    return () => window.removeEventListener("resize", updateHeight)
-  }, [])
+    };
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 0%", "end 50%"],
-  })
-  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height])
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1])
+  });
+  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
     <div className="w-full my-24" ref={containerRef}>
@@ -79,7 +77,7 @@ const Timeline = ({ data }: { data: TimeLineProps[] }) => {
             />
           </div>
           {data.map((item, index) => {
-            const isEven = index % 2 !== 0
+            const isEven = index % 2 !== 0;
             return (
               <motion.div
                 key={index}
@@ -88,7 +86,7 @@ const Timeline = ({ data }: { data: TimeLineProps[] }) => {
                 viewport={{ once: true, amount: 0.6 }}
                 className={cn(
                   "flex flex-col md:flex-row items-start mb-16 md:mb-24",
-                  isEven ? "md:flex-row-reverse" : ""
+                  isEven ? "md:flex-row-reverse" : "",
                 )}
               >
                 <motion.div
@@ -100,7 +98,7 @@ const Timeline = ({ data }: { data: TimeLineProps[] }) => {
                   variants={cardVariants}
                   className={cn(
                     "w-full md:w-5/12 pl-12 md:pl-0 md:h-[70vh] h-[50vh]",
-                    isEven ? "md:pl-8" : "md:pr-8"
+                    isEven ? "md:pl-8" : "md:pr-8",
                   )}
                 >
                   <h3 className="text-sm font-semibold text-primary">
@@ -109,11 +107,11 @@ const Timeline = ({ data }: { data: TimeLineProps[] }) => {
                   <div>{item.content}</div>
                 </motion.div>
               </motion.div>
-            )
+            );
           })}
         </div>
       </Container>
     </div>
-  )
-}
-export default Timeline
+  );
+};
+export default Timeline;

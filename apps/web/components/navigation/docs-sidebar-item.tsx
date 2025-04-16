@@ -34,7 +34,7 @@ export default function DocsSidebarItem(props: DocsSidebarItemProps) {
 
   const content = (
     <div className={cn("space-x-3 flex")}>
-      <span className="text-[1rem] md:text-sm text-gray-700 capitalize">
+      <span className="text-[1rem] md:text-sm text-gray-700 dark:text-gray-400 capitalize">
         {itemKey}
       </span>
       {isNewComponent && (

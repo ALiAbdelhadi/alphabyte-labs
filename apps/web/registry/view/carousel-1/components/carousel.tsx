@@ -11,7 +11,6 @@ import {
 import Image, { ImageProps } from "next/image"
 import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react"
 import { motion } from "framer-motion"
-
 import { cn } from "@/lib/utils"
 import { useOutsideClick } from "@/hooks/out-side-click"
 
@@ -47,7 +46,6 @@ export const Carousel = ({
   initialActiveIndex = 1,
 }: CarouselProps) => {
   const [scrollOffset, setScrollOffset] = useState(950)
-
   useEffect(() => {
     const WidthWindow = window.innerWidth
     if (WidthWindow < 789) {
@@ -56,12 +54,10 @@ export const Carousel = ({
       setScrollOffset(950)
     }
   }, [])
-
   const carouselRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(initialActiveIndex)
-
   const checkScrollAbility = () => {
     if (carouselRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current
@@ -69,7 +65,6 @@ export const Carousel = ({
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth)
     }
   }
-
   useEffect(() => {
     if (carouselRef.current && initialActiveIndex !== undefined) {
       const itemWidth = carouselRef.current.offsetWidth - 500
@@ -89,7 +84,6 @@ export const Carousel = ({
       })
     }
   }
-
   const handleCarouselClick = (index: number) => {
     setCurrentIndex(index)
   }
@@ -98,7 +92,7 @@ export const Carousel = ({
     <CarouselContext.Provider
       value={{ onCardClick: handleCarouselClick, currentIndex }}
     >
-      <div className="relative w-full py-0 !my-12">
+      <div className="relative w-full py-0 !my-12 ">
         <div className="flex justify-end space-x-2">
           <button
             className="relative z-40 h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
@@ -157,9 +151,7 @@ export const Card = ({
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const cardRef = useRef<HTMLDivElement>(null)
-
   useOutsideClick(containerRef, () => setIsOpen(false))
-
   const handleCardClick = () => {
     setIsOpen(true)
     if (cardRef.current) {
@@ -170,7 +162,6 @@ export const Card = ({
       })
     }
   }
-
   return (
     <Fragment>
       <motion.div
@@ -198,7 +189,7 @@ export const Card = ({
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover absolute z-10 inset-0 w-full h-auto"
+          className="object-cover absolute z-10 inset-0"
         />
       </motion.div>
     </Fragment>
@@ -214,11 +205,10 @@ export const BlurImage = ({
   ...rest
 }: ImageProps) => {
   const [isLoading, setLoading] = useState(true)
-
   return (
     <Image
       className={cn(
-        "transition duration-300 object-cover w-full h-auto",
+        "transition duration-300",
         isLoading ? "blur-sm" : "blur-0",
         className
       )}

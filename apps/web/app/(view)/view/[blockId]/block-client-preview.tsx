@@ -3,18 +3,8 @@
 import Container from "@/components/Container"
 import LoadingIcon from "@/components/icons/loading-icon"
 import { blockExamples } from "@/registry/blocks-examples"
-import "@/styles/globals.css"
-import "@/styles/prism-theme.css"
 import dynamic from "next/dynamic"
 import React, { Suspense } from "react"
-
-const withStyles = (Component: React.ComponentType) => {
-    return function StyledComponent(props: any) {
-        return (
-            <Component {...props} />
-        )
-    }
-}
 
 const BlockComponentMap: Record<string, React.ComponentType> = {}
 
@@ -26,7 +16,7 @@ blockExamples.items.forEach(block => {
             const blockName = pathMatch ? pathMatch[1] : ''
             const mod = await import(`@/registry/view/${blockName}/page`)
             const Component = mod.default
-            return await Promise.resolve(withStyles(Component))
+            return await Promise.resolve(Component)
         },
         {
             loading: () =>
