@@ -6,7 +6,7 @@ export const blockExamples = { items: [
     "components": [
       "@/registry/view/about-1/components/about"
     ],
-    "constants": []
+    "constant": []
   },
   {
     "name": "carousel-1",
@@ -15,7 +15,7 @@ export const blockExamples = { items: [
       "@/registry/view/carousel-1/components/carousel-container",
       "@/registry/view/carousel-1/components/carousel"
     ],
-    "constants": [
+    "constant": [
       "@/registry/view/carousel-1/constant"
     ]
   },
@@ -26,7 +26,7 @@ export const blockExamples = { items: [
       "@/registry/view/carousel-2/components/carousel-container",
       "@/registry/view/carousel-2/components/carousel"
     ],
-    "constants": [
+    "constant": [
       "@/registry/view/carousel-2/constant"
     ]
   },
@@ -36,7 +36,7 @@ export const blockExamples = { items: [
     "components": [
       "@/registry/view/navbar-1/components/navbar"
     ],
-    "constants": [
+    "constant": [
       "@/registry/view/navbar-1/constant"
     ]
   },
@@ -46,7 +46,7 @@ export const blockExamples = { items: [
     "components": [
       "@/registry/view/new-collection-1/components/new-collection"
     ],
-    "constants": []
+    "constant": []
   },
   {
     "name": "service-1",
@@ -54,7 +54,7 @@ export const blockExamples = { items: [
     "components": [
       "@/registry/view/service-1/components/service"
     ],
-    "constants": [
+    "constant": [
       "@/registry/view/service-1/constant"
     ]
   },
@@ -65,7 +65,7 @@ export const blockExamples = { items: [
       "@/registry/view/timeline-1/components/timeline-container",
       "@/registry/view/timeline-1/components/timeline"
     ],
-    "constants": [
+    "constant": [
       "@/registry/view/timeline-1/constant"
     ]
   }

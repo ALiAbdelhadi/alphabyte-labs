@@ -1,4 +1,3 @@
-// Carousel big block's data example
 export const CarouselBigDataForBlock = [
   {
     id: 1,

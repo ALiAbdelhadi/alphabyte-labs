@@ -1,6 +1,7 @@
 "use client"
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/library/collapsible"
+import { Pre } from "@/components/pre-for-block-preview"
 import {
   Sidebar,
   SidebarGroup,
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Tabs, TabsContainer, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
+import { blockExamples } from "@/registry/blocks-examples"
 import { languageIcons } from "@/settings/LanguageIcon"
 import { motion } from "framer-motion"
 import {
@@ -28,12 +30,10 @@ import {
   Smartphone,
   Tablet,
 } from "lucide-react"
-import { blockExamples } from "@/registry/blocks-examples"
 import type React from "react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { CopyButton } from "./copy-button-for-block-preview"
 import { Separator } from "./library/separator"
-import { Pre } from "@/components/pre-for-block-preview"
 
 interface screenWidthProps {
   desktop: string
@@ -246,14 +246,13 @@ function generateFileTreeFromBlockId(blockId: string) {
     },
   ]
 
-  if (block.constants && block.constants.length > 0) {
+  if (block.constant && block.constant.length > 0) {
     fileTree[0].children?.push({
       name: "constant",
-      children: block.constants.map((constant) => {
-        const pathParts = constant.split("/")
+      children: block.constant.map((constant) => {
         return {
-          name: "index.ts",
-          path: constant,
+          name: "index.tsx",
+          path: `${constant}/index`,
         }
       }),
     })
@@ -281,7 +280,20 @@ export default function BlockPreview({
   const [resolvedCodeFiles, setResolvedCodeFiles] = useState<CodeFile[]>(codeFiles)
   const [generatedFileTree, setGeneratedFileTree] = useState<FileTree[]>([])
   const [isLoadingCode, setIsLoadingCode] = useState(false)
+  const [sourceMap, setSourceMap] = useState<Record<string, any> | null>(null)
   const language = className?.split("-")[1] || "typescript"
+
+  useEffect(() => {
+    async function loadSourceMap() {
+      try {
+        const module = await import("@/registry/blocks-view-source-map.json")
+        setSourceMap(module.default as Record<string, any>)
+      } catch (error) {
+        console.error("Error loading source map:", error)
+      }
+    }
+    loadSourceMap()
+  }, [])
 
   useEffect(() => {
     if (BlockId) {
@@ -313,13 +325,17 @@ export default function BlockPreview({
   }, [id])
 
   useEffect(() => {
-    if (activeFile && BlockId) {
+    if (activeFile && BlockId && sourceMap) {
       setIsLoadingCode(true)
 
       async function loadSourceCode() {
         try {
-          const module = await import("@/registry/blocks-view-source-map.json")
-          const sourceMap = module.default as Record<string, any>
+          if (!sourceMap) {
+            console.warn('Source map is not loaded yet')
+            setIsLoadingCode(false)
+            return
+          }
+
           const blockData = sourceMap[BlockId]
 
           if (!blockData) {
@@ -328,15 +344,66 @@ export default function BlockPreview({
             return
           }
 
-          const nonNullActiveFile = activeFile as string;
+          const nonNullActiveFile = activeFile as string
           let content = ""
+          let fileLanguage = "tsx"
+
+          console.log("Active file:", nonNullActiveFile)
+          console.log("Block data:", blockData)
 
           if (nonNullActiveFile.includes("/components/")) {
             content = blockData.components?.[nonNullActiveFile] || "// Component code not found"
-          } else if (nonNullActiveFile.includes("/constant/")) {
-            content = blockData.constants?.[nonNullActiveFile] || "// Constant code not found"
-          } else if (nonNullActiveFile.includes("/page")) {
-            content = "// Page content - not available in source map"
+          }
+
+          else if (nonNullActiveFile.includes("/constant/")) {
+
+            console.log("Constants in source map:", blockData.constant)
+            if (blockData.constant) {
+              let normalizedActiveFile = nonNullActiveFile;
+
+              if (normalizedActiveFile.endsWith("/index.tsx")) {
+                normalizedActiveFile = normalizedActiveFile.replace("/index.tsx", "/index");
+              }
+              else if (normalizedActiveFile.endsWith("/index")) {
+                normalizedActiveFile = normalizedActiveFile.replace("/index", "");
+              }
+              else if (!normalizedActiveFile.endsWith("/index")) {
+                normalizedActiveFile = `${normalizedActiveFile}/index`;
+              }
+
+              console.log("Normalized active file:", normalizedActiveFile);
+
+              if (blockData.constant[normalizedActiveFile]) {
+                content = blockData.constant[normalizedActiveFile];
+              } else {
+                const basePathWithoutIndex = normalizedActiveFile.replace("/index", "");
+                if (blockData.constant[basePathWithoutIndex]) {
+                  content = blockData.constant[basePathWithoutIndex];
+                } else {
+                  const constantPaths = Object.keys(blockData.constant);
+                  console.log("Available constant paths:", constantPaths);
+
+                  const matchingPath = constantPaths.find(
+                    (path) => {
+                      return path === normalizedActiveFile ||
+                        path === basePathWithoutIndex ||
+                        path.includes(basePathWithoutIndex) ||
+                        basePathWithoutIndex.includes(path);
+                    }
+                  );
+
+                  if (matchingPath) {
+                    console.log("Found matching path:", matchingPath);
+                    content = blockData.constant[matchingPath];
+                  } else {
+                    content = "// Constant code not found";
+                  }
+                }
+              }
+              fileLanguage = "tsx";
+            } else {
+              content = "// No constants defined for this block";
+            }
           }
 
           setResolvedCodeFiles((prev) => {
@@ -344,14 +411,14 @@ export default function BlockPreview({
             const updated = [...prev]
 
             if (fileIndex >= 0) {
-              updated[fileIndex] = { ...updated[fileIndex], content }
+              updated[fileIndex] = { ...updated[fileIndex], content, language: fileLanguage }
               return updated
             }
 
-            return [...prev, { path: nonNullActiveFile, content }]
+            return [...prev, { path: nonNullActiveFile, content, language: fileLanguage }]
           })
         } catch (error) {
-          console.error("Error loading source map:", error)
+          console.error("Error loading source code:", error)
         } finally {
           setIsLoadingCode(false)
         }
@@ -359,7 +426,7 @@ export default function BlockPreview({
 
       loadSourceCode()
     }
-  }, [activeFile, BlockId])
+  }, [activeFile, BlockId, sourceMap])
 
   const [defaultCode, setDefaultCode] = useState(code)
 
@@ -377,6 +444,21 @@ export default function BlockPreview({
     return defaultCode
   }, [defaultCode, resolvedCodeFiles, activeFile, isLoadingCode])
 
+  const getActiveFileLanguage = useCallback(() => {
+    if (resolvedCodeFiles.length > 0 && activeFile) {
+      const foundFile = resolvedCodeFiles.find((file) => file.path === activeFile)
+      if (foundFile && foundFile.language) {
+        return foundFile.language
+      }
+      if (activeFile.endsWith(".ts")) return "typescript"
+      if (activeFile.endsWith(".tsx")) return "tsx"
+      if (activeFile.endsWith(".js")) return "javascript"
+      if (activeFile.endsWith(".jsx")) return "jsx"
+      if (activeFile.endsWith(".css")) return "css"
+    }
+    return language
+  }, [resolvedCodeFiles, activeFile, language])
+
   const contentToCopy = useMemo(() => {
     if (isLoadingCode) {
       return "// Loading code content..."
@@ -389,7 +471,7 @@ export default function BlockPreview({
       }
     }
     return defaultCode
-  }, [defaultCode, resolvedCodeFiles, activeFile, isLoadingCode]);
+  }, [defaultCode, resolvedCodeFiles, activeFile, isLoadingCode])
 
   useEffect(() => {
     if (!activeFile && resolvedFileTree && Array.isArray(resolvedFileTree)) {
@@ -487,29 +569,18 @@ export default function BlockPreview({
       <nav className="flex flex-row justify-between md:gap-4 gap-2 items-center mb-4">
         <div className="flex items-center md:gap-4 gap-1 justify-start flex-row w-full">
           <div className="flex items-center md:gap-2 gap-1">
-            <h3 className="text-lg md:text-xl font-medium text-wrap text-gray-900 dark:text-gray-100">
-              {BlockName}
-            </h3>
+            <h3 className="text-lg md:text-xl font-medium text-wrap text-gray-900 dark:text-gray-100">{BlockName}</h3>
             <span className="inline-flex items-center gap-1 bg-teal-200 px-2 py-1 text-xs font-medium text-teal-800 rounded-lg select-none">
               Free
             </span>
           </div>
-          <Separator
-            orientation="vertical"
-            className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden"
-          />
+          <Separator orientation="vertical" className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden" />
           <TabsList className="inline-flex h-9 items-center text-muted-foreground max-w-fit justify-start rounded-none bg-transparent">
             <TabsContainer className="bg-muted rounded-[7px]">
-              <TabsTrigger
-                value="preview"
-                className="text-sm border-none rounded-[6px] sm:px-3 px-1"
-              >
+              <TabsTrigger value="preview" className="text-sm border-none rounded-[6px] sm:px-3 px-1">
                 preview
               </TabsTrigger>
-              <TabsTrigger
-                value="code"
-                className="text-sm border-none rounded-[6px] sm:px-3 px-1"
-              >
+              <TabsTrigger value="code" className="text-sm border-none rounded-[6px] sm:px-3 px-1">
                 code
               </TabsTrigger>
             </TabsContainer>
@@ -544,10 +615,7 @@ export default function BlockPreview({
               <Fullscreen className="w-4 h-4" />
             </button>
           </TabsContainer>
-          <Separator
-            orientation="vertical"
-            className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden"
-          />
+          <Separator orientation="vertical" className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden" />
           <CopyButton content={contentToCopy} />
         </div>
       </nav>
@@ -580,7 +648,7 @@ export default function BlockPreview({
                 <div className="flex h-12 items-center gap-2 border-b border-gray-700 bg-[#1e1e1e] px-4 text-sm font-medium">
                   <div className="flex gap-2 items-center">
                     <div className="w-4 h-4">
-                      {languageIcons[language] || <FileCode className="w-4 h-4 text-gray-400" />}
+                      {languageIcons[getActiveFileLanguage()] || <FileCode className="w-4 h-4 text-gray-400" />}
                     </div>
                     <span className="text-gray-100">
                       {activeFile ? activeFile.split("/").pop() : "Select a file from the menu"}
@@ -589,7 +657,7 @@ export default function BlockPreview({
                 </div>
                 <div className="relative flex-1 overflow-auto bg-[#1e1e1e]">
                   {activeFile ? (
-                    <Pre raw={getActiveFileContent()} className={`language-tsx hide-scrollbar`}>
+                    <Pre raw={getActiveFileContent()} className={`language-${getActiveFileLanguage()} hide-scrollbar`}>
                       {getActiveFileContent()}
                     </Pre>
                   ) : (

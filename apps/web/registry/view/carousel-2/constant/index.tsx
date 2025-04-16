@@ -1,4 +1,3 @@
-// Carousel block's data
 export const CarouselsData = [
   {
     category: "Artificial Intelligence",

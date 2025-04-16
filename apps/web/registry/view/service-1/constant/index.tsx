@@ -1,4 +1,3 @@
-// Services block's data
 export const services: Service[] = [
   {
     id: "uiux-design",
