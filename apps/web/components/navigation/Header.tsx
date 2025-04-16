@@ -1,5 +1,19 @@
 "use client"
 
+import { useRef, useState } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { navItems } from "@/constant"
+import { AnimatePresence, motion } from "framer-motion"
+import { X } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu"
 import Container from "@/components/Container"
 import { ScrollArea } from "@/components/library/scroll-area"
 import {
@@ -10,19 +24,7 @@ import {
 } from "@/components/library/sheet"
 import Logo from "@/components/Logo"
 import Search from "@/components/navigation/search"
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu"
-import { navItems } from "@/constant"
-import { cn } from "@/lib/utils"
-import { AnimatePresence, motion } from "framer-motion"
-import { X } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useRef, useState } from "react"
+
 import ChangeTheme from "../ChangeTheme"
 import { Button } from "../library/button"
 import { Separator } from "../library/separator"
@@ -72,7 +74,7 @@ export function Header() {
         <div className="flex items-center gap-4">
           <Logo showLogoText={true} className="flex-shrink-0" />
           <nav className="hidden md:flex items-center">
-            <NavigationMenu >
+            <NavigationMenu>
               <NavigationMenuList className="md:space-x-2">
                 {navItems.map((item) => (
                   <NavigationMenuItem key={item.title}>

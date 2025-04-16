@@ -10,8 +10,10 @@ type SideBarEdit = {
 }
 
 export default function RightSideBar({ slug, title }: SideBarEdit) {
+  const segments = slug.split("/")
+  const lastSegment = segments[segments.length - 1]
   const feedbackUrl = `${GitHubLink.href}/issues/new?title=Feedback for "${title}"&labels=feedback`
-  const editUrl = `${GitHubLink.href}/edit/main/contents/docs/${slug}/index.mdx`
+  const editUrl = `${GitHubLink.href}/edit/main/apps/web/contents/docs/${slug}/${lastSegment}.mdx`
 
   return (
     <div className="flex flex-col gap-3 pl-2">
@@ -35,7 +37,8 @@ export default function RightSideBar({ slug, title }: SideBarEdit) {
             "text-sm text-neutral-800 dark:text-neutral-300/85 no-underline flex items-center"
           )}
         >
-          <LuArrowUpRight className="mr-1 w-4 h-4 inline-block" /> Edit page
+          <LuArrowUpRight className="mr-1 w-4 h-4 inline-block" /> Edit this
+          page on Github
         </Link>
       </div>
     </div>

@@ -16,7 +16,10 @@ const EcommercePage = () => {
             </h1>
           </div>
           <p className="text-base md:text-lg lg:text-xl font-normal max-w-2xl text-foreground opacity-80 ">
-            Craft exceptional online shopping experiences. This collection provides core e-commerce components like interactive product galleries, efficient cart management, and secure checkout flows, designed for optimal user engagement and conversion.
+            Craft exceptional online shopping experiences. This collection
+            provides core e-commerce components like interactive product
+            galleries, efficient cart management, and secure checkout flows,
+            designed for optimal user engagement and conversion.
           </p>
         </section>
       </Container>

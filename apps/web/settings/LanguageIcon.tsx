@@ -1,6 +1,7 @@
-import { CustomImage } from "@/components/custome-image"
-import { Terminal } from "lucide-react"
 import type { JSX } from "react"
+import { Terminal } from "lucide-react"
+
+import { CustomImage } from "@/components/custome-image"
 
 export const languageIcons: Record<string, JSX.Element> = {
   javascript: (

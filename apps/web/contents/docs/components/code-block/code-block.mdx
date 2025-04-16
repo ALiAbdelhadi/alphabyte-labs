@@ -131,7 +131,7 @@ border-radius: 0.3em;
 color: #db4c69;
 background: var(--code-background);
 }
-/****************************\*****************************
+/************\*\*\*\*************\*************\*\*\*\*************
 
 - Tokens (No changes here, kept for completeness)
   \*/
@@ -345,7 +345,7 @@ color: #dcdcaa;
 .language-html .token.punctuation {
 color: #808080;
 }
-/****************************\*****************************
+/************\*\*\*\*************\*************\*\*\*\*************
 
 - Line highlighting (No changes here, kept for completeness)
   _/
@@ -466,17 +466,16 @@ import { cn } from "@/lib/utils"
 const CodeBlockDemo = ({ className }: { className: string }) => {
 const ExampleCode = \`function MyComponent(props) {
 return (
+
 <div>
-<h1>Hello, {props.name}!</h1>
-<p>This is an example React component.</p>
+  <h1>Hello, {props.name}!</h1>
+  <p>This is an example React component.</p>
 </div>
-)};\`
-return (
-<Pre className={cn("", className)} highlightLines={[4]} showLineNumbers={true} >
-{ExampleCode}
+)};\` return (
+<Pre className={cn("", className)} highlightLines={[4]} showLineNumbers={true}>
+  {ExampleCode}
 </Pre>
-)
-}
+) }
 
 export default CodeBlockDemo`}
   </Pre>

@@ -1,10 +1,6 @@
 "use client"
 
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/library/collapsible"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/library/collapsible"
 import {
   Sidebar,
   SidebarGroup,
@@ -16,24 +12,12 @@ import {
   SidebarMenuSub,
   SidebarProvider,
 } from "@/components/ui/sidebar"
-import {
-  Tabs,
-  TabsContainer,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
-
+import { Tabs, TabsContainer, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
-import { getFolderTree } from "@/registry-blocks"
-import { getCodeFiles } from "@/registry-blocks/code-srouce"
 import { languageIcons } from "@/settings/LanguageIcon"
-import { blocksWebsite } from "@/settings/settings"
 import { motion } from "framer-motion"
 import {
-  Check,
   ChevronRight,
-  Clipboard,
   File,
   FileCode,
   Folder,
@@ -44,95 +28,12 @@ import {
   Smartphone,
   Tablet,
 } from "lucide-react"
-import Prism from "prismjs"
-import "prismjs/components/prism-javascript"
-import "prismjs/components/prism-jsx"
-import "prismjs/components/prism-tsx"
-import "prismjs/components/prism-typescript"
-import "prismjs/plugins/line-highlight/prism-line-highlight"
-import "prismjs/plugins/line-highlight/prism-line-highlight.css"
-import "prismjs/plugins/line-numbers/prism-line-numbers"
-import "prismjs/plugins/line-numbers/prism-line-numbers.css"
+import { blockExamples } from "@/registry/blocks-examples"
 import type React from "react"
-import type { ComponentProps } from "react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { CopyButton } from "./copy-button-for-block-preview"
 import { Separator } from "./library/separator"
-
-interface PreProps extends ComponentProps<"pre"> {
-  raw?: string
-  className?: string
-  highlightLines?: number[]
-  folderPath?: string
-  highlightStyle?: "solid" | "gradient" | "border" | "marker" | "custom"
-  customHighlightClass?: string
-  showLineNumbers?: boolean
-}
-
-function Pre({
-  children,
-  raw,
-  className,
-  highlightLines = [],
-  folderPath,
-  highlightStyle,
-  customHighlightClass,
-  showLineNumbers = true,
-  ...rest
-}: PreProps) {
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  useEffect(() => {
-    if (isClient && typeof window !== "undefined") {
-      Prism.highlightAll()
-      const codeBlock = document.querySelector("pre code")
-      if (codeBlock) {
-        const lines = codeBlock.innerHTML.split("\n")
-        const highlightedLines = lines.map((line, index) => {
-          if (highlightLines.includes(index + 1)) {
-            return `<span class="highlighted-line">${line}</span>`
-          }
-          return line
-        })
-        codeBlock.innerHTML = highlightedLines.join("\n")
-      }
-    }
-  }, [children, highlightLines, highlightStyle, customHighlightClass, isClient])
-
-  const language = className?.split("-")[1] || "typescript"
-  const lineNumbersClass = showLineNumbers ? "line-numbers" : ""
-
-  if (!isClient) {
-    return (
-      <div className="code-block-container relative group rounded-[6px] custom-scrollbar my-5 w-full">
-        <pre
-          className={`overflow-x-auto max-h-[650px] hide-scrollbar ${lineNumbersClass}`}
-        >
-          <code>{children}</code>
-        </pre>
-      </div>
-    )
-  }
-
-  return (
-    <pre
-      className={cn(
-        `language-${language}`,
-        className,
-        "overflow-x-auto",
-        lineNumbersClass
-      )}
-      data-line={
-        highlightLines.length > 0 ? highlightLines.join(",") : undefined
-      }
-    >
-      <code className={cn("language-" + language)}>{children}</code>
-    </pre>
-  )
-}
+import { Pre } from "@/components/pre-for-block-preview"
 
 interface screenWidthProps {
   desktop: string
@@ -144,13 +45,11 @@ interface FileTree {
   path?: string
   children?: FileTree[]
 }
-
 interface CodeFile {
   path: string
   content: string
   language?: string
 }
-
 interface BlockPreview {
   children?: React.ReactNode
   code?: string
@@ -160,51 +59,6 @@ interface BlockPreview {
   BlockName: string
   BlockId: string
   fileTree?: FileTree[] | string
-}
-
-const CopyButton = ({ content }: { content: string }) => {
-  const [isCopied, setIsCopied] = useState(false)
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(content)
-      setIsCopied(true)
-      setTimeout(() => setIsCopied(false), 2000)
-    } catch (error) {
-      console.error("Failed to copy:", error)
-    }
-  }
-  return (
-    <button
-      className="flex items-center bg-muted hover:bg-gray-200/60 dark:hover:bg-muted-foreground/10 shadow-sm py-3 md:py-2.5 px-3 rounded-[7px] space-x-1 transition-colors"
-      onClick={copyToClipboard}
-    >
-      <span className="inline-block transition-transform duration-200 ease-in-out">
-        {isCopied ? (
-          <Check className="w-4 h-4 text-emerald-500" />
-        ) : (
-          <Clipboard className="w-4 h-4 text-slate-700 dark:text-gray-300" />
-        )}
-      </span>
-      <span className="font-medium text-xs text-nowrap hidden sm:block text-gray-800 dark:text-gray-200">
-        <span className={cn("transition-all", isCopied && "mr-2.5")}>
-          Cop
-          <span className="relative">
-            <span
-              className={`inline-block transition-opacity duration-300 ${isCopied ? "opacity-0" : "opacity-100"}`}
-            >
-              y
-            </span>
-            <span
-              className={`absolute left-0 transition-all duration-300 ${isCopied ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"}`}
-            >
-              ied{" "}
-            </span>
-          </span>
-        </span>{" "}
-        code
-      </span>
-    </button>
-  )
 }
 
 function Tree({
@@ -242,10 +96,7 @@ function Tree({
 
   return (
     <SidebarMenuItem>
-      <Collapsible
-        className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90"
-        defaultOpen
-      >
+      <Collapsible className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90" defaultOpen>
         <CollapsibleTrigger asChild>
           <SidebarMenuButton
             className="whitespace-nowrap rounded-none pl-[--index] text-gray-100 hover:text-gray-100 hover:!bg-gray-950/20 dark:focus:bg-gray-950/20 focus-visible:bg-gray-950/20 data-[active=true]:bg-gray-950/40 !data-[open=true]:hover:text-gray-100 data-[active=true]:text-gray-200"
@@ -263,13 +114,7 @@ function Tree({
         <CollapsibleContent>
           <SidebarMenuSub className="m-0 w-full border-none p-0">
             {item.children.map((subItem, key) => (
-              <Tree
-                key={key}
-                item={subItem}
-                index={index + 1}
-                activeFile={activeFile}
-                setActiveFile={setActiveFile}
-              />
+              <Tree key={key} item={subItem} index={index + 1} activeFile={activeFile} setActiveFile={setActiveFile} />
             ))}
           </SidebarMenuSub>
         </CollapsibleContent>
@@ -331,11 +176,7 @@ function BlockFileTree({
           aria-label="Open sidebar"
           className="relative z-20 p-2 border-r flex border-gray-700 transition-colors bg-[#252526] "
         >
-          <PanelLeftOpen
-            strokeWidth={2.5}
-            absoluteStrokeWidth
-            className="w-6 h-6 text-gray-100"
-          />
+          <PanelLeftOpen strokeWidth={2.5} absoluteStrokeWidth className="w-6 h-6 text-gray-100" />
         </button>
       )}
       <motion.aside
@@ -362,11 +203,7 @@ function BlockFileTree({
                   aria-label="Close sidebar"
                   className="p-1 rounded-md hover:bg-gray-900/20 transition-colors bg-[#252526]"
                 >
-                  <PanelRightOpen
-                    strokeWidth={2.5}
-                    absoluteStrokeWidth
-                    className="w-6 h-6 text-gray-100"
-                  />
+                  <PanelRightOpen strokeWidth={2.5} absoluteStrokeWidth className="w-6 h-6 text-gray-100" />
                 </button>
               )}
             </SidebarGroupLabel>
@@ -374,13 +211,7 @@ function BlockFileTree({
               <SidebarGroupContent>
                 <SidebarMenu className="gap-1.5">
                   {fileTree.map((file, index) => (
-                    <Tree
-                      key={index}
-                      item={file}
-                      index={1}
-                      activeFile={activeFile}
-                      setActiveFile={setActiveFile}
-                    />
+                    <Tree key={index} item={file} index={1} activeFile={activeFile} setActiveFile={setActiveFile} />
                   ))}
                 </SidebarMenu>
               </SidebarGroupContent>
@@ -392,6 +223,44 @@ function BlockFileTree({
   )
 }
 
+function generateFileTreeFromBlockId(blockId: string) {
+  const block = blockExamples.items.find((item) => item.name === blockId)
+  if (!block) return []
+
+  const fileTree: FileTree[] = [
+    {
+      name: blockId,
+      children: [
+        {
+          name: "components",
+          children: block.components.map((comp) => {
+            const pathParts = comp.split("/")
+            const fileName = pathParts[pathParts.length - 1]
+            return {
+              name: `${fileName}.tsx`,
+              path: comp,
+            }
+          }),
+        },
+      ],
+    },
+  ]
+
+  if (block.constants && block.constants.length > 0) {
+    fileTree[0].children?.push({
+      name: "constant",
+      children: block.constants.map((constant) => {
+        const pathParts = constant.split("/")
+        return {
+          name: "index.ts",
+          path: constant,
+        }
+      }),
+    })
+  }
+  return fileTree
+}
+
 export default function BlockPreview({
   children,
   code = "",
@@ -400,7 +269,7 @@ export default function BlockPreview({
   id,
   BlockName,
   BlockId,
-  fileTree,
+  fileTree: initialFileTree,
 }: BlockPreview) {
   const [active, setActive] = useState("desktop")
   const [isFullScreen, setIsFullScreen] = useState(false)
@@ -408,65 +277,119 @@ export default function BlockPreview({
   const [isLoaded, setIsLoaded] = useState(false)
   const [view, setView] = useState<"preview" | "code">("preview")
   const [activeFile, setActiveFile] = useState<string | null>(null)
+  const [iframeHeight, setIframeHeight] = useState(500)
+  const [resolvedCodeFiles, setResolvedCodeFiles] = useState<CodeFile[]>(codeFiles)
+  const [generatedFileTree, setGeneratedFileTree] = useState<FileTree[]>([])
+  const [isLoadingCode, setIsLoadingCode] = useState(false)
   const language = className?.split("-")[1] || "typescript"
 
-  const resolvedFileTree = useMemo(() => {
-    if (!fileTree) return []
-
-    if (typeof fileTree === "string") {
-      const tree = getFolderTree(fileTree)
-      if (Array.isArray(tree)) {
-        return tree
-      } else if (tree && typeof tree === "object") {
-        const firstKey = Object.keys(tree)[0]
-        const value = (tree as Record<string, any>)[firstKey]
-        return Array.isArray(value) ? value : []
-      }
-    } else if (Array.isArray(fileTree)) {
-      return fileTree
+  useEffect(() => {
+    if (BlockId) {
+      const tree = generateFileTreeFromBlockId(BlockId)
+      setGeneratedFileTree(tree)
     }
+  }, [BlockId])
 
-    return []
-  }, [fileTree])
-
-  const [resolvedCodeFiles, setResolvedCodeFiles] = useState(codeFiles)
+  const resolvedFileTree = useMemo(() => {
+    if (initialFileTree) {
+      if (typeof initialFileTree === "string") {
+        return generatedFileTree
+      } else if (Array.isArray(initialFileTree)) {
+        return initialFileTree
+      }
+    }
+    return generatedFileTree
+  }, [initialFileTree, generatedFileTree])
 
   useEffect(() => {
-    if (typeof fileTree === "string" && codeFiles.length === 0) {
-      const loadedCodeFiles = getCodeFiles(fileTree)
-      if (loadedCodeFiles) {
-        if (Array.isArray(loadedCodeFiles)) {
-          setResolvedCodeFiles(loadedCodeFiles)
-          if (!code && loadedCodeFiles.length > 0) {
-            setDefaultCode(loadedCodeFiles[0].content)
-          }
-        } else if (typeof loadedCodeFiles === "object") {
-          const firstKey = Object.keys(loadedCodeFiles)[0]
-          const files = (loadedCodeFiles as Record<string, any>)[firstKey]
-          if (Array.isArray(files)) {
-            setResolvedCodeFiles(files)
-            if (!code && files.length > 0) {
-              setDefaultCode(files[0].content)
-            }
-          }
-        }
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && event.data.type === "resize-iframe" && event.data.blockId === id) {
+        setIframeHeight(event.data.height)
       }
     }
-  }, [fileTree, codeFiles, code])
+
+    window.addEventListener("message", handleMessage)
+    return () => window.removeEventListener("message", handleMessage)
+  }, [id])
+
+  useEffect(() => {
+    if (activeFile && BlockId) {
+      setIsLoadingCode(true)
+
+      async function loadSourceCode() {
+        try {
+          const module = await import("@/registry/blocks-view-source-map.json")
+          const sourceMap = module.default as Record<string, any>
+          const blockData = sourceMap[BlockId]
+
+          if (!blockData) {
+            console.warn(`Block data not found for ${BlockId}`)
+            setIsLoadingCode(false)
+            return
+          }
+
+          const nonNullActiveFile = activeFile as string;
+          let content = ""
+
+          if (nonNullActiveFile.includes("/components/")) {
+            content = blockData.components?.[nonNullActiveFile] || "// Component code not found"
+          } else if (nonNullActiveFile.includes("/constant/")) {
+            content = blockData.constants?.[nonNullActiveFile] || "// Constant code not found"
+          } else if (nonNullActiveFile.includes("/page")) {
+            content = "// Page content - not available in source map"
+          }
+
+          setResolvedCodeFiles((prev) => {
+            const fileIndex = prev.findIndex((file) => file.path === nonNullActiveFile)
+            const updated = [...prev]
+
+            if (fileIndex >= 0) {
+              updated[fileIndex] = { ...updated[fileIndex], content }
+              return updated
+            }
+
+            return [...prev, { path: nonNullActiveFile, content }]
+          })
+        } catch (error) {
+          console.error("Error loading source map:", error)
+        } finally {
+          setIsLoadingCode(false)
+        }
+      }
+
+      loadSourceCode()
+    }
+  }, [activeFile, BlockId])
 
   const [defaultCode, setDefaultCode] = useState(code)
 
   const getActiveFileContent = useCallback(() => {
+    if (isLoadingCode) {
+      return "// Loading code content..."
+    }
+
     if (resolvedCodeFiles.length > 0 && activeFile) {
-      const foundFile = resolvedCodeFiles.find(
-        (file) => file.path === activeFile
-      )
+      const foundFile = resolvedCodeFiles.find((file) => file.path === activeFile)
       if (foundFile) {
         return foundFile.content
       }
     }
     return defaultCode
-  }, [defaultCode, resolvedCodeFiles, activeFile])
+  }, [defaultCode, resolvedCodeFiles, activeFile, isLoadingCode])
+
+  const contentToCopy = useMemo(() => {
+    if (isLoadingCode) {
+      return "// Loading code content..."
+    }
+
+    if (resolvedCodeFiles.length > 0 && activeFile) {
+      const foundFile = resolvedCodeFiles.find((file) => file.path === activeFile)
+      if (foundFile) {
+        return foundFile.content
+      }
+    }
+    return defaultCode
+  }, [defaultCode, resolvedCodeFiles, activeFile, isLoadingCode]);
 
   useEffect(() => {
     if (!activeFile && resolvedFileTree && Array.isArray(resolvedFileTree)) {
@@ -502,14 +425,8 @@ export default function BlockPreview({
       if (active === "desktop") {
         setPreviewWidth("100%")
       } else {
-        const targetWidth = Number.parseInt(
-          screensWidth[active as keyof screenWidthProps]
-        )
-        setPreviewWidth(
-          windowWidth < targetWidth
-            ? "100%"
-            : screensWidth[active as keyof screenWidthProps]
-        )
+        const targetWidth = Number.parseInt(screensWidth[active as keyof screenWidthProps])
+        setPreviewWidth(windowWidth < targetWidth ? "100%" : screensWidth[active as keyof screenWidthProps])
       }
     }
 
@@ -554,11 +471,11 @@ export default function BlockPreview({
     }
   }, [])
 
-  if (!defaultCode && resolvedCodeFiles.length === 0) {
+  if (!defaultCode && resolvedCodeFiles.length === 0 && !BlockId) {
     return <div className={cn("mt-4", className)}>{children}</div>
   }
 
-  const iframeSource = `${blocksWebsite}/${BlockId}`
+  const iframeSource = `/view/${BlockId}`
 
   return (
     <Tabs
@@ -631,19 +548,15 @@ export default function BlockPreview({
             orientation="vertical"
             className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden"
           />
-          <CopyButton content={code} />
+          <CopyButton content={contentToCopy} />
         </div>
       </nav>
       <div>
         <TabsContent
           value="preview"
-          className={cn(
-            "border rounded-xl transition-all duration-300 dark:border-gray-700",
-            className,
-            {
-              "mr-auto": active !== "desktop",
-            }
-          )}
+          className={cn("border rounded-xl transition-all duration-300 dark:border-gray-700", className, {
+            "mr-auto": active !== "desktop",
+          })}
           style={{
             width: previewWidth,
             maxWidth: "100%",
@@ -651,42 +564,32 @@ export default function BlockPreview({
           }}
         >
           <iframe
-            className={
-              "overflow-hidden preview min-h-[86.5vh] transition-all w-full"
-            }
+            height={iframeHeight}
+            className={"overflow-hidden preview min-h-[86.5vh] transition-all w-full"}
             id={id}
             src={iframeSource}
-            sandbox="allow-scripts allow-same-origin "
+            sandbox="allow-scripts allow-same-origin"
             onLoad={() => setIsLoaded(true)}
           />
         </TabsContent>
         <TabsContent value="code" className="rounded-xl">
-          {resolvedFileTree ? (
+          {resolvedFileTree.length > 0 ? (
             <div className="flex overflow-hidden rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1e1e1e] text-foreground h-[70vh] md:h-[90vh]">
-              <BlockFileTree
-                fileTree={resolvedFileTree}
-                activeFile={activeFile}
-                setActiveFile={setActiveFile}
-              />
+              <BlockFileTree fileTree={resolvedFileTree} activeFile={activeFile} setActiveFile={setActiveFile} />
               <div className="flex min-w-0 flex-1 flex-col">
                 <div className="flex h-12 items-center gap-2 border-b border-gray-700 bg-[#1e1e1e] px-4 text-sm font-medium">
                   <div className="flex gap-2 items-center">
                     <div className="w-4 h-4">
-                      {languageIcons[language] || (
-                        <FileCode className="w-4 h-4 text-gray-400" />
-                      )}
+                      {languageIcons[language] || <FileCode className="w-4 h-4 text-gray-400" />}
                     </div>
                     <span className="text-gray-100">
-                      {activeFile || "Select a file from the menu"}
+                      {activeFile ? activeFile.split("/").pop() : "Select a file from the menu"}
                     </span>
                   </div>
                 </div>
                 <div className="relative flex-1 overflow-auto bg-[#1e1e1e]">
                   {activeFile ? (
-                    <Pre
-                      raw={getActiveFileContent()}
-                      className={`language-tsx hide-scrollbar`}
-                    >
+                    <Pre raw={getActiveFileContent()} className={`language-tsx hide-scrollbar`}>
                       {getActiveFileContent()}
                     </Pre>
                   ) : (

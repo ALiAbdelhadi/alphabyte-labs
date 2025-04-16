@@ -1,39 +1,48 @@
-import { DocsRouting } from "@/settings/DocsRouting"
+import { DocsRouting } from "@/settings/docs-routing"
+import { SidebarItem } from "@/types"
 
 export type Paths =
   | {
-      title: string
-      href: string
-      noLink?: true
-      heading?: string
-      items?: Paths[]
-    }
+    title: string
+    href?: string
+    noLink?: true
+    heading?: string
+    items?: Paths[]
+  }
   | {
-      spacer: true
-    }
+    spacer: true
+  }
 
-export const Routes: Paths[] = [...DocsRouting.sidebarItems]
+export const Routes = [...DocsRouting.sidebarItems]
 
 type Page = { title: string; href: string }
 
-function isRoute(
-  node: Paths
-): node is Extract<Paths, { title: string; href: string }> {
-  return "title" in node && "href" in node
+function hasNoLink(obj: any): obj is { noLink: boolean } {
+  return 'noLink' in obj && typeof obj.noLink === 'boolean';
 }
 
-function getAllLinks(node: Paths): Page[] {
+function isRoute(
+  node: Paths | SidebarItem
+): node is Extract<Paths, { title: string; href?: string }> | SidebarItem {
+  return "title" in node && typeof node.title === "string"
+}
+
+function getAllLinks(node: Paths | SidebarItem): Page[] {
   const pages: Page[] = []
 
-  if (isRoute(node) && !node.noLink) {
+  if (isRoute(node) && node.href && (!hasNoLink(node) || !node.noLink)) {
     pages.push({ title: node.title, href: node.href })
   }
 
   if (isRoute(node) && node.items) {
-    node.items.map((subNode) => {
+    node.items.forEach((subNode) => {
       if (isRoute(subNode)) {
-        const temp = { ...subNode, href: `${node.href}${subNode.href}` }
-        pages.push(...getAllLinks(temp))
+        if (node.href && subNode.href) {
+          const temp = { ...subNode, href: `${node.href}${subNode.href}` }
+          pages.push(...getAllLinks(temp))
+        } else if (subNode.href) {
+          pages.push(...getAllLinks(subNode))
+        }
       }
     })
   }
@@ -41,4 +50,6 @@ function getAllLinks(node: Paths): Page[] {
   return pages
 }
 
-export const PageRoutes = Routes.map((it) => getAllLinks(it)).flat()
+export const PageRoutes = Routes.map((it) => getAllLinks(it))
+  .flat()
+  .filter((route): route is Page => Boolean(route.href))

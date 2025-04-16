@@ -1,6 +1,8 @@
 "use client"
-import { DocsRouting } from "@/settings/DocsRouting"
+
 import { usePathname } from "next/navigation"
+import { DocsRouting } from "@/settings/docs-routing"
+
 import DocsSidebarItem from "./docs-sidebar-item"
 
 const NEW_COMPONENTS = ["diagrams", "steps", "product-card"]
@@ -19,7 +21,10 @@ export function DocsSidebar({ isSheet = false }) {
         {DocsRouting.sidebarItems.map((section, sectionIndex) => {
           if ("spacer" in section) {
             return (
-              <div key={`spacer-${sectionIndex}`} className="my-2 mr-3 rtl:mr-0 rtl:ml-3">
+              <div
+                key={`spacer-${sectionIndex}`}
+                className="my-2 mr-3 rtl:mr-0 rtl:ml-3"
+              >
                 <hr className="border-t border-border" />
               </div>
             )
@@ -32,7 +37,10 @@ export function DocsSidebar({ isSheet = false }) {
               </div>
               <ul className="space-y-[2px]">
                 {section.items?.map((item, itemIndex) => (
-                  <li key={`item-${sectionIndex}-${itemIndex}`} className="rtl:text-right">
+                  <li
+                    key={`item-${sectionIndex}-${itemIndex}`}
+                    className="rtl:text-right"
+                  >
                     <DocsSidebarItem
                       {...item}
                       level={0}

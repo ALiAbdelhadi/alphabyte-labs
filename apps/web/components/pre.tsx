@@ -1,9 +1,11 @@
 "use client"
 
-import { cn } from "@/lib/utils"
 import { languageIcons } from "@/settings/LanguageIcon"
 import { Check, Clipboard, FileCode } from "lucide-react"
 import Prism from "prismjs"
+
+import { cn } from "@/lib/utils"
+
 import "prismjs/components/prism-css"
 import "prismjs/components/prism-javascript"
 import "prismjs/components/prism-jsx"
@@ -13,6 +15,7 @@ import "prismjs/plugins/line-highlight/prism-line-highlight"
 import "prismjs/plugins/line-highlight/prism-line-highlight.css"
 import "prismjs/plugins/line-numbers/prism-line-numbers"
 import "prismjs/plugins/line-numbers/prism-line-numbers.css"
+
 import { useEffect, useRef, useState } from "react"
 
 interface PreProps {
@@ -119,7 +122,7 @@ export default function Pre({
           )}
         </div>
         <div className="flex items-center space-x-2">
-            <CopyButton content={raw || content} />
+          <CopyButton content={raw || content} />
           <div className="w-[18px] h-[18px] rounded-sm">
             {languageIcons[language] || (
               <FileCode className="w-[18px] h-[18px] text-gray-400" />

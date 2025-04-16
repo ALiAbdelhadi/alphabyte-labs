@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -38,11 +37,12 @@
     "@tabler/icons-react": "^3.30.0",
     "@tanstack/react-query": "^5.69.0",
     "@types/mdx": "^2.0.13",
+    "@types/prismjs": "^1.26.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "culori": "^4.0.1",
     "date-fns": "^4.1.0",
-    "framer-motion": "^12.4.1",
+    "framer-motion": "^12.6.5",
     "gray-matter": "^4.0.3",
     "gsap": "^3.12.7",
     "hast": "^1.0.0",

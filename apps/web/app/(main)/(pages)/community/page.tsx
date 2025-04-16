@@ -1,14 +1,13 @@
-import Container from '@/components/Container'
-import React from 'react'
+import React from "react"
+
+import Container from "@/components/Container"
 
 const CommunityPage = () => {
-    return (
-        <div>
-            <Container>
-                Community Page
-            </Container>
-        </div>
-    )
+  return (
+    <div>
+      <Container>Community Page</Container>
+    </div>
+  )
 }
 
 export default CommunityPage

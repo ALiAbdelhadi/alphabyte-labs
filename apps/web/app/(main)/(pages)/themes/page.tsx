@@ -1,15 +1,21 @@
 "use client"
 
+import { useEffect, useState } from "react"
+import { ArrowDownToLine, Moon, Paintbrush, Sun } from "lucide-react"
+
+import { generateDarkTheme, generateTheme } from "@/lib/color-generation-utils"
+import {
+  Tabs,
+  TabsContainer,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
 import { Input } from "@/components/library/input"
 import { Label } from "@/components/library/label"
 import { Separator } from "@/components/library/separator"
 import Pre from "@/components/pre"
-import { Tabs, TabsContainer, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { generateDarkTheme, generateTheme } from "@/lib/color-generation-utils"
-import { ArrowDownToLine, Moon, Paintbrush, Sun } from "lucide-react"
-import { useEffect, useState } from "react"
 
 export default function ThemeGenerator() {
   const [primaryColor, setPrimaryColor] = useState("#0066CC")
@@ -30,7 +36,10 @@ export default function ThemeGenerator() {
     setThemeVersion((prev) => prev + 1)
   }
 
-  const formatCssVariables = (theme: Record<string, string>, isDark = false) => {
+  const formatCssVariables = (
+    theme: Record<string, string>,
+    isDark = false
+  ) => {
     let css = isDark ? ".dark {\n" : ":root {\n"
 
     Object.entries(theme).forEach(([key, value]) => {
@@ -48,7 +57,9 @@ export default function ThemeGenerator() {
 
     return {
       backgroundColor: `hsl(${value})`,
-      color: variable.includes("foreground") ? `hsl(${theme[variable.replace("-foreground", "")] || ""})` : undefined,
+      color: variable.includes("foreground")
+        ? `hsl(${theme[variable.replace("-foreground", "")] || ""})`
+        : undefined,
     }
   }
 
@@ -69,9 +80,13 @@ export default function ThemeGenerator() {
       <Container>
         <section className="my-14 md:my-16 space-y-3">
           <div className="space-y-2">
-            <h1 className="text-2xl lg:text-4xl md:text-3xl font-bold">Custom Themes: Design Your Vision, Effortlessly.</h1>
+            <h1 className="text-2xl lg:text-4xl md:text-3xl font-bold">
+              Custom Themes: Design Your Vision, Effortlessly.
+            </h1>
             <p className="text-base md:text-lg lg:text-xl font-normal max-w-2xl text-foreground opacity-80">
-              Build beautiful, consistent color themes for your applications starting with a single primary color. Unleash your creativity and fully customize every detail.
+              Build beautiful, consistent color themes for your applications
+              starting with a single primary color. Unleash your creativity and
+              fully customize every detail.
             </p>
           </div>
         </section>
@@ -84,7 +99,9 @@ export default function ThemeGenerator() {
                     <Button
                       key={preset.name}
                       size={"sm"}
-                      variant={primaryColor === preset.value ? "default" : "outline"}
+                      variant={
+                        primaryColor === preset.value ? "default" : "outline"
+                      }
                       onClick={() => setPrimaryColor(preset.value)}
                       className="flex items-center space-x-2 transition-all duration-300 ease-in-out"
                     >
@@ -129,7 +146,10 @@ export default function ThemeGenerator() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="md:col-span-2">
-                <Label htmlFor="primary-color" className="text-sm font-medium mb-2 block">
+                <Label
+                  htmlFor="primary-color"
+                  className="text-sm font-medium mb-2 block"
+                >
                   Custom Color
                 </Label>
                 <div className="flex gap-2 items-center">
@@ -155,7 +175,10 @@ export default function ThemeGenerator() {
                 </div>
               </div>
               <div className="flex items-end">
-                <Button onClick={generateThemes} className="w-full h-12 gap-2 rounded-lg text-base">
+                <Button
+                  onClick={generateThemes}
+                  className="w-full h-12 gap-2 rounded-lg text-base"
+                >
                   <Paintbrush className="h-4 w-4" />
                   Generate Theme
                 </Button>
@@ -168,7 +191,9 @@ export default function ThemeGenerator() {
             <div className="flex justify-between items-center">
               <div>
                 <h3 className="text-xl font-semibold">Theme Preview</h3>
-                <p className="text-foreground/70 text-sm">Visualize your color palette</p>
+                <p className="text-foreground/70 text-sm">
+                  Visualize your color palette
+                </p>
               </div>
               <Tabs defaultValue={previewMode}>
                 <TabsList>
@@ -201,7 +226,9 @@ export default function ThemeGenerator() {
               <div className="grid grid-cols-2 gap-3">
                 {Object.keys(lightTheme).map((key) => (
                   <div key={key} className="flex flex-col gap-1.5">
-                    <div className="text-xs font-medium opacity-70 text-primary capitalize">{key}</div>
+                    <div className="text-xs font-medium opacity-70 text-primary capitalize">
+                      {key}
+                    </div>
                     <div
                       className="h-14 rounded-xl flex items-center justify-center text-xs font-mono shadow-sm"
                       style={getPreviewStyle(key)}
@@ -216,10 +243,16 @@ export default function ThemeGenerator() {
           <div className="space-y-6">
             <div>
               <h3 className="text-xl font-semibold">CSS Variables</h3>
-              <p className="text-foreground/70 text-sm">Copy these variables to your CSS file</p>
+              <p className="text-foreground/70 text-sm">
+                Copy these variables to your CSS file
+              </p>
             </div>
             <div className="relative">
-              <Pre folderPath="globals.css" className="language-css" contentKey={themeVersion}>
+              <Pre
+                folderPath="globals.css"
+                className="language-css"
+                contentKey={themeVersion}
+              >
                 {cssContent}
               </Pre>
             </div>
@@ -232,8 +265,11 @@ export default function ThemeGenerator() {
                   <h4 className="font-medium text-sm">How to use</h4>
                   <p className="text-sm text-foreground/70 mt-1">
                     Copy these CSS variables into your{" "}
-                    <code className="px-1.5 py-0.5 bg-secondary rounded text-xs">globals.css</code> file. The variables
-                    will be automatically applied to all components that use the design system.
+                    <code className="px-1.5 py-0.5 bg-secondary rounded text-xs">
+                      globals.css
+                    </code>{" "}
+                    file. The variables will be automatically applied to all
+                    components that use the design system.
                   </p>
                 </div>
               </div>
@@ -244,4 +280,3 @@ export default function ThemeGenerator() {
     </div>
   )
 }
-

@@ -1,33 +1,30 @@
-
-import { notFound } from "next/navigation"
 import { BackToTop } from "@/components/navigation/back-to-top"
 import PageBreadcrumb from "@/components/navigation/docs-breadcrumb"
 import Feedback from "@/components/navigation/feedback"
 import Pagination from "@/components/navigation/Pagination"
 import Toc from "@/components/navigation/toc"
 import { Typography } from "@/components/typography"
+import { Settings } from "@/config/meta"
 import { ErrorBoundary } from "@/lib/debug-wrapper"
 import { getDocument } from "@/lib/markdown"
-import { Settings } from "@/lib/meta"
 import { PageRoutes } from "@/lib/pageRoutes"
+import { notFound } from "next/navigation"
+
 type DocsPageProps = {
   params: Promise<{
     slug: string[]
   }>
 }
-const page = async (props: DocsPageProps) => {
+const ComponentsPage = async (props: DocsPageProps) => {
   try {
     const DocsParams = await props.params
     const { slug = [] } = DocsParams
     const pathName = slug.join("/")
     const res = await getDocument(pathName)
-
     if (!res) {
       notFound()
     }
-
     const { frontmatter, content, tocs } = res
-
     return (
       <div className="flex items-start gap-14 max-w-7xl transition-all">
         <div className="flex-[3] mt-[4.5rem] md:mt-7">
@@ -73,17 +70,17 @@ const page = async (props: DocsPageProps) => {
   }
 }
 
-export default page
+export default ComponentsPage
+
 export async function generateMetadata(props: DocsPageProps) {
   const DocsParams = await props.params
   const { slug = [] } = DocsParams
   const pathName = slug.join("/")
   const res = await getDocument(pathName)
-
-  if (!res) return null
-
+  if (!res) {
+    notFound()
+  }
   const { frontmatter, lastUpdated } = res
-
   return {
     title: `${frontmatter.title} - ${Settings.title}`,
     description: frontmatter.description,

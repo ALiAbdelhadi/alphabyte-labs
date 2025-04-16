@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { Settings } from "@/lib/meta"
+import { Settings } from "@/config/meta"
 
 export function Logo() {
   return (

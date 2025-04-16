@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "contents/docs/components/navigation-menu/navigation-menu.mdx"
-, "next.config.ts"  ],
+    "contents/docs/components/navigation-menu/navigation-menu.mdx",
+    "next.config.ts"
+  ],
   "exclude": ["node_modules"]
 }

@@ -1,8 +1,9 @@
-import { buttonVariants } from "@/components/library/button"
-import { cn } from "@/lib/utils"
+import * as React from "react"
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 import { cva, type VariantProps } from "class-variance-authority"
-import * as React from "react"
+
+import { cn } from "@/lib/utils"
+import { buttonVariants } from "@/components/library/button"
 
 const AlertDialog = AlertDialogPrimitive.Root
 
@@ -10,13 +11,7 @@ const AlertDialogTrigger = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => (
-  <AlertDialogPrimitive.Trigger
-    ref={ref}
-    className={cn(
-      className
-    )}
-    {...props}
-  >
+  <AlertDialogPrimitive.Trigger ref={ref} className={cn(className)} {...props}>
     {children}
   </AlertDialogPrimitive.Trigger>
 ))
@@ -58,7 +53,7 @@ const alertDialogContentVariants = cva(
 
 export interface AlertDialogContentProps
   extends React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>,
-  VariantProps<typeof alertDialogContentVariants> {
+    VariantProps<typeof alertDialogContentVariants> {
   closeOnClickOutside?: boolean
 }
 
@@ -187,12 +182,13 @@ export {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
-  AlertDialogContent, alertDialogContentVariants, AlertDialogDescription,
+  AlertDialogContent,
+  alertDialogContentVariants,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
   AlertDialogPortal,
   AlertDialogTitle,
-  AlertDialogTrigger
+  AlertDialogTrigger,
 }
-

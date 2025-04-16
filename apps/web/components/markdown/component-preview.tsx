@@ -8,7 +8,7 @@ import {
 } from "@/components/library/tabs"
 import Pre from "@/components/pre"
 import { cn } from "@/lib/utils"
-import { REGISTRY_COMPONENTS } from "@/registry-components"
+import { REGISTRY } from "@/registry"
 import React, { useEffect, useState } from "react"
 import LoadingIcon from "../icons/loading-icon"
 
@@ -35,7 +35,7 @@ export default function ComponentPreview({
   const fullComponentName = componentVariant
     ? `${baseComponentName}-${componentVariant}-demo`
     : `${baseComponentName}-demo`
-  const registryComponent = REGISTRY_COMPONENTS.items.find(
+  const registryComponent = REGISTRY.items.find(
     (item) => item.name === fullComponentName
   )
   const DynamicComponent = registryComponent?.component
@@ -49,7 +49,7 @@ export default function ComponentPreview({
     async function loadSourceCode() {
       try {
         const module = await import(
-          "@/registry-components/component-demo-source-map.json"
+          "@/registry/component-demo-source-map.json"
         )
         const sourceMap = module.default as Record<string, string>
         const code = sourceMap[componentDemoPath]

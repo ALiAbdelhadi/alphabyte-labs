@@ -1,6 +1,6 @@
 import { promises as fs } from "fs"
 import path from "path"
-import { DocsRouting } from "@/settings/DocsRouting"
+import { DocsRouting } from "@/settings/docs-routing"
 import grayMatter from "gray-matter"
 import remarkMdx from "remark-mdx"
 import remarkParse from "remark-parse"

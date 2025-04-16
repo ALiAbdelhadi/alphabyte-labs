@@ -71,9 +71,9 @@ type Page = {
 // for [[...slug]]/page.tsx
 type Params = {
   params: Promise<{
-    slug: string;
-  }>;
-};
+    slug: string
+  }>
+}
 import type React from "react"
 // MDX and Document Types
 export interface BaseMdxFrontmatter {
@@ -150,8 +150,7 @@ export interface OklchColor {
   h: number
 }
 
-
-export type ColorFormat = "hex" | "rgb" | "hsl" | "oklch";
+export type ColorFormat = "hex" | "rgb" | "hsl" | "oklch"
 // sidebar
 export interface NavItem {
   id?: string
@@ -166,6 +165,6 @@ export interface NavItemWithChildren extends NavItem {
   items?: NavItemWithChildren[]
 }
 
-export interface MainSidebar extends NavItem { }
+export interface MainSidebar extends NavItem {}
 
-export interface SidebarItem extends NavItemWithChildren { }
+export interface SidebarItem extends NavItemWithChildren {}

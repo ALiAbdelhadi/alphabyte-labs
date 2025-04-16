@@ -13,9 +13,8 @@ import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import { Node } from "unist"
 import { visit } from "unist-util-visit"
-
+import { Settings } from "@/config/meta"
 import { components } from "@/lib/components"
-import { Settings } from "@/lib/meta"
 import { PageRoutes } from "@/lib/pageRoutes"
 
 declare module "hast" {
@@ -196,6 +195,39 @@ export function getPreviousNext(path: string) {
   return { prev, next }
 }
 
+const preCopy = () => (tree: Node) => {
+  visit(tree, "element", (node: Element) => {
+    if (node.tagName === "pre") {
+      const [codeEl] = node.children as Element[]
+      if (codeEl?.tagName === "code") {
+        const textNode = codeEl.children?.[0] as Text
+        node.raw = textNode?.value || ""
+      }
+    }
+  })
+}
+
+const postCopy = () => (tree: Node) => {
+  visit(tree, "element", (node: Element) => {
+    if (node.tagName === "pre" && node.raw) {
+      node.properties = node.properties || {}
+      node.properties["raw"] = node.raw
+    }
+  })
+}
+
+// Start Blocks
+function getBlocksContentPath(slug: string) {
+  const segments = slug.split("/")
+  const lastSegment = segments[segments.length - 1]
+
+  return path.join(
+    process.cwd(),
+    "/contents/blocks/",
+    `${slug}/${lastSegment}.mdx`
+  )
+}
+
 export async function getBlocksForSlug(slug: string) {
   try {
     const contentPath = getBlocksContentPath(slug)
@@ -214,16 +246,7 @@ export async function getBlocksForSlug(slug: string) {
   }
 }
 
-function getBlocksContentPath(slug: string) {
-  const segments = slug.split("/")
-  const lastSegment = segments[segments.length - 1]
 
-  return path.join(
-    process.cwd(),
-    "/contents/blocks/",
-    `${lastSegment}/${lastSegment}.mdx`
-  )
-}
 
 export async function getAllBlocks() {
   const blocksFolder = path.join(process.cwd(), "/contents/blocks/")
@@ -247,7 +270,6 @@ export async function getAllBlocks() {
         console.warn(`MDX file not found in directory: ${mdxPath}`)
         return undefined
       }
-
       const rawMdx = await fs.readFile(mdxPath, "utf-8")
       return {
         ...(matter(rawMdx).data as BaseMdxFrontmatter),
@@ -260,23 +282,3 @@ export async function getAllBlocks() {
   })[]
 }
 
-const preCopy = () => (tree: Node) => {
-  visit(tree, "element", (node: Element) => {
-    if (node.tagName === "pre") {
-      const [codeEl] = node.children as Element[]
-      if (codeEl?.tagName === "code") {
-        const textNode = codeEl.children?.[0] as Text
-        node.raw = textNode?.value || ""
-      }
-    }
-  })
-}
-
-const postCopy = () => (tree: Node) => {
-  visit(tree, "element", (node: Element) => {
-    if (node.tagName === "pre" && node.raw) {
-      node.properties = node.properties || {}
-      node.properties["raw"] = node.raw
-    }
-  })
-}

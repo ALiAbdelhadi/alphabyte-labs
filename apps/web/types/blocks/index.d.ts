@@ -7,15 +7,15 @@ type BlockPreview = {
   BlockId: string
 }
 type TimeLineProps = {
-  title: string;
-  content: ReactNode;
-};
+  title: string
+  content: ReactNode
+}
 declare type Service = {
   id: string
   subtitle?: string
-  title: string;
+  title: string
   iconColor?: string
   link: string
-  description: string;
-  showTags?: boolean;
+  description: string
+  showTags?: boolean
 }

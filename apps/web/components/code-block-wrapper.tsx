@@ -1,9 +1,11 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-import { CodeBlockWrapperProps } from "@/types/components"
-import gsap from "gsap"
 import * as React from "react"
+import gsap from "gsap"
+
+import { CodeBlockWrapperProps } from "@/types/components"
+import { cn } from "@/lib/utils"
+
 import {
   Collapsible,
   CollapsibleContent,
