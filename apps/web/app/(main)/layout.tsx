@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-
 import { Footer } from "@/components/navigation/footer"
 import { Header } from "@/components/navigation/Header"
 

@@ -281,7 +281,12 @@ export default function BlockPreview({
   const [generatedFileTree, setGeneratedFileTree] = useState<FileTree[]>([])
   const [isLoadingCode, setIsLoadingCode] = useState(false)
   const [sourceMap, setSourceMap] = useState<Record<string, any> | null>(null)
+  const [isIframeVisible, setIsIframeVisible] = useState(false)
+  const iframeRef = useRef<HTMLIFrameElement>(null)
   const language = className?.split("-")[1] || "typescript"
+
+  // Memoize iframeSource to prevent unnecessary recalculations
+  const iframeSource = useMemo(() => BlockId ? `/view/${BlockId}` : "", [BlockId])
 
   useEffect(() => {
     async function loadSourceMap() {
@@ -294,6 +299,9 @@ export default function BlockPreview({
     }
     loadSourceMap()
   }, [])
+
+  // Cache for source code content to prevent redundant loads
+  const sourceCodeCache = useRef<Record<string, string>>({});
 
   useEffect(() => {
     if (BlockId) {
@@ -314,18 +322,66 @@ export default function BlockPreview({
   }, [initialFileTree, generatedFileTree])
 
   useEffect(() => {
+    // Optimize message event handling with debouncing and memoization
+    const messageQueue: Array<{ height: number; timestamp: number }> = [];
+    let animationFrameId: number | null = null;
+    
+    const processMessageQueue = () => {
+      if (messageQueue.length === 0) {
+        animationFrameId = null;
+        return;
+      }
+      
+      // Get the most recent height value
+      const lastMessage = messageQueue[messageQueue.length - 1];
+      messageQueue.length = 0; // Clear the queue
+      
+      setIframeHeight(lastMessage.height);
+      animationFrameId = requestAnimationFrame(processMessageQueue);
+    };
+
     const handleMessage = (event: MessageEvent) => {
       if (event.data && event.data.type === "resize-iframe" && event.data.blockId === id) {
-        setIframeHeight(event.data.height)
+        // Add to queue with timestamp
+        messageQueue.push({ 
+          height: event.data.height,
+          timestamp: Date.now() 
+        });
+        
+        // Start processing if not already started
+        if (animationFrameId === null) {
+          animationFrameId = requestAnimationFrame(processMessageQueue);
+        }
       }
     }
 
     window.addEventListener("message", handleMessage)
-    return () => window.removeEventListener("message", handleMessage)
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    }
   }, [id])
 
   useEffect(() => {
     if (activeFile && BlockId && sourceMap) {
+      // Check cache first
+      const cacheKey = `${BlockId}:${activeFile}`;
+      if (sourceCodeCache.current[cacheKey]) {
+        const cachedData = JSON.parse(sourceCodeCache.current[cacheKey]);
+        setResolvedCodeFiles((prev) => {
+          const fileIndex = prev.findIndex((file) => file.path === activeFile);
+          if (fileIndex >= 0) {
+            const updated = [...prev];
+            updated[fileIndex] = { ...updated[fileIndex], ...cachedData };
+            return updated;
+          }
+          return [...prev, { path: activeFile, ...cachedData }];
+        });
+        return;
+      }
+
       setIsLoadingCode(true)
 
       async function loadSourceCode() {
@@ -405,6 +461,10 @@ export default function BlockPreview({
               content = "// No constants defined for this block";
             }
           }
+
+          // After finding the content, cache it
+          const cacheData = { content, language: fileLanguage };
+          sourceCodeCache.current[cacheKey] = JSON.stringify(cacheData);
 
           setResolvedCodeFiles((prev) => {
             const fileIndex = prev.findIndex((file) => file.path === nonNullActiveFile)
@@ -553,18 +613,92 @@ export default function BlockPreview({
     }
   }, [])
 
+  // Use Intersection Observer to lazy load the iframe
+  useEffect(() => {
+    if (view !== "preview") return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsIframeVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    const element = document.getElementById(id);
+    if (element) {
+      observer.observe(element);
+    }
+    
+    return () => observer.disconnect();
+  }, [id, view]);
+
+  // Optimize iframe loading by creating a memoized iframe component
+  const IframeComponent = useMemo(() => {
+    if (!isIframeVisible) return null;
+    
+    return (
+      <iframe
+        ref={iframeRef}
+        height={iframeHeight}
+        className={"overflow-hidden preview min-h-[86.5vh] transition-all w-full"}
+        id={id}
+        src={iframeSource}
+        sandbox="allow-scripts allow-same-origin"
+        loading="lazy"
+        onLoad={() => setIsLoaded(true)}
+      />
+    );
+  }, [isIframeVisible, iframeHeight, id, iframeSource, isLoaded]);
+
+  // Optimize placeholder rendering
+  const IframePlaceholder = useMemo(() => {
+    if (isIframeVisible) return null;
+    
+    return (
+      <div 
+        id={id}
+        className="min-h-[86.5vh] w-full flex items-center justify-center bg-gray-50 dark:bg-gray-900"
+      >
+        <div className="animate-pulse flex flex-col items-center">
+          <div className="h-4 w-40 bg-gray-300 dark:bg-gray-700 rounded mb-2"></div>
+          <div className="h-2 w-24 bg-gray-200 dark:bg-gray-800 rounded"></div>
+        </div>
+      </div>
+    );
+  }, [isIframeVisible, id]);
+
   if (!defaultCode && resolvedCodeFiles.length === 0 && !BlockId) {
     return <div className={cn("mt-4", className)}>{children}</div>
   }
-
-  const iframeSource = `/view/${BlockId}`
 
   return (
     <Tabs
       defaultValue="preview"
       className="mt-4 transition-colors duration-300"
       value={view}
-      onValueChange={(value) => setView(value as "preview" | "code")}
+      onValueChange={(value: string) => {
+        setView(value as "preview" | "code");
+        // Reset iframe visibility check when switching to preview
+        if (value === "preview" && !isIframeVisible) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              if (entries[0].isIntersecting) {
+                setIsIframeVisible(true);
+                observer.disconnect();
+              }
+            },
+            { threshold: 0.1 }
+          );
+          
+          const element = document.getElementById(id);
+          if (element) {
+            observer.observe(element);
+          }
+        }
+      }}
     >
       <nav className="flex flex-row justify-between md:gap-4 gap-2 items-center mb-4">
         <div className="flex items-center md:gap-4 gap-1 justify-start flex-row w-full">
@@ -631,14 +765,7 @@ export default function BlockPreview({
             overflowX: "auto",
           }}
         >
-          <iframe
-            height={iframeHeight}
-            className={"overflow-hidden preview min-h-[86.5vh] transition-all w-full"}
-            id={id}
-            src={iframeSource}
-            sandbox="allow-scripts allow-same-origin"
-            onLoad={() => setIsLoaded(true)}
-          />
+          {!isIframeVisible ? IframePlaceholder : IframeComponent}
         </TabsContent>
         <TabsContent value="code" className="rounded-xl">
           {resolvedFileTree.length > 0 ? (

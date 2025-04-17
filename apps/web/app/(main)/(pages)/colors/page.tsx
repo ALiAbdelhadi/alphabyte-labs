@@ -1,14 +1,13 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-import { colorsData } from "@/constant/colors/color"
-import { ColorFormat } from "@/types"
-
 import { ColorFormatToggle } from "@/components/color-format-toggle"
 import ColorPalettes from "@/components/color-palettes"
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
+import { colorsData } from "@/constant/colors/color"
+import { ColorFormat } from "@/types"
+import Link from "next/link"
+import { useState } from "react"
 
 const ColorsPage = () => {
   const [colorFormat, setColorFormat] = useState<ColorFormat>("hex")
