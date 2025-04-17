@@ -1,3 +1,4 @@
+
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
 import Link from "next/link"
@@ -32,7 +33,6 @@ const Home = () => {
           </div>
         </section>
       </Container>
-
     </div>
   )
 }
