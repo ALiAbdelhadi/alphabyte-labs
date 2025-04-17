@@ -78,18 +78,14 @@ export function Header() {
               <NavigationMenuList className="md:space-x-2">
                 {navItems.map((item) => (
                   <NavigationMenuItem key={item.title}>
-                    <Link href={item.href} legacyBehavior passHref>
-                      <NavigationMenuLink
-                        className={cn(
-                          "group inline-flex h-10 w-max items-center justify-center",
-                          "rounded-md bg-transparent p-2 text-sm",
-                          "transition-colors -tracking-[.01em]",
-                          "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
-                          "hover:text-[#000000] dark:hover:text-white"
-                        )}
-                      >
-                        {item.title}
-                      </NavigationMenuLink>
+                    <Link href={item.href} passHref className={cn(
+                      "group inline-flex h-10 w-max items-center justify-center",
+                      "rounded-md bg-transparent p-2 text-sm",
+                      "transition-colors -tracking-[.01em]",
+                      "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
+                      "hover:text-[#000000] dark:hover:text-white"
+                    )}>
+                      {item.title}
                     </Link>
                   </NavigationMenuItem>
                 ))}

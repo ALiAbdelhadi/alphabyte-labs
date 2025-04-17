@@ -8,7 +8,9 @@ import { Settings } from "@/config/meta"
 import { ErrorBoundary } from "@/lib/debug-wrapper"
 import { getDocument } from "@/lib/markdown"
 import { PageRoutes } from "@/lib/pageRoutes"
+import fs from "fs/promises"
 import { notFound } from "next/navigation"
+import path from "path"
 
 type DocsPageProps = {
   params: Promise<{
@@ -91,8 +93,35 @@ export async function generateMetadata(props: DocsPageProps) {
   }
 }
 
-export function generateStaticParams() {
-  return PageRoutes.map((item) => ({
-    slug: item.href.split("/").slice(1),
-  }))
+export async function generateStaticParams() {
+  const validRoutes = await Promise.all(
+    PageRoutes.map(async (route) => {
+      try {
+        const slug = route.href.split("/").slice(1).join("/")
+        const lastSegment = slug.split("/").pop() || slug
+        const contentPath = path.join(
+          process.cwd(),
+          "/contents/docs/",
+          `${slug}/${lastSegment}.mdx`
+        )
+        await fs.access(contentPath, fs.constants.F_OK)
+        return {
+          slug: route.href.split("/").slice(1),
+          valid: true
+        }
+      } catch (error) {
+        console.warn(`MDX file not found for route: ${route.href}`)
+        return {
+          slug: route.href.split("/").slice(1),
+          valid: false
+        }
+      }
+    })
+  )
+
+  return validRoutes
+    .filter(route => route.valid)
+    .map(route => ({
+      slug: route.slug
+    }))
 }

@@ -18,7 +18,6 @@ const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   reactStrictMode: true,
   productionBrowserSourceMaps: false,
-  swcMinify: true,
 }
 
 module.exports = withBundleAnalyzer(withMDX(nextConfig))
