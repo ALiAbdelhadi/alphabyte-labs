@@ -23,12 +23,8 @@ links:
     <StepItem title="Create Sonner Component">
       <ComponentSource name="sonner-demo" />
     </StepItem>
-    <StepItem title="edit layout.tsx for Toaster component">
-      in Your main <MdxBadge>layout.tsx</MdxBadge> add{" "}
-      <MdxBadge>
-        \<Toaster />
-      </MdxBadge>{" "}
-      to show the toast :
+    <StepItem title="Edit layout.tsx for Toaster component">
+      in Your main <MdxBadge>layout.tsx</MdxBadge> add{" "}<MdxBadge>\<Toaster /></MdxBadge>{" "}to show the toast :
       <Pre
         highlightLines={[8]}
       >{`import { Toaster } from "@/components/library/sonner"
@@ -51,3 +47,17 @@ export default function RootLayout({ children }) {
   <Pre>{`import { toast } from "sonner"`}</Pre>
   <Pre>{`toast("Event has been created.")`}</Pre>
 </div>
+
+## Types
+### Success
+<ComponentPreview name="sonner-demo" variant="success" />
+### Info
+<ComponentPreview name="sonner-demo" variant="info" />
+### Warning
+<ComponentPreview name="sonner-demo" variant="warning" />
+### Error
+<ComponentPreview name="sonner-demo" variant="error" />
+### Loading
+<ComponentPreview name="sonner-demo" variant="loading" />
+### Custom
+<ComponentPreview name="sonner-demo" variant="custom" />

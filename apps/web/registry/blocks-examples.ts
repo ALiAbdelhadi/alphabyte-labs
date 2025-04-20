@@ -13,7 +13,7 @@ export const blockExamples = { items: [
     "name": "carousel-1",
     "target": "@/registry/view/carousel-1/page",
     "components": [
-      "@/registry/view/carousel-1/components/Carousel-Container",
+      "@/registry/view/carousel-1/components/Carousel-maContainer",
       "@/registry/view/carousel-1/components/carousel"
     ],
     "constant": [
@@ -64,9 +64,7 @@ export const blockExamples = { items: [
       "@/registry/view/product-overview-1/components/product-info",
       "@/registry/view/product-overview-1/components/product-ip-buttons"
     ],
-    "constant": [
-      "@/registry/view/product-overview-1/constant/index"
-    ],
+    "constant": [],
     "lib": [
       "@/registry/view/product-overview-1/lib/utils.ts"
     ]

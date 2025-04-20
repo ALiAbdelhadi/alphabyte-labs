@@ -1,8 +1,8 @@
 "use client"
 
-import React from "react"
 import { CircleAlert, CircleCheck, Info, X } from "lucide-react"
 import { useTheme } from "next-themes"
+import React from "react"
 import { Toaster as Sonner } from "sonner"
 
 type ToasterProps = React.ComponentProps<typeof Sonner>
@@ -17,7 +17,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast:
-            "group toast group-[.toaster]:bg-background/70 backdrop-blur-md group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-md rounded-2xl  dark:backdrop-blur-lg group-[.toaster]:border-0",
+            "group toast group-[.toaster]:bg-background/70 backdrop-blur-md group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-md rounded-2xl dark:backdrop-blur-lg group-[.toaster]:border-0",
           title: "text-base font-medium tracking-tight",
           description:
             "group-[.toast]:text-muted-foreground text-sm font-normal leading-5",
@@ -26,12 +26,12 @@ const Toaster = ({ ...props }: ToasterProps) => {
           cancelButton:
             "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground rounded-full px-4 py-1.5 text-xs font-medium transition-colors hover:opacity-80",
           success:
-            "!bg-green-50/90 dark:!bg-green-950/30 !border-l-4 !border-l-green-500",
+            "!bg-green-50/95 dark:!bg-green-950/30",
           error:
-            "!bg-red-50/90 dark:!bg-red-950/40 !border-l-4 !border-l-red-500",
+            "!bg-red-50/95 dark:!bg-red-950/40",
           warning:
-            "!bg-amber-50/90 dark:!bg-amber-950/30 !border-l-4 !border-l-amber-500",
-          info: "!bg-blue-50/90 dark:!bg-blue-950/30 !border-l-4 !border-l-blue-500",
+            "!bg-amber-50/90 dark:!bg-amber-950/30",
+          info: "!bg-blue-50/90 dark:!bg-blue-950/30",
           loading: "group-[.toast]:text-muted-foreground",
         },
         duration: 4000,

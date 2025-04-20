@@ -15,34 +15,40 @@ export type ProductIP = "IP20" | "IP44" | "IP54" | "IP65" | "IP68";
 
 const PRODUCT_IP_OPTIONS_MAP: Record<
     ProductIP,
-    { label: string; description: string }
+    { label: string; description: string, increaseOnPricePercent: number }
 > = {
     IP20: {
         label: "IP 20",
         description: "Protected against solid objects over 12mm",
+        increaseOnPricePercent: 0
     },
     IP44: {
         label: "IP 44",
         description: "Protected against water splashes from all directions",
+        increaseOnPricePercent: 0.04
     },
     IP54: {
         label: "IP 54",
         description: "Protected against dust and water splashes",
+        increaseOnPricePercent: 0.06
     },
     IP65: {
         label: "IP 65",
         description: "Dust tight and protected against water jets",
+        increaseOnPricePercent: 0.08
     },
     IP68: {
         label: "IP 68",
         description: "Dust tight and protected against long periods of immersion",
+        increaseOnPricePercent: 0.10
     },
 };
 
 interface ProductIPSelectorProps {
     value: ProductIP;
-    onValueChange: (newValue: ProductIP) => void;
+    onValueChange: (newValue: ProductIP, newPrice?: number) => void;
     title?: string;
+    basePrice: number;
     disabled?: boolean;
 }
 
@@ -51,6 +57,7 @@ export function ProductIPSelector({
     onValueChange,
     title = "Water Resistance (IP Rating)",
     disabled = false,
+    basePrice
 }: ProductIPSelectorProps) {
     const [selectedIp, setSelectedIp] = useState<ProductIP>(value);
 
@@ -61,7 +68,10 @@ export function ProductIPSelector({
     const handleIpChange = (newIp: ProductIP) => {
         if (disabled) return;
         setSelectedIp(newIp);
-        onValueChange(newIp);
+
+        const { increaseOnPricePercent } = PRODUCT_IP_OPTIONS_MAP[newIp];
+        const additionalPrice = basePrice * increaseOnPricePercent;
+        onValueChange(newIp, additionalPrice);
     };
 
     return (

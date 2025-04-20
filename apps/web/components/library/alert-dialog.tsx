@@ -41,8 +41,8 @@ const alertDialogContentVariants = cva(
   {
     variants: {
       appearance: {
-        default: "bg-white/95 dark:bg-neutral-900/95",
-        destructive: "bg-red-50/95 dark:bg-red-950/95",
+        default: "bg-white/95 dark:bg-neutral-900",
+        destructive: "bg-red-50/95 dark:bg-red-950/90",
       },
     },
     defaultVariants: {
@@ -53,7 +53,7 @@ const alertDialogContentVariants = cva(
 
 export interface AlertDialogContentProps
   extends React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>,
-    VariantProps<typeof alertDialogContentVariants> {
+  VariantProps<typeof alertDialogContentVariants> {
   closeOnClickOutside?: boolean
 }
 

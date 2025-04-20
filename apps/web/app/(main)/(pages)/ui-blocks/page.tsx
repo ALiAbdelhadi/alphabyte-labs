@@ -1,10 +1,23 @@
+"use client"
 import BlockPreview from "@/components/block-preview"
 import BlockForGrid from "@/components/BlockForGrid"
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
+import { blockExamples } from "@/registry/blocks-examples"
+import { useTheme } from "next-themes"
 import Link from "next/link"
-
+import { useEffect, useState } from "react"
 const UiBlocksPage = () => {
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light")
+  }
+  const registryBlocks = blockExamples.items
   return (
     <div className="py-8 bg-[#f8f8f9] dark:bg-[#111111]">
       <Container>
@@ -70,46 +83,17 @@ const UiBlocksPage = () => {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              <BlockForGrid
-                title="Carousel1"
-                href="/ui-blocks/carousel-1"
-                src={"/block-mokeup/carousel/carousel-1.png"}
-              />
-              <BlockForGrid
-                title="Carousel2"
-                href="/ui-blocks/carousel-2"
-                src={"/block-mokeup/carousel/carousel-2.png"}
-              />
-              <BlockForGrid
-                title="Timeline"
-                href="/ui-blocks/timeline-1"
-                src={"/block-mokeup/timeline/timeline-1.png"}
-              />
-              <BlockForGrid
-                title="Navbar"
-                href="/ui-blocks/navbar-1"
-                src={"/block-mokeup/navbar/navbar-1.png"}
-              />
-              <BlockForGrid
-                title="New Collection"
-                href="/ui-blocks/new-collection-1"
-                src={"/block-mokeup/new-collection/new-collection.png"}
-              />
-              <BlockForGrid
-                title="About1"
-                href="/ui-blocks/about-1"
-                src={"/block-mokeup/about/about-1.png"}
-              />
-              <BlockForGrid
-                title="Service1"
-                href="/ui-blocks/service-1"
-                src={"/block-mokeup/service/service-1.png"}
-              />
-              <BlockForGrid
-                title="Product Overview"
-                href="/ui-blocks/product-overview-1"
-                src={"/block-mokeup/product-overview/product-overview-1.png"}
-              />
+              {mounted && registryBlocks.map(({ name }) => {
+                return (
+                  <BlockForGrid
+                    key={name}
+                    title={name.charAt(0).toUpperCase() + name.slice(1)}
+                    href={`/ui-blocks/${name}`}
+                    src={theme === "light" ? `/block-mokeup/${name}-light.png` : `/block-mokeup/${name}-dark.png`}
+                  />
+                )
+              }
+              )}
             </div>
           </div>
         </Container>

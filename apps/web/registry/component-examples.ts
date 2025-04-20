@@ -618,12 +618,60 @@ export const componentExamples = { items: [
     component: React.lazy(() => import("@/registry/examples/sheet-demo/sheet-top-demo"))
   },
   {
+    name: "sonner-custom-demo",
+    baseComponent: "sonner",
+    variant: "custom",
+    componentPath: "@/components/library/sonner",
+    componentDemoPath: "@/registry/examples/sonner-demo/sonner-custom-demo",
+    component: React.lazy(() => import("@/registry/examples/sonner-demo/sonner-custom-demo"))
+  },
+  {
     name: "sonner-demo",
     baseComponent: "sonner",
     variant: null,
     componentPath: "@/components/library/sonner",
     componentDemoPath: "@/registry/examples/sonner-demo/sonner-demo",
     component: React.lazy(() => import("@/registry/examples/sonner-demo/sonner-demo"))
+  },
+  {
+    name: "sonner-error-demo",
+    baseComponent: "sonner",
+    variant: "error",
+    componentPath: "@/components/library/sonner",
+    componentDemoPath: "@/registry/examples/sonner-demo/sonner-error-demo",
+    component: React.lazy(() => import("@/registry/examples/sonner-demo/sonner-error-demo"))
+  },
+  {
+    name: "sonner-loading-demo",
+    baseComponent: "sonner",
+    variant: "loading",
+    componentPath: "@/components/library/sonner",
+    componentDemoPath: "@/registry/examples/sonner-demo/sonner-loading-demo",
+    component: React.lazy(() => import("@/registry/examples/sonner-demo/sonner-loading-demo"))
+  },
+  {
+    name: "sonner-success-demo",
+    baseComponent: "sonner",
+    variant: "success",
+    componentPath: "@/components/library/sonner",
+    componentDemoPath: "@/registry/examples/sonner-demo/sonner-success-demo",
+    component: React.lazy(() => import("@/registry/examples/sonner-demo/sonner-success-demo"))
+  },
+  {
+    name: "sonner-warning-demo",
+    baseComponent: "sonner",
+    variant: "warning",
+    componentPath: "@/components/library/sonner",
+    componentDemoPath: "@/registry/examples/sonner-demo/sonner-warning-demo",
+    component: React.lazy(() => import("@/registry/examples/sonner-demo/sonner-warning-demo"))
+  },
+  {
+    name: "sonnet-info-demo",
+    baseComponent: "sonnet",
+    variant: "info",
+    componentPath: "@/components/library/sonnet",
+    componentDemoPath: "@/registry/examples/sonner-demo/sonnet-info-demo",
+    component: React.lazy(() => import("@/registry/examples/sonner-demo/sonnet-info-demo"))
   },
   {
     name: "steps-demo",

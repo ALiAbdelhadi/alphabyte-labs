@@ -18,7 +18,7 @@ export default function DialogDemo() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="default">Open Dialog</Button>
+        <Button variant="outline">Open Dialog</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

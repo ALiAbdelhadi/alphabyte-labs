@@ -7,6 +7,7 @@ import DiscountPrice from "./discounted-price";
 import NormalPrice from "./normal-price";
 import { ColorTemperatureSelector, ProductColorTemp } from "./product-color-temp-button";
 import { ProductIP, ProductIPSelector } from "./product-ip-buttons";
+import { useState, useEffect } from "react";
 
 interface ProductConfigurationPanelProps {
     productName: string;
@@ -69,6 +70,23 @@ export function ProductConfigurationPanel({
     stockStatusText = "In Stock",
     availabilityCheckCta = "Check Stores Availability",
 }: ProductConfigurationPanelProps) {
+    // State to track IP-related price changes
+    const [currentPrice, setCurrentPrice] = useState(displayPrice);
+    const [additionalIpCost, setAdditionalIpCost] = useState(0);
+
+    // Update price when displayPrice or additionalIpCost changes
+    useEffect(() => {
+        setCurrentPrice(displayPrice + additionalIpCost);
+    }, [displayPrice, additionalIpCost]);
+
+    // Handle IP change with price updates
+    const handleIpChange = (newIp: ProductIP, newAdditionalPrice?: number) => {
+        onIpChange(newIp);
+        if (newAdditionalPrice !== undefined) {
+            setAdditionalIpCost(newAdditionalPrice);
+        }
+    };
+
     return (
         <div className="w-full px-2 sm:px-4 lg:ml-0 xl:ml-8 2xl:ml-16">
             <h1 className="text-xl sm:text-2xl md:text-[24px] lg:text-3xl mt-3 lg:mt-5 mb-2 font-bold uppercase">
@@ -91,9 +109,10 @@ export function ProductConfigurationPanel({
                     {showIpSelector && (
                         <ProductIPSelector
                             value={selectedIp}
-                            onValueChange={onIpChange}
+                            onValueChange={handleIpChange}
                             disabled={isIpSelectorDisabled || isOrderNowLoading || isAddToCartLoading}
                             title="Water Resistance (IP)"
+                            basePrice={displayPrice}
                         />
                     )}
                 </div>
@@ -103,13 +122,13 @@ export function ProductConfigurationPanel({
                     <>
                         <span className="text-base sm:text-lg font-semibold">
                             <DiscountPrice
-                                price={displayPrice}
+                                price={currentPrice}
                                 discount={discountPercentage}
-                                quantity={1}
+                                quantity={quantity}
                             />
                         </span>
                         <s className="text-gray-500 italic text-sm sm:text-base">
-                            <NormalPrice price={displayPrice} quantity={1} />
+                            <NormalPrice price={currentPrice} quantity={quantity} />
                         </s>
                         <span className="text-green-500 font-semibold text-sm sm:text-base">
                             {discountPercentage * 100}% OFF
@@ -117,7 +136,7 @@ export function ProductConfigurationPanel({
                     </>
                 ) : (
                     <span className="text-base sm:text-lg font-semibold">
-                        <NormalPrice price={displayPrice} quantity={1} />
+                        <NormalPrice price={currentPrice} quantity={quantity} />
                     </span>
                 )}
                 {quantity > 1 && (
@@ -125,7 +144,7 @@ export function ProductConfigurationPanel({
                         <span>
                             Total:{" "}
                         </span>
-                        <NormalPrice price={displayPrice} quantity={quantity} />
+                        <NormalPrice price={currentPrice} quantity={quantity} />
                     </span>
                 )}
             </div>
@@ -155,7 +174,7 @@ export function ProductConfigurationPanel({
                         >
                             <Minus className="h-4 w-4 sm:w-5 sm:h-5" />
                         </Button>
-                        <span className="text-base sm:text-lg mx-3 sm:mx-4 w-6 sm:w-8 text-center">{quantity}</span>
+                        <span className="text-base sm:text-lg mx-3 sm:mx-4 w-0 sm:w-6 md:w-8 text-center">{quantity}</span>
                         <Button
                             size="icon"
                             onClick={onIncreaseQuantity}

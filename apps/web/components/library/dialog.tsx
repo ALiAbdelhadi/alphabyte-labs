@@ -16,7 +16,7 @@ const DialogTrigger = React.forwardRef<
   <DialogPrimitive.Trigger
     ref={ref}
     className={cn(
-      "focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50",
+      "focus:outline-none",
       className
     )}
     {...props}
@@ -37,7 +37,7 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-black/40 backdrop-blur-md transition",
+      "fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition",
       "data-[state=open]:animate-in data-[state=closed]:animate-out",
       "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
@@ -48,7 +48,7 @@ const DialogOverlay = React.forwardRef<
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
 const dialogContentVariants = cva(
-  "fixed z-50 grid max-w-md gap-4 border-border/90 bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0  lg:w-full w-[92%] max-w-md",
+  "fixed z-50 grid max-w-md gap-4 backdrop-blur-sm border-border/90 bg-background shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0  lg:w-full w-[92%] max-w-md",
   {
     variants: {
       position: {
@@ -59,8 +59,8 @@ const dialogContentVariants = cva(
           "left-[50%] bottom-[5%] translate-x-[-50%] translate-y-[-30%] data-[state=closed]:slide-out-to-bottom-0 data-[state=open]:slide-in-from-bottom-0 data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0  data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-bottom-[50%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[50%] ",
       },
       appearance: {
-        default: "bg-white/95 dark:bg-neutral-900/95",
-        destructive: "bg-red-50/95 dark:bg-red-950/95",
+        default: "bg-white/95 dark:bg-neutral-900",
+        destructive: "bg-red-50/95 dark:bg-red-950/90",
       },
     },
     defaultVariants: {
@@ -72,7 +72,7 @@ const dialogContentVariants = cva(
 
 export interface DialogContentProps
   extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
-    VariantProps<typeof dialogContentVariants> {
+  VariantProps<typeof dialogContentVariants> {
   closeOnClickOutside?: boolean
 }
 

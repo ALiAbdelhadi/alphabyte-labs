@@ -43,6 +43,7 @@ export default function ProductOverviewPage({
     const [selectedColorTemp, setSelectedColorTemp] = useState<ProductColorTemp>(initialColorTemp);
     const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
     const [isOrdering, setIsOrdering] = useState<boolean>(false);
+    const [currentPrice, setCurrentPrice] = useState<number>(price);
 
     const handleIncreaseQuantity = () => {
         setQuantity((prev) => prev + 1);
@@ -54,6 +55,10 @@ export default function ProductOverviewPage({
         }
     };
 
+    const handleIpChange = (newIp: ProductIP) => {
+        setSelectedIp(newIp);
+    };
+
     const handleAddToCart = () => {
         setIsAddingToCart(true);
         setTimeout(() => {
@@ -63,6 +68,7 @@ export default function ProductOverviewPage({
                 quantity,
                 selectedIp,
                 selectedColorTemp,
+                price: currentPrice,
             });
             setIsAddingToCart(false);
         }, 1000);
@@ -77,13 +83,14 @@ export default function ProductOverviewPage({
                 quantity,
                 selectedIp,
                 selectedColorTemp,
+                price: currentPrice,
             });
             setIsOrdering(false);
         }, 1000);
     };
 
     return (
-        <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8">
+        <div className="py-4 sm:py-8">
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-8">
                 <div className="w-full md:w-1/2 lg:w-4/12 mx-auto md:mx-0">
                     <ProductImages productImages={images} />
@@ -101,7 +108,7 @@ export default function ProductOverviewPage({
                         canDecreaseQuantity={quantity > 1}
                         showIpSelector={true}
                         selectedIp={selectedIp}
-                        onIpChange={(newIp) => setSelectedIp(newIp)}
+                        onIpChange={handleIpChange}
                         isIpSelectorDisabled={false}
                         showColorTempSelector={true}
                         selectedColorTemp={selectedColorTemp}
