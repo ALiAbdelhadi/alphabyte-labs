@@ -1,9 +1,8 @@
-import Link from "next/link"
-
 import BlockPreview from "@/components/block-preview"
 import BlockForGrid from "@/components/BlockForGrid"
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
+import Link from "next/link"
 
 const UiBlocksPage = () => {
   return (
@@ -105,6 +104,11 @@ const UiBlocksPage = () => {
                 title="Service1"
                 href="/ui-blocks/service-1"
                 src={"/block-mokeup/service/service-1.png"}
+              />
+              <BlockForGrid
+                title="Service1"
+                href="/ui-blocks/service-1"
+                src={"/block-mokeup/product-overview/product-overview-1.png"}
               />
             </div>
           </div>

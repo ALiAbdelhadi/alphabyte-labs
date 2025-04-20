@@ -81,7 +81,7 @@ export default function Services() {
                     {service.title}
                   </h3>
                   <p
-                    className={`text-base md:text-lg leading-5 lg:leading-[1.4] transition-all duration-500 md:max-w-xl max-w-[240px] overflow-hidden ${
+                    className={`text-base md:text-lg leading-5 font-normal lg:leading-[1.4] transition-all duration-500 md:max-w-xl max-w-xs overflow-hidden ${
                       activeService === index
                         ? "text-muted-foreground h-auto opacity-100"
                         : "h-0 opacity-0"

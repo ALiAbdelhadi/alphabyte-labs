@@ -258,12 +258,20 @@ export const componentExamples = { items: [
     component: React.lazy(() => import("@/registry/examples/button-demo/button-secondary-demo"))
   },
   {
+    name: "calendar-arabic-demo",
+    baseComponent: "calendar",
+    variant: "arabic",
+    componentPath: "@/components/library/calendar",
+    componentDemoPath: "@/registry/examples/calendar-demo/calendar-arabic-demo",
+    component: React.lazy(() => import("@/registry/examples/calendar-demo/calendar-arabic-demo"))
+  },
+  {
     name: "calendar-demo",
     baseComponent: "calendar",
     variant: null,
     componentPath: "@/components/library/calendar",
-    componentDemoPath: "@/registry/examples/calendar-demo",
-    component: React.lazy(() => import("@/registry/examples/calendar-demo"))
+    componentDemoPath: "@/registry/examples/calendar-demo/calendar-demo",
+    component: React.lazy(() => import("@/registry/examples/calendar-demo/calendar-demo"))
   },
   {
     name: "code-block-demo",
@@ -325,7 +333,7 @@ export const componentExamples = { items: [
     name: "dialog-bottom-demo",
     baseComponent: "dialog",
     variant: "bottom",
-    componentPath: "@/components/library/alert-dialog",
+    componentPath: "@/components/library/dialog",
     componentDemoPath: "@/registry/examples/dialog-demo/dialog-bottom-demo",
     component: React.lazy(() => import("@/registry/examples/dialog-demo/dialog-bottom-demo"))
   },
@@ -333,7 +341,7 @@ export const componentExamples = { items: [
     name: "dialog-demo",
     baseComponent: "dialog",
     variant: null,
-    componentPath: "@/components/library/alert-dialog",
+    componentPath: "@/components/library/dialog",
     componentDemoPath: "@/registry/examples/dialog-demo/dialog-demo",
     component: React.lazy(() => import("@/registry/examples/dialog-demo/dialog-demo"))
   },
@@ -341,7 +349,7 @@ export const componentExamples = { items: [
     name: "dialog-destructive-demo",
     baseComponent: "dialog",
     variant: "destructive",
-    componentPath: "@/components/library/alert-dialog",
+    componentPath: "@/components/library/dialog",
     componentDemoPath: "@/registry/examples/dialog-demo/dialog-destructive-demo",
     component: React.lazy(() => import("@/registry/examples/dialog-demo/dialog-destructive-demo"))
   },
@@ -349,7 +357,7 @@ export const componentExamples = { items: [
     name: "dialog-top-demo",
     baseComponent: "dialog",
     variant: "top",
-    componentPath: "@/components/library/alert-dialog",
+    componentPath: "@/components/library/dialog",
     componentDemoPath: "@/registry/examples/dialog-demo/dialog-top-demo",
     component: React.lazy(() => import("@/registry/examples/dialog-demo/dialog-top-demo"))
   },
@@ -624,14 +632,6 @@ export const componentExamples = { items: [
     componentPath: "@/components/library/steps",
     componentDemoPath: "@/registry/examples/steps-demo",
     component: React.lazy(() => import("@/registry/examples/steps-demo"))
-  },
-  {
-    name: "tabs-demo-line",
-    baseComponent: "tabs-demo-line",
-    variant: null,
-    componentPath: "@/components/library/tabs-demo-line",
-    componentDemoPath: "@/registry/examples/tabs-demo/tabs-demo-line",
-    component: React.lazy(() => import("@/registry/examples/tabs-demo/tabs-demo-line"))
   },
   {
     name: "tabs-demo",

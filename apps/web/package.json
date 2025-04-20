@@ -57,6 +57,7 @@
     "react-day-picker": "8.10.1",
     "react-dom": "^19.1.0",
     "react-icons": "^5.4.0",
+    "react-responsive-carousel": "^3.2.23",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-code-titles": "^1.2.0",
     "rehype-katex": "^7.0.1",

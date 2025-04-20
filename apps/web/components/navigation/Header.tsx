@@ -98,7 +98,7 @@ export function Header() {
             <Search />
           </div>
           <div className="hidden md:flex items-center gap-3">
-            <Button className="lg:block hidden">Get Full Access</Button>
+            <Button className="lg:block hidden rounded-full text-xs" size={"sm"}>Get Full Access</Button>
             <ChangeTheme />
           </div>
           <div className="flex items-center gap-2 md:hidden w-full">

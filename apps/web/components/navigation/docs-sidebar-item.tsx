@@ -74,7 +74,7 @@ export default function DocsSidebarItem(props: DocsSidebarItemProps) {
   return (
     <div className="flex flex-col w-full gap-1">
       <div>
-        <div className="flex items-center gap-2 text-[1rem] md:text-sm md:px-2 font-normal text-foreground opacity-80">
+        <div className="flex items-center gap-2 text-[1rem] md:text-sm md:px-2 font-normal text-foreground opacity-90">
           {finalContent}
         </div>
         <div className="mt-3">
