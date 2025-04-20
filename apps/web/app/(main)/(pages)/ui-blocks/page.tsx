@@ -106,8 +106,8 @@ const UiBlocksPage = () => {
                 src={"/block-mokeup/service/service-1.png"}
               />
               <BlockForGrid
-                title="Service1"
-                href="/ui-blocks/service-1"
+                title="Product Overview"
+                href="/ui-blocks/product-overview-1"
                 src={"/block-mokeup/product-overview/product-overview-1.png"}
               />
             </div>
