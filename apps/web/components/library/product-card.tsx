@@ -1,9 +1,8 @@
 "use client"
 
-import { useState } from "react"
-import { Truck } from "lucide-react"
-
 import { cn } from "@/lib/utils"
+import { Truck } from "lucide-react"
+import { useState } from "react"
 
 export default function ProductCard() {
   const [isDetailsClicked, setIsDetailsClicked] = useState(false)

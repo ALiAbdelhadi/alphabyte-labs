@@ -29,7 +29,7 @@ const CarouselContext = createContext<{
   onCardClick: (index: number) => void;
   currentIndex: number;
 }>({
-  onCardClick: () => {},
+  onCardClick: () => { },
   currentIndex: 0,
 });
 export const Carousel = ({
@@ -98,6 +98,7 @@ export const Carousel = ({
           >
             {items.map((item, index) => (
               <motion.div
+                data-animating
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{

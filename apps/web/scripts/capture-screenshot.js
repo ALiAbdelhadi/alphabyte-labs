@@ -59,15 +59,9 @@ async function captureScreenShots() {
     }
 
     console.log(`🔍 Found ${blocks.length} blocks to capture`)
-
-    // Modified browser launch options with additional configuration options
     const browser = await puppeteer.launch({
         headless: true,
         defaultViewport: { width: 1440, height: 900, deviceScaleFactor: 2 },
-        // Try to use system Chrome installation if available
-        // Uncomment and adjust the path below if you know your Chrome location
-        // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-        // If using system Chrome doesn't work, try these additional options
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
@@ -87,17 +81,15 @@ async function captureScreenShots() {
 
             try {
                 // Navigate to the page and wait until network is idle
-                await page.goto(blockPageUrl, { waitUntil: "networkidle0", timeout: 90000 })
+                await page.goto(blockPageUrl, { waitUntil: "networkidle0", timeout: 60000 })
 
                 for (const theme of ["light", "dark"]) {
                     const suffix = theme === "dark" ? "-dark" : "-light"
                     const screenshotPath = path.join(REGISTRY_SCREENSHOT, `${block}${suffix}.png`)
-
                     if (existsSync(screenshotPath)) {
                         console.log(`  - ${theme} theme screenshot already exists`)
                         continue
                     }
-
                     // Set theme and reload page
                     await page.evaluate(t => {
                         localStorage.setItem("theme", t)
@@ -106,18 +98,14 @@ async function captureScreenShots() {
                             window.applyTheme(t)
                         }
                     }, theme)
-
                     await page.reload({ waitUntil: "networkidle0", timeout: 30000 })
-
                     // Wait for animations to complete
-                    await new Promise(resolve => setTimeout(resolve, 1000))
-
+                    await new Promise(resolve => setTimeout(resolve, 6000))
                     // Hide Tailwind indicator
                     await page.evaluate(() => {
                         const ind = document.querySelector("[data-tailwind-indicator]")
                         if (ind) ind.remove()
                     })
-
                     console.log(`  - Capturing ${theme} theme screenshot`)
                     await page.screenshot({ path: screenshotPath })
                     console.log(`  - Saved to ${screenshotPath}`)

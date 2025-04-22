@@ -90,7 +90,7 @@ export default function ProductOverviewPage({
     };
 
     return (
-        <div className="py-4 sm:py-8">
+        <div className="py-10 md:py-16 lg:py-20 w-full h-full">
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-8">
                 <div className="w-full md:w-1/2 lg:w-4/12 mx-auto md:mx-0">
                     <ProductImages productImages={images} />

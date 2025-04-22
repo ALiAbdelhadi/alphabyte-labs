@@ -70,6 +70,18 @@ export const blockExamples = { items: [
     ]
   },
   {
+    "name": "products-carousel-1",
+    "target": "@/registry/view/products-carousel-1/page",
+    "components": [
+      "@/registry/view/products-carousel-1/components/product-card",
+      "@/registry/view/products-carousel-1/components/product-carousel"
+    ],
+    "constant": [
+      "@/registry/view/products-carousel-1/constant/index"
+    ],
+    "lib": []
+  },
+  {
     "name": "service-1",
     "target": "@/registry/view/service-1/page",
     "components": [

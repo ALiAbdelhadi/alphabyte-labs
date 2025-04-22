@@ -1,5 +1,10 @@
 "use client"
 
+import { useOutsideClick } from "@/hooks/out-side-click"
+import { cn } from "@/lib/utils"
+import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react"
+import { motion } from "framer-motion"
+import Image, { ImageProps } from "next/image"
 import {
   createContext,
   Fragment,
@@ -8,11 +13,6 @@ import {
   useRef,
   useState,
 } from "react"
-import Image, { ImageProps } from "next/image"
-import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react"
-import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
-import { useOutsideClick } from "@/hooks/out-side-click"
 
 interface CarouselProps {
   items: JSX.Element[]
@@ -92,7 +92,7 @@ export const Carousel = ({
     <CarouselContext.Provider
       value={{ onCardClick: handleCarouselClick, currentIndex }}
     >
-      <div className="relative w-full py-0 !my-12 ">
+      <div className="relative w-full py-0 !my-12">
         <div className="flex justify-end space-x-2">
           <button
             className="relative z-40 h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
@@ -120,6 +120,7 @@ export const Carousel = ({
           >
             {items.map((item, index) => (
               <motion.div
+                data-animating
                 key={index}
                 className="rounded-3xl"
                 initial={{ opacity: 0, y: 20 }}

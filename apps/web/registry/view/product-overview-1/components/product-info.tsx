@@ -139,14 +139,6 @@ export function ProductConfigurationPanel({
                         <NormalPrice price={currentPrice} quantity={quantity} />
                     </span>
                 )}
-                {quantity > 1 && (
-                    <span className="text-muted-foreground text-xs sm:text-sm w-full sm:w-auto sm:ml-2 flex">
-                        <span>
-                            Total:{" "}
-                        </span>
-                        <NormalPrice price={currentPrice} quantity={quantity} />
-                    </span>
-                )}
             </div>
             <div className="flex flex-row justify-between items-center w-full mb-3 sm:mb-4 gap-2 sm:gap-0">
                 <button

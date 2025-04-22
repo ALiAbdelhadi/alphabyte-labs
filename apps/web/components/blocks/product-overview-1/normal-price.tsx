@@ -1,5 +1,5 @@
-import { formatPrice } from "../lib/utils";
 import React from "react";
+import { formatPrice } from "./lib/utils";
 
 type ProductPrices = {
     price: number;

@@ -24,7 +24,7 @@ const BlockForGrid = ({
         <div className="flex flex-col space-y-1.5 p-6 pb-1" />
         <div className="p-6 pt-0 text-left">
           <div className="flex items-center">
-            <h4 className="text-lg font-semibold">{title}</h4>
+            <h4 className="text-base font-semibold">{title}</h4>
           </div>
         </div>
         <div>

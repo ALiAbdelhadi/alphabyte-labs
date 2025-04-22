@@ -69,6 +69,8 @@ const Timeline = ({ data }: { data: TimeLineProps[] }) => {
         <div ref={ref} className="relative">
           <div className="absolute my-4 left-4 md:left-1/2 top-0 h-full w-[3px] bg-neutral-200 md:-translate-x-1/2">
             <motion.div
+              data-animating
+              ref={ref}
               style={{
                 height: heightTransform,
                 opacity: opacityTransform,
@@ -80,6 +82,8 @@ const Timeline = ({ data }: { data: TimeLineProps[] }) => {
             const isEven = index % 2 !== 0;
             return (
               <motion.div
+                data-animating
+                ref={ref}
                 key={index}
                 initial="offscreen"
                 whileInView="onscreen"
