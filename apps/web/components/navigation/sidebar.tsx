@@ -1,3 +1,4 @@
+import { DocsRouting } from "@/settings/docs-routing"
 import { ScrollArea } from "../library/scroll-area"
 import DocsSidebar from "./docs-sidebar"
 
@@ -7,7 +8,7 @@ const sidebar = () => {
       <ScrollArea className="h-full">
         <div className="h-full overflow-auto py-6 pr-4 lg:pt-8">
           <div className="pr-4">
-            <DocsSidebar />
+            <DocsSidebar config={DocsRouting.sidebarItems} />
           </div>
         </div>
       </ScrollArea>

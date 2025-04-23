@@ -35,21 +35,18 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { CopyButton } from "./copy-button-for-block-preview"
 import { Separator } from "./library/separator"
 
-interface screenWidthProps {
-  desktop: string
-  tablet: string
-  smartphone: string
-}
 interface FileTree {
   name: string
   path?: string
   children?: FileTree[]
 }
+
 interface CodeFile {
   path: string
   content: string
   language?: string
 }
+
 interface BlockPreview {
   children?: React.ReactNode
   code?: string
@@ -59,6 +56,30 @@ interface BlockPreview {
   BlockName: string
   BlockId: string
   fileTree?: FileTree[] | string
+}
+
+function normalizePath(path: string, type: "lib" | "constant"): string {
+  let normalizedPath = path
+
+  if (type === "lib") {
+    if (normalizedPath.endsWith("/utils.ts")) {
+      normalizedPath = normalizedPath.replace("/utils.ts", "/utils")
+    } else if (normalizedPath.endsWith("/utils")) {
+      normalizedPath = normalizedPath.replace("/utils", "")
+    } else if (!normalizedPath.endsWith("/utils")) {
+      normalizedPath = `${normalizedPath}/utils`
+    }
+  } else if (type === "constant") {
+    if (normalizedPath.endsWith("/index.tsx")) {
+      normalizedPath = normalizedPath.replace("/index.tsx", "/index")
+    } else if (normalizedPath.endsWith("/index")) {
+      normalizedPath = normalizedPath.replace("/index", "")
+    } else if (!normalizedPath.endsWith("/index")) {
+      normalizedPath = `${normalizedPath}/index`
+    }
+  }
+
+  return normalizedPath
 }
 
 function Tree({
@@ -139,31 +160,17 @@ function BlockFileTree({
   const toggleSidebar = useCallback(() => {
     setSidebarIsOpen((prevState) => !prevState)
   }, [])
-  useEffect(() => {
-    if (!sidebarIsOpen) {
-      const timer = setTimeout(() => {
-        openButtonRef.current?.focus()
-      }, 350)
-      return () => clearTimeout(timer)
-    } else {
-      closeButtonRef.current?.focus()
-    }
-  }, [sidebarIsOpen])
 
   const sidebarVariants = {
     open: {
       width: 280,
       opacity: 1,
-      transition: {
-        duration: 0.3,
-      },
+      transition: { duration: 0.3 },
     },
     closed: {
       width: 0,
       opacity: 0,
-      transition: {
-        duration: 0.3,
-      },
+      transition: { duration: 0.3 },
     },
   }
 
@@ -174,7 +181,7 @@ function BlockFileTree({
           ref={openButtonRef}
           onClick={toggleSidebar}
           aria-label="Open sidebar"
-          className="relative z-20 p-2 border-r flex border-gray-700 transition-colors bg-[#252526] "
+          className="relative z-20 p-2 border-r flex border-gray-700 transition-colors bg-[#252526]"
         >
           <PanelLeftOpen strokeWidth={2.5} absoluteStrokeWidth className="w-6 h-6 text-gray-100" />
         </button>
@@ -257,6 +264,17 @@ function generateFileTreeFromBlockId(blockId: string) {
       }),
     })
   }
+  if (block.lib && block.lib.length > 0) {
+    fileTree[0].children?.push({
+      name: "lib",
+      children: block.lib.map((lib) => {
+        return {
+          name: "utils.ts",
+          path: `${lib}/utils`,
+        }
+      }),
+    })
+  }
   return fileTree
 }
 
@@ -273,7 +291,6 @@ export default function BlockPreview({
   const [active, setActive] = useState("desktop")
   const [isFullScreen, setIsFullScreen] = useState(false)
   const [previewWidth, setPreviewWidth] = useState("100%")
-  const [isLoaded, setIsLoaded] = useState(false)
   const [view, setView] = useState<"preview" | "code">("preview")
   const [activeFile, setActiveFile] = useState<string | null>(null)
   const [iframeHeight, setIframeHeight] = useState(500)
@@ -285,8 +302,8 @@ export default function BlockPreview({
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const language = className?.split("-")[1] || "typescript"
 
-  // Memoize iframeSource to prevent unnecessary recalculations
-  const iframeSource = useMemo(() => BlockId ? `/view/${BlockId}` : "", [BlockId])
+  const iframeSource = useMemo(() => (BlockId ? `/view/${BlockId}` : ""), [BlockId])
+  const sourceCodeCache = useRef<Record<string, string>>({})
 
   useEffect(() => {
     async function loadSourceMap() {
@@ -299,9 +316,6 @@ export default function BlockPreview({
     }
     loadSourceMap()
   }, [])
-
-  // Cache for source code content to prevent redundant loads
-  const sourceCodeCache = useRef<Record<string, string>>({});
 
   useEffect(() => {
     if (BlockId) {
@@ -322,64 +336,31 @@ export default function BlockPreview({
   }, [initialFileTree, generatedFileTree])
 
   useEffect(() => {
-    // Optimize message event handling with debouncing and memoization
-    const messageQueue: Array<{ height: number; timestamp: number }> = [];
-    let animationFrameId: number | null = null;
-    
-    const processMessageQueue = () => {
-      if (messageQueue.length === 0) {
-        animationFrameId = null;
-        return;
-      }
-      
-      // Get the most recent height value
-      const lastMessage = messageQueue[messageQueue.length - 1];
-      messageQueue.length = 0; // Clear the queue
-      
-      setIframeHeight(lastMessage.height);
-      animationFrameId = requestAnimationFrame(processMessageQueue);
-    };
-
     const handleMessage = (event: MessageEvent) => {
       if (event.data && event.data.type === "resize-iframe" && event.data.blockId === id) {
-        // Add to queue with timestamp
-        messageQueue.push({ 
-          height: event.data.height,
-          timestamp: Date.now() 
-        });
-        
-        // Start processing if not already started
-        if (animationFrameId === null) {
-          animationFrameId = requestAnimationFrame(processMessageQueue);
-        }
+        setIframeHeight(event.data.height)
       }
     }
 
     window.addEventListener("message", handleMessage)
-    return () => {
-      window.removeEventListener("message", handleMessage);
-      if (animationFrameId !== null) {
-        cancelAnimationFrame(animationFrameId);
-      }
-    }
+    return () => window.removeEventListener("message", handleMessage)
   }, [id])
 
   useEffect(() => {
     if (activeFile && BlockId && sourceMap) {
-      // Check cache first
-      const cacheKey = `${BlockId}:${activeFile}`;
+      const cacheKey = `${BlockId}:${activeFile}`
       if (sourceCodeCache.current[cacheKey]) {
-        const cachedData = JSON.parse(sourceCodeCache.current[cacheKey]);
+        const cachedData = JSON.parse(sourceCodeCache.current[cacheKey])
         setResolvedCodeFiles((prev) => {
-          const fileIndex = prev.findIndex((file) => file.path === activeFile);
+          const fileIndex = prev.findIndex((file) => file.path === activeFile)
           if (fileIndex >= 0) {
-            const updated = [...prev];
-            updated[fileIndex] = { ...updated[fileIndex], ...cachedData };
-            return updated;
+            const updated = [...prev]
+            updated[fileIndex] = { ...updated[fileIndex], ...cachedData }
+            return updated
           }
-          return [...prev, { path: activeFile, ...cachedData }];
-        });
-        return;
+          return [...prev, { path: activeFile, ...cachedData }]
+        })
+        return
       }
 
       setIsLoadingCode(true)
@@ -387,13 +368,12 @@ export default function BlockPreview({
       async function loadSourceCode() {
         try {
           if (!sourceMap) {
-            console.warn('Source map is not loaded yet')
+            console.warn("Source map is not loaded yet")
             setIsLoadingCode(false)
             return
           }
 
           const blockData = sourceMap[BlockId]
-
           if (!blockData) {
             console.warn(`Block data not found for ${BlockId}`)
             setIsLoadingCode(false)
@@ -404,68 +384,71 @@ export default function BlockPreview({
           let content = ""
           let fileLanguage = "tsx"
 
-          console.log("Active file:", nonNullActiveFile)
-          console.log("Block data:", blockData)
-
           if (nonNullActiveFile.includes("/components/")) {
             content = blockData.components?.[nonNullActiveFile] || "// Component code not found"
           }
-
           else if (nonNullActiveFile.includes("/constant/")) {
-
-            console.log("Constants in source map:", blockData.constant)
             if (blockData.constant) {
-              let normalizedActiveFile = nonNullActiveFile;
-
-              if (normalizedActiveFile.endsWith("/index.tsx")) {
-                normalizedActiveFile = normalizedActiveFile.replace("/index.tsx", "/index");
-              }
-              else if (normalizedActiveFile.endsWith("/index")) {
-                normalizedActiveFile = normalizedActiveFile.replace("/index", "");
-              }
-              else if (!normalizedActiveFile.endsWith("/index")) {
-                normalizedActiveFile = `${normalizedActiveFile}/index`;
-              }
-
-              console.log("Normalized active file:", normalizedActiveFile);
+              const normalizedActiveFile = normalizePath(nonNullActiveFile, "constant")
 
               if (blockData.constant[normalizedActiveFile]) {
-                content = blockData.constant[normalizedActiveFile];
+                content = blockData.constant[normalizedActiveFile]
               } else {
-                const basePathWithoutIndex = normalizedActiveFile.replace("/index", "");
+                const basePathWithoutIndex = normalizedActiveFile.replace("/index", "")
                 if (blockData.constant[basePathWithoutIndex]) {
-                  content = blockData.constant[basePathWithoutIndex];
+                  content = blockData.constant[basePathWithoutIndex]
                 } else {
-                  const constantPaths = Object.keys(blockData.constant);
-                  console.log("Available constant paths:", constantPaths);
-
+                  const constantPaths = Object.keys(blockData.constant)
                   const matchingPath = constantPaths.find(
-                    (path) => {
-                      return path === normalizedActiveFile ||
-                        path === basePathWithoutIndex ||
-                        path.includes(basePathWithoutIndex) ||
-                        basePathWithoutIndex.includes(path);
-                    }
-                  );
+                    (path) =>
+                      path === normalizedActiveFile ||
+                      path === basePathWithoutIndex ||
+                      path.includes(basePathWithoutIndex) ||
+                      basePathWithoutIndex.includes(path),
+                  )
 
                   if (matchingPath) {
-                    console.log("Found matching path:", matchingPath);
-                    content = blockData.constant[matchingPath];
+                    content = blockData.constant[matchingPath]
                   } else {
-                    content = "// Constant code not found";
+                    content = "// Constant code not found"
                   }
                 }
               }
-              fileLanguage = "tsx";
+              fileLanguage = "tsx"
             } else {
-              content = "// No constants defined for this block";
+              content = "// No constants defined for this block"
             }
           }
+          else if (nonNullActiveFile.includes("/lib/")) {
+            if (blockData.lib) {
+              const normalizedActiveFile = normalizePath(nonNullActiveFile, "lib")
+              const libPaths = Object.keys(blockData.lib)
+              if (blockData.lib[nonNullActiveFile]) {
+                content = blockData.lib[nonNullActiveFile]
+              }
+              else if (blockData.lib[normalizedActiveFile]) {
+                content = blockData.lib[normalizedActiveFile]
+              }
+              else {
+                const matchingPath = libPaths.find(
+                  (path) =>
+                    path.includes(nonNullActiveFile.split("/").pop() || "") ||
+                    nonNullActiveFile.includes(path.split("/").pop() || ""),
+                )
 
-          // After finding the content, cache it
-          const cacheData = { content, language: fileLanguage };
-          sourceCodeCache.current[cacheKey] = JSON.stringify(cacheData);
-
+                if (matchingPath) {
+                  content = blockData.lib[matchingPath]
+                } else {
+                  content = "// lib code not found - available paths: " + libPaths.join(", ")
+                }
+              }
+              fileLanguage = "ts"
+            } else {
+              content = "// No lib defined for this block"
+            }
+          }
+          const cacheData = { content, language: fileLanguage }
+          sourceCodeCache.current[cacheKey] = JSON.stringify(cacheData)
           setResolvedCodeFiles((prev) => {
             const fileIndex = prev.findIndex((file) => file.path === nonNullActiveFile)
             const updated = [...prev]
@@ -489,7 +472,6 @@ export default function BlockPreview({
   }, [activeFile, BlockId, sourceMap])
 
   const [defaultCode, setDefaultCode] = useState(code)
-
   const getActiveFileContent = useCallback(() => {
     if (isLoadingCode) {
       return "// Loading code content..."
@@ -532,7 +514,6 @@ export default function BlockPreview({
     }
     return defaultCode
   }, [defaultCode, resolvedCodeFiles, activeFile, isLoadingCode])
-
   useEffect(() => {
     if (!activeFile && resolvedFileTree && Array.isArray(resolvedFileTree)) {
       const findFirstFile = (tree: FileTree[]): string | null => {
@@ -555,7 +536,8 @@ export default function BlockPreview({
     }
   }, [resolvedFileTree, activeFile])
 
-  const screensWidth: screenWidthProps = {
+
+  const screensWidth = {
     desktop: "100%",
     tablet: "768px",
     smartphone: "480px",
@@ -567,19 +549,20 @@ export default function BlockPreview({
       if (active === "desktop") {
         setPreviewWidth("100%")
       } else {
-        const targetWidth = Number.parseInt(screensWidth[active as keyof screenWidthProps])
-        setPreviewWidth(windowWidth < targetWidth ? "100%" : screensWidth[active as keyof screenWidthProps])
+        const targetWidth = Number.parseInt(screensWidth[active as keyof typeof screensWidth])
+        setPreviewWidth(windowWidth < targetWidth ? "100%" : screensWidth[active as keyof typeof screensWidth])
       }
     }
 
     updatePreviewWidth()
     window.addEventListener("resize", updatePreviewWidth)
     return () => window.removeEventListener("resize", updatePreviewWidth)
-  }, [active, screensWidth])
+  }, [active])
 
   const toggleFullScreen = useCallback(() => {
     const element = document.getElementById(id)
     if (!element) return
+
     if (!isFullScreen) {
       if (element.requestFullscreen) {
         element
@@ -603,72 +586,67 @@ export default function BlockPreview({
     }
   }, [id, isFullScreen])
 
+  // Handle fullscreen change
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullScreen(!!document.fullscreenElement)
     }
     document.addEventListener("fullscreenchange", handleFullscreenChange)
-    return () => {
-      document.removeEventListener("fullscreenchange", handleFullscreenChange)
-    }
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange)
   }, [])
 
-  // Use Intersection Observer to lazy load the iframe
+  // Lazy load iframe
   useEffect(() => {
-    if (view !== "preview") return;
-    
+    if (view !== "preview") return
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          setIsIframeVisible(true);
-          observer.disconnect();
+          setIsIframeVisible(true)
+          observer.disconnect()
         }
       },
-      { threshold: 0.1 }
-    );
-    
-    const element = document.getElementById(id);
-    if (element) {
-      observer.observe(element);
-    }
-    
-    return () => observer.disconnect();
-  }, [id, view]);
+      { threshold: 0.1 },
+    )
 
-  // Optimize iframe loading by creating a memoized iframe component
+    const element = document.getElementById(id)
+    if (element) {
+      observer.observe(element)
+    }
+
+    return () => observer.disconnect()
+  }, [id, view])
+
+  // Iframe component
   const IframeComponent = useMemo(() => {
-    if (!isIframeVisible) return null;
-    
+    if (!isIframeVisible) return null
+
     return (
       <iframe
         ref={iframeRef}
         height={iframeHeight}
-        className={"overflow-hidden preview min-h-[86.5vh] transition-all w-full"}
+        className="overflow-hidden preview min-h-[86.5vh] transition-all w-full"
         id={id}
         src={iframeSource}
         sandbox="allow-scripts allow-same-origin"
         loading="lazy"
-        onLoad={() => setIsLoaded(true)}
       />
-    );
-  }, [isIframeVisible, iframeHeight, id, iframeSource, isLoaded]);
+    )
+  }, [isIframeVisible, iframeHeight, id, iframeSource])
 
-  // Optimize placeholder rendering
+  // Iframe placeholder
   const IframePlaceholder = useMemo(() => {
-    if (isIframeVisible) return null;
-    
+    if (isIframeVisible) return null
+
     return (
-      <div 
-        id={id}
-        className="min-h-[86.5vh] w-full flex items-center justify-center bg-gray-50 dark:bg-gray-900"
-      >
+      <div id={id} className="min-h-[86.5vh] w-full flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="animate-pulse flex flex-col items-center">
           <div className="h-4 w-40 bg-gray-300 dark:bg-gray-700 rounded mb-2"></div>
           <div className="h-2 w-24 bg-gray-200 dark:bg-gray-800 rounded"></div>
         </div>
       </div>
-    );
-  }, [isIframeVisible, id]);
+    )
+  }, [isIframeVisible, id])
 
   if (!defaultCode && resolvedCodeFiles.length === 0 && !BlockId) {
     return <div className={cn("mt-4", className)}>{children}</div>
@@ -680,22 +658,21 @@ export default function BlockPreview({
       className="mt-4 transition-colors duration-300"
       value={view}
       onValueChange={(value: string) => {
-        setView(value as "preview" | "code");
-        // Reset iframe visibility check when switching to preview
+        setView(value as "preview" | "code")
         if (value === "preview" && !isIframeVisible) {
           const observer = new IntersectionObserver(
             (entries) => {
               if (entries[0].isIntersecting) {
-                setIsIframeVisible(true);
-                observer.disconnect();
+                setIsIframeVisible(true)
+                observer.disconnect()
               }
             },
-            { threshold: 0.1 }
-          );
-          
-          const element = document.getElementById(id);
+            { threshold: 0.1 },
+          )
+
+          const element = document.getElementById(id)
           if (element) {
-            observer.observe(element);
+            observer.observe(element)
           }
         }
       }}
@@ -735,16 +712,11 @@ export default function BlockPreview({
                 {device.icon}
               </button>
             ))}
-            <Separator
-              orientation="vertical"
-              className="shrink-0 bg-border w-[1.5px] h-5"
-            />
+            <Separator orientation="vertical" className="shrink-0 bg-border w-[1.5px] h-5" />
             <button
               className="!ml-[7px]"
               onClick={toggleFullScreen}
-              aria-label={
-                isFullScreen ? "Exit full screen" : "Enter full screen"
-              }
+              aria-label={isFullScreen ? "Exit full screen" : "Enter full screen"}
             >
               <Fullscreen className="w-4 h-4" />
             </button>

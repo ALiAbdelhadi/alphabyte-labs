@@ -7,7 +7,6 @@ interface LogoProps {
   className?: string
   showLogoText?: boolean
   showBeta?: boolean
-  size?: "sm" | "md" | "lg"
   href?: string
 }
 
@@ -15,14 +14,8 @@ const Logo = ({
   className,
   showLogoText = true,
   showBeta = true,
-  size = "md",
   href = "/",
 }: LogoProps) => {
-  const sizeClasses = {
-    sm: "text-base lg:text-lg",
-    md: "text-lg lg:text-xl",
-    lg: "text-xl lg:text-2xl",
-  }
 
   return (
     <Link href={href} className="group relative flex items-center">
@@ -31,8 +24,7 @@ const Logo = ({
           <div className="flex items-center justify-center space-x-1">
             <span
               className={cn(
-                "font-bold tracking-tight",
-                sizeClasses[size],
+                "font-bold tracking-tight ",
                 className
               )}
             >

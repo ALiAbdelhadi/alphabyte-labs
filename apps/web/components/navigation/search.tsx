@@ -13,7 +13,6 @@ import { DocsRouting } from "@/settings/docs-routing"
 import { SearchIcon } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
 import { LuFileText } from "react-icons/lu"
-
 import Anchor from "./anchor"
 
 interface Document {
@@ -127,23 +126,17 @@ export default function Search() {
     <div className="relative md:w-full max-w-xl">
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <div>
-            <span className="lg:hidden flex items-center cursor-pointer">
-              <SearchIcon className="h-5 w-5 text-gray-950 dark:text-gray-100" />
+          <button className="group hidden lg:flex w-full items-center gap-2 rounded-lg hover:bg-gray-200 dark:hover:bg-neutral-950 bg-[rgba(250,250,252,0.3)] dark:bg-background/60 backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] px-1.5 py-[7px] text-left text-sm transition-colors border border-input">
+            <span className="flex-1 hidden xl:flex text-muted-foreground text-sm ml-2 group-hover:text-foreground ">
+              Search documentation...
             </span>
-            <button className="group hidden lg:flex w-full items-center gap-2 rounded-lg hover:bg-gray-200 dark:hover:bg-neutral-950 bg-[rgba(250,250,252,0.3)] dark:bg-background/60 backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] px-1.5 py-[7px] text-left text-sm transition-colors">
-              <SearchIcon className="h-5 w-5 text-gray-950 dark:text-gray-100 hidden lg:flex" />
-              <span className="flex-1 hidden xl:flex text-gray-600 dark:text-gray-300">
-                Search documentation...
-              </span>
-              <span className="flex-1 hidden lg:flex xl:hidden text-gray-600 dark:text-gray-300">
-                Search docs...
-              </span>
-              <kbd className="hidden rounded bg-gray-200 p-1 text-xs text-gray-500 dark:text-gray-300 dark:bg-neutral-950 sm:inline-block font-semibold">
-                {platform === "mac" ? "⌘ K" : "Ctrl K"}
-              </kbd>
-            </button>
-          </div>
+            <span className="flex-1 hidden lg:flex xl:hidden text-muted-foreground">
+              Search docs...
+            </span>
+            <kbd className="hidden rounded-[4px] bg-muted p-0.5 text-xs text-gray-500 dark:text-gray-300 dark:bg-neutral-950 sm:inline-block font-semibold ">
+              {platform === "mac" ? "⌘ K" : "Ctrl K"}
+            </kbd>
+          </button>
         </DialogTrigger>
         <DialogContent className="max-w-2xl overflow-hidden dark:bg-neutral-900 rounded-lg top-[40%] lg:top-[50%] !p-2">
           <DialogTitle className="px-4 py-2 text-lg font-semibold sr-only">
@@ -184,34 +177,34 @@ export default function Search() {
                 <div className="flex flex-col gap-1">
                   {searchedInput.length >= 3
                     ? filteredResults.map((item) => {
-                        if ("href" in item) {
-                          return (
-                            <DialogClose key={item.href} asChild>
-                              <Anchor
-                                className="flex flex-col gap-1 rounded-md p-3 transition-colors hover:bg-gray-100 dark:hover:bg-neutral-800"
-                                href={`/docs${item.href}`}
-                              >
-                                <div className="flex items-center gap-2">
-                                  <LuFileText className="h-4 w-4" />
-                                  <span className="font-medium">
-                                    {item.title}
-                                  </span>
-                                </div>
-                                {"snippet" in item && item.snippet && (
-                                  <p
-                                    className="text-sm text-gray-500"
-                                    dangerouslySetInnerHTML={{
-                                      __html: item.snippet,
-                                    }}
-                                  />
-                                )}
-                              </Anchor>
-                            </DialogClose>
-                          )
-                        }
-                        return null
-                      })
-                    : renderDocuments(DocsRouting)}
+                      if ("href" in item) {
+                        return (
+                          <DialogClose key={item.href} asChild>
+                            <Anchor
+                              className="flex flex-col gap-1 rounded-md p-3 transition-colors hover:bg-gray-100 dark:hover:bg-neutral-800"
+                              href={`/docs${item.href}`}
+                            >
+                              <div className="flex items-center gap-2">
+                                <LuFileText className="h-4 w-4" />
+                                <span className="font-medium">
+                                  {item.title}
+                                </span>
+                              </div>
+                              {"snippet" in item && item.snippet && (
+                                <p
+                                  className="text-sm text-gray-500"
+                                  dangerouslySetInnerHTML={{
+                                    __html: item.snippet,
+                                  }}
+                                />
+                              )}
+                            </Anchor>
+                          </DialogClose>
+                        )
+                      }
+                      return null
+                    })
+                    : renderDocuments(DocsRouting.sidebarItems)}
                 </div>
               )}
             </div>

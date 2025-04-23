@@ -1,11 +1,9 @@
 "use client"
 
+import { cn } from "@/lib/utils"
 import { languageIcons } from "@/settings/LanguageIcon"
 import { Check, Clipboard, FileCode } from "lucide-react"
 import Prism from "prismjs"
-
-import { cn } from "@/lib/utils"
-
 import "prismjs/components/prism-css"
 import "prismjs/components/prism-javascript"
 import "prismjs/components/prism-jsx"
@@ -29,7 +27,7 @@ interface PreProps {
 }
 
 const CopyButton = ({ content }: { content: string }) => {
-  const [copied, setCopied] = useState(false)
+  const [isCopied, setCopied] = useState(false)
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(content)
@@ -43,14 +41,24 @@ const CopyButton = ({ content }: { content: string }) => {
   return (
     <button
       onClick={copyToClipboard}
-      className="text-gray-400 hover:text-white transition-colors p-1 rounded-md hover:bg-gray-600/50"
+      className="text-gray-200 hover:text-white text-sm"
       aria-label="Copy code"
     >
-      {copied ? (
-        <Check className="w-[18px] h-[18px] text-green-500" />
-      ) : (
-        <Clipboard className="w-[18px] h-[18px] text-gray-100" />
-      )}
+      <span className={cn("transition-all", isCopied && "mr-2.5")}>
+        Cop
+        <span className="relative">
+          <span
+            className={`inline-block transition-opacity duration-300 ${isCopied ? "opacity-0" : "opacity-100"}`}
+          >
+            y
+          </span>
+          <span
+            className={`absolute left-0 transition-all duration-300 ${isCopied ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"}`}
+          >
+            ied{" "}
+          </span>
+        </span>
+      </span>{" "}
     </button>
   )
 }

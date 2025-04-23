@@ -61,7 +61,7 @@ export default function DocsSidebarItem(props: DocsSidebarItemProps) {
     return (
       <div
         className={cn(
-          "flex flex-col text-[1rem] md:text-sm transition-all text-foreground font-medium h-8 justify-center hover:md:bg-gray-100 dark:hover:bg-muted-foreground/10 w-full rounded-lg",
+          "flex flex-col text-[1rem] md:text-sm transition-all text-foreground font-medium h-8 justify-center hover:bg-accent/80  w-full rounded-lg",
           isActive
             ? "!text-primary bg-accent"
             : "text-foreground hover:text-primary"
@@ -74,7 +74,7 @@ export default function DocsSidebarItem(props: DocsSidebarItemProps) {
   return (
     <div className="flex flex-col w-full gap-1">
       <div>
-        <div className="flex items-center gap-2 text-[1rem] md:text-sm md:px-2 font-normal text-foreground opacity-90">
+        <div className="flex items-center gap-2 text-[1rem] md:text-sm md:px-2 text-foreground">
           {finalContent}
         </div>
         <div className="mt-3">

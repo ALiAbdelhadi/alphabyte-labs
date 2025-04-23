@@ -1,9 +1,17 @@
-import { SidebarItem } from "@/types"
-
+import { MainNavItem, SidebarItem } from "@/types"
 export interface DocsConfig {
   sidebarItems: SidebarItem[]
+  mainNav: MainNavItem[]
 }
 export const DocsRouting: DocsConfig = {
+  mainNav: [
+    { title: "Docs", href: "/docs/introduction" },
+    { title: "Components", href: "/docs/components/accordion" },
+    { title: "Blocks", href: "/ui-blocks" },
+    { title: "Themes", href: "/themes" },
+    { title: "Colors", href: "/colors" },
+    { title: "Community", href: "/community" },
+  ],
   sidebarItems: [
     {
       title: "Getting Started",

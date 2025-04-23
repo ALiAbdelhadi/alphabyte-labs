@@ -14,9 +14,6 @@ const UiBlocksPage = () => {
     setMounted(true)
   }, [])
 
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light")
-  }
   const registryBlocks = blockExamples.items
   return (
     <div className="py-8 bg-[#f8f8f9] dark:bg-[#111111]">
@@ -27,8 +24,8 @@ const UiBlocksPage = () => {
               Building Blocks for the Web
             </h1>
             <p className="text-base md:text-lg lg:text-xl font-normal max-w-2xl text-foreground opacity-80">
-              Clean, modern building blocks. Copy and paste into your apps.
-              Works with all React frameworks. Open Source. Free forever.
+              Clean, modern blocks. Copy and paste into your apps.
+              Works with all React frameworks. Get your block exactly like your tech stack
             </p>
           </div>
           <div className="space-x-2">

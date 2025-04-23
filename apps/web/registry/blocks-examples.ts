@@ -34,6 +34,13 @@ export const blockExamples = { items: [
     "lib": []
   },
   {
+    "name": "dashbaord-1",
+    "target": "@/registry/view/dashbaord-1/page",
+    "components": [],
+    "constant": [],
+    "lib": []
+  },
+  {
     "name": "navbar-1",
     "target": "@/registry/view/navbar-1/page",
     "components": [
@@ -79,7 +86,9 @@ export const blockExamples = { items: [
     "constant": [
       "@/registry/view/products-carousel-1/constant/index"
     ],
-    "lib": []
+    "lib": [
+      "@/registry/view/products-carousel-1/lib/utils.ts"
+    ]
   },
   {
     "name": "service-1",
