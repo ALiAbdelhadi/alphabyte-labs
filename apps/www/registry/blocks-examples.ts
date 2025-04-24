@@ -94,7 +94,8 @@ export const blockExamples = { items: [
     "name": "products-list-1",
     "target": "@/registry/view/products-list-1/page",
     "components": [
-      "@/registry/view/products-list-1/components/product-list"
+      "@/registry/view/products-list-1/components/product-list",
+      "@/registry/view/products-list-1/components/sidebar"
     ],
     "constant": [
       "@/registry/view/products-list-1/constant/index"

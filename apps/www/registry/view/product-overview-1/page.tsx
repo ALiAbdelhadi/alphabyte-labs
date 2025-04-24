@@ -28,9 +28,9 @@ export default function ProductOverviewPage({
     price = 99.99,
     discountPercentage = 0.10,
     images = [
-        "/JY-BO-001-650MM-8W (1).png",
-        "/JY-BO-001-650MM-8W (1).png",
-        "/JY-BO-001-650MM-8W (1).png",
+        "/components/product-card-1.png",
+        "/components/product-card-1.png",
+        "/components/product-card-1.png",
     ],
     initialIp = "IP44",
     initialColorTemp = "warm",
