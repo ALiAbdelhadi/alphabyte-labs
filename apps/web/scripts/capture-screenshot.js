@@ -3,7 +3,7 @@ import fs from "fs/promises"
 import path from "path"
 import puppeteer from "puppeteer"
 
-const REGISTRY_SCREENSHOT = path.join(process.cwd(), "apps/www/public/block-mokeup")
+const REGISTRY_SCREENSHOT = path.join(process.cwd(), "apps/web/public/block-mokeup")
 
 // Function to get blocks list from blocks-examples.ts
 async function getBlocksFromExamples() {
@@ -13,7 +13,7 @@ async function getBlocksFromExamples() {
         let foundPath = "";
         
         // Path to blocks-examples.ts
-        const filePath = path.join(process.cwd(), "apps/www/registry/blocks-examples.ts")
+        const filePath = path.join(process.cwd(), "apps/web/registry/blocks-examples.ts")
 
         // Check if file exists and read it
         if (existsSync(filePath)) {

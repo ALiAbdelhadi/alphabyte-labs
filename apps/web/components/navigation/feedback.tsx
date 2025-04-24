@@ -13,7 +13,7 @@ export default function RightSideBar({ slug, title }: SideBarEdit) {
   const segments = slug.split("/")
   const lastSegment = segments[segments.length - 1]
   const feedbackUrl = `${GitHubLink.href}/issues/new?title=Feedback for "${title}"&labels=feedback`
-  const editUrl = `${GitHubLink.href}/edit/main/apps/www/contents/docs/${slug}/${lastSegment}.mdx`
+  const editUrl = `${GitHubLink.href}/edit/main/apps/web/contents/docs/${slug}/${lastSegment}.mdx`
 
   return (
     <div className="flex flex-col gap-3 pl-2">
