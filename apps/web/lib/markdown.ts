@@ -57,7 +57,12 @@ function computeDocumentPath(slug: string) {
   const lastSegment = segments[segments.length - 1]
   return Settings.gitload
     ? `${GitHubLink.href}/raw/main/contents/docs/${slug}/${lastSegment}.mdx`
-    : path.join(process.cwd(), "/contents/docs/", `${slug}/${lastSegment}.mdx`)
+    : path.join(
+      process.cwd(),
+      "contents/docs",
+      slug,
+      `${lastSegment}.mdx`
+    )
 }
 
 const getDocumentPath = (() => {
@@ -136,8 +141,9 @@ export async function getTableOfContents(
   } else {
     const contentPath = path.join(
       process.cwd(),
-      "/contents/docs/",
-      `${slug}/${lastSegment}.mdx`
+      "contents/docs",
+      slug,
+      `${lastSegment}.mdx`
     )
     try {
       try {
@@ -184,7 +190,7 @@ const pathIndexMap = new Map(
 )
 
 export function getPreviousNext(path: string) {
-  const index = pathIndexMap.get(`/${path}`)
+  const index = pathIndexMap.get(path)
 
   if (index === undefined || index === -1) {
     return { prev: null, next: null }
@@ -223,8 +229,9 @@ function getBlocksContentPath(slug: string) {
 
   return path.join(
     process.cwd(),
-    "/contents/blocks/",
-    `${slug}/${lastSegment}.mdx`
+    "contents/blocks",
+    slug,
+    `${lastSegment}.mdx`
   )
 }
 

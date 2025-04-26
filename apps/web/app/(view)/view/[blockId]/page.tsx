@@ -1,3 +1,4 @@
+import Container from "@/components/Container";
 import LoadingIcon from "@/components/icons/loading-icon";
 import { blockExamples } from "@/registry/blocks-examples";
 import { notFound } from 'next/navigation';
@@ -25,7 +26,7 @@ export default function BlockPage({ params }: { params: { blockId: string } }) {
     }
     return (
         <Suspense fallback={
-            <div className="flex w-full min-h-[350px] items-center justify-center text-sm text-muted-foreground gap-2">
+            <div className="flex w-full h-screen items-center justify-center text-sm text-muted-foreground gap-2">
                 <LoadingIcon size={14} />
                 Loading block content...
             </div>

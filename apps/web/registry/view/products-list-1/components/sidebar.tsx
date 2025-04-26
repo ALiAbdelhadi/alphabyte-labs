@@ -74,7 +74,7 @@ export function Sidebar() {
                 <button
                     onClick={toggleSidebar}
                     aria-label="Open sidebar"
-                    className="relative z-20 p-2 border-r border-border bg-background hover:bg-accent transition-colors flex items-center justify-center"
+                    className="relative top-2 left-0 z-20 p-2 border-r border-border bg-background hover:bg-accent transition-colors flex items-center justify-center"
                 >
                     <PanelLeftOpen className="w-5 h-5 text-foreground" />
                 </button>
@@ -96,7 +96,7 @@ export function Sidebar() {
                         </button>
                     )}
                 </div>
-                <nav className="flex-1 overflow-y-auto">
+                <nav className="flex-1 overflow-y-auto hide-scrollbar">
                     <SidebarSection title="">
                         <SidebarItem
                             icon={<Star size={18} />}

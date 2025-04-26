@@ -1,10 +1,8 @@
 "use client"
 
-import Container from "@/components/Container"
-import LoadingIcon from "@/components/icons/loading-icon"
 import { blockExamples } from "@/registry/blocks-examples"
 import dynamic from "next/dynamic"
-import React, { Suspense } from "react"
+import React from "react"
 
 const BlockComponentMap: Record<string, React.ComponentType> = {}
 
@@ -18,14 +16,6 @@ blockExamples.items.forEach(block => {
             const Component = mod.default
             return await Promise.resolve(Component)
         },
-        {
-            loading: () =>
-                <div className="flex w-full min-h-[350px] items-center justify-center text-sm text-muted-foreground gap-2">
-                    <LoadingIcon size={14} />
-                    Loading {name} component...
-                </div>,
-            ssr: true
-        }
     )
 })
 
@@ -46,15 +36,6 @@ export function BlockClientPreview({ target }: BlockClientPreviewProps) {
     }
 
     return (
-        <Container>
-            <Suspense fallback={
-                <div className="flex w-full min-h-[350px] items-center justify-center text-sm text-muted-foreground gap-2">
-                    <LoadingIcon size={14} />
-                    Loading block content...
-                </div>
-            }>
-                <Component />
-            </Suspense>
-        </Container>
+        <Component />
     )
 }

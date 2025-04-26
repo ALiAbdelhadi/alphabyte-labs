@@ -10,6 +10,15 @@ export const blockExamples = { items: [
     "lib": []
   },
   {
+    "name": "banner-1",
+    "target": "@/registry/view/banner-1/page",
+    "components": [
+      "@/registry/view/banner-1/components/banner"
+    ],
+    "constant": [],
+    "lib": []
+  },
+  {
     "name": "carousel-1",
     "target": "@/registry/view/carousel-1/page",
     "components": [
@@ -37,6 +46,24 @@ export const blockExamples = { items: [
     "name": "dashbaord-1",
     "target": "@/registry/view/dashbaord-1/page",
     "components": [],
+    "constant": [],
+    "lib": []
+  },
+  {
+    "name": "login-1",
+    "target": "@/registry/view/login-1/page",
+    "components": [
+      "@/registry/view/login-1/components/login-form"
+    ],
+    "constant": [],
+    "lib": []
+  },
+  {
+    "name": "login-2",
+    "target": "@/registry/view/login-2/page",
+    "components": [
+      "@/registry/view/login-2/components/login-form"
+    ],
     "constant": [],
     "lib": []
   },
@@ -111,6 +138,15 @@ export const blockExamples = { items: [
     "constant": [
       "@/registry/view/service-1/constant/index"
     ],
+    "lib": []
+  },
+  {
+    "name": "signup-1",
+    "target": "@/registry/view/signup-1/page",
+    "components": [
+      "@/registry/view/signup-1/components/signup-form"
+    ],
+    "constant": [],
     "lib": []
   },
   {

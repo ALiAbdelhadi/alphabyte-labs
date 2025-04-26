@@ -79,10 +79,9 @@ export async function generateMetadata(props: DocsPageProps) {
   const { slug = [] } = DocsParams
   const pathName = slug.join("/")
   const res = await getDocument(pathName)
-  if (!res) {
-    notFound()
-  }
+  if (!res) notFound()
   const { frontmatter, lastUpdated } = res
+
   return {
     title: `${frontmatter.title} - ${Settings.title}`,
     description: frontmatter.description,
@@ -101,8 +100,9 @@ export async function generateStaticParams() {
         const lastSegment = slug.split("/").pop() || slug
         const contentPath = path.join(
           process.cwd(),
-          "/contents/docs/",
-          `${slug}/${lastSegment}.mdx`
+          "contents/docs",
+          slug,
+          `${lastSegment}.mdx`
         )
         await fs.access(contentPath, fs.constants.F_OK)
         return {

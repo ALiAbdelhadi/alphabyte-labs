@@ -1,24 +1,24 @@
 "use client"
-
-import { useEffect, useState } from "react"
-import { ArrowDownToLine, Moon, Paintbrush, Sun } from "lucide-react"
-
-import { generateDarkTheme, generateTheme } from "@/lib/color-generation-utils"
-import {
-  Tabs,
-  TabsContainer,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
+import { Note } from "@/components/library/note"
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
 import { Input } from "@/components/library/input"
 import { Label } from "@/components/library/label"
 import { Separator } from "@/components/library/separator"
 import Pre from "@/components/pre"
+import {
+  Tabs,
+  TabsContainer,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
+import { generateDarkTheme, generateTheme } from "@/lib/color-generation-utils"
+import { ArrowDownToLine, Moon, Paintbrush, Sun } from "lucide-react"
+import { useEffect, useState } from "react"
 
 export default function ThemeGenerator() {
   const [primaryColor, setPrimaryColor] = useState("#0066CC")
+  const [defaultRadius, setDefaultRadius] = useState("0.3")
   const [lightTheme, setLightTheme] = useState<Record<string, string>>({})
   const [darkTheme, setDarkTheme] = useState<Record<string, string>>({})
   const [previewMode, setPreviewMode] = useState<"light" | "dark">("light")
@@ -73,6 +73,14 @@ export default function ThemeGenerator() {
     { name: "Green", value: "#34C759" },
     { name: "Teal", value: "#5AC8FA" },
   ]
+  const roundedBorder = [
+    { value: "0" },
+    { value: "0.3" },
+    { value: "0.5" },
+    { value: "0.7" },
+    { value: "1.0" },
+    { value: "full" },
+  ]
   const cssContent = `${formatCssVariables(lightTheme)}\n${formatCssVariables(darkTheme, true)}`
 
   return (
@@ -81,7 +89,7 @@ export default function ThemeGenerator() {
         <section className="my-14 md:my-16 space-y-3">
           <div className="space-y-2">
             <h1 className="text-2xl lg:text-4xl md:text-3xl font-bold">
-              Custom Themes: Design Your Vision, Effortlessly.
+              Design Your Vision, Effortlessly.
             </h1>
             <p className="text-base md:text-lg lg:text-xl font-normal max-w-2xl text-foreground opacity-80">
               Build beautiful, consistent color themes for your applications
@@ -119,21 +127,19 @@ export default function ThemeGenerator() {
                   className="shrink-0 bg-border w-[1.5px] h-9 md:block hidden rounded-full"
                 />
                 <div className="flex gap-2 flex-wrap">
-                  <Button size={"sm"} variant={"outline"}>
-                    0
-                  </Button>
-                  <Button size={"sm"} variant={"outline"}>
-                    0.3
-                  </Button>
-                  <Button size={"sm"} variant={"outline"}>
-                    0.5
-                  </Button>
-                  <Button size={"sm"} variant={"outline"}>
-                    0.7
-                  </Button>
-                  <Button size={"sm"} variant={"outline"}>
-                    1.0
-                  </Button>
+                  {
+                    roundedBorder.map((rounded, index) => (
+                      <Button
+                        key={index}
+                        variant={
+                          defaultRadius === rounded.value ? "default" : "outline"
+                        }
+                        onClick={() => setDefaultRadius(rounded.value)}
+                      >
+                        {rounded.value}
+                      </Button>
+                    ))
+                  }
                 </div>
               </div>
               <Button
@@ -173,15 +179,6 @@ export default function ThemeGenerator() {
                     className="w-12 p-1 h-12 rounded-lg cursor-pointer"
                   />
                 </div>
-              </div>
-              <div className="flex items-end">
-                <Button
-                  onClick={generateThemes}
-                  className="w-full h-12 gap-2 rounded-lg text-base"
-                >
-                  <Paintbrush className="h-4 w-4" />
-                  Generate Theme
-                </Button>
               </div>
             </div>
           </div>
@@ -256,7 +253,7 @@ export default function ThemeGenerator() {
                 {cssContent}
               </Pre>
             </div>
-            <div className="p-4 bg-primary/10 rounded-xl border border-primary/20">
+            <Note variant="normal" noIcon>
               <div className="flex gap-3">
                 <div>
                   <ArrowDownToLine className="h-5 w-5 text-primary mt-0.5" />
@@ -273,7 +270,7 @@ export default function ThemeGenerator() {
                   </p>
                 </div>
               </div>
-            </div>
+            </Note>
           </div>
         </div>
       </Container>

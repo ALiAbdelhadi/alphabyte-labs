@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import { cn } from "@/lib/utils"
 import { AnimatePresence, motion } from "framer-motion"
 import {
   AlertTriangleIcon,
@@ -9,15 +9,15 @@ import {
   X,
   XCircleIcon,
 } from "lucide-react"
+import React, { useEffect, useRef, useState } from "react"
 
-import { cn } from "@/lib/utils"
-
-type NoteVariant = "info" | "warning" | "success" | "error"
+type NoteVariant = "info" | "warning" | "success" | "error" | "normal"
 
 interface NoteProps {
   variant?: NoteVariant
   className?: string
   closable?: boolean
+  noIcon?: boolean
   title?: string
   children: React.ReactNode
   dismissible?: boolean
@@ -25,7 +25,13 @@ interface NoteProps {
   actionLabel?: string
   onAction?: () => void
 }
-const variantConfig = {
+
+const variantConfig: Record<NoteVariant, {
+  bg: string
+  border: string
+  icon: string
+  shadowColor: string
+}> = {
   info: {
     bg: "bg-blue-50/90 dark:bg-blue-900/30",
     border: "border-blue-500",
@@ -50,27 +56,41 @@ const variantConfig = {
     icon: "text-red-500",
     shadowColor: "shadow-red-500/10",
   },
+  normal: {
+    bg: "bg-gray-50/90 dark:bg-gray-900/30",
+    border: "border-gray-500",
+    icon: "text-gray-500",
+    shadowColor: "shadow-gray-500/10",
+  }
 }
 
-const Note = ({
+// خريطة ألوان الأزرار لضمان تحليل Tailwind في وقت البناء
+const variantTextColors: Record<NoteVariant, string> = {
+  info: "text-blue-600 dark:text-blue-400",
+  warning: "text-amber-600 dark:text-amber-400",
+  success: "text-green-600 dark:text-green-400",
+  error: "text-red-600 dark:text-red-400",
+  normal: "text-gray-600 dark:text-gray-400",
+}
+
+const Note: React.FC<NoteProps> = ({
   variant = "info",
   className,
   closable = false,
+  noIcon = false,
   title,
   children,
   dismissible = false,
   onClose,
   actionLabel,
   onAction,
-}: NoteProps) => {
+}) => {
   const [isClosed, setIsClosed] = useState(false)
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     if (dismissible) {
-      timeoutRef.current = setTimeout(() => {
-        handleClose()
-      }, 5000)
+      timeoutRef.current = setTimeout(handleClose, 5000)
     }
 
     return () => {
@@ -82,7 +102,7 @@ const Note = ({
 
   const handleClose = () => {
     setIsClosed(true)
-    if (onClose) onClose()
+    onClose?.()
   }
 
   const config = variantConfig[variant]
@@ -121,20 +141,14 @@ const Note = ({
           )}
 
           <div className="flex gap-3">
-            <div className={cn("mt-0.5 flex-shrink-0", config.icon)}>
-              {variant === "info" && (
-                <InfoIcon className="w-5 h-5" strokeWidth={2} />
-              )}
-              {variant === "warning" && (
-                <AlertTriangleIcon className="w-5 h-5" strokeWidth={2} />
-              )}
-              {variant === "success" && (
-                <CheckCircle2Icon className="w-5 h-5" strokeWidth={2} />
-              )}
-              {variant === "error" && (
-                <XCircleIcon className="w-5 h-5" strokeWidth={2} />
-              )}
-            </div>
+            {!noIcon && (
+              <div className={cn("mt-0.5 flex-shrink-0", config.icon)}>
+                {variant === "info" && <InfoIcon className="w-5 h-5" strokeWidth={2} />}
+                {variant === "warning" && <AlertTriangleIcon className="w-5 h-5" strokeWidth={2} />}
+                {variant === "success" && <CheckCircle2Icon className="w-5 h-5" strokeWidth={2} />}
+                {variant === "error" && <XCircleIcon className="w-5 h-5" strokeWidth={2} />}
+              </div>
+            )}
 
             <div className="space-y-2 flex-1">
               {title && (
@@ -150,26 +164,8 @@ const Note = ({
               {actionLabel && onAction && (
                 <button
                   onClick={onAction}
-                  className={cn(
-                    "text-sm font-medium mt-1",
-                    `text-${
-                      variant === "info"
-                        ? "blue"
-                        : variant === "warning"
-                          ? "amber"
-                          : variant === "success"
-                            ? "green"
-                            : "red"
-                    }-600 dark:text-${
-                      variant === "info"
-                        ? "blue"
-                        : variant === "warning"
-                          ? "amber"
-                          : variant === "success"
-                            ? "green"
-                            : "red"
-                    }-400`
-                  )}
+                  className={cn("text-sm font-medium mt-1", variantTextColors[variant])}
+                  aria-label={actionLabel}
                 >
                   {actionLabel}
                 </button>

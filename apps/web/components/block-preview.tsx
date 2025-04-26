@@ -34,6 +34,7 @@ import type React from "react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { CopyButton } from "./copy-button-for-block-preview"
 import { Separator } from "./library/separator"
+import Container from "./Container"
 
 interface FileTree {
   name: string
@@ -190,7 +191,7 @@ function BlockFileTree({
         initial={sidebarIsOpen ? "open" : "closed"}
         animate={sidebarIsOpen ? "open" : "closed"}
         variants={sidebarVariants}
-        className="h-[70vh] md:h-[90vh]"
+        className="h-screen"
       >
         <SidebarProvider className="flex !min-h-full flex-col">
           <Sidebar
@@ -238,6 +239,10 @@ function generateFileTreeFromBlockId(blockId: string) {
     {
       name: blockId,
       children: [
+        {
+          name: "page.tsx",
+          path: block.target,
+        },
         {
           name: "components",
           children: block.components.map((comp) => {
@@ -386,11 +391,9 @@ export default function BlockPreview({
 
           if (nonNullActiveFile.includes("/components/")) {
             content = blockData.components?.[nonNullActiveFile] || "// Component code not found"
-          }
-          else if (nonNullActiveFile.includes("/constant/")) {
+          } else if (nonNullActiveFile.includes("/constant/")) {
             if (blockData.constant) {
               const normalizedActiveFile = normalizePath(nonNullActiveFile, "constant")
-
               if (blockData.constant[normalizedActiveFile]) {
                 content = blockData.constant[normalizedActiveFile]
               } else {
@@ -406,7 +409,6 @@ export default function BlockPreview({
                       path.includes(basePathWithoutIndex) ||
                       basePathWithoutIndex.includes(path),
                   )
-
                   if (matchingPath) {
                     content = blockData.constant[matchingPath]
                   } else {
@@ -418,24 +420,20 @@ export default function BlockPreview({
             } else {
               content = "// No constants defined for this block"
             }
-          }
-          else if (nonNullActiveFile.includes("/lib/")) {
+          } else if (nonNullActiveFile.includes("/lib/")) {
             if (blockData.lib) {
               const normalizedActiveFile = normalizePath(nonNullActiveFile, "lib")
               const libPaths = Object.keys(blockData.lib)
               if (blockData.lib[nonNullActiveFile]) {
                 content = blockData.lib[nonNullActiveFile]
-              }
-              else if (blockData.lib[normalizedActiveFile]) {
+              } else if (blockData.lib[normalizedActiveFile]) {
                 content = blockData.lib[normalizedActiveFile]
-              }
-              else {
+              } else {
                 const matchingPath = libPaths.find(
                   (path) =>
                     path.includes(nonNullActiveFile.split("/").pop() || "") ||
                     nonNullActiveFile.includes(path.split("/").pop() || ""),
                 )
-
                 if (matchingPath) {
                   content = blockData.lib[matchingPath]
                 } else {
@@ -446,18 +444,25 @@ export default function BlockPreview({
             } else {
               content = "// No lib defined for this block"
             }
+          } else {
+            // page.tsx or other root file
+            if (blockData[nonNullActiveFile]) {
+              content = blockData[nonNullActiveFile]
+            } else {
+              content = "// Page code not found"
+            }
+            fileLanguage = "tsx"
           }
+
           const cacheData = { content, language: fileLanguage }
           sourceCodeCache.current[cacheKey] = JSON.stringify(cacheData)
           setResolvedCodeFiles((prev) => {
             const fileIndex = prev.findIndex((file) => file.path === nonNullActiveFile)
             const updated = [...prev]
-
             if (fileIndex >= 0) {
               updated[fileIndex] = { ...updated[fileIndex], content, language: fileLanguage }
               return updated
             }
-
             return [...prev, { path: nonNullActiveFile, content, language: fileLanguage }]
           })
         } catch (error) {
@@ -528,14 +533,12 @@ export default function BlockPreview({
         }
         return null
       }
-
       const firstFile = findFirstFile(resolvedFileTree)
       if (firstFile) {
         setActiveFile(firstFile)
       }
     }
   }, [resolvedFileTree, activeFile])
-
 
   const screensWidth = {
     desktop: "100%",
@@ -647,7 +650,6 @@ export default function BlockPreview({
       </div>
     )
   }, [isIframeVisible, id])
-
   if (!defaultCode && resolvedCodeFiles.length === 0 && !BlockId) {
     return <div className={cn("mt-4", className)}>{children}</div>
   }
@@ -740,38 +742,32 @@ export default function BlockPreview({
           {!isIframeVisible ? IframePlaceholder : IframeComponent}
         </TabsContent>
         <TabsContent value="code" className="rounded-xl">
-          {resolvedFileTree.length > 0 ? (
-            <div className="flex overflow-hidden rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1e1e1e] text-foreground h-[70vh] md:h-[90vh]">
-              <BlockFileTree fileTree={resolvedFileTree} activeFile={activeFile} setActiveFile={setActiveFile} />
-              <div className="flex min-w-0 flex-1 flex-col">
-                <div className="flex h-12 items-center gap-2 border-b border-gray-700 bg-[#1e1e1e] px-4 text-sm font-medium">
-                  <div className="flex gap-2 items-center">
-                    <div className="w-4 h-4">
-                      {languageIcons[getActiveFileLanguage()] || <FileCode className="w-4 h-4 text-gray-400" />}
-                    </div>
-                    <span className="text-gray-100">
-                      {activeFile ? activeFile.split("/").pop() : "Select a file from the menu"}
-                    </span>
+          <div className="flex overflow-hidden rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1e1e1e] text-foreground h-screen ">
+            <BlockFileTree fileTree={resolvedFileTree} activeFile={activeFile} setActiveFile={setActiveFile} />
+            <div className="flex min-w-0 flex-1 flex-col">
+              <div className="flex h-12 items-center gap-2 border-b border-gray-700 bg-[#1e1e1e] px-4 text-sm font-medium">
+                <div className="flex gap-2 items-center">
+                  <div className="w-4 h-4">
+                    {languageIcons[getActiveFileLanguage()] || <FileCode className="w-4 h-4 text-gray-400" />}
                   </div>
-                </div>
-                <div className="relative flex-1 overflow-auto bg-[#1e1e1e]">
-                  {activeFile ? (
-                    <Pre raw={getActiveFileContent()} className={`language-${getActiveFileLanguage()} hide-scrollbar`}>
-                      {getActiveFileContent()}
-                    </Pre>
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-muted-foreground">
-                      Select a file from the menu to view content
-                    </div>
-                  )}
+                  <span className="text-gray-100">
+                    {activeFile ? activeFile.split("/").pop() : "Select a file from the menu"}
+                  </span>
                 </div>
               </div>
+              <div className="relative flex-1 overflow-auto bg-[#1e1e1e]">
+                {activeFile ? (
+                  <Pre raw={getActiveFileContent()} className={`language-${getActiveFileLanguage()} hide-scrollbar`}>
+                    {getActiveFileContent()}
+                  </Pre>
+                ) : (
+                  <div className="flex h-full items-center justify-center text-muted-foreground">
+                    Select a file from the menu to view content
+                  </div>
+                )}
+              </div>
             </div>
-          ) : (
-            <Pre raw={code} className="language-tsx">
-              {code}
-            </Pre>
-          )}
+          </div>
         </TabsContent>
       </div>
     </Tabs>
