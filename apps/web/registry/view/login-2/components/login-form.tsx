@@ -1,15 +1,19 @@
+import { useState } from "react";
 import { Button } from "@/components/library/button";
 import { Card, CardContent } from "@/components/library/card";
 import { Input } from "@/components/library/input";
 import { Label } from "@/components/library/label";
 import { cn } from "@/lib/utils";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => setShowPassword(prev => !prev);
+
   return (
     <div className={cn("flex flex-col gap-6 py-12", className)} {...props}>
       <Link
@@ -50,7 +54,30 @@ export function LoginForm({
                     Forgot your password?
                   </Link>
                 </div>
-                <Input id="password" type="password" required />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    required
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-1 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    onClick={togglePasswordVisibility}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5 text-muted-foreground" />
+                    ) : (
+                      <Eye className="h-5 w-5 text-muted-foreground" />
+                    )}
+                    <span className="sr-only">
+                      {showPassword ? "Hide password" : "Show password"}
+                    </span>
+                  </Button>
+                </div>
               </div>
               <Button type="submit" className="w-full">
                 Login
@@ -90,7 +117,7 @@ export function LoginForm({
                 </Button>
               </div>
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
+                Don&apos;t have an account?{' '}
                 <Link href="#" className="underline underline-offset-4">
                   Sign up
                 </Link>
@@ -113,9 +140,9 @@ export function LoginForm({
         </CardContent>
       </Card>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-        By clicking continue, you agree to our <Link href="#">Terms of Service</Link>{" "}
+        By clicking continue, you agree to our <Link href="#">Terms of Service</Link>{' '}
         and <Link href="#">Privacy Policy</Link>.
       </div>
     </div>
-  )
+  );
 }

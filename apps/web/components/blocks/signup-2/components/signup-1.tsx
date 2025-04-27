@@ -1,25 +1,26 @@
-import { useState } from "react";
-import { Button } from "@/components/library/button";
-import { Card, CardContent } from "@/components/library/card";
-import { Input } from "@/components/library/input";
-import { Label } from "@/components/library/label";
-import { cn } from "@/lib/utils";
-import { ArrowLeft, Eye, EyeOff } from "lucide-react";
-import Link from "next/link";
+"use client"
 
-export function LoginForm({
-    className,
-    ...props
-}: React.ComponentProps<"div">) {
-    const [showPassword, setShowPassword] = useState(false);
-    const togglePasswordVisibility = () => setShowPassword(prev => !prev);
+import type React from "react"
+
+import { useState } from "react"
+import { Button } from "@/components/library/button"
+import { Card, CardContent } from "@/components/library/card"
+import { Input } from "@/components/library/input"
+import { Label } from "@/components/library/label"
+import { cn } from "@/lib/utils"
+import { ArrowLeft, Eye, EyeOff } from "lucide-react"
+import Link from "next/link"
+
+export function SignUpForm({ className, ...props }: React.ComponentProps<"div">) {
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+    const togglePasswordVisibility = () => setShowPassword((prev) => !prev)
+    const toggleConfirmPasswordVisibility = () => setShowConfirmPassword((prev) => !prev)
 
     return (
         <div className={cn("flex flex-col gap-6 py-12", className)} {...props}>
-            <Link
-                href="/"
-                className="absolute top-4 left-4 text-foreground hover:text-primary transition-colors"
-            >
+            <Link href="/" className="absolute top-4 left-4 text-foreground hover:text-primary transition-colors">
                 <span className="flex items-center">
                     <ArrowLeft className="mr-2 w-5 h-5" />
                     Back to Home
@@ -30,41 +31,32 @@ export function LoginForm({
                     <form className="p-6 md:p-8">
                         <div className="flex flex-col gap-6">
                             <div className="flex flex-col items-center text-center">
-                                <h1 className="text-2xl font-bold">Welcome back</h1>
-                                <p className="text-balance text-muted-foreground">
-                                    Login to your Acme Inc account
-                                </p>
+                                <h1 className="text-2xl font-bold">Create an account</h1>
+                                <p className="text-balance text-muted-foreground">Sign up for your Acme Inc account</p>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="firstName">First Name</Label>
+                                    <Input id="firstName" type="text" placeholder="John" required />
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="lastName">Last Name</Label>
+                                    <Input id="lastName" type="text" placeholder="Doe" required />
+                                </div>
                             </div>
                             <div className="grid gap-2">
                                 <Label htmlFor="email">Email</Label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    placeholder="m@example.com"
-                                    required
-                                />
+                                <Input id="email" type="email" placeholder="m@example.com" required />
                             </div>
                             <div className="grid gap-2">
-                                <div className="flex items-center">
-                                    <Label htmlFor="password">Password</Label>
-                                    <Link
-                                        href="#"
-                                        className="ml-auto text-sm underline-offset-2 hover:underline"
-                                    >
-                                        Forgot your password?
-                                    </Link>
-                                </div>
+                                <Label htmlFor="password">Password</Label>
                                 <div className="relative">
-                                    <Input
-                                        id="password"
-                                        type={showPassword ? "text" : "password"}
-                                        required
-                                    />
+                                    <Input id="password" type={showPassword ? "text" : "password"} required />
                                     <Button
                                         type="button"
                                         variant="ghost"
                                         size="sm"
-                                        className="absolute right-2 top-1/2 -translate-y-1/2 p-0"
+                                        className="absolute right-1 top-0 h-full px-3 py-2 hover:bg-transparent"
                                         onClick={togglePasswordVisibility}
                                         aria-label={showPassword ? "Hide password" : "Show password"}
                                     >
@@ -73,19 +65,36 @@ export function LoginForm({
                                         ) : (
                                             <Eye className="h-5 w-5 text-muted-foreground" />
                                         )}
-                                        <span className="sr-only">
-                                            {showPassword ? "Hide password" : "Show password"}
-                                        </span>
+                                        <span className="sr-only">{showPassword ? "Hide password" : "Show password"}</span>
+                                    </Button>
+                                </div>
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                                <div className="relative">
+                                    <Input id="confirmPassword" type={showConfirmPassword ? "text" : "password"} required />
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="sm"
+                                        className="absolute right-1 top-0 h-full px-3 py-2 hover:bg-transparent"
+                                        onClick={toggleConfirmPasswordVisibility}
+                                        aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                                    >
+                                        {showConfirmPassword ? (
+                                            <EyeOff className="h-5 w-5 text-muted-foreground" />
+                                        ) : (
+                                            <Eye className="h-5 w-5 text-muted-foreground" />
+                                        )}
+                                        <span className="sr-only">{showConfirmPassword ? "Hide password" : "Show password"}</span>
                                     </Button>
                                 </div>
                             </div>
                             <Button type="submit" className="w-full">
-                                Login
+                                Sign Up
                             </Button>
                             <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-                                <span className="relative z-10 bg-background px-2 text-muted-foreground">
-                                    Or continue with
-                                </span>
+                                <span className="relative z-10 bg-background px-2 text-muted-foreground">Or continue with</span>
                             </div>
                             <div className="grid grid-cols-3 gap-4">
                                 <Button variant="outline" className="w-full">
@@ -95,7 +104,7 @@ export function LoginForm({
                                             fill="currentColor"
                                         />
                                     </svg>
-                                    <span className="sr-only">Login with Apple</span>
+                                    <span className="sr-only">Sign up with Apple</span>
                                 </Button>
                                 <Button variant="outline" className="w-full">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -104,7 +113,7 @@ export function LoginForm({
                                             fill="currentColor"
                                         />
                                     </svg>
-                                    <span className="sr-only">Login with Google</span>
+                                    <span className="sr-only">Sign up with Google</span>
                                 </Button>
                                 <Button variant="outline" className="w-full">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={30} height={30}>
@@ -113,36 +122,34 @@ export function LoginForm({
                                             fill="currentColor"
                                         />
                                     </svg>
-                                    <span className="sr-only">Login with Meta</span>
+                                    <span className="sr-only">Sign up with Meta</span>
                                 </Button>
                             </div>
                             <div className="text-center text-sm">
-                                Don&apos;t have an account?{' '}
+                                Already have an account?{" "}
                                 <Link href="#" className="underline underline-offset-4">
-                                    Sign up
+                                    Login
                                 </Link>
                             </div>
                         </div>
                     </form>
                     <div className="flex-1 hidden md:block relative">
                         <img
-                            src="/blocks/login-2/new-collection-1.jpg"
+                            src="/placeholder.svg?height=800&width=600"
                             alt="Art Lighting Showcase"
                             className="absolute inset-0 h-full w-full object-cover"
                         />
                         <div className="absolute inset-0 bg-background/60 backdrop-blur-sm flex flex-col justify-end p-8 text-foreground">
-                            <h2 className="text-3xl font-bold mb-2">Join Art Lighting</h2>
-                            <p className="text-sm">
-                                Create your account and start illuminating your space
-                            </p>
+                            <h2 className="text-3xl font-bold mb-2">Create Your Art Lighting Account</h2>
+                            <p className="text-sm">Sign up today and start exploring our curated collection of lighting solutions</p>
                         </div>
                     </div>
                 </CardContent>
             </Card>
             <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-                By clicking continue, you agree to our <Link href="#">Terms of Service</Link>{' '}
-                and <Link href="#">Privacy Policy</Link>.
+                By clicking sign up, you agree to our <Link href="#">Terms of Service</Link> and{" "}
+                <Link href="#">Privacy Policy</Link>.
             </div>
         </div>
-    );
+    )
 }

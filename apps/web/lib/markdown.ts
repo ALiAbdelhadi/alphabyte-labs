@@ -230,7 +230,6 @@ function getBlocksContentPath(slug: string) {
   return path.join(
     process.cwd(),
     "contents/blocks",
-    slug,
     `${lastSegment}.mdx`
   )
 }

@@ -68,6 +68,24 @@ export const blockExamples = { items: [
     "lib": []
   },
   {
+    "name": "login-3",
+    "target": "@/registry/view/login-3/page",
+    "components": [
+      "@/registry/view/login-3/components/login-form"
+    ],
+    "constant": [],
+    "lib": []
+  },
+  {
+    "name": "login-4",
+    "target": "@/registry/view/login-4/page",
+    "components": [
+      "@/registry/view/login-4/components/login-form"
+    ],
+    "constant": [],
+    "lib": []
+  },
+  {
     "name": "navbar-1",
     "target": "@/registry/view/navbar-1/page",
     "components": [
@@ -145,6 +163,33 @@ export const blockExamples = { items: [
     "target": "@/registry/view/signup-1/page",
     "components": [
       "@/registry/view/signup-1/components/signup-form"
+    ],
+    "constant": [],
+    "lib": []
+  },
+  {
+    "name": "signup-2",
+    "target": "@/registry/view/signup-2/page",
+    "components": [
+      "@/registry/view/signup-2/components/signup-1"
+    ],
+    "constant": [],
+    "lib": []
+  },
+  {
+    "name": "signup-3",
+    "target": "@/registry/view/signup-3/page",
+    "components": [
+      "@/registry/view/signup-3/components/signup-form"
+    ],
+    "constant": [],
+    "lib": []
+  },
+  {
+    "name": "signup-4",
+    "target": "@/registry/view/signup-4/page",
+    "components": [
+      "@/registry/view/signup-4/components/signup-form"
     ],
     "constant": [],
     "lib": []
