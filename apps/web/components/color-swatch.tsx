@@ -1,8 +1,14 @@
-import { useEffect, useState } from "react"
 import type { Color, ColorFormat } from "@/types"
 import { Check, Copy } from "lucide-react"
+import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/library/tooltip"
 import {
   formatHsl,
   formatOklch,
@@ -12,12 +18,6 @@ import {
   hexToRgb,
 } from "@/lib/color-utils"
 import { cn } from "@/lib/utils"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/library/tooltip"
 
 interface ColorSwatchProps {
   color: Color

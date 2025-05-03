@@ -1,12 +1,9 @@
 "use client"
 
-import * as React from "react"
+import { cn } from "@/lib/utils"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
-import { Loader } from "lucide-react"
-
-import { cn } from "@/lib/utils"
-
+import * as React from "react"
 import LoadingIcon from "../icons/loading-icon"
 
 const buttonVariants = cva(
@@ -14,18 +11,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+        default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+        destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+        outline: "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+        secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        neural:
-          "bg-secondary/20 text-secondary hover:bg-secondary/30 backdrop-blur-sm",
+        neural: "bg-secondary/20 text-secondary hover:bg-secondary/30 backdrop-blur-sm",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -49,9 +41,10 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   isLoading?: boolean
   icon?: React.ReactNode
+  iconPosition?: "left" | "right"
   asChild?: boolean
 }
 
@@ -62,8 +55,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant,
       size,
       animation,
-      isLoading,
+      isLoading = false,
       icon,
+      iconPosition = "left",
       asChild = false,
       children,
       ...props
@@ -71,24 +65,31 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const Comp = asChild ? Slot : "button"
+
+    const content = (
+      <>
+        {(isLoading || icon) && iconPosition === "left" && (
+          <span className="mr-1 flex items-center">
+            {isLoading ? <LoadingIcon size={14}  /> : icon}
+          </span>
+        )}
+        {children}
+        {(isLoading || icon) && iconPosition === "right" && (
+          <span className="ml-1 flex items-center">
+            {isLoading ? <LoadingIcon size={14} /> : icon}
+          </span>
+        )}
+      </>
+    )
+
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, animation, className }))}
         ref={ref}
-        disabled={isLoading}
+        aria-disabled={isLoading || props.disabled}
         {...props}
       >
-        {isLoading ? (
-          <span className="flex items-center justify-center gap-2">
-            <LoadingIcon size={14} />
-            {children}
-          </span>
-        ) : (
-          <span className="flex items-center justify-center gap-2">
-            {icon && <span className="mr-2">{icon}</span>}
-            {children}
-          </span>
-        )}
+        {asChild ? React.Children.only(children) : content}
       </Comp>
     )
   }

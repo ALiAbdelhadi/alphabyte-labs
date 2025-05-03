@@ -1,5 +1,4 @@
 import { ColorFormat, colorPalettes } from "@/types"
-
 import { ColorSwatch } from "./color-swatch"
 
 interface ColorPalettesProps {

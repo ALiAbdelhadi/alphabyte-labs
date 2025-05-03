@@ -7,7 +7,9 @@ export const blockExamples = { items: [
       "@/registry/view/about-1/components/about"
     ],
     "constant": [],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "banner-1",
@@ -16,7 +18,9 @@ export const blockExamples = { items: [
       "@/registry/view/banner-1/components/banner"
     ],
     "constant": [],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "carousel-1",
@@ -28,7 +32,9 @@ export const blockExamples = { items: [
     "constant": [
       "@/registry/view/carousel-1/constant/index"
     ],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "carousel-2",
@@ -40,14 +46,91 @@ export const blockExamples = { items: [
     "constant": [
       "@/registry/view/carousel-2/constant/index"
     ],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "case-studies-1",
+    "target": "@/registry/view/case-studies-1/page",
+    "components": [
+      "@/registry/view/case-studies-1/components/case-studies"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "case-studies-2",
+    "target": "@/registry/view/case-studies-2/page",
+    "components": [
+      "@/registry/view/case-studies-2/components/case-studies"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "dashbaord-1",
     "target": "@/registry/view/dashbaord-1/page",
     "components": [],
     "constant": [],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "dashboard-2",
+    "target": "@/registry/view/dashboard-2/page",
+    "components": [
+      "@/registry/view/dashboard-2/components/dashboard-header",
+      "@/registry/view/dashboard-2/components/dashboard-sidebar",
+      "@/registry/view/dashboard-2/components/nav-main",
+      "@/registry/view/dashboard-2/components/nav-user",
+      "@/registry/view/dashboard-2/components/section-cards"
+    ],
+    "constant": [],
+    "lib": [
+      "@/registry/view/dashboard-2/lib/utils.ts"
+    ],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "dashboard-3",
+    "target": "@/registry/view/dashboard-3/page",
+    "components": [
+      "@/registry/view/dashboard-3/components/app-sidebar",
+      "@/registry/view/dashboard-3/components/chart-area-interactive",
+      "@/registry/view/dashboard-3/components/data-table",
+      "@/registry/view/dashboard-3/components/nav-documents",
+      "@/registry/view/dashboard-3/components/nav-main",
+      "@/registry/view/dashboard-3/components/nav-secondary",
+      "@/registry/view/dashboard-3/components/nav-user",
+      "@/registry/view/dashboard-3/components/section-cards",
+      "@/registry/view/dashboard-3/components/site-header"
+    ],
+    "constant": [
+      "@/registry/view/dashboard-3/constant/data.json"
+    ],
+    "lib": [
+      "@/registry/view/dashboard-3/lib/utils.ts"
+    ],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "feature-showcase-1",
+    "target": "@/registry/view/feature-showcase-1/page",
+    "components": [
+      "@/registry/view/feature-showcase-1/components/feature-showcase"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "login-1",
@@ -56,7 +139,9 @@ export const blockExamples = { items: [
       "@/registry/view/login-1/components/login-form"
     ],
     "constant": [],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "login-2",
@@ -65,7 +150,9 @@ export const blockExamples = { items: [
       "@/registry/view/login-2/components/login-form"
     ],
     "constant": [],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "login-3",
@@ -74,7 +161,9 @@ export const blockExamples = { items: [
       "@/registry/view/login-3/components/login-form"
     ],
     "constant": [],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "login-4",
@@ -83,7 +172,9 @@ export const blockExamples = { items: [
       "@/registry/view/login-4/components/login-form"
     ],
     "constant": [],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "navbar-1",
@@ -94,7 +185,9 @@ export const blockExamples = { items: [
     "constant": [
       "@/registry/view/navbar-1/constant/index"
     ],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "new-collection-1",
@@ -103,7 +196,9 @@ export const blockExamples = { items: [
       "@/registry/view/new-collection-1/components/new-collection"
     ],
     "constant": [],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "product-overview-1",
@@ -119,7 +214,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [
       "@/registry/view/product-overview-1/lib/utils.ts"
-    ]
+    ],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "products-carousel-1",
@@ -133,7 +230,9 @@ export const blockExamples = { items: [
     ],
     "lib": [
       "@/registry/view/products-carousel-1/lib/utils.ts"
-    ]
+    ],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "products-list-1",
@@ -145,7 +244,9 @@ export const blockExamples = { items: [
     "constant": [
       "@/registry/view/products-list-1/constant/index"
     ],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "service-1",
@@ -156,7 +257,9 @@ export const blockExamples = { items: [
     "constant": [
       "@/registry/view/service-1/constant/index"
     ],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "signup-1",
@@ -165,7 +268,9 @@ export const blockExamples = { items: [
       "@/registry/view/signup-1/components/signup-form"
     ],
     "constant": [],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "signup-2",
@@ -174,7 +279,9 @@ export const blockExamples = { items: [
       "@/registry/view/signup-2/components/signup-1"
     ],
     "constant": [],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "signup-3",
@@ -183,7 +290,9 @@ export const blockExamples = { items: [
       "@/registry/view/signup-3/components/signup-form"
     ],
     "constant": [],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "signup-4",
@@ -192,7 +301,9 @@ export const blockExamples = { items: [
       "@/registry/view/signup-4/components/signup-form"
     ],
     "constant": [],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   },
   {
     "name": "timeline-1",
@@ -204,6 +315,8 @@ export const blockExamples = { items: [
     "constant": [
       "@/registry/view/timeline-1/constant/index"
     ],
-    "lib": []
+    "lib": [],
+    "context": [],
+    "hooks": []
   }
 ] }

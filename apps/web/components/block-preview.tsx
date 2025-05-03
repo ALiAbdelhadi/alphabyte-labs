@@ -25,16 +25,15 @@ import {
   Folder,
   Fullscreen,
   Monitor,
-  PanelLeftOpen,
-  PanelRightOpen,
+  PanelLeft,
+  PanelRight,
   Smartphone,
-  Tablet,
+  Tablet
 } from "lucide-react"
 import type React from "react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { CopyButton } from "./copy-button-for-block-preview"
 import { Separator } from "./library/separator"
-import Container from "./Container"
 
 interface FileTree {
   name: string
@@ -184,7 +183,7 @@ function BlockFileTree({
           aria-label="Open sidebar"
           className="relative z-20 p-2 border-r flex border-gray-700 transition-colors bg-[#252526]"
         >
-          <PanelLeftOpen strokeWidth={2.5} absoluteStrokeWidth className="w-6 h-6 text-gray-100" />
+          <PanelLeft strokeWidth={2.5} absoluteStrokeWidth className="w-6 h-6 text-gray-100" />
         </button>
       )}
       <motion.aside
@@ -211,7 +210,7 @@ function BlockFileTree({
                   aria-label="Close sidebar"
                   className="p-1 rounded-md hover:bg-gray-900/20 transition-colors bg-[#252526]"
                 >
-                  <PanelRightOpen strokeWidth={2.5} absoluteStrokeWidth className="w-6 h-6 text-gray-100" />
+                  <PanelRight strokeWidth={2.5} absoluteStrokeWidth className="w-6 h-6 text-gray-100" />
                 </button>
               )}
             </SidebarGroupLabel>

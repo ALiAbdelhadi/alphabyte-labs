@@ -36,7 +36,7 @@ const badgeVariants = cva(
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof badgeVariants> {
+  VariantProps<typeof badgeVariants> {
   removable?: boolean
   onRemove?: () => void
   icon?: React.ReactNode
@@ -57,7 +57,7 @@ function Badge({
       {...props}
     >
       {icon && <span className="flex items-center">{icon}</span>}
-      <span>{children}</span>
+      {children}
       {removable && (
         <button
           type="button"

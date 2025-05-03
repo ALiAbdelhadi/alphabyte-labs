@@ -1,4 +1,5 @@
 
+
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
 import Link from "next/link"
@@ -18,7 +19,7 @@ const Home = () => {
             <p className="text-base md:text-lg lg:text-xl font-normal md:max-w-2xl max-w-lg text-foreground opacity-80">
               Craft stunning user interfaces with our meticulously designed
               collection of accessible, and fully customizable components. Built
-              by developers, for developers, and freely available to all.
+              by developers, for developers, Sales Overviewand freely available to all.
             </p>
           </div>
           <div className="space-x-2 md:space-x-3">
