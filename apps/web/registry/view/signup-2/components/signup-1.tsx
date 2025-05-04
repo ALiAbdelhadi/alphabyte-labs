@@ -135,7 +135,7 @@ export function SignUpForm({ className, ...props }: React.ComponentProps<"div">)
                     </form>
                     <div className="flex-1 hidden md:block relative">
                         <img
-                            src="/placeholder.svg?height=800&width=600"
+                            src="/blocks/case-studies-1/image-1.jpg"
                             alt="Art Lighting Showcase"
                             className="absolute inset-0 h-full w-full object-cover"
                         />

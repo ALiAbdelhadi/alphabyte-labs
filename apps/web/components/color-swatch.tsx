@@ -1,8 +1,3 @@
-import type { Color, ColorFormat } from "@/types"
-import { Check, Copy } from "lucide-react"
-import { useEffect, useState } from "react"
-import { toast } from "sonner"
-
 import {
   Tooltip,
   TooltipContent,
@@ -18,6 +13,10 @@ import {
   hexToRgb,
 } from "@/lib/color-utils"
 import { cn } from "@/lib/utils"
+import type { Color, ColorFormat } from "@/types"
+import { Check, Copy } from "lucide-react"
+import { useEffect, useState } from "react"
+import { toast } from "sonner"
 
 interface ColorSwatchProps {
   color: Color
@@ -43,9 +42,11 @@ export function ColorSwatch({ color, globalFormat }: ColorSwatchProps) {
     oklch: oklch ? formatOklch(oklch) : "",
   }
   const currentValue = formatMap[format] || hex
+
   const copyToClipboard = () => {
     if (!currentValue) return
     navigator.clipboard.writeText(currentValue)
+
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
     toast.message(`Copied ${currentValue} to clipboard`, {
@@ -60,10 +61,12 @@ export function ColorSwatch({ color, globalFormat }: ColorSwatchProps) {
     setFormat(formats[nextIndex])
   }
 
-  const isDark = hex
-    ? Number.parseInt(hex.replace("#", ""), 16) < 0xffffff / 1.8
-    : false
-
+  const formatNameMap: Record<ColorFormat, string> = {
+    hex: "HEX",
+    rgb: "RGB",
+    hsl: "HSL",
+    oklch: "OKLCH",
+  }
   return (
     <div className="group flex flex-col">
       <div

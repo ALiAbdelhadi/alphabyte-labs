@@ -1,12 +1,13 @@
 "use client"
 
+import type React from "react"
+
 import { Button } from "@/components/library/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/library/card"
 import { Input } from "@/components/library/input"
 import { Label } from "@/components/library/label"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import type React from "react"
 import { useState } from "react"
 import { FcGoogle } from "react-icons/fc"
 import { FiEye, FiEyeOff } from "react-icons/fi"
@@ -67,7 +68,7 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                         </div>
                         <div className="mt-4 text-center text-sm">
                             Don&apos;t have an account?{" "}
-                            <Link href="/ui-blocks/signup-1" className="underline underline-offset-4">
+                            <Link href="/view/signup-1" className="underline underline-offset-4">
                                 Sign up
                             </Link>
                         </div>

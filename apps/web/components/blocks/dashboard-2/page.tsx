@@ -1,5 +1,4 @@
 "use client"
-import Container from "@/components/Container"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/library/avatar"
 import { Badge } from "@/components/library/badge"
 import { Button } from "@/components/library/button"
@@ -44,7 +43,11 @@ const salesChartOptions = {
     data: salesData.map((d) => d.name),
     axisTick: { show: false },
     axisLine: { lineStyle: { color: '#d1d5db' } },
-    axisLabel: { fontSize: 12 }
+    axisLabel: {
+      fontSize: 12, interval: (index, value) => {
+        return window.innerWidth > 640 ? true : index % 2 === 0;
+      }
+    }
   },
   yAxis: {
     type: 'value',
@@ -61,6 +64,16 @@ const salesChartOptions = {
         color: '#6366f1'
       },
       barWidth: '40%'
+    }
+  ],
+  media: [
+    {
+      query: { maxWidth: 640 },
+      option: {
+        grid: { left: '8%', right: '8%' },
+        xAxis: { axisLabel: { fontSize: 10, rotate: 45 } },
+        yAxis: { axisLabel: { fontSize: 10 } }
+      }
     }
   ]
 }
@@ -120,96 +133,92 @@ const recentOrders = [
 
 export default function DashboardPage() {
   return (
-
     <SidebarProvider>
+      {/* Here you can choose of custom sidebar behavior (inset, sidebar, floating)  default use: sidebar */}
       <DashboardSidebar variant="inset" />
-      <SidebarInset>
-        <Container>
-          <DashboardHeader />
-          <div className="flex flex-1 flex-col">
-            <div className="flex flex-1 flex-col gap-2">
-              <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                <SectionCards />
-                <div className="grid gap-4 md:gap-6 grid-cols-1">
-                  <Card className="col-span-1 lg:col-span-8">
-                    <CardHeader className="px-4 md:px-6 py-3 md:py-4">
-                      <CardTitle className="text-base md:text-lg">Sales Overview</CardTitle>
-                      <CardDescription className="text-xs md:text-sm">Yearly sales performance for the last 12 months</CardDescription>
-                    </CardHeader>
-                    <CardContent className="pl-0 md:pl-2 pt-0 pb-4">
-                      <div className="h-[250px] md:h-[300px] lg:h-[400px] max-w-full">
-                        <ReactECharts option={salesChartOptions} style={{ width: '100%', height: '100%' }} />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-                <Card>
+      <SidebarInset className="container">
+        <DashboardHeader />
+        <div className="flex flex-1 flex-col">
+          <div className="flex flex-1 flex-col gap-2">
+            <div className="flex flex-col gap-3 py-3 md:gap-6 md:py-6">
+              <SectionCards />
+              <div className="grid gap-4 md:gap-6 grid-cols-1">
+                <Card className="col-span-1 lg:col-span-8">
                   <CardHeader className="px-4 md:px-6 py-3 md:py-4">
-                    <CardTitle className="text-base md:text-lg">Recent Orders</CardTitle>
-                    <CardDescription className="text-xs md:text-sm">Detailed view of the last 7 days order history</CardDescription>
+                    <CardTitle className="text-base md:text-lg">Sales Overview</CardTitle>
+                    <CardDescription className="text-xs md:text-sm">Yearly sales performance for the last 12 months</CardDescription>
                   </CardHeader>
-                  <CardContent className="p-0">
-                    <div className="overflow-x-auto custom-scrollbar">
-                      <div className="flex items-center">
-                        <Table className="w-full min-w-[600px]">
-                          <TableHeader>
-                            <TableRow>
-                              <TableHead className="text-xs md:text-sm font-medium p-2 md:p-4">Order ID</TableHead>
-                              <TableHead className="text-xs md:text-sm font-medium p-2 md:p-4">Date</TableHead>
-                              <TableHead className="text-xs md:text-sm font-medium p-2 md:p-4">Customer</TableHead>
-                              <TableHead className="text-xs md:text-sm font-medium p-2 md:p-4">Status</TableHead>
-                              <TableHead className="text-xs md:text-sm font-medium text-right p-2 md:p-4">Amount</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {recentOrders.map((order) => (
-                              <TableRow key={order.id}>
-                                <TableCell className="text-xs md:text-sm font-medium text-foreground p-2 md:p-4 text-nowrap">{order.id}</TableCell>
-                                <TableCell className="text-xs md:text-sm text-muted-foreground p-2 md:p-4 text-nowrap">{order.date}</TableCell>
-                                <TableCell className="text-xs md:text-sm p-2 md:p-4">
-                                  <div className="flex items-center gap-2">
-                                    <Avatar className="h-6 w-6 md:h-8 md:w-8">
-                                      <AvatarImage src={`/placeholder.svg?height=32&width=32`} alt={order.customer} />
-                                      <AvatarFallback>{order.customer.charAt(0)}</AvatarFallback>
-                                    </Avatar>
-                                    <span className="text-foreground text-nowrap">{order.customer}</span>
-                                  </div>
-                                </TableCell>
-                                <TableCell className="p-2 md:p-4">
-                                  <Badge
-                                    variant={
-                                      order.status === "Delivered"
-                                        ? "default"
-                                        : order.status === "Processing"
-                                          ? "secondary"
-                                          : "outline"
-                                    }
-                                    className="text-xs"
-                                  >
-                                    {order.status}
-                                  </Badge>
-                                </TableCell>
-                                <TableCell className="text-xs md:text-sm text-right text-foreground p-2 md:p-4">{formatPrice(order.amount)}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </div>
+                  <CardContent className="pl-0 md:pl-2 pt-0 pb-4">
+                    <div className="h-[250px] md:h-[300px] lg:h-[400px] max-w-full">
+                      <ReactECharts option={salesChartOptions} style={{ width: '100%', height: '100%' }} />
                     </div>
                   </CardContent>
-                  <CardFooter className="flex justify-end px-4 md:px-6 py-3 md:py-4">
-                    <Button asChild variant="outline" className="h-8 md:h-10 text-xs md:text-sm">
-                      <Link href="/dashboard/orders">
-                        View All Orders
-                        <ArrowUpRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
-                      </Link>
-                    </Button>
-                  </CardFooter>
                 </Card>
               </div>
+              <Card>
+                <CardHeader className="px-3 md:px-6 py-2 md:py-4">
+                  <CardTitle className="text-base md:text-lg">Recent Orders</CardTitle>
+                  <CardDescription className="text-xs md:text-sm">Detailed view of the last 7 days order history</CardDescription>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="overflow-auto max-w-full custom-scrollbar">
+                    <Table className="w-full min-w-[500px]">
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="text-xs md:text-sm font-medium p-2 md:p-4">Order ID</TableHead>
+                          <TableHead className="text-xs md:text-sm font-medium p-2 md:p-4">Date</TableHead>
+                          <TableHead className="text-xs md:text-sm font-medium p-2 md:p-4">Customer</TableHead>
+                          <TableHead className="text-xs md:text-sm font-medium p-2 md:p-4">Status</TableHead>
+                          <TableHead className="text-xs md:text-sm font-medium text-right p-2 md:p-4">Amount</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {recentOrders.map((order) => (
+                          <TableRow key={order.id}>
+                            <TableCell className="text-xs md:text-sm font-medium text-foreground p-2 md:p-4 text-nowrap">{order.id}</TableCell>
+                            <TableCell className="text-xs md:text-sm text-muted-foreground p-2 md:p-4 text-nowrap">{order.date}</TableCell>
+                            <TableCell className="text-xs md:text-sm p-2 md:p-4">
+                              <div className="flex items-center gap-1 md:gap-2">
+                                <Avatar className="h-6 w-6 md:h-8 md:w-8">
+                                  <AvatarImage src={`/placeholder.svg?height=32&width=32`} alt={order.customer} />
+                                  <AvatarFallback>{order.customer.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                                <span className="text-foreground text-nowrap line-clamp-1">{order.customer}</span>
+                              </div>
+                            </TableCell>
+                            <TableCell className="p-2 md:p-4">
+                              <Badge
+                                variant={
+                                  order.status === "Delivered"
+                                    ? "default"
+                                    : order.status === "Processing"
+                                      ? "secondary"
+                                      : "outline"
+                                }
+                                className="text-xs"
+                              >
+                                {order.status}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="text-xs md:text-sm text-right text-foreground p-2 md:p-4">{formatPrice(order.amount)}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex justify-end px-3 md:px-6 py-2 md:py-4">
+                  <Button asChild variant="outline" className="h-8 md:h-10 text-xs md:text-sm">
+                    <Link href="/dashboard/orders">
+                      View All Orders
+                      <ArrowUpRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
             </div>
           </div>
-        </Container>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   )

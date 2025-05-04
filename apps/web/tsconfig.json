@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     "contents/docs/components/navigation-menu/navigation-menu.mdx",
     "next.config.ts"
-, "scripts/capture-screenshot.js"  ],
+, "scripts/capture-screenshot.js", "registry/view/expanded-gallery-1/lib/utils.js"  ],
   "exclude": ["node_modules"]
 }

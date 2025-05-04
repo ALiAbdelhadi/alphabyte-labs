@@ -122,6 +122,21 @@ export const blockExamples = { items: [
     "hooks": []
   },
   {
+    "name": "expanded-gallery-1",
+    "target": "@/registry/view/expanded-gallery-1/page",
+    "components": [
+      "@/registry/view/expanded-gallery-1/components/expanded-gallery"
+    ],
+    "constant": [
+      "@/registry/view/expanded-gallery-1/constant/index.ts"
+    ],
+    "lib": [
+      "@/registry/view/expanded-gallery-1/lib/motion.ts"
+    ],
+    "context": [],
+    "hooks": []
+  },
+  {
     "name": "feature-showcase-1",
     "target": "@/registry/view/feature-showcase-1/page",
     "components": [

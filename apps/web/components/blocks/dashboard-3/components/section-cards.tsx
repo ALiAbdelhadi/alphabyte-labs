@@ -11,7 +11,7 @@ import { formatPrice } from "../lib/utils"
 
 export function SectionCards() {
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 px-4 lg:px-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       <Card className="bg-gradient-to-t from-primary/5 to-card dark:from-primary/10 shadow-sm ">
         <CardHeader className="relative">
           <CardDescription>Total Revenue</CardDescription>

@@ -401,7 +401,7 @@ export function DataTable({
       defaultValue="outline"
       className="flex w-full flex-col justify-start gap-6"
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between px-4 lg:px-6">
         <Label htmlFor="view-selector" className="sr-only">
           View
         </Label>
@@ -493,7 +493,7 @@ export function DataTable({
             sensors={sensors}
             id={sortableId}
           >
-            <div className="overflow-x-auto custom-scrollbar">
+            <div className="overflow-auto custom-scrollbar">
               <div className="flex items-center">
                 <Table>
                   <TableHeader className="sticky top-0 z-10 bg-muted">
