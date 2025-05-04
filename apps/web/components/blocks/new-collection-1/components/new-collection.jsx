@@ -1,26 +1,28 @@
-"use client";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Link from "next/link";
-import React, { useEffect, useRef } from "react";
-import Container from "@/components/Container";
+"use client"
 
-gsap.registerPlugin(ScrollTrigger);
+import React, { useEffect, useRef } from "react"
+import Link from "next/link"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+import Container from "@/components/Container"
+
+gsap.registerPlugin(ScrollTrigger)
 const NewCollection = () => {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef(null)
   useEffect(() => {
-    const boxes = sectionRef.current.querySelectorAll(".animate-box");
+    const boxes = sectionRef.current.querySelectorAll(".animate-box")
     boxes.forEach((box) => {
-      const button = box.querySelector(".animate-button");
-      const image = box.querySelector(".animate-image");
-      const text = box.querySelector(".animate-text");
+      const button = box.querySelector(".animate-button")
+      const image = box.querySelector(".animate-image")
+      const text = box.querySelector(".animate-text")
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: box,
           start: "top 80%",
           end: "top 60%",
         },
-      });
+      })
       tl.fromTo(
         button,
         {
@@ -32,7 +34,7 @@ const NewCollection = () => {
           scale: 1,
           duration: 0.5,
           ease: "power1.inOut",
-        },
+        }
       )
         .fromTo(
           image,
@@ -45,7 +47,7 @@ const NewCollection = () => {
             y: 0,
             duration: 1,
           },
-          "-=0.2",
+          "-=0.2"
         )
         .fromTo(
           text,
@@ -58,10 +60,10 @@ const NewCollection = () => {
             y: 0,
             duration: 1,
           },
-          "-=0.5",
-        );
-    });
-  }, []);
+          "-=0.5"
+        )
+    })
+  }, [])
   return (
     <section ref={sectionRef} className="py-12 md:py-24 lg:py-32 ">
       <Container>
@@ -140,7 +142,7 @@ const NewCollection = () => {
         </div>
       </Container>
     </section>
-  );
-};
+  )
+}
 
-export default NewCollection;
+export default NewCollection

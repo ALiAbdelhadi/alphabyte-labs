@@ -1,8 +1,10 @@
 "use client"
 
-import Pre from "@/components/pre"
-import { REGISTRY } from "@/registry"
 import { useEffect, useState } from "react"
+import { REGISTRY } from "@/registry"
+
+import Pre from "@/components/pre"
+
 import { CodeBlockWrapper } from "../code-block-wrapper"
 import LoadingIcon from "../icons/loading-icon"
 import MdxBadge from "../markdown/mdx-badge"
@@ -37,9 +39,7 @@ export default function ComponentSource({
     setIsLoadingCode(true)
     const loadSourceMap = async () => {
       try {
-        const module = await import(
-          "@/registry/component-source-map.json"
-        )
+        const module = await import("@/registry/component-source-map.json")
         const sourceMap = module.default as Record<string, string>
         const code = sourceMap[componentPath]
         if (code) {

@@ -1,16 +1,17 @@
+import fs from "fs/promises"
+import path from "path"
+import { notFound } from "next/navigation"
+
+import { Settings } from "@/config/meta"
+import { ErrorBoundary } from "@/lib/debug-wrapper"
+import { getDocument } from "@/lib/markdown"
+import { PageRoutes } from "@/lib/pageRoutes"
 import { BackToTop } from "@/components/navigation/back-to-top"
 import PageBreadcrumb from "@/components/navigation/docs-breadcrumb"
 import Feedback from "@/components/navigation/feedback"
 import Pagination from "@/components/navigation/Pagination"
 import Toc from "@/components/navigation/toc"
 import { Typography } from "@/components/typography"
-import { Settings } from "@/config/meta"
-import { ErrorBoundary } from "@/lib/debug-wrapper"
-import { getDocument } from "@/lib/markdown"
-import { PageRoutes } from "@/lib/pageRoutes"
-import fs from "fs/promises"
-import { notFound } from "next/navigation"
-import path from "path"
 
 type DocsPageProps = {
   params: Promise<{
@@ -107,21 +108,21 @@ export async function generateStaticParams() {
         await fs.access(contentPath, fs.constants.F_OK)
         return {
           slug: route.href.split("/").slice(1),
-          valid: true
+          valid: true,
         }
       } catch (error) {
         console.warn(`MDX file not found for route: ${route.href}`)
         return {
           slug: route.href.split("/").slice(1),
-          valid: false
+          valid: false,
         }
       }
     })
   )
 
   return validRoutes
-    .filter(route => route.valid)
-    .map(route => ({
-      slug: route.slug
+    .filter((route) => route.valid)
+    .map((route) => ({
+      slug: route.slug,
     }))
 }

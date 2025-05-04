@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next"
+
 import { Settings } from "@/config/meta"
 
 export default function robots(): MetadataRoute.Robots {
@@ -26,13 +27,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "Googlebot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/admin/",
-          "/_next/",
-          "/private/",
-          "/drafts/",
-        ],
+        disallow: ["/api/", "/admin/", "/_next/", "/private/", "/drafts/"],
       },
     ],
     sitemap: `${Settings.metadataBase}/sitemap.xml`,

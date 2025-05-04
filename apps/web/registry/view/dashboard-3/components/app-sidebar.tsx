@@ -1,5 +1,7 @@
 "use client"
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
+
+import * as React from "react"
+import Link from "next/link"
 import {
   ArrowUpCircleIcon,
   BarChartIcon,
@@ -17,12 +19,21 @@ import {
   SettingsIcon,
   UsersIcon,
 } from "lucide-react"
-import Link from "next/link"
-import * as React from "react"
-import { NavDocuments } from "./nav-documents"
+
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar"
+
 import { NavMain } from "../../dashboard-2/components/nav-main"
-import { NavSecondary } from "./nav-secondary"
 import { NavUser } from "../../dashboard-2/components/nav-user"
+import { NavDocuments } from "./nav-documents"
+import { NavSecondary } from "./nav-secondary"
 
 const data = {
   user: {

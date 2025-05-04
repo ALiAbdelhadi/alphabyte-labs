@@ -1,8 +1,8 @@
 "use client"
 
+import React from "react"
 import { CircleAlert, CircleCheck, Info, X } from "lucide-react"
 import { useTheme } from "next-themes"
-import React from "react"
 import { Toaster as Sonner } from "sonner"
 
 type ToasterProps = React.ComponentProps<typeof Sonner>
@@ -25,12 +25,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
             "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground rounded-full px-4 py-1.5 text-xs font-medium transition-colors hover:opacity-90",
           cancelButton:
             "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground rounded-full px-4 py-1.5 text-xs font-medium transition-colors hover:opacity-80",
-          success:
-            "!bg-green-50/95 dark:!bg-green-950/30",
-          error:
-            "!bg-red-50/95 dark:!bg-red-950/40",
-          warning:
-            "!bg-amber-50/90 dark:!bg-amber-950/30",
+          success: "!bg-green-50/95 dark:!bg-green-950/30",
+          error: "!bg-red-50/95 dark:!bg-red-950/40",
+          warning: "!bg-amber-50/90 dark:!bg-amber-950/30",
           info: "!bg-blue-50/90 dark:!bg-blue-950/30",
           loading: "group-[.toast]:text-muted-foreground",
         },

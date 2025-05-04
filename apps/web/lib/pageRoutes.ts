@@ -3,22 +3,22 @@ import { SidebarItem } from "@/types"
 
 export type Paths =
   | {
-    title: string
-    href?: string
-    noLink?: true
-    heading?: string
-    items?: Paths[]
-  }
+      title: string
+      href?: string
+      noLink?: true
+      heading?: string
+      items?: Paths[]
+    }
   | {
-    spacer: true
-  }
+      spacer: true
+    }
 
 export const Routes = [...DocsRouting.sidebarItems]
 
 type Page = { title: string; href: string }
 
 function hasNoLink(obj: any): obj is { noLink: boolean } {
-  return 'noLink' in obj && typeof obj.noLink === 'boolean';
+  return "noLink" in obj && typeof obj.noLink === "boolean"
 }
 
 function isRoute(

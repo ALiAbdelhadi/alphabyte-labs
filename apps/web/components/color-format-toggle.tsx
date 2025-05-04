@@ -1,5 +1,9 @@
 "use client"
 
+import { useState } from "react"
+import type { ColorFormat } from "@/types"
+import { Check, ChevronDown } from "lucide-react"
+
 import { Button } from "@/components/library/button"
 import {
   DropdownMenu,
@@ -7,9 +11,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/library/dropdown-menu"
-import type { ColorFormat } from "@/types"
-import { Check, ChevronDown } from "lucide-react"
-import { useState } from "react"
 
 interface ColorFormatToggleProps {
   onFormatChange: (format: ColorFormat) => void

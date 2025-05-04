@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/lib/utils"
+import React, { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import {
   AlertTriangleIcon,
@@ -9,7 +9,8 @@ import {
   X,
   XCircleIcon,
 } from "lucide-react"
-import React, { useEffect, useRef, useState } from "react"
+
+import { cn } from "@/lib/utils"
 
 type NoteVariant = "info" | "warning" | "success" | "error" | "normal"
 
@@ -26,12 +27,15 @@ interface NoteProps {
   onAction?: () => void
 }
 
-const variantConfig: Record<NoteVariant, {
-  bg: string
-  border: string
-  icon: string
-  shadowColor: string
-}> = {
+const variantConfig: Record<
+  NoteVariant,
+  {
+    bg: string
+    border: string
+    icon: string
+    shadowColor: string
+  }
+> = {
   info: {
     bg: "bg-blue-50/90 dark:bg-blue-900/30",
     border: "border-blue-500",
@@ -61,7 +65,7 @@ const variantConfig: Record<NoteVariant, {
     border: "border-gray-500",
     icon: "text-gray-500",
     shadowColor: "shadow-gray-500/10",
-  }
+  },
 }
 
 // خريطة ألوان الأزرار لضمان تحليل Tailwind في وقت البناء
@@ -143,10 +147,18 @@ const Note: React.FC<NoteProps> = ({
           <div className="flex gap-3">
             {!noIcon && (
               <div className={cn("mt-0.5 flex-shrink-0", config.icon)}>
-                {variant === "info" && <InfoIcon className="w-5 h-5" strokeWidth={2} />}
-                {variant === "warning" && <AlertTriangleIcon className="w-5 h-5" strokeWidth={2} />}
-                {variant === "success" && <CheckCircle2Icon className="w-5 h-5" strokeWidth={2} />}
-                {variant === "error" && <XCircleIcon className="w-5 h-5" strokeWidth={2} />}
+                {variant === "info" && (
+                  <InfoIcon className="w-5 h-5" strokeWidth={2} />
+                )}
+                {variant === "warning" && (
+                  <AlertTriangleIcon className="w-5 h-5" strokeWidth={2} />
+                )}
+                {variant === "success" && (
+                  <CheckCircle2Icon className="w-5 h-5" strokeWidth={2} />
+                )}
+                {variant === "error" && (
+                  <XCircleIcon className="w-5 h-5" strokeWidth={2} />
+                )}
               </div>
             )}
 
@@ -164,7 +176,10 @@ const Note: React.FC<NoteProps> = ({
               {actionLabel && onAction && (
                 <button
                   onClick={onAction}
-                  className={cn("text-sm font-medium mt-1", variantTextColors[variant])}
+                  className={cn(
+                    "text-sm font-medium mt-1",
+                    variantTextColors[variant]
+                  )}
                   aria-label={actionLabel}
                 >
                   {actionLabel}

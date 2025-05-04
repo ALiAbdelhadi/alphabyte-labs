@@ -1,5 +1,11 @@
 "use client"
 
+import { useEffect, useMemo, useState } from "react"
+import { DocsRouting } from "@/settings/docs-routing"
+import { SearchIcon } from "lucide-react"
+import { LuFileText } from "react-icons/lu"
+
+import { advanceSearch, cn, debounce, search } from "@/lib/utils"
 import {
   Dialog,
   DialogClose,
@@ -8,11 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/library/dialog"
 import { ScrollArea } from "@/components/library/scroll-area"
-import { advanceSearch, cn, debounce, search } from "@/lib/utils"
-import { DocsRouting } from "@/settings/docs-routing"
-import { SearchIcon } from "lucide-react"
-import { useEffect, useMemo, useState } from "react"
-import { LuFileText } from "react-icons/lu"
+
 import Anchor from "./anchor"
 
 interface Document {
@@ -177,33 +179,33 @@ export default function Search() {
                 <div className="flex flex-col gap-1">
                   {searchedInput.length >= 3
                     ? filteredResults.map((item) => {
-                      if ("href" in item) {
-                        return (
-                          <DialogClose key={item.href} asChild>
-                            <Anchor
-                              className="flex flex-col gap-1 rounded-md p-3 transition-colors hover:bg-gray-100 dark:hover:bg-neutral-800"
-                              href={`/docs${item.href}`}
-                            >
-                              <div className="flex items-center gap-2">
-                                <LuFileText className="h-4 w-4" />
-                                <span className="font-medium">
-                                  {item.title}
-                                </span>
-                              </div>
-                              {"snippet" in item && item.snippet && (
-                                <p
-                                  className="text-sm text-gray-500"
-                                  dangerouslySetInnerHTML={{
-                                    __html: item.snippet,
-                                  }}
-                                />
-                              )}
-                            </Anchor>
-                          </DialogClose>
-                        )
-                      }
-                      return null
-                    })
+                        if ("href" in item) {
+                          return (
+                            <DialogClose key={item.href} asChild>
+                              <Anchor
+                                className="flex flex-col gap-1 rounded-md p-3 transition-colors hover:bg-gray-100 dark:hover:bg-neutral-800"
+                                href={`/docs${item.href}`}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <LuFileText className="h-4 w-4" />
+                                  <span className="font-medium">
+                                    {item.title}
+                                  </span>
+                                </div>
+                                {"snippet" in item && item.snippet && (
+                                  <p
+                                    className="text-sm text-gray-500"
+                                    dangerouslySetInnerHTML={{
+                                      __html: item.snippet,
+                                    }}
+                                  />
+                                )}
+                              </Anchor>
+                            </DialogClose>
+                          )
+                        }
+                        return null
+                      })
                     : renderDocuments(DocsRouting.sidebarItems)}
                 </div>
               )}

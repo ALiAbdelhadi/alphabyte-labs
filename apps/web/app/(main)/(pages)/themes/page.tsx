@@ -1,4 +1,10 @@
 "use client"
+
+import { useEffect, useState } from "react"
+import { ArrowDownToLine, Copy, Download } from "lucide-react"
+import { toast } from "sonner"
+
+import { generateDarkTheme, generateTheme } from "@/lib/color-generation-utils"
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
 import { Input } from "@/components/library/input"
@@ -6,10 +12,6 @@ import { Label } from "@/components/library/label"
 import { Note } from "@/components/library/note"
 import { Separator } from "@/components/library/separator"
 import Pre from "@/components/pre"
-import { generateDarkTheme, generateTheme } from "@/lib/color-generation-utils"
-import { ArrowDownToLine, Copy, Download } from "lucide-react"
-import { useEffect, useState } from "react"
-import { toast } from "sonner"
 
 export default function ThemeGenerator() {
   const [primaryColor, setPrimaryColor] = useState("#0066CC")
@@ -25,7 +27,10 @@ export default function ThemeGenerator() {
   }, [primaryColor])
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--radius', `${defaultRadius}rem`)
+    document.documentElement.style.setProperty(
+      "--radius",
+      `${defaultRadius}rem`
+    )
   }, [defaultRadius])
 
   const generateThemes = () => {
@@ -37,7 +42,7 @@ export default function ThemeGenerator() {
       setThemeVersion((prev) => prev + 1)
     } catch (error) {
       console.error("Error generating themes:", error)
-      if (typeof toast !== 'undefined') {
+      if (typeof toast !== "undefined") {
         toast.error("Error generating theme", {
           description: "Please enter a valid color value",
         })
@@ -97,10 +102,11 @@ export default function ThemeGenerator() {
   const cssContent = `${formatCssVariables(lightTheme)}\n${formatCssVariables(darkTheme, true)}`
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(cssContent)
+    navigator.clipboard
+      .writeText(cssContent)
       .then(() => {
         setCopied(true)
-        if (typeof toast !== 'undefined') {
+        if (typeof toast !== "undefined") {
           toast("Copied!", {
             description: "Theme CSS variables copied to clipboard",
             duration: 2000,
@@ -108,9 +114,9 @@ export default function ThemeGenerator() {
         }
         setTimeout(() => setCopied(false), 2000)
       })
-      .catch(err => {
-        console.error('Failed to copy text: ', err)
-        if (typeof toast !== 'undefined') {
+      .catch((err) => {
+        console.error("Failed to copy text: ", err)
+        if (typeof toast !== "undefined") {
           toast.error("Copy failed", {
             description: "Please try again",
           })
@@ -119,16 +125,16 @@ export default function ThemeGenerator() {
   }
 
   const downloadCSS = () => {
-    const blob = new Blob([cssContent], { type: 'text/css' })
+    const blob = new Blob([cssContent], { type: "text/css" })
     const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
+    const a = document.createElement("a")
     a.href = url
-    a.download = 'theme-variables.css'
+    a.download = "theme-variables.css"
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
-    if (typeof toast !== 'undefined') {
+    if (typeof toast !== "undefined") {
       toast("Downloaded!", {
         description: "Theme CSS file downloaded successfully",
         duration: 2000,
@@ -239,7 +245,10 @@ export default function ThemeGenerator() {
                 </p>
               </div>
             </div>
-            <div className="p-6 rounded-xl border shadow-sm transition-colors duration-200" style={{ borderRadius: `var(--radius)` }}>
+            <div
+              className="p-6 rounded-xl border shadow-sm transition-colors duration-200"
+              style={{ borderRadius: `var(--radius)` }}
+            >
               <div className="grid grid-cols-2 gap-3">
                 {Object.keys(lightTheme).map((key, index) => (
                   <div key={key} className="flex flex-col gap-1.5">
@@ -256,7 +265,10 @@ export default function ThemeGenerator() {
                 ))}
               </div>
             </div>
-            <div className="p-6 rounded-xl border shadow-sm transition-colors duration-200" style={{ borderRadius: `var(--radius)` }}>
+            <div
+              className="p-6 rounded-xl border shadow-sm transition-colors duration-200"
+              style={{ borderRadius: `var(--radius)` }}
+            >
               <h4 className="text-sm font-medium mb-4">Component Previews</h4>
               <div className="space-y-4">
                 <div className="flex flex-wrap gap-2">
@@ -270,10 +282,14 @@ export default function ThemeGenerator() {
                   <Input placeholder="Input field" className="w-full" />
                 </div>
                 <div className="flex items-center gap-3 p-4 border rounded-lg bg-card">
-                  <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground">UI</div>
+                  <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground">
+                    UI
+                  </div>
                   <div className="flex-1">
                     <h4 className="text-sm font-medium">Card Component</h4>
-                    <p className="text-xs text-muted-foreground">Styled with your theme</p>
+                    <p className="text-xs text-muted-foreground">
+                      Styled with your theme
+                    </p>
                   </div>
                 </div>
               </div>
@@ -317,7 +333,10 @@ export default function ThemeGenerator() {
                 {cssContent}
               </Pre>
             </div>
-            <Note variant="normal" className="bg-muted/50 border rounded-lg p-4">
+            <Note
+              variant="normal"
+              className="bg-muted/50 border rounded-lg p-4"
+            >
               <div className="flex gap-3">
                 <div>
                   <ArrowDownToLine className="h-5 w-5 text-primary mt-0.5" />
@@ -334,10 +353,12 @@ export default function ThemeGenerator() {
                   </p>
                   <div className="mt-3 space-y-2">
                     <p className="text-sm text-foreground/70">
-                      <strong>Quick Install:</strong> Download the CSS file or copy the variables to your project.
+                      <strong>Quick Install:</strong> Download the CSS file or
+                      copy the variables to your project.
                     </p>
                     <p className="text-sm text-foreground/70">
-                      <strong>Tailwind Config:</strong> Make sure your Tailwind config is set up to use CSS variables.
+                      <strong>Tailwind Config:</strong> Make sure your Tailwind
+                      config is set up to use CSS variables.
                     </p>
                   </div>
                 </div>

@@ -1,11 +1,13 @@
+import { Settings } from "@/config/meta"
 import { ThemeProvider } from "@/components/context/theme-provider"
 import { Toaster } from "@/components/library/sonner"
 import Providers from "@/components/Providers"
-import { Settings } from "@/config/meta"
+
 import "@/styles/globals.css"
 import "@/styles/prism-theme.css"
-import { Metadata } from "next"
+
 import { Fragment } from "react"
+import { Metadata } from "next"
 
 const baseUrl = Settings.metadataBase
 
@@ -43,7 +45,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode,
+  children: React.ReactNode
 }>) {
   return (
     <Fragment>
@@ -61,9 +63,7 @@ export default function RootLayout({
           >
             <div vaul-drawer-wrapper="">
               <div className="relative flex min-h-svh flex-col bg-background">
-                <Providers>
-                  {children}
-                </Providers>
+                <Providers>{children}</Providers>
               </div>
             </div>
           </ThemeProvider>

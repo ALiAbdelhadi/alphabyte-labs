@@ -15,10 +15,7 @@ const DialogTrigger = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <DialogPrimitive.Trigger
     ref={ref}
-    className={cn(
-      "focus:outline-none",
-      className
-    )}
+    className={cn("focus:outline-none", className)}
     {...props}
   >
     {children}
@@ -72,7 +69,7 @@ const dialogContentVariants = cva(
 
 export interface DialogContentProps
   extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
-  VariantProps<typeof dialogContentVariants> {
+    VariantProps<typeof dialogContentVariants> {
   closeOnClickOutside?: boolean
 }
 

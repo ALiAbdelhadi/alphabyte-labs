@@ -1,9 +1,11 @@
 "use client"
 
-import { cn } from "@/lib/utils"
 import { languageIcons } from "@/settings/LanguageIcon"
 import { Check, Clipboard, FileCode } from "lucide-react"
 import Prism from "prismjs"
+
+import { cn } from "@/lib/utils"
+
 import "prismjs/components/prism-css"
 import "prismjs/components/prism-javascript"
 import "prismjs/components/prism-jsx"

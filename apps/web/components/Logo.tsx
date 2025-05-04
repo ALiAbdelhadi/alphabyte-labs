@@ -16,18 +16,12 @@ const Logo = ({
   showBeta = true,
   href = "/",
 }: LogoProps) => {
-
   return (
     <Link href={href} className="group relative flex items-center">
       <div className="relative flex items-center space-x-2 md:space-x-3 py-2">
         {showLogoText && (
           <div className="flex items-center justify-center space-x-1">
-            <span
-              className={cn(
-                "font-bold tracking-tight ",
-                className
-              )}
-            >
+            <span className={cn("font-bold tracking-tight ", className)}>
               Alphabyte-labs
             </span>
             <span className="mt-[3.5px]">

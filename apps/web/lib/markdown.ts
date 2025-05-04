@@ -13,6 +13,7 @@ import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import { Node } from "unist"
 import { visit } from "unist-util-visit"
+
 import { Settings } from "@/config/meta"
 import { components } from "@/lib/components"
 import { PageRoutes } from "@/lib/pageRoutes"
@@ -57,12 +58,7 @@ function computeDocumentPath(slug: string) {
   const lastSegment = segments[segments.length - 1]
   return Settings.gitload
     ? `${GitHubLink.href}/raw/main/contents/docs/${slug}/${lastSegment}.mdx`
-    : path.join(
-      process.cwd(),
-      "contents/docs",
-      slug,
-      `${lastSegment}.mdx`
-    )
+    : path.join(process.cwd(), "contents/docs", slug, `${lastSegment}.mdx`)
 }
 
 const getDocumentPath = (() => {
@@ -227,11 +223,7 @@ function getBlocksContentPath(slug: string) {
   const segments = slug.split("/")
   const lastSegment = segments[segments.length - 1]
 
-  return path.join(
-    process.cwd(),
-    "contents/blocks",
-    `${lastSegment}.mdx`
-  )
+  return path.join(process.cwd(), "contents/blocks", `${lastSegment}.mdx`)
 }
 
 export async function getBlocksForSlug(slug: string) {
@@ -251,8 +243,6 @@ export async function getBlocksForSlug(slug: string) {
     return null
   }
 }
-
-
 
 export async function getAllBlocks() {
   const blocksFolder = path.join(process.cwd(), "/contents/blocks/")
@@ -287,4 +277,3 @@ export async function getAllBlocks() {
     slug: string
   })[]
 }
-

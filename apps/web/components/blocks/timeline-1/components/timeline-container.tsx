@@ -1,8 +1,9 @@
-import { TimeLineData } from "@/registry/view/timeline-1/constant";
-import Timeline from "./timeline";
+import { TimeLineData } from "@/registry/view/timeline-1/constant"
+
+import Timeline from "./timeline"
 
 const TimelineContainer = () => {
-    return <Timeline data={TimeLineData} />;
-};
+  return <Timeline data={TimeLineData} />
+}
 
-export default TimelineContainer;
+export default TimelineContainer

@@ -1,4 +1,5 @@
 import { MainNavItem, SidebarItem } from "@/types"
+
 export interface DocsConfig {
   sidebarItems: SidebarItem[]
   mainNav: MainNavItem[]

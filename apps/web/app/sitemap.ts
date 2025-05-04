@@ -1,9 +1,10 @@
-import { Settings } from "@/config/meta";
-import { PageRoutes } from "@/lib/pageRoutes";
-import type { MetadataRoute } from "next";
+import type { MetadataRoute } from "next"
+
+import { Settings } from "@/config/meta"
+import { PageRoutes } from "@/lib/pageRoutes"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = Settings.metadataBase;
+  const baseUrl = Settings.metadataBase
 
   const staticPages = [
     {
@@ -35,28 +36,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date().toISOString(),
       changeFrequency: "monthly" as const,
       priority: 0.7,
-    }
-  ];
-
+    },
+  ]
 
   const dynamicPages = PageRoutes.map((page) => ({
     url: `${baseUrl}${page.href}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: page.href.startsWith("/components") 
-      ? "weekly" as const 
-      : "monthly" as const,
-    priority: page.href === "/" 
-      ? 1.0 
-      : page.href.startsWith("/components")
-        ? 0.9
-        : 0.8,
-  }));
-  
+    changeFrequency: page.href.startsWith("/components")
+      ? ("weekly" as const)
+      : ("monthly" as const),
+    priority:
+      page.href === "/" ? 1.0 : page.href.startsWith("/components") ? 0.9 : 0.8,
+  }))
 
-  const allPages = [...staticPages, ...dynamicPages];
-  const uniquePages = allPages.filter((page, index, self) => 
-    index === self.findIndex((p) => p.url === page.url)
-  );
-  
-  return uniquePages;
+  const allPages = [...staticPages, ...dynamicPages]
+  const uniquePages = allPages.filter(
+    (page, index, self) => index === self.findIndex((p) => p.url === page.url)
+  )
+
+  return uniquePages
 }

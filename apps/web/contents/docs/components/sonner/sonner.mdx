@@ -24,7 +24,11 @@ links:
       <ComponentSource name="sonner-demo" />
     </StepItem>
     <StepItem title="Edit layout.tsx for Toaster component">
-      in Your main <MdxBadge>layout.tsx</MdxBadge> add{" "}<MdxBadge>\<Toaster /></MdxBadge>{" "}to show the toast :
+      in Your main <MdxBadge>layout.tsx</MdxBadge> add{" "}
+      <MdxBadge>
+        \<Toaster />
+      </MdxBadge>{" "}
+      to show the toast :
       <Pre
         highlightLines={[8]}
       >{`import { Toaster } from "@/components/library/sonner"
@@ -49,7 +53,9 @@ export default function RootLayout({ children }) {
 </div>
 
 ## Types
+
 ### Success
+
 <ComponentPreview name="sonner-demo" variant="success" />
 ### Info
 <ComponentPreview name="sonner-demo" variant="info" />

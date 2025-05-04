@@ -1,12 +1,15 @@
 "use client"
+
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { blockExamples } from "@/registry/blocks-examples"
+import { useTheme } from "next-themes"
+
 import BlockPreview from "@/components/block-preview"
 import BlockForGrid from "@/components/BlockForGrid"
 import Container from "@/components/Container"
 import { Button } from "@/components/library/button"
-import { blockExamples } from "@/registry/blocks-examples"
-import { useTheme } from "next-themes"
-import Link from "next/link"
-import { useEffect, useState } from "react"
+
 const UiBlocksPage = () => {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -24,8 +27,8 @@ const UiBlocksPage = () => {
               Building Blocks for the Web
             </h1>
             <p className="text-base md:text-lg lg:text-xl font-normal max-w-2xl text-foreground opacity-80">
-              Clean, modern blocks. Copy and paste into your apps.
-              Works with all React frameworks. Get your block exactly like your tech stack
+              Clean, modern blocks. Copy and paste into your apps. Works with
+              all React frameworks. Get your block exactly like your tech stack
             </p>
           </div>
           <div className="space-x-2">
@@ -80,17 +83,21 @@ const UiBlocksPage = () => {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {mounted && registryBlocks.map(({ name }) => {
-                return (
-                  <BlockForGrid
-                    key={name}
-                    title={name.charAt(0).toUpperCase() + name.slice(1)}
-                    href={`/ui-blocks/${name}`}
-                    src={theme === "light" ? `/block-mokeup/${name}-light.png` : `/block-mokeup/${name}-dark.png`}
-                  />
-                )
-              }
-              )}
+              {mounted &&
+                registryBlocks.map(({ name }) => {
+                  return (
+                    <BlockForGrid
+                      key={name}
+                      title={name.charAt(0).toUpperCase() + name.slice(1)}
+                      href={`/ui-blocks/${name}`}
+                      src={
+                        theme === "light"
+                          ? `/block-mokeup/${name}-light.png`
+                          : `/block-mokeup/${name}-dark.png`
+                      }
+                    />
+                  )
+                })}
             </div>
           </div>
         </Container>

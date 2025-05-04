@@ -1,9 +1,7 @@
 import TimelineContainer from "./components/timeline-container"
 
 const page = () => {
-    return (
-        <TimelineContainer />
-    )
+  return <TimelineContainer />
 }
 
 export default page

@@ -23,10 +23,10 @@ import { OpenGraph, TwitterCard } from "@/config/metadata"
 
 // Extended OpenGraph type to support article metadata
 type ExtendedOpenGraph = OpenGraph & {
-  publishedTime?: string;
-  authors?: string[];
-  section?: string;
-  locale?: string;
+  publishedTime?: string
+  authors?: string[]
+  section?: string
+  locale?: string
 }
 
 export const Company = {
@@ -78,53 +78,53 @@ export const Settings = {
 }
 
 type MetadataProps = {
-  title?: string;
-  description?: string;
-  keywords?: string[];
+  title?: string
+  description?: string
+  keywords?: string[]
   image?: {
-    url: string;
-    width?: number;
-    height?: number;
-    alt?: string;
-  };
-  noIndex?: boolean;
-  locale?: string;
-  type?: "website" | "article";
-  canonical?: string;
-  publishedTime?: string;
-  authors?: string[];
-  category?: string;
+    url: string
+    width?: number
+    height?: number
+    alt?: string
+  }
+  noIndex?: boolean
+  locale?: string
+  type?: "website" | "article"
+  canonical?: string
+  publishedTime?: string
+  authors?: string[]
+  category?: string
 }
 
 /**
  * Generate metadata for a page with SEO optimization
- * 
+ *
  * @param props - Page-specific metadata properties to override defaults
  * @returns Metadata object compatible with Next.js metadata API
  */
 export function constructMetadata(props?: MetadataProps) {
-  const title = props?.title 
-    ? `${props.title} | ${Settings.title}` 
-    : Settings.title;
-  
-  const description = props?.description || Settings.description;
-  const currentKeywords = props?.keywords 
-    ? [...Settings.keywords, ...props.keywords]
-    : Settings.keywords;
+  const title = props?.title
+    ? `${props.title} | ${Settings.title}`
+    : Settings.title
 
-  const image = props?.image 
+  const description = props?.description || Settings.description
+  const currentKeywords = props?.keywords
+    ? [...Settings.keywords, ...props.keywords]
+    : Settings.keywords
+
+  const image = props?.image
     ? {
         url: props.image.url,
         width: props.image.width || 1200,
         height: props.image.height || 630,
         alt: props.image.alt || imageAlt,
       }
-    : Settings.openGraph.images[0];
+    : Settings.openGraph.images[0]
 
-  const type = props?.type || Settings.openGraph.type;
-  const canonicalUrl = props?.canonical || Settings.canonical;
-  const locale = props?.locale || "en";
-  
+  const type = props?.type || Settings.openGraph.type
+  const canonicalUrl = props?.canonical || Settings.canonical
+  const locale = props?.locale || "en"
+
   // Default metadata
   const metadata = {
     title,
@@ -141,8 +141,8 @@ export function constructMetadata(props?: MetadataProps) {
       images: [
         {
           ...image,
-          url: image.url.startsWith("http") 
-            ? image.url 
+          url: image.url.startsWith("http")
+            ? image.url
             : `${Settings.metadataBase}${image.url}`,
         },
       ],
@@ -154,8 +154,8 @@ export function constructMetadata(props?: MetadataProps) {
       site: Settings.twitter.site,
       images: [
         {
-          url: image.url.startsWith("http") 
-            ? image.url 
+          url: image.url.startsWith("http")
+            ? image.url
             : `${Settings.metadataBase}${image.url}`,
           alt: image.alt,
         },
@@ -175,7 +175,7 @@ export function constructMetadata(props?: MetadataProps) {
     alternates: {
       canonical: canonicalUrl,
     },
-  };
+  }
 
   // Add article-specific metadata if type is article
   if (type === "article" && props) {
@@ -184,8 +184,8 @@ export function constructMetadata(props?: MetadataProps) {
       publishedTime: props.publishedTime,
       authors: props.authors,
       section: props.category,
-    };
+    }
   }
 
-  return metadata;
+  return metadata
 }

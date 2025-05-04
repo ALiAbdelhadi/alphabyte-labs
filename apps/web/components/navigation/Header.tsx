@@ -1,5 +1,18 @@
 "use client"
 
+import { useRef, useState } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { navItems } from "@/constant"
+import { AnimatePresence, motion } from "framer-motion"
+import { X } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu"
 import Container from "@/components/Container"
 import { ScrollArea } from "@/components/library/scroll-area"
 import {
@@ -10,18 +23,6 @@ import {
 } from "@/components/library/sheet"
 import Logo from "@/components/Logo"
 import Search from "@/components/navigation/search"
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList
-} from "@/components/ui/navigation-menu"
-import { navItems } from "@/constant"
-import { cn } from "@/lib/utils"
-import { AnimatePresence, motion } from "framer-motion"
-import { X } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useRef, useState } from "react"
 
 import ChangeTheme from "../ChangeTheme"
 import { Button } from "../library/button"
@@ -76,13 +77,17 @@ export function Header() {
               <NavigationMenuList className="md:space-x-2">
                 {navItems.map((item) => (
                   <NavigationMenuItem key={item.title}>
-                    <Link href={item.href} passHref className={cn(
-                      "group inline-flex h-10 w-max items-center justify-center",
-                      "rounded-md bg-transparent p-2 text-sm",
-                      "transition-colors -tracking-[.01em]",
-                      "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
-                      "hover:text-[#000000] dark:hover:text-white"
-                    )}>
+                    <Link
+                      href={item.href}
+                      passHref
+                      className={cn(
+                        "group inline-flex h-10 w-max items-center justify-center",
+                        "rounded-md bg-transparent p-2 text-sm",
+                        "transition-colors -tracking-[.01em]",
+                        "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
+                        "hover:text-[#000000] dark:hover:text-white"
+                      )}
+                    >
                       {item.title}
                     </Link>
                   </NavigationMenuItem>
@@ -96,7 +101,12 @@ export function Header() {
             <Search />
           </div>
           <div className="hidden md:flex items-center gap-3">
-            <Button className="lg:block hidden rounded-full text-xs" size={"sm"}>Get Full Access</Button>
+            <Button
+              className="lg:block hidden rounded-full text-xs"
+              size={"sm"}
+            >
+              Get Full Access
+            </Button>
             <ChangeTheme />
           </div>
           <div className="flex items-center gap-2 md:hidden w-full">

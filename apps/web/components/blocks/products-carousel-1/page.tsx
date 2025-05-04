@@ -1,14 +1,15 @@
-import Container from '@/components/Container'
-import ProductCarousel from './components/product-carousel'
+import Container from "@/components/Container"
+
+import ProductCarousel from "./components/product-carousel"
 
 const page = () => {
-    return (
-        <div className="py-10 md:py-16 lg:py-20">
-            <Container>
-                <ProductCarousel />
-            </Container>
-        </div>
-    )
+  return (
+    <div className="py-10 md:py-16 lg:py-20">
+      <Container>
+        <ProductCarousel />
+      </Container>
+    </div>
+  )
 }
 
 export default page

@@ -1,5 +1,9 @@
 "use client"
 
+import React, { useEffect, useState } from "react"
+import { REGISTRY } from "@/registry"
+
+import { cn } from "@/lib/utils"
 import {
   Tabs,
   TabsContent,
@@ -7,9 +11,7 @@ import {
   TabsTrigger,
 } from "@/components/library/tabs"
 import Pre from "@/components/pre"
-import { cn } from "@/lib/utils"
-import { REGISTRY } from "@/registry"
-import React, { useEffect, useState } from "react"
+
 import LoadingIcon from "../icons/loading-icon"
 
 export interface ComponentPreviewProps {
@@ -48,9 +50,7 @@ export default function ComponentPreview({
 
     async function loadSourceCode() {
       try {
-        const module = await import(
-          "@/registry/component-demo-source-map.json"
-        )
+        const module = await import("@/registry/component-demo-source-map.json")
         const sourceMap = module.default as Record<string, string>
         const code = sourceMap[componentDemoPath]
         if (code) {

@@ -11,6 +11,7 @@ import {
 import Image, { ImageProps } from "next/image"
 import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react"
 import { motion } from "framer-motion"
+
 import { cn } from "@/lib/utils"
 import { useOutsideClick } from "@/hooks/out-side-click"
 
@@ -34,7 +35,7 @@ const CarouselContext = createContext<{
   onCardClick: (index: number) => void
   currentIndex: number
 }>({
-  onCardClick: () => { },
+  onCardClick: () => {},
   currentIndex: 0,
 })
 
