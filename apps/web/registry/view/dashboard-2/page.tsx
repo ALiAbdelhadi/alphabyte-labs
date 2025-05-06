@@ -1,10 +1,9 @@
 "use client"
 
+import { ArrowUpRight } from "lucide-react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
 
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import {
   Avatar,
   AvatarFallback,
@@ -28,7 +27,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/library/table"
-
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { formatPrice } from "../dashboard-3/lib/utils"
 import { DashboardHeader } from "./components/dashboard-header"
 import DashboardSidebar from "./components/dashboard-sidebar"
@@ -226,7 +225,7 @@ export default function DashboardPage() {
                               <div className="flex items-center gap-1 md:gap-2">
                                 <Avatar className="h-6 w-6 md:h-8 md:w-8">
                                   <AvatarImage
-                                    src={`/placeholder.svg?height=32&width=32`}
+                                    src={`https://api.dicebear.com/6.x/initials/svg?seed=${order.customer}`}
                                     alt={order.customer}
                                   />
                                   <AvatarFallback>
@@ -238,7 +237,7 @@ export default function DashboardPage() {
                                 </span>
                               </div>
                             </TableCell>
-                            <TableCell className="p-2 md:p-4">
+                            <TableCell>
                               <Badge
                                 variant={
                                   order.status === "Delivered"
@@ -247,7 +246,13 @@ export default function DashboardPage() {
                                       ? "secondary"
                                       : "outline"
                                 }
-                                className="text-xs"
+                                className={
+                                  order.status === "Delivered"
+                                    ? "bg-green-100 text-green-800 hover:bg-green-100"
+                                    : order.status === "Processing"
+                                      ? "bg-amber-100 text-amber-800 hover:bg-amber-100"
+                                      : "bg-blue-100 text-blue-800 hover:bg-blue-100"
+                                }
                               >
                                 {order.status}
                               </Badge>

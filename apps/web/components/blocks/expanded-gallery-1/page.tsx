@@ -1,12 +1,10 @@
 "use client"
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-
-import { cn } from "@/lib/utils"
-import { useIsMobile } from "@/hooks/use-mobile"
 import Container from "@/components/Container"
-
+import { useIsMobile } from "@/hooks/use-mobile"
+import { cn } from "@/lib/utils"
+import { motion } from "framer-motion"
+import { useState } from "react"
 import ExpandableGallery from "./components/expanded-gallery"
 import { galleryItems } from "./constant"
 

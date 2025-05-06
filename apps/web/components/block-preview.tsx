@@ -1,24 +1,11 @@
 "use client"
 
-import type React from "react"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { blockExamples } from "@/registry/blocks-examples"
-import { languageIcons } from "@/settings/LanguageIcon"
-import { motion } from "framer-motion"
 import {
-  ChevronRight,
-  File,
-  FileCode,
-  Folder,
-  Fullscreen,
-  Monitor,
-  PanelLeft,
-  PanelRight,
-  Smartphone,
-  Tablet,
-} from "lucide-react"
-
-import { cn } from "@/lib/utils"
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/library/collapsible"
+import { Pre } from "@/components/pre-for-block-preview"
 import {
   Sidebar,
   SidebarGroup,
@@ -37,22 +24,26 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import { cn } from "@/lib/utils"
+import { FileTree, generateFileTreeFromBlockId, normalizePath } from "@/registry/block"
+import { languageIcons } from "@/settings/LanguageIcon"
+import { motion } from "framer-motion"
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/library/collapsible"
-import { Pre } from "@/components/pre-for-block-preview"
-
+  ChevronRight,
+  File,
+  FileCode,
+  Folder,
+  Fullscreen,
+  Monitor,
+  PanelLeft,
+  PanelRight,
+  Smartphone,
+  Tablet,
+} from "lucide-react"
+import type React from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { CopyButton } from "./copy-button-for-block-preview"
 import { Separator } from "./library/separator"
-
-interface FileTree {
-  name: string
-  path?: string
-  children?: FileTree[]
-}
-
 interface CodeFile {
   path: string
   content: string
@@ -70,29 +61,6 @@ interface BlockPreview {
   fileTree?: FileTree[] | string
 }
 
-function normalizePath(path: string, type: "lib" | "constant"): string {
-  let normalizedPath = path
-
-  if (type === "lib") {
-    if (normalizedPath.endsWith("/utils.ts")) {
-      normalizedPath = normalizedPath.replace("/utils.ts", "/utils")
-    } else if (normalizedPath.endsWith("/utils")) {
-      normalizedPath = normalizedPath.replace("/utils", "")
-    } else if (!normalizedPath.endsWith("/utils")) {
-      normalizedPath = `${normalizedPath}/utils`
-    }
-  } else if (type === "constant") {
-    if (normalizedPath.endsWith("/index.tsx")) {
-      normalizedPath = normalizedPath.replace("/index.tsx", "/index")
-    } else if (normalizedPath.endsWith("/index")) {
-      normalizedPath = normalizedPath.replace("/index", "")
-    } else if (!normalizedPath.endsWith("/index")) {
-      normalizedPath = `${normalizedPath}/index`
-    }
-  }
-
-  return normalizedPath
-}
 
 function Tree({
   item,
@@ -263,58 +231,6 @@ function BlockFileTree({
       </motion.aside>
     </>
   )
-}
-
-function generateFileTreeFromBlockId(blockId: string) {
-  const block = blockExamples.items.find((item) => item.name === blockId)
-  if (!block) return []
-
-  const fileTree: FileTree[] = [
-    {
-      name: blockId,
-      children: [
-        {
-          name: "page.tsx",
-          path: block.target,
-        },
-        {
-          name: "components",
-          children: block.components.map((comp) => {
-            const pathParts = comp.split("/")
-            const fileName = pathParts[pathParts.length - 1]
-            return {
-              name: `${fileName}.tsx`,
-              path: comp,
-            }
-          }),
-        },
-      ],
-    },
-  ]
-
-  if (block.constant && block.constant.length > 0) {
-    fileTree[0].children?.push({
-      name: "constant",
-      children: block.constant.map((constant) => {
-        return {
-          name: "index.tsx",
-          path: `${constant}/index`,
-        }
-      }),
-    })
-  }
-  if (block.lib && block.lib.length > 0) {
-    fileTree[0].children?.push({
-      name: "lib",
-      children: block.lib.map((lib) => {
-        return {
-          name: "utils.ts",
-          path: `${lib}/utils`,
-        }
-      }),
-    })
-  }
-  return fileTree
 }
 
 export default function BlockPreview({
@@ -570,6 +486,7 @@ export default function BlockPreview({
       if (activeFile.endsWith(".js")) return "javascript"
       if (activeFile.endsWith(".jsx")) return "jsx"
       if (activeFile.endsWith(".css")) return "css"
+      if (activeFile.endsWith(".json")) return "json"
     }
     return language
   }, [resolvedCodeFiles, activeFile, language])
@@ -613,7 +530,7 @@ export default function BlockPreview({
   const screensWidth = {
     desktop: "100%",
     tablet: "768px",
-    smartphone: "480px",
+    smartphone: "380px",
   }
 
   useEffect(() => {

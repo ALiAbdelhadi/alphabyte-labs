@@ -12,6 +12,7 @@ import { Label } from "@/components/library/label"
 import { Note } from "@/components/library/note"
 import { Separator } from "@/components/library/separator"
 import Pre from "@/components/pre"
+import { cn } from "@/lib/utils"
 
 export default function ThemeGenerator() {
   const [primaryColor, setPrimaryColor] = useState("#0066CC")
@@ -256,7 +257,7 @@ export default function ThemeGenerator() {
                       {key}
                     </div>
                     <div
-                      className="h-16 flex items-center justify-center text-xs font-mono shadow-sm border transition-all"
+                      className="h-16 flex items-center justify-center text-xs shadow-sm border transition-all"
                       style={getPreviewStyle(key)}
                     >
                       {key.includes("foreground") ? "Text" : ""}
@@ -320,7 +321,21 @@ export default function ThemeGenerator() {
                   className="gap-2"
                 >
                   <Copy className="h-4 w-4" />
-                  {copied ? "Copied!" : "Copy CSS"}
+                  <span className={cn("transition-all", copied && "mr-2.5")}>
+                    Cop
+                    <span className="relative">
+                      <span
+                        className={`inline-block transition-opacity duration-300 ${copied ? "opacity-0" : "opacity-100"}`}
+                      >
+                        y
+                      </span>
+                      <span
+                        className={`absolute left-0 transition-all duration-300 ${copied ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"}`}
+                      >
+                        ied{" "}
+                      </span>
+                    </span>
+                  </span>{" "}
                 </Button>
               </div>
             </div>

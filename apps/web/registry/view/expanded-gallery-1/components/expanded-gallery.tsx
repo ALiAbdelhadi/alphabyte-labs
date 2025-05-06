@@ -116,7 +116,7 @@ const ExpandableGallery: React.FC<ExpandableGalleryProps> = ({
               "absolute bottom-0 w-full z-20",
               "p-5 xs:p-6 sm:p-6",
               "flex justify-start flex-col",
-              "backdrop-blur-[8px] bg-black/30"
+              "backdrop-blur-[8px] bg-black/30 rounded-b-xl md:rounded-b-2xl"
             )}
           >
             <h2
