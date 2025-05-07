@@ -64,7 +64,7 @@ const salesChartOptions = {
     axisLine: { lineStyle: { color: "#d1d5db" } },
     axisLabel: {
       fontSize: 12,
-      interval: (index, value) => {
+      interval: (index: number, value: string) => {
         return window.innerWidth > 640 ? true : index % 2 === 0
       },
     },
@@ -155,9 +155,9 @@ export default function DashboardPage() {
     <SidebarProvider>
       {/* Here you can choose of custom sidebar behavior (inset, sidebar, floating)  default use: sidebar */}
       <DashboardSidebar variant="inset" />
-      <SidebarInset className="container">
+      <SidebarInset>
         <DashboardHeader />
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col px-4 lg:px-6">
           <div className="flex flex-1 flex-col gap-2">
             <div className="flex flex-col gap-3 py-3 md:gap-6 md:py-6">
               <SectionCards />
