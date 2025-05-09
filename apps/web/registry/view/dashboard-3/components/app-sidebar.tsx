@@ -1,7 +1,14 @@
 "use client"
 
-import * as React from "react"
-import Link from "next/link"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar"
 import {
   ArrowUpCircleIcon,
   BarChartIcon,
@@ -15,21 +22,13 @@ import {
   HelpCircleIcon,
   LayoutDashboardIcon,
   ListIcon,
+  Package2,
   SearchIcon,
   SettingsIcon,
   UsersIcon,
 } from "lucide-react"
-
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar"
-
+import Link from "next/link"
+import * as React from "react"
 import { NavMain } from "../../dashboard-2/components/nav-main"
 import { NavUser } from "../../dashboard-2/components/nav-user"
 import { NavDocuments } from "./nav-documents"
@@ -37,8 +36,8 @@ import { NavSecondary } from "./nav-secondary"
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "john",
+    email: "john@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
   navMain: [
@@ -46,6 +45,11 @@ const data = {
       title: "Dashboard",
       url: "#",
       icon: LayoutDashboardIcon,
+    },
+    {
+      title: "Orders",
+      url: "#",
+      icon: Package2,
     },
     {
       title: "Lifecycle",

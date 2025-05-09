@@ -1,9 +1,5 @@
 "use client"
 
-import { ArrowUpRight } from "lucide-react"
-import dynamic from "next/dynamic"
-import Link from "next/link"
-
 import {
   Avatar,
   AvatarFallback,
@@ -28,6 +24,9 @@ import {
   TableRow,
 } from "@/components/library/table"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { ArrowUpRight } from "lucide-react"
+import dynamic from "next/dynamic"
+import Link from "next/link"
 import { formatPrice } from "../dashboard-3/lib/utils"
 import { DashboardHeader } from "./components/dashboard-header"
 import DashboardSidebar from "./components/dashboard-sidebar"

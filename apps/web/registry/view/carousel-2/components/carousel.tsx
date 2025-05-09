@@ -1,5 +1,10 @@
 "use client"
 
+import { useOutsideClick } from "@/hooks/out-side-click"
+import { cn } from "@/lib/utils"
+import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react"
+import { motion } from "framer-motion"
+import Image, { ImageProps } from "next/image"
 import {
   createContext,
   Fragment,
@@ -8,12 +13,6 @@ import {
   useRef,
   useState,
 } from "react"
-import Image, { ImageProps } from "next/image"
-import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react"
-import { motion } from "framer-motion"
-
-import { cn } from "@/lib/utils"
-import { useOutsideClick } from "@/hooks/out-side-click"
 
 interface CarouselProps {
   items: JSX.Element[]
@@ -31,7 +30,7 @@ const CarouselContext = createContext<{
   onCardClick: (index: number) => void
   currentIndex: number
 }>({
-  onCardClick: () => {},
+  onCardClick: () => { },
   currentIndex: 0,
 })
 export const Carousel = ({
@@ -75,18 +74,18 @@ export const Carousel = ({
       <div className="relative w-full py-0 !my-12 ">
         <div className="flex justify-end space-x-2">
           <button
-            className="relative z-40 h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
+            className="relative z-40 h-12 w-12 rounded-full bg-gray-100 dark:bg-neutral-800 hover:bg-gray-300 hover:dark:bg-gray-700 flex items-center justify-center disabled:opacity-50"
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
           >
-            <IconArrowNarrowLeft className="h-7 w-7 text-gray-500" />
+            <IconArrowNarrowLeft className="h-7 w-7 " />
           </button>
           <button
-            className="relative z-40 h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
+            className="relative z-40 h-12 w-12 rounded-full bg-gray-100 dark:bg-neutral-800 hover:bg-gray-300 hover:dark:bg-gray-700 flex items-center justify-center disabled:opacity-50"
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
           >
-            <IconArrowNarrowRight className="h-7 w-7 text-gray-500" />
+            <IconArrowNarrowRight className="h-7 w-7" />
           </button>
         </div>
         <div
@@ -146,7 +145,7 @@ export const Card = ({
         ref={cardRef}
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleCardClick}
-        className="rounded-3xl cursor-pointer bg-gray-100 dark:bg-neutral-900 h-[18rem] md:h-[37rem] w-56 md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10zz"
+        className="rounded-3xl cursor-pointer bg-gray-100 dark:bg-neutral-800 hover:bg-gray-300 hover:dark:bg-gray-700 dark:bg-neutral-900 h-[18rem] md:h-[37rem] w-56 md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10zz"
       >
         <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
         <div className="relative z-40 p-4 md:p-8">

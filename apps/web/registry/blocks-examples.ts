@@ -229,6 +229,29 @@ export const blockExamples = { items: [
     "hooks": []
   },
   {
+    "name": "orders-page-3",
+    "target": "@/registry/view/orders-page-3/page",
+    "components": [
+      "@/registry/view/orders-page-3/components/header",
+      "@/registry/view/orders-page-3/components/nav-documents",
+      "@/registry/view/orders-page-3/components/nav-secondary",
+      "@/registry/view/orders-page-3/components/nav-user",
+      "@/registry/view/orders-page-3/components/orders-cards",
+      "@/registry/view/orders-page-3/components/orders-chart",
+      "@/registry/view/orders-page-3/components/orders-stats",
+      "@/registry/view/orders-page-3/components/orders-table",
+      "@/registry/view/orders-page-3/components/sidebar"
+    ],
+    "constant": [
+      "@/registry/view/orders-page-3/constant/data.json"
+    ],
+    "lib": [
+      "@/registry/view/orders-page-3/lib/utils.ts"
+    ],
+    "context": [],
+    "hooks": []
+  },
+  {
     "name": "product-overview-1",
     "target": "@/registry/view/product-overview-1/page",
     "components": [

@@ -183,11 +183,11 @@ export function SignUpForm({
             />
             <div className="absolute inset-0 bg-background/60 backdrop-blur-sm flex flex-col justify-end p-8 text-foreground">
               <h2 className="text-3xl font-bold mb-2">
-                Create Your Art Lighting Account
+                Create Your Alpha Account
               </h2>
               <p className="text-sm">
                 Sign up today and start exploring our curated collection of
-                lighting solutions
+                web developments and software solutions
               </p>
             </div>
           </div>

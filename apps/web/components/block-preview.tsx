@@ -44,6 +44,7 @@ import type React from "react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { CopyButton } from "./copy-button-for-block-preview"
 import { Separator } from "./library/separator"
+import Link from "next/link"
 interface CodeFile {
   path: string
   content: string
@@ -244,7 +245,6 @@ export default function BlockPreview({
   fileTree: initialFileTree,
 }: BlockPreview) {
   const [active, setActive] = useState("desktop")
-  const [isFullScreen, setIsFullScreen] = useState(false)
   const [previewWidth, setPreviewWidth] = useState("100%")
   const [view, setView] = useState<"preview" | "code">("preview")
   const [activeFile, setActiveFile] = useState<string | null>(null)
@@ -555,43 +555,6 @@ export default function BlockPreview({
     return () => window.removeEventListener("resize", updatePreviewWidth)
   }, [active])
 
-  const toggleFullScreen = useCallback(() => {
-    const element = document.getElementById(id)
-    if (!element) return
-
-    if (!isFullScreen) {
-      if (element.requestFullscreen) {
-        element
-          .requestFullscreen()
-          .then(() => {
-            setIsFullScreen(true)
-            element.style.overflowY = "auto"
-          })
-          .catch(console.error)
-      }
-    } else {
-      if (document.fullscreenElement) {
-        document
-          .exitFullscreen()
-          .then(() => {
-            setIsFullScreen(false)
-            element.style.overflowY = ""
-          })
-          .catch(console.error)
-      }
-    }
-  }, [id, isFullScreen])
-
-  // Handle fullscreen change
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullScreen(!!document.fullscreenElement)
-    }
-    document.addEventListener("fullscreenchange", handleFullscreenChange)
-    return () =>
-      document.removeEventListener("fullscreenchange", handleFullscreenChange)
-  }, [])
-
   // Lazy load iframe
   useEffect(() => {
     if (view !== "preview") return
@@ -641,8 +604,8 @@ export default function BlockPreview({
         className="min-h-[86.5vh] w-full flex items-center justify-center bg-gray-50 dark:bg-gray-900"
       >
         <div className="animate-pulse flex flex-col items-center">
-          <div className="h-4 w-40 bg-gray-300 dark:bg-gray-700 rounded mb-2"></div>
-          <div className="h-2 w-24 bg-gray-200 dark:bg-gray-800 rounded"></div>
+          <div className="h-4 w-40 bg-gray-300 dark:bg-gray-700 rounded mb-2" />
+          <div className="h-2 w-24 bg-gray-200 dark:bg-gray-800 rounded" />
         </div>
       </div>
     )
@@ -682,7 +645,7 @@ export default function BlockPreview({
             <h3 className="text-lg md:text-xl font-medium text-wrap text-gray-900 dark:text-gray-100">
               {BlockName}
             </h3>
-            <span className="inline-flex items-center gap-1 bg-teal-200 px-2 py-1 text-xs font-medium text-teal-800 rounded-lg select-none">
+            <span className="inline-flex items-center gap-1 bg-teal-200 px-2 py-1 text-xs font-medium text-teal-800 rounded-md select-none">
               Free
             </span>
           </div>
@@ -708,7 +671,7 @@ export default function BlockPreview({
           </TabsList>
         </div>
         <div className="flex items-center md:flex-row flex-col gap-4">
-          <TabsContainer className="items-center shadow-sm py-1 px-2 rounded-[7px] space-x-1 md:flex hidden">
+          <TabsContainer className="items-center shadow-sm py-1 px-2 rounded-[7px] md:flex hidden">
             {[
               { id: "desktop", icon: <Monitor className="w-4 h-4" /> },
               { id: "tablet", icon: <Tablet className="w-4 h-4" /> },
@@ -724,17 +687,15 @@ export default function BlockPreview({
             ))}
             <Separator
               orientation="vertical"
-              className="shrink-0 bg-border w-[1.5px] h-5"
+              className="shrink-0 bg-border dark:bg-gray-500 w-[1.5px] h-5"
             />
-            <button
+            <Link
+              href={iframeSource}
+              target="_blank"
               className="!ml-[7px]"
-              onClick={toggleFullScreen}
-              aria-label={
-                isFullScreen ? "Exit full screen" : "Enter full screen"
-              }
             >
               <Fullscreen className="w-4 h-4" />
-            </button>
+            </Link>
           </TabsContainer>
           <Separator
             orientation="vertical"
@@ -747,7 +708,7 @@ export default function BlockPreview({
         <TabsContent
           value="preview"
           className={cn(
-            "border rounded-xl transition-all duration-300 dark:border-gray-700",
+            "border rounded-2xl transition-all duration-300 dark:border-gray-700",
             className,
             {
               "mr-auto": active !== "desktop",
@@ -761,8 +722,8 @@ export default function BlockPreview({
         >
           {!isIframeVisible ? IframePlaceholder : IframeComponent}
         </TabsContent>
-        <TabsContent value="code" className="rounded-xl">
-          <div className="flex overflow-hidden rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1e1e1e] text-foreground h-screen ">
+        <TabsContent value="code">
+          <div className="flex overflow-hidden rounded-2xl border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1e1e1e] text-foreground h-screen ">
             <BlockFileTree
               fileTree={resolvedFileTree}
               activeFile={activeFile}

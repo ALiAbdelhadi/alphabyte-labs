@@ -4,9 +4,9 @@ import CarouselContainer from "./components/carousel-container"
 
 const page = () => {
   return (
-    <Container>
+    <div className="px-4 lg:px-6">
       <CarouselContainer />
-    </Container>
+    </div>
   )
 }
 

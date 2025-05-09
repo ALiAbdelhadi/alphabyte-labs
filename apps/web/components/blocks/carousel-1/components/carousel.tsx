@@ -1,5 +1,10 @@
 "use client"
 
+import { useOutsideClick } from "@/hooks/out-side-click"
+import { cn } from "@/lib/utils"
+import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react"
+import { motion } from "framer-motion"
+import Image, { ImageProps } from "next/image"
 import {
   createContext,
   Fragment,
@@ -8,12 +13,6 @@ import {
   useRef,
   useState,
 } from "react"
-import Image, { ImageProps } from "next/image"
-import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react"
-import { motion } from "framer-motion"
-
-import { cn } from "@/lib/utils"
-import { useOutsideClick } from "@/hooks/out-side-click"
 
 interface CarouselProps {
   items: JSX.Element[]
@@ -35,7 +34,7 @@ const CarouselContext = createContext<{
   onCardClick: (index: number) => void
   currentIndex: number
 }>({
-  onCardClick: () => {},
+  onCardClick: () => { },
   currentIndex: 0,
 })
 
@@ -96,18 +95,18 @@ export const Carousel = ({
       <div className="relative w-full py-0 !my-12 ">
         <div className="flex justify-end space-x-2">
           <button
-            className="relative z-40 h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
+            className="relative z-40 h-12 w-12 rounded-full bg-gray-100 dark:bg-neutral-800 hover:bg-gray-300 hover:dark:bg-gray-700 flex items-center justify-center disabled:opacity-50"
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
           >
-            <IconArrowNarrowLeft className="h-7 w-7 text-gray-500" />
+            <IconArrowNarrowLeft className="h-7 w-7" />
           </button>
           <button
-            className="relative z-40 h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
+            className="relative z-40 h-12 w-12 rounded-full bg-gray-100 dark:bg-neutral-800 hover:bg-gray-300 hover:dark:bg-gray-700 flex items-center justify-center disabled:opacity-50"
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
           >
-            <IconArrowNarrowRight className="h-7 w-7 text-gray-500" />
+            <IconArrowNarrowRight className="h-7 w-7" />
           </button>
         </div>
         <div

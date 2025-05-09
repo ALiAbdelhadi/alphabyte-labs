@@ -1,12 +1,11 @@
-import { useState } from "react"
-import Link from "next/link"
-import { ArrowLeft, Eye, EyeOff } from "lucide-react"
-
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/library/button"
 import { Card, CardContent } from "@/components/library/card"
 import { Input } from "@/components/library/input"
 import { Label } from "@/components/library/label"
+import { cn } from "@/lib/utils"
+import { ArrowLeft, Eye, EyeOff } from "lucide-react"
+import Link from "next/link"
+import { useState } from "react"
 
 export function LoginForm({
   className,
@@ -139,9 +138,9 @@ export function LoginForm({
               className="absolute inset-0 h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-background/60 backdrop-blur-sm flex flex-col justify-end p-8 text-foreground">
-              <h2 className="text-3xl font-bold mb-2">Join Art Lighting</h2>
+              <h2 className="text-3xl font-bold mb-2">Join Alpha</h2>
               <p className="text-sm">
-                Create your account and start illuminating your space
+                Create your account and Get your first custom MVP
               </p>
             </div>
           </div>

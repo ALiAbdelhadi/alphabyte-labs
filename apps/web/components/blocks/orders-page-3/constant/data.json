@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "orderNumber": "ORD-2024-001",
+        "customer": "John Smith",
+        "date": "2024-06-28",
+        "status": "Completed",
+        "total": 129.99,
+        "items": 3,
+        "paymentMethod": "Credit Card"
+    },
+    {
+        "id": 2,
+        "orderNumber": "ORD-2024-002",
+        "customer": "Sarah Johnson",
+        "date": "2024-06-27",
+        "status": "Processing",
+        "total": 79.5,
+        "items": 2,
+        "paymentMethod": "PayPal"
+    },
+    {
+        "id": 3,
+        "orderNumber": "ORD-2024-003",
+        "customer": "Michael Brown",
+        "date": "2024-06-26",
+        "status": "Shipped",
+        "total": 245.75,
+        "items": 5,
+        "paymentMethod": "Credit Card"
+    },
+    {
+        "id": 4,
+        "orderNumber": "ORD-2024-004",
+        "customer": "Emily Davis",
+        "date": "2024-06-25",
+        "status": "Completed",
+        "total": 59.99,
+        "items": 1,
+        "paymentMethod": "Credit Card"
+    },
+    {
+        "id": 5,
+        "orderNumber": "ORD-2024-005",
+        "customer": "Robert Wilson",
+        "date": "2024-06-24",
+        "status": "Cancelled",
+        "total": 189.95,
+        "items": 4,
+        "paymentMethod": "PayPal"
+    },
+    {
+        "id": 6,
+        "orderNumber": "ORD-2024-006",
+        "customer": "Jennifer Taylor",
+        "date": "2024-06-23",
+        "status": "Processing",
+        "total": 149.99,
+        "items": 3,
+        "paymentMethod": "Credit Card"
+    },
+    {
+        "id": 7,
+        "orderNumber": "ORD-2024-007",
+        "customer": "David Martinez",
+        "date": "2024-06-22",
+        "status": "Shipped",
+        "total": 99.5,
+        "items": 2,
+        "paymentMethod": "PayPal"
+    },
+    {
+        "id": 8,
+        "orderNumber": "ORD-2024-008",
+        "customer": "Lisa Anderson",
+        "date": "2024-06-21",
+        "status": "Completed",
+        "total": 299.99,
+        "items": 6,
+        "paymentMethod": "Credit Card"
+    },
+    {
+        "id": 9,
+        "orderNumber": "ORD-2024-009",
+        "customer": "James Thomas",
+        "date": "2024-06-20",
+        "status": "Processing",
+        "total": 49.95,
+        "items": 1,
+        "paymentMethod": "PayPal"
+    },
+    {
+        "id": 10,
+        "orderNumber": "ORD-2024-010",
+        "customer": "Patricia White",
+        "date": "2024-06-19",
+        "status": "Shipped",
+        "total": 179.99,
+        "items": 4,
+        "paymentMethod": "Credit Card"
+    },
+    {
+        "id": 11,
+        "orderNumber": "ORD-2024-011",
+        "customer": "Richard Harris",
+        "date": "2024-06-18",
+        "status": "Completed",
+        "total": 89.95,
+        "items": 2,
+        "paymentMethod": "PayPal"
+    },
+    {
+        "id": 12,
+        "orderNumber": "ORD-2024-012",
+        "customer": "Elizabeth Clark",
+        "date": "2024-06-17",
+        "status": "Cancelled",
+        "total": 159.99,
+        "items": 3,
+        "paymentMethod": "Credit Card"
+    }
+]

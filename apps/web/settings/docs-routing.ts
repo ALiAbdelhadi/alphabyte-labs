@@ -30,6 +30,10 @@ export const DocsRouting: DocsConfig = {
           href: "/rtl",
           title: "RTL Direction",
         },
+        {
+          href: "/themes",
+          title: "Themes",
+        },
       ],
     },
     {

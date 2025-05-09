@@ -1,10 +1,9 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-import { X } from "lucide-react"
-
 import { Button } from "@/components/library/button"
+import { X } from "lucide-react"
+import Link from "next/link"
+import { useState } from "react"
 
 interface Banner1Props {
   title: string
@@ -30,7 +29,7 @@ export const Banner = ({
   if (!isVisible) return null
 
   return (
-    <section className="w-full border-b bg-white px-4 py-3 shadow-sm">
+    <section className="w-full border-b px-4 py-3 shadow-sm">
       <div className="flex items-center justify-between gap-2">
         <div className="flex-1 text-center">
           <span className="text-sm">

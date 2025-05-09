@@ -1,11 +1,5 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
-import { DocsRouting } from "@/settings/docs-routing"
-import { SearchIcon } from "lucide-react"
-import { LuFileText } from "react-icons/lu"
-
-import { advanceSearch, cn, debounce, search } from "@/lib/utils"
 import {
   Dialog,
   DialogClose,
@@ -14,7 +8,11 @@ import {
   DialogTrigger,
 } from "@/components/library/dialog"
 import { ScrollArea } from "@/components/library/scroll-area"
-
+import { advanceSearch, cn, debounce, search } from "@/lib/utils"
+import { DocsRouting } from "@/settings/docs-routing"
+import { SearchIcon } from "lucide-react"
+import { useEffect, useMemo, useState } from "react"
+import { LuFileText } from "react-icons/lu"
 import Anchor from "./anchor"
 
 interface Document {
@@ -128,7 +126,7 @@ export default function Search() {
     <div className="relative md:w-full max-w-xl">
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <button className="group hidden lg:flex w-full items-center gap-2 rounded-lg hover:bg-gray-200 dark:hover:bg-neutral-950 bg-[rgba(250,250,252,0.3)] dark:bg-background/60 backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] px-1.5 py-[7px] text-left text-sm transition-colors border border-input">
+          <button className="group hidden lg:flex w-full items-center gap-2 rounded-lg hover:bg-gray-200 dark:hover:bg-neutral-950 bg-[rgba(250,250,252,0.3)] dark:bg-background/60 backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] px-1.5 py-[7px] text-left text-sm transition-colors">
             <span className="flex-1 hidden xl:flex text-muted-foreground text-sm ml-2 group-hover:text-foreground ">
               Search documentation...
             </span>

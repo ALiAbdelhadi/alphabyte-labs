@@ -168,7 +168,7 @@ export default function CaseStudiesCarousel({
             </div>
             <div className="flex space-x-2 self-end">
               <button
-                className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center disabled:opacity-50 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-gray-100 dark:bg-gray-950 flex items-center justify-center disabled:opacity-50 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
                 onClick={() => scroll("left")}
                 disabled={!canScrollLeft}
                 aria-label="Previous slide"
@@ -176,7 +176,7 @@ export default function CaseStudiesCarousel({
                 <ArrowLeft className="h-5 w-5 md:h-6 md:w-6 text-gray-700 dark:text-gray-300" />
               </button>
               <button
-                className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center disabled:opacity-50 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-gray-100 dark:bg-gray-950 flex items-center justify-center disabled:opacity-50 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
                 onClick={() => scroll("right")}
                 disabled={!canScrollRight}
                 aria-label="Next slide"

@@ -149,7 +149,7 @@ export default function Page() {
                         <div className="flex flex-col gap-3 py-3 md:gap-6 md:py-6">
                             <div className="flex flex-col gap-4">
                                 <div>
-                                    <h1 className="text-3xl font-bold tracking-tight text-foreground">Orders Management</h1>
+                                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">Orders Management</h1>
                                     <p className="mt-1 text-muted-foreground">View and manage all customer orders</p>
                                 </div>
                             </div>
@@ -277,20 +277,20 @@ export default function Page() {
                                                 ) : (
                                                     filteredOrders.map((order) => (
                                                         <TableRow key={order.id} className="hover:bg-muted/20">
-                                                            <TableCell className="font-medium ">{order.id}</TableCell>
-                                                            <TableCell>{order.date}</TableCell>
-                                                            <TableCell>
+                                                            <TableCell className="font-medium py-2 px-6">{order.id}</TableCell>
+                                                            <TableCell className="py-2 px-6 text-nowrap">{order.date}</TableCell>
+                                                            <TableCell className="py-2 px-6">
                                                                 <div>
                                                                     <div className="font-medium">{order.customer}</div>
                                                                     <div className="text-sm text-muted-foreground">{order.email}</div>
                                                                 </div>
                                                             </TableCell>
-                                                            <TableCell>
+                                                            <TableCell className="py-2 px-6">
                                                                 <Badge variant="outline" className="bg-background text-nowrap">
                                                                     {order.items} items
                                                                 </Badge>
                                                             </TableCell>
-                                                            <TableCell>
+                                                            <TableCell className="py-2 px-6">
                                                                 <Badge
                                                                     variant={
                                                                         order.status === "Delivered"
@@ -310,8 +310,8 @@ export default function Page() {
                                                                     {order.status}
                                                                 </Badge>
                                                             </TableCell>
-                                                            <TableCell className="text-right font-medium">{formatPrice(order?.amount)}</TableCell>
-                                                            <TableCell>
+                                                            <TableCell className="text-right font-medium py-2 px-6">{formatPrice(order?.amount)}</TableCell>
+                                                            <TableCell className="py-2 px-6">
                                                                 <DropdownMenu>
                                                                     <DropdownMenuTrigger asChild>
                                                                         <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full">
