@@ -17,7 +17,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/library/tooltip"
+} from "@/components/ui/tooltip"
 
 interface ColorSwatchProps {
   color: Color

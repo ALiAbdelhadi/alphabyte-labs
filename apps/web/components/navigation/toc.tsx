@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import clsx from "clsx"
 
-import { ScrollArea } from "@/components/library/scroll-area"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 type TocProps = {
   tocs: { href: string; level: number; text: string }[]

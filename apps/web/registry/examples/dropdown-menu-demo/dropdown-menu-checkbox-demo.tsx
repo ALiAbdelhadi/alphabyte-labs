@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -10,7 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/library/dropdown-menu"
+} from "@/components/ui/dropdown-menu"
 
 const DropDownCheckboxDemo = () => {
   const [showIcons, setShowIcons] = useState(false)

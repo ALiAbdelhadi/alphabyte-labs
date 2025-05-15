@@ -7,16 +7,16 @@ import { FcGoogle } from "react-icons/fc"
 import { FiEye, FiEyeOff } from "react-icons/fi"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/library/card"
-import { Input } from "@/components/library/input"
-import { Label } from "@/components/library/label"
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 export function LoginForm({
   className,

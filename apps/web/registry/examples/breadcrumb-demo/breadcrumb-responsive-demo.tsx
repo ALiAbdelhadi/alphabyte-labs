@@ -4,7 +4,7 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from "@/components/library/breadcrumb"
+} from "@/components/ui/breadcrumb"
 
 const BreadcrumbResponsiveDemo = () => {
   return (

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 import { SidebarItem } from "@/types"
 
 import { cn } from "@/lib/utils"
-import { SheetClose } from "@/components/library/sheet"
+import { SheetClose } from "@/components/ui/sheet"
 
 interface DocsSidebarItemProps extends SidebarItem {
   level: number

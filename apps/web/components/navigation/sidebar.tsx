@@ -1,6 +1,6 @@
 import { DocsRouting } from "@/settings/docs-routing"
 
-import { ScrollArea } from "../library/scroll-area"
+import { ScrollArea } from "../ui/scroll-area"
 import DocsSidebar from "./docs-sidebar"
 
 const sidebar = () => {

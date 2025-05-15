@@ -1,5 +1,5 @@
-import { Badge } from "@/components/library/badge"
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/library/card"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { TrendingDownIcon, TrendingUpIcon } from "lucide-react"
 import { formatPrice } from "../lib/utils"
 

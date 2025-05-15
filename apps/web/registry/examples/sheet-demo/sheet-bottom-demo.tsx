@@ -1,6 +1,6 @@
 import { Heart, ShoppingCart, User } from "lucide-react"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
@@ -8,7 +8,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/library/sheet"
+} from "@/components/ui/sheet"
 
 const SheetBottomDemo = () => {
   return (

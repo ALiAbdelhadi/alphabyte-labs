@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Truck } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Badge } from "@/components/library/badge"
+import { Badge } from "@/components/ui/badge"
 
 export default function ProductCardDemo() {
   const [isDetailsClicked, setIsDetailsClicked] = useState(false)

@@ -3,19 +3,7 @@
 import React from "react"
 import dynamic from "next/dynamic"
 import { blockExamples } from "@/registry/blocks-examples"
-
-const BlockComponentMap: Record<string, React.ComponentType> = {}
-
-blockExamples.items.forEach((block) => {
-  const { name } = block
-  BlockComponentMap[name] = dynamic(async () => {
-    const pathMatch = block.target.match(/\/([^/]+)\/page$/)
-    const blockName = pathMatch ? pathMatch[1] : ""
-    const mod = await import(`@/registry/view/${blockName}/page`)
-    const Component = mod.default
-    return await Promise.resolve(Component)
-  })
-})
+import LoadingIcon from "@/components/icons/loading-icon"
 
 interface BlockClientPreviewProps {
   target: string
@@ -27,11 +15,30 @@ export function BlockClientPreview({ target }: BlockClientPreviewProps) {
 
   console.log("Target:", target, "Block name:", blockName)
 
-  const Component = blockName ? BlockComponentMap[blockName] : null
-
-  if (!Component) {
+  if (!blockName) {
     return <div>Block not found for target: {target}</div>
   }
 
-  return <Component />
+  const DynamicComponent = dynamic(() => {
+    const pathMatch = block?.target.match(/\/([^/]+)\/page$/)
+    const dynamicBlockName = pathMatch ? pathMatch[1] : ""
+
+    return import(`@/registry/view/${dynamicBlockName}/page`).then(
+      (mod) => mod.default
+    )
+  }, {
+    ssr: false,
+    loading: () => (
+      <div className="flex w-full h-screen items-center justify-center text-sm text-muted-foreground gap-2">
+        <LoadingIcon size={14} />
+        Loading block content...
+      </div>
+    ),
+  })
+
+  return (
+    <div className="custom-scrollbar">
+      <DynamicComponent />
+    </div>
+  )
 }

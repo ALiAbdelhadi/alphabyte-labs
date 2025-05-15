@@ -64,16 +64,16 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/library//sheet"
-import { Badge } from "@/components/library/badge"
-import { Button } from "@/components/library/button"
+} from "@/components/ui/sheet"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/library/chart"
-import { Checkbox } from "@/components/library/checkbox"
+} from "@/components/ui/chart"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -81,17 +81,17 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/library/dropdown-menu"
-import { Input } from "@/components/library/input"
-import { Label } from "@/components/library/label"
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/library/select"
-import { Separator } from "@/components/library/separator"
+} from "@/components/ui/select"
+import { Separator } from "@/components/ui/separator"
 import {
   Table,
   TableBody,
@@ -99,7 +99,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/library/table"
+} from "@/components/ui/table"
 
 export const schema = z.object({
   id: z.number(),

@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 
 const ButtonSecondaryDemo = () => {
   return <Button variant="secondary">Secondary button</Button>

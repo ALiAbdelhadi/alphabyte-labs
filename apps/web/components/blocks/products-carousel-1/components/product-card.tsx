@@ -7,7 +7,7 @@ import { Truck } from "lucide-react"
 import { Carousel } from "react-responsive-carousel"
 
 import { cn } from "@/lib/utils"
-import { Badge } from "@/components/library/badge"
+import { Badge } from "@/components/ui/badge"
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 

@@ -1,8 +1,8 @@
 "use client"
 
-import { Badge } from "@/components/library/badge"
-import { Button } from "@/components/library/button"
-import { Checkbox } from "@/components/library/checkbox"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
     Dialog,
     DialogContent,
@@ -10,7 +10,7 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from "@/components/library/dialog"
+} from "@/components/ui/dialog"
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
@@ -18,10 +18,10 @@ import {
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/library/dropdown-menu"
-import { Input } from "@/components/library/input"
-import { Label } from "@/components/library/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/library/select"
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {
     Sheet,
     SheetClose,
@@ -30,10 +30,10 @@ import {
     SheetFooter,
     SheetHeader,
     SheetTitle,
-} from "@/components/library/sheet"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/library/table"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/library/tabs"
-import { Separator } from "@/components/library/separator"
+} from "@/components/ui/sheet"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/custom-tabs"
+import { Separator } from "@/components/ui/separator"
 import { toast } from "sonner"
 import {
     closestCenter,

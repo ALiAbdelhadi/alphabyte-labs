@@ -1,4 +1,4 @@
-import { ScrollArea, ScrollBar } from "@/components/library/scroll-area"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 const HorizontalScrollDemo = () => {
   return (

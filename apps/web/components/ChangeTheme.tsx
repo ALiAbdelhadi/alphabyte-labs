@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
 import { LuMoon, LuSun } from "react-icons/lu"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 
 const ChangeTheme = () => {
   const { theme, setTheme } = useTheme()

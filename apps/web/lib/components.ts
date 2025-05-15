@@ -4,8 +4,8 @@ import { MDXComponents } from "mdx/types"
 
 import BlockPreview from "@/components/block-preview"
 import { CodeBlockWrapper } from "@/components/code-block-wrapper"
-import { Note } from "@/components/library/note"
-import { Step, StepItem } from "@/components/library/step"
+import { Note } from "@/components/ui/note"
+import { Step, StepItem } from "@/components/ui/step"
 import ComponentPreview from "@/components/markdown/component-preview"
 import ComponentSource from "@/components/markdown/component-source-code"
 import ComponentUtils, {

@@ -1,14 +1,14 @@
 import Link from "next/link"
 import { Heart, Menu, Settings, ShoppingCart, User } from "lucide-react"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/library/sheet"
+} from "@/components/ui/sheet"
 
 const SheetLeftDemo = () => {
   return (

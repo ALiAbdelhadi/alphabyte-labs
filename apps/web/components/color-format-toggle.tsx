@@ -4,13 +4,13 @@ import { useState } from "react"
 import type { ColorFormat } from "@/types"
 import { Check, ChevronDown } from "lucide-react"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/library/dropdown-menu"
+} from "@/components/ui/dropdown-menu"
 
 interface ColorFormatToggleProps {
   onFormatChange: (format: ColorFormat) => void

@@ -14,15 +14,15 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/library/accordion"
-import { Button } from "@/components/library/button"
+} from "@/components/ui/accordion"
+import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/library/sheet"
+} from "@/components/ui/sheet"
 
 import {
   defaultAuth,

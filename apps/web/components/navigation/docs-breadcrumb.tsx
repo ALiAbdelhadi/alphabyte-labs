@@ -7,7 +7,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/library/breadcrumb"
+} from "@/components/ui/breadcrumb"
 
 export default function PageBreadcrumb({ paths }: { paths: string[] }) {
   return (

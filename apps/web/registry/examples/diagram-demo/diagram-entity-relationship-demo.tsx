@@ -1,4 +1,4 @@
-import Mermaid from "@/components/library/mermaid"
+import Mermaid from "@/components/ui/mermaid"
 
 const DiagramsEntityRelationShipDemo = () => {
   return (

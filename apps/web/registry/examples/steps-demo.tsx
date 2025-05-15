@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { Step, StepItem } from "@/components/library/step"
+import { Step, StepItem } from "@/components/ui/step"
 
 const StepsDemo = () => {
   return (

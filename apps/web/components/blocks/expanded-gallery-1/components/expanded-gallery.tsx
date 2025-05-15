@@ -1,11 +1,11 @@
 "use client"
 
-import type React from "react"
-import Image from "next/image"
-import { AnimatePresence, motion } from "framer-motion"
-
-import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { cn } from "@/lib/utils"
+import { AnimatePresence, motion } from "framer-motion"
+import { useTheme } from "next-themes"
+import Image from "next/image"
+import type React from "react"
 
 interface ExpandableGalleryProps {
   id: string
@@ -27,6 +27,8 @@ const ExpandableGallery: React.FC<ExpandableGalleryProps> = ({
   description = "",
 }) => {
   const isMobile = useIsMobile()
+  const { resolvedTheme } = useTheme()
+  const isDarkTheme = resolvedTheme === "dark"
   const isActive = active === id
 
   const itemVariants = {
@@ -58,8 +60,9 @@ const ExpandableGallery: React.FC<ExpandableGalleryProps> = ({
           ? "flex-[10] sm:flex-[8] md:flex-[6] lg:flex-[3.5]"
           : "flex-[1.2] sm:flex-[1.3] md:flex-[1.4] lg:flex-[0.2]",
         "rounded-xl md:rounded-2xl",
-        "shadow-[0_2px_10px_rgba(0,0,0,0.08)]",
-        "hover:shadow-[0_4px_20px_rgba(0,0,0,0.12)]"
+        "shadow-[0_2px_10px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_10px_rgba(0,0,0,0.08)]",
+        "hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_4px_20px_rgba(0,0,0,0.12)]",
+        "border border-slate-100 dark:border-zinc-800",
       )}
       onClick={() => handleActive(id)}
       layout
@@ -69,15 +72,16 @@ const ExpandableGallery: React.FC<ExpandableGalleryProps> = ({
         initial={false}
         animate={{
           background: isActive
-            ? "linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0) 65%)"
-            : "linear-gradient(to top, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0) 100%)",
+            ? isDarkTheme
+              ? "linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0) 65%)"
+              : "linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 35%, rgba(0,0,0,0) 65%)"
+            : isDarkTheme
+              ? "linear-gradient(to top, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0) 100%)"
+              : "linear-gradient(to top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0) 100%)",
         }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       />
-      <motion.div
-        className="absolute inset-0"
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      >
+      <motion.div className="absolute inset-0" transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
         <Image
           fill
           src={imgUrl || "/placeholder.svg"}
@@ -100,7 +104,7 @@ const ExpandableGallery: React.FC<ExpandableGalleryProps> = ({
               "bottom-5 left-5 text-[16px] xs:text-[17px] sm:text-[18px]",
               "lg:text-[20px] lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0]",
               "font-medium tracking-tight text-white",
-              "drop-shadow-sm"
+              "drop-shadow-sm",
             )}
           >
             {title}
@@ -116,13 +120,16 @@ const ExpandableGallery: React.FC<ExpandableGalleryProps> = ({
               "absolute bottom-0 w-full z-20",
               "p-5 xs:p-6 sm:p-6",
               "flex justify-start flex-col",
-              "backdrop-blur-[8px] bg-black/30 rounded-b-xl md:rounded-b-2xl"
+              isDarkTheme
+                ? "backdrop-blur-[8px] bg-black/30 dark:bg-black/40"
+                : "backdrop-blur-[8px] bg-black/25 dark:bg-black/30",
+              "rounded-b-xl md:rounded-b-2xl",
             )}
           >
             <h2
               className={cn(
                 "font-medium text-[20px] xs:text-[22px] sm:text-[24px] md:text-[28px]",
-                "text-white mb-2 tracking-tight leading-tight"
+                "text-white mb-2 tracking-tight leading-tight",
               )}
             >
               {title}
@@ -132,7 +139,7 @@ const ExpandableGallery: React.FC<ExpandableGalleryProps> = ({
                 className={cn(
                   "text-white/90 text-sm sm:text-base",
                   "max-w-md font-light leading-relaxed",
-                  "line-clamp-3 sm:line-clamp-none"
+                  "line-clamp-3 sm:line-clamp-none",
                 )}
               >
                 {description}

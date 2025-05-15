@@ -4,7 +4,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/library/tabs"
+} from "@/components/ui/custom-tabs"
 
 const TabsLineDemo = ({ className }: { className: string }) => {
   return (

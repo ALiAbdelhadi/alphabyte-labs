@@ -252,6 +252,52 @@ export const blockExamples = { items: [
     "hooks": []
   },
   {
+    "name": "pricing-1",
+    "target": "@/registry/view/pricing-1/page",
+    "components": [
+      "@/registry/view/pricing-1/components/pricing-section"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "pricing-2",
+    "target": "@/registry/view/pricing-2/page",
+    "components": [
+      "@/registry/view/pricing-2/components/billing-toggle",
+      "@/registry/view/pricing-2/components/pricing-section"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "pricing-3",
+    "target": "@/registry/view/pricing-3/page",
+    "components": [
+      "@/registry/view/pricing-3/components/billing-toggle",
+      "@/registry/view/pricing-3/components/pricing-section"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "pricing-4",
+    "target": "@/registry/view/pricing-4/page",
+    "components": [
+      "@/registry/view/pricing-4/components/pricing-section"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
     "name": "product-overview-1",
     "target": "@/registry/view/product-overview-1/page",
     "components": [

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +11,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/library/dropdown-menu"
+} from "@/components/ui/dropdown-menu"
 
 const DropdownRadioDemo = () => {
   const [selectedPlan, setSelectedPlan] = useState("basic")

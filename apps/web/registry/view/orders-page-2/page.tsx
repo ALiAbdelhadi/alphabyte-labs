@@ -1,18 +1,18 @@
 "use client"
 
-import { Badge } from "@/components/library/badge"
-import { Button } from "@/components/library/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/library/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger
-} from "@/components/library/dropdown-menu"
-import { Input } from "@/components/library/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/library/select"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/library/table"
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { ArrowUpDown, Download, Eye, Filter, MoreHorizontal, Search, Trash2 } from "lucide-react"
 import Link from "next/link"

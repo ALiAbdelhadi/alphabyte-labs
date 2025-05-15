@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { CheckIcon, CopyIcon } from "lucide-react"
 
-import { Button } from "./library/button"
+import { Button } from "./ui/button"
 
 export default function Copy({ content }: { content: string }) {
   const [isCopied, setIsCopied] = useState(false)

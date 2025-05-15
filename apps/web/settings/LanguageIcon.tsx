@@ -1,7 +1,6 @@
-import type { JSX } from "react"
-import { Terminal } from "lucide-react"
-
 import { CustomImage } from "@/components/custome-image"
+import { FileJson2, Terminal } from "lucide-react"
+import type { JSX } from "react"
 
 export const languageIcons: Record<string, JSX.Element> = {
   javascript: (
@@ -85,4 +84,5 @@ export const languageIcons: Record<string, JSX.Element> = {
     />
   ),
   bash: <Terminal className="w-[18px] h-[18px] text-gray-100 rounded-lg" />,
+  json: <FileJson2 className="w-[18px] h-[18px] text-yellow-500 rounded-lg" />
 }

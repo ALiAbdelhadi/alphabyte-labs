@@ -10,11 +10,11 @@ import {
   DrawerContent,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/library/drawer"
+} from "@/components/ui/drawer"
 
-import { Button } from "../library/button"
-import { ScrollArea } from "../library/scroll-area"
-import { Separator } from "../library/separator"
+import { Button } from "../ui/button"
+import { ScrollArea } from "../ui/scroll-area"
+import { Separator } from "../ui/separator"
 import DocsMenu from "./docs-sidebar"
 
 export function DocsNavigationOnMobile() {

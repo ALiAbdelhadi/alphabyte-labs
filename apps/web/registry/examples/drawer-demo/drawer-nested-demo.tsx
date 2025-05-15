@@ -1,4 +1,4 @@
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   Drawer,
   DrawerClose,
@@ -8,7 +8,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/library/drawer"
+} from "@/components/ui/drawer"
 
 const NestedDrawerDemo = () => {
   return (

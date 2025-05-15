@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Note } from "@/components/library/note"
+import { Note } from "@/components/ui/note"
 
 const NoteClosableDemo = () => {
   return (

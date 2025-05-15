@@ -1,6 +1,6 @@
 import { Lock } from "lucide-react"
 
-import { Badge } from "@/components/library/badge"
+import { Badge } from "@/components/ui/badge"
 
 const BadgeIconDemo = () => {
   return (

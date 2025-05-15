@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 
 const ButtonGhostDemo = () => {
   return <Button variant="ghost">Ghost button</Button>

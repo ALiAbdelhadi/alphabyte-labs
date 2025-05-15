@@ -1,6 +1,6 @@
 import { toast } from "sonner"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 
 const SonnerDemo = () => {
   return (

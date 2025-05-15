@@ -5,9 +5,9 @@ import { useState } from "react"
 import { Eye, EyeOff, GalleryVerticalEnd } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/library/button"
-import { Input } from "@/components/library/input"
-import { Label } from "@/components/library/label"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 export function SignupForm({
   className,

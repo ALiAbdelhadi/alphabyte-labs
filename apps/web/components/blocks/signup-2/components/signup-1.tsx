@@ -6,10 +6,10 @@ import Link from "next/link"
 import { ArrowLeft, Eye, EyeOff } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/library/button"
-import { Card, CardContent } from "@/components/library/card"
-import { Input } from "@/components/library/input"
-import { Label } from "@/components/library/label"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 export function SignUpForm({
   className,

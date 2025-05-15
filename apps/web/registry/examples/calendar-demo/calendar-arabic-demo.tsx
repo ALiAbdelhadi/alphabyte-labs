@@ -3,7 +3,7 @@
 import * as React from "react"
 import { arSA } from "date-fns/locale"
 
-import { Calendar } from "@/components/library/calendar"
+import { Calendar } from "@/components/ui/calendar"
 
 const convertToArabicDigits = (num: number): string => {
   const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"]

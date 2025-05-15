@@ -4,7 +4,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/library/carousel"
+} from "@/components/ui/carousel"
 
 import { products } from "../constant"
 import ProductCard from "./product-card"

@@ -4,13 +4,13 @@ import { useEffect, useState } from "react"
 import { Droplets } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/library/tooltip"
+} from "@/components/ui/tooltip"
 
 export type ProductIP = "IP20" | "IP44" | "IP54" | "IP65" | "IP68"
 

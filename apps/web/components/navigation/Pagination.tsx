@@ -1,7 +1,13 @@
-import Link from "next/link"
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
+import { getPreviousNext } from "@/lib/markdown";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import Link from "next/link";
 
-import { getPreviousNext } from "@/lib/markdown"
+function formatDocPath(path: string | undefined): string {
+  if (!path) return "/docs";
+
+  const formattedPath = path.replace(/^\//, '');
+  return `/docs/${formattedPath}`.replace(/\/+/g, '/'); 
+}
 
 const Pagination = ({ pathname }: { pathname: string }) => {
   const res = getPreviousNext(pathname)
@@ -10,14 +16,14 @@ const Pagination = ({ pathname }: { pathname: string }) => {
       <div className="w-full sm:w-1/2">
         {res.prev && (
           <Link
-            className="w-full  border-none flex flex-col  !py-4 !items-start font-medium not-prose"
-            href={`/docs${res.prev.href}`}
+            className="w-full border-none flex flex-col !py-4 !items-start font-medium not-prose"
+            href={formatDocPath(res.prev.href)}
           >
             <div>
-              <span className=" text-muted-foreground text-xs sm:text-[13px]">
+              <span className="text-muted-foreground text-xs sm:text-[13px]">
                 Previous
               </span>
-              <span className="flex no-underline items-center justify-center text-gray-900 hover:text-gray-950  dark:text-gray-200 hover:dark:text-gray-100 transition-colors text-base md:text-lg mt-2">
+              <span className="flex no-underline items-center justify-center text-gray-900 hover:text-gray-950 dark:text-gray-200 hover:dark:text-gray-100 transition-colors text-base md:text-lg mt-2">
                 <ChevronLeftIcon className="w-6 h-6 text-muted-foreground mt-[1px] mr-[6px]" />
                 {res.prev.title}
               </span>
@@ -29,12 +35,12 @@ const Pagination = ({ pathname }: { pathname: string }) => {
         {res.next && (
           <Link
             className="w-full border-none flex flex-col !py-4 !items-end text-right font-medium not-prose"
-            href={`/docs${res.next.href}`}
+            href={formatDocPath(res.next.href)}
           >
-            <span className=" text-muted-foreground text-xs sm:text-[13px]">
+            <span className="text-muted-foreground text-xs sm:text-[13px]">
               Next
             </span>
-            <span className="flex no-underline items-center justify-center text-gray-900 hover:text-gray-950  dark:text-gray-200 hover:dark:text-gray-100  transition-colors text-base md:text-lg mt-2">
+            <span className="flex no-underline items-center justify-center text-gray-900 hover:text-gray-950 dark:text-gray-200 hover:dark:text-gray-100 transition-colors text-base md:text-lg mt-2">
               {res.next.title}
               <ChevronRightIcon className="w-6 h-6 text-muted-foreground mt-[1px] ml-[6px]" />
             </span>

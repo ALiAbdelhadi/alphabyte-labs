@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 
 export type ProductColorTemp = "warm" | "cool" | "white"
 

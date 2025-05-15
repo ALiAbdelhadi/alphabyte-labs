@@ -1,5 +1,5 @@
-import { Checkbox } from "@/components/library/checkbox"
-import { Label } from "@/components/library/label"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@/components/ui/label"
 
 const LabelDemo = () => {
   return (

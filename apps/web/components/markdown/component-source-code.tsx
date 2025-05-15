@@ -32,16 +32,16 @@ export default function ComponentSource({
   const registryComponent = REGISTRY.items.find(
     (item) => item.name === fullComponentName
   )
-  const componentName = registryComponent?.baseComponent
-  const componentPath = registryComponent?.componentPath
+  const componentName = (registryComponent && 'baseComponent' in registryComponent) ? registryComponent.baseComponent : undefined
+  const componentPath = (registryComponent && 'componentPath' in registryComponent) ? registryComponent.componentPath : undefined
   useEffect(() => {
     if (providedCode || !componentPath) return
     setIsLoadingCode(true)
     const loadSourceMap = async () => {
       try {
         const module = await import("@/registry/component-source-map.json")
-        const sourceMap = module.default as Record<string, string>
-        const code = sourceMap[componentPath]
+        const sourceMap = module.default as Record<string, { content: string; language: string }>
+        const code = sourceMap[componentPath]?.content
         if (code) {
           setComponentCode(code)
         } else {

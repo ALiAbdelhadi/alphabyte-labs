@@ -1,6 +1,6 @@
 import { Settings } from "@/config/meta"
 import { ThemeProvider } from "@/components/context/theme-provider"
-import { Toaster } from "@/components/library/sonner"
+import { Toaster } from "@/components/ui/sonner"
 import Providers from "@/components/Providers"
 
 import "@/styles/globals.css"

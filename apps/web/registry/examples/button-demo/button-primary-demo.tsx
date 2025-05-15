@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 
 const ButtonPrimaryDemo = () => {
   return <Button variant="default">Primary button</Button>

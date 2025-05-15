@@ -1,6 +1,6 @@
 import React from "react"
 
-import Mermaid from "@/components/library/mermaid"
+import Mermaid from "@/components/ui/mermaid"
 
 const DiagramDecisionTreeDemo = () => {
   return (

@@ -1,10 +1,7 @@
-import { Suspense } from "react"
-import { notFound } from "next/navigation"
-import { blockExamples } from "@/registry/blocks-examples"
-
-import Container from "@/components/Container"
 import LoadingIcon from "@/components/icons/loading-icon"
-
+import { blockExamples } from "@/registry/blocks-examples"
+import { notFound } from "next/navigation"
+import React from "react"
 import { BlockClientPreview } from "./block-client-preview"
 
 async function BlockPageContent({ blockId }: { blockId: string }) {
@@ -28,13 +25,14 @@ async function BlockPageContent({ blockId }: { blockId: string }) {
   return <BlockClientPreview target={target} />
 }
 
-export default function BlockPage({ params }: { params: { blockId: string } }) {
+export default async function BlockPage({ params }: { params: { blockId: string } }) {
   const blockId = params?.blockId
   if (!blockId) {
     return notFound()
   }
+
   return (
-    <Suspense
+    <React.Suspense
       fallback={
         <div className="flex w-full h-screen items-center justify-center text-sm text-muted-foreground gap-2">
           <LoadingIcon size={14} />
@@ -43,6 +41,6 @@ export default function BlockPage({ params }: { params: { blockId: string } }) {
       }
     >
       <BlockPageContent blockId={blockId} />
-    </Suspense>
+    </React.Suspense>
   )
 }

@@ -1,32 +1,31 @@
 "use client"
 
-import { useRef, useState } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { navItems } from "@/constant"
-import { AnimatePresence, motion } from "framer-motion"
-import { X } from "lucide-react"
-
-import { cn } from "@/lib/utils"
+import Container from "@/components/Container"
+import Logo from "@/components/Logo"
+import Search from "@/components/navigation/search"
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu"
-import Container from "@/components/Container"
-import { ScrollArea } from "@/components/library/scroll-area"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetTrigger,
-} from "@/components/library/sheet"
-import Logo from "@/components/Logo"
-import Search from "@/components/navigation/search"
+} from "@/components/ui/sheet"
+import { navItems } from "@/constant"
+import { cn } from "@/lib/utils"
+import { AnimatePresence, motion } from "framer-motion"
+import { X } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useRef, useState } from "react"
 
 import ChangeTheme from "../ChangeTheme"
-import { Button } from "../library/button"
-import { Separator } from "../library/separator"
+import { Button } from "../ui/button"
+import { Separator } from "../ui/separator"
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -101,12 +100,6 @@ export function Header() {
             <Search />
           </div>
           <div className="hidden md:flex items-center gap-3">
-            <Button
-              className="lg:block hidden rounded-full text-xs"
-              size={"sm"}
-            >
-              Get Full Access
-            </Button>
             <ChangeTheme />
           </div>
           <div className="flex items-center gap-2 md:hidden w-full">
@@ -161,9 +154,6 @@ export function Header() {
                               >
                                 <Button variant="outline" className="w-full">
                                   Sign In
-                                </Button>
-                                <Button className="w-full">
-                                  Get full access
                                 </Button>
                               </motion.div>
                             </motion.ul>

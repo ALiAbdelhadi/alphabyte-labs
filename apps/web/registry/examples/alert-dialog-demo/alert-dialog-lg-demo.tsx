@@ -8,8 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/library/alert-dialog"
-import { Button } from "@/components/library/button"
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 
 const AlertDialogLgDemo = () => {
   return (

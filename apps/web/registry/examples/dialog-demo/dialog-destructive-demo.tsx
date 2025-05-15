@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import { AlertTriangle, Trash2 } from "lucide-react"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogAction,
@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/library/dialog"
+} from "@/components/ui/dialog"
 
 export default function DestructiveDialogDemo() {
   const [isDeleting, setIsDeleting] = useState(false)

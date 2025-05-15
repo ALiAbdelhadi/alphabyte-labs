@@ -8,17 +8,17 @@ import { FcGoogle } from "react-icons/fc"
 
 import { cn } from "@/lib/utils"
 import Container from "@/components/Container"
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/library/card"
-import { Input } from "@/components/library/input"
-import { Label } from "@/components/library/label"
-import { Progress } from "@/components/library/progress"
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Progress } from "@/components/ui/progress"
 
 export function SignUpForm({
   className,

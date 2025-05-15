@@ -31,6 +31,6 @@
     "next.config.ts",
     "scripts/capture-screenshot.js",
     "registry/view/expanded-gallery-1/lib/utils.js"
-  ],
+, "scripts/fixImport.mjs"  ],
   "exclude": ["node_modules"]
 }

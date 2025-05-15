@@ -1,7 +1,7 @@
 import React from "react"
 import { ChevronRightIcon } from "lucide-react"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 
 const ButtonIconDemo = () => {
   return (

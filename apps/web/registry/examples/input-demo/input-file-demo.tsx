@@ -1,5 +1,5 @@
-import { Input } from "@/components/library/input"
-import { Label } from "@/components/library/label"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 export default function InputFileDemo() {
   return (

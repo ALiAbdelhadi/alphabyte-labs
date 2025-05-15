@@ -3,13 +3,13 @@
 import { useState } from "react"
 import { Check, Copy } from "lucide-react"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/library/tooltip"
+} from "@/components/ui/tooltip"
 
 interface CopyButtonProps {
   value: string

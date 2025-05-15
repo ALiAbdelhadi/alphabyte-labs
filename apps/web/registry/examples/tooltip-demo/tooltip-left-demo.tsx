@@ -1,10 +1,10 @@
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/library/tooltip"
+} from "@/components/ui/tooltip"
 
 const TooltipDelayDemo = () => {
   return (

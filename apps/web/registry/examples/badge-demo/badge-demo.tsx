@@ -1,4 +1,4 @@
-import { Badge } from "@/components/library/badge"
+import { Badge } from "@/components/ui/badge"
 
 const BadgeDemo = () => {
   return <Badge>Badge</Badge>

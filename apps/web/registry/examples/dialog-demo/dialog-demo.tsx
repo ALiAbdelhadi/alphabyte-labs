@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogAction,
@@ -12,8 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/library/dialog"
-import { Label } from "@/components/library/label"
+} from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
 
 export default function DialogDemo() {
   const [isOpen, setIsOpen] = useState(false)

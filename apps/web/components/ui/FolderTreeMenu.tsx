@@ -1,9 +1,5 @@
 "use client"
 
-import { ChevronDown, ChevronRight } from "lucide-react"
-
-import { cn } from "@/lib/utils"
-import { useSubmenuState } from "@/hooks/use-submenu-state"
 import {
   Sidebar,
   SidebarContent,
@@ -15,6 +11,9 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
+import { useSubmenuState } from "@/hooks/use-submenu-state"
+import { cn } from "@/lib/utils"
+import { ChevronDown, ChevronRight } from "lucide-react"
 
 interface MenuItem {
   id: string

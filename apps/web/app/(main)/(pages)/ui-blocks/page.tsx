@@ -1,14 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import { blockExamples } from "@/registry/blocks-examples"
-import { useTheme } from "next-themes"
-
 import BlockPreview from "@/components/block-preview"
 import BlockForGrid from "@/components/BlockForGrid"
 import Container from "@/components/Container"
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
+import { blockExamples } from "@/registry/blocks-examples"
+import { useTheme } from "next-themes"
+import Link from "next/link"
+import { useDeferredValue, useEffect, useState } from "react"
 
 const UiBlocksPage = () => {
   const { theme, setTheme } = useTheme()
@@ -18,6 +17,7 @@ const UiBlocksPage = () => {
   }, [])
 
   const registryBlocks = blockExamples.items
+  const DeferredItems = useDeferredValue(registryBlocks)
   return (
     <div className="py-8 bg-[#f8f8f9] dark:bg-[#111111]">
       <Container>
@@ -54,7 +54,6 @@ const UiBlocksPage = () => {
               id="carousel-1"
               BlockId="carousel-1"
               BlockName="Carousel1"
-              fileTree={"carousel-1-tree"}
             />
             {/* Block two */}
             <h3 className="text-3xl font-medium mb-4">Navbar</h3>
@@ -84,7 +83,7 @@ const UiBlocksPage = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {mounted &&
-                registryBlocks.map(({ name }) => {
+                DeferredItems.map(({ name }) => {
                   return (
                     <BlockForGrid
                       key={name}

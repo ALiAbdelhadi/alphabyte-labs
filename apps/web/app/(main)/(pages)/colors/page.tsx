@@ -8,7 +8,7 @@ import { ColorFormat } from "@/types"
 import { ColorFormatToggle } from "@/components/color-format-toggle"
 import ColorPalettes from "@/components/color-palettes"
 import Container from "@/components/Container"
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 
 const ColorsPage = () => {
   const [colorFormat, setColorFormat] = useState<ColorFormat>("hex")

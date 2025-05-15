@@ -1,17 +1,10 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
-import { REGISTRY } from "@/registry"
-
-import { cn } from "@/lib/utils"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/library/tabs"
 import Pre from "@/components/pre"
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/custom-tabs"
+import { cn } from "@/lib/utils"
+import { REGISTRY } from "@/registry"
+import React, { useEffect, useState } from "react"
 import LoadingIcon from "../icons/loading-icon"
 
 export interface ComponentPreviewProps {
@@ -21,15 +14,9 @@ export interface ComponentPreviewProps {
   variant?: string
 }
 
-export default function ComponentPreview({
-  code: providedCode,
-  className,
-  name,
-  variant,
-}: ComponentPreviewProps) {
-  const [componentCode, setComponentCode] = useState<string | null>(
-    providedCode || null
-  )
+
+export default function ComponentPreview({ code: providedCode, className, name, variant }: ComponentPreviewProps) {
+  const [componentCode, setComponentCode] = useState<string | null>(providedCode || null)
   const [isLoadingCode, setIsLoadingCode] = useState<boolean>(false)
 
   const baseComponentName = name.replace("-demo", "")
@@ -37,11 +24,11 @@ export default function ComponentPreview({
   const fullComponentName = componentVariant
     ? `${baseComponentName}-${componentVariant}-demo`
     : `${baseComponentName}-demo`
-  const registryComponent = REGISTRY.items.find(
-    (item) => item.name === fullComponentName
-  )
-  const DynamicComponent = registryComponent?.component
-  const componentDemoPath = registryComponent?.componentDemoPath
+
+  const registryComponent = REGISTRY.items.find((item) => item.name === fullComponentName)
+
+  const DynamicComponent = (registryComponent && 'component' in registryComponent) ? registryComponent.component : undefined
+  const componentDemoPath = (registryComponent && 'componentDemoPath' in registryComponent) ? registryComponent.componentDemoPath : undefined
 
   useEffect(() => {
     if (providedCode || !componentDemoPath) return
@@ -51,10 +38,10 @@ export default function ComponentPreview({
     async function loadSourceCode() {
       try {
         const module = await import("@/registry/component-demo-source-map.json")
-        const sourceMap = module.default as Record<string, string>
-        const code = sourceMap[componentDemoPath]
-        if (code) {
-          setComponentCode(code)
+        const sourceMap = module.default as Record<string, { content: string; language: string }>
+
+        if (componentDemoPath && sourceMap[componentDemoPath]) {
+          setComponentCode(sourceMap[componentDemoPath].content)
         } else {
           console.warn(`Source code not found for ${componentDemoPath}`)
         }
@@ -69,9 +56,7 @@ export default function ComponentPreview({
   }, [providedCode, componentDemoPath])
 
   if (!registryComponent) {
-    return (
-      <div className={cn("mt-4 w-full", className)}>Component not found</div>
-    )
+    return <div className={cn("mt-4 w-full", className)}>Component not found</div>
   }
 
   return (
@@ -85,10 +70,7 @@ export default function ComponentPreview({
         </TabsTrigger>
       </TabsList>
       <div className="not-prose">
-        <TabsContent
-          value="preview"
-          className={cn("border rounded-xl relative", className)}
-        >
+        <TabsContent value="preview" className={cn("border rounded-xl relative", className)}>
           <div className="overflow-visible">
             <React.Suspense
               fallback={
@@ -100,7 +82,7 @@ export default function ComponentPreview({
             >
               {DynamicComponent ? (
                 <div className="preview flex min-h-[350px] w-full justify-center px-5 md:px-10 py-5 items-center">
-                  <DynamicComponent />
+                  <DynamicComponent className="" />
                 </div>
               ) : (
                 <div className="flex w-full items-center justify-center text-sm text-muted-foreground">

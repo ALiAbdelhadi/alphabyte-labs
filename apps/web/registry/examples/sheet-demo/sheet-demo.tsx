@@ -1,8 +1,8 @@
 import { Settings } from "lucide-react"
 
-import { Button } from "@/components/library/button"
-import { Checkbox } from "@/components/library/checkbox"
-import { Label } from "@/components/library/label"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@/components/ui/label"
 import {
   Sheet,
   SheetClose,
@@ -12,7 +12,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/library/sheet"
+} from "@/components/ui/sheet"
 
 const SheetDemo = () => {
   return (

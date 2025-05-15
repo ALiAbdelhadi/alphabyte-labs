@@ -1,9 +1,9 @@
-import { Button } from "@/components/library/button"
+import { Button } from "@/components/ui/button"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/library/popover"
+} from "@/components/ui/popover"
 
 export default function PopoverDemo() {
   return (

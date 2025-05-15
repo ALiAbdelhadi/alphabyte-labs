@@ -1,7 +1,7 @@
 "use client"
 
 import { ArrowDownIcon, ArrowUpIcon, DollarSignIcon, PackageIcon, ShoppingCartIcon, TruckIcon } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/library/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export function OrdersStats() {
     return (
