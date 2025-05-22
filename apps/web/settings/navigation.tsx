@@ -1,16 +1,24 @@
 import { PageRoutes } from "@/lib/pageRoutes"
 
+function getFirstDocsRoute() {
+  return PageRoutes.find(route =>
+    !route.href.startsWith('/components') && route.href !== '/components'
+  )?.href || '/introduction'
+}
+
+function getFirstComponentRoute() {
+  return PageRoutes.find(route =>
+    route.href.startsWith('/components/')
+  )?.href || '/components/accordion'
+}
+
 export const Navigations = [
   {
     title: "Docs",
-    href: `/docs/${PageRoutes[0].href}`,
+    href: `/docs${getFirstDocsRoute()}`,
   },
   {
     title: "Components",
-    href: `/docs/components${PageRoutes[0].href}`,
+    href: `/docs${getFirstComponentRoute()}`,
   },
 ]
-
-export const GitHubLink = {
-  href: "https://github.com/ALiAbdelhadi/alphabyte-labs",
-}

@@ -1,11 +1,11 @@
 "use client"
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { GitHubLink } from "@/settings/navigation"
-
 import { Company } from "@/config/meta"
 import { cn } from "@/lib/utils"
+import { GitHubLink } from "@/settings/settings"
+
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 export function Footer() {
   const routeName = usePathname()

@@ -1,6 +1,6 @@
 export const DocsRouting = [
    {
-      title: "Getting Started",
+   title: "Getting Started",
       noLink: true,
       href: "",
       items: [

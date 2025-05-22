@@ -95,7 +95,7 @@ export async function getDocument(slug: string) {
     const tocs = await getTableOfContents(slug)
 
     return {
-      frontmatter: parsedMdx.frontmatter,
+      docs: parsedMdx.frontmatter,
       content: parsedMdx.content,
       tocs,
       lastUpdated,

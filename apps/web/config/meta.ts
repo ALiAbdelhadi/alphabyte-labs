@@ -21,7 +21,6 @@ import {
 
 import { OpenGraph, TwitterCard } from "@/config/metadata"
 
-// Extended OpenGraph type to support article metadata
 type ExtendedOpenGraph = OpenGraph & {
   publishedTime?: string
   authors?: string[]

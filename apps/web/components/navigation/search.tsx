@@ -16,16 +16,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LuFileText } from "react-icons/lu";
 import Anchor from "./anchor";
 
-// Constants
 const MIN_SEARCH_LENGTH = 3;
 const DEBOUNCE_DELAY_MS = 300;
 const DOCS_BASE_PATH = "/docs";
 
-// Use a module-level variable to track if a search dialog is already open
-// This prevents multiple dialogs from opening simultaneously
 let isSearchDialogOpen = false;
 
-// Types
 interface DocumentItem {
   title?: string;
   href?: string;
@@ -40,7 +36,6 @@ interface SearchResult {
   snippet?: string;
 }
 
-// Utility functions
 function createRelativePath(...segments: (string | undefined)[]): string {
   return segments
     .map(segment => segment?.trim().replace(/^\/+|\/+$/g, '') || '')
@@ -55,26 +50,21 @@ function getAbsoluteDocPath(relativePath: string | undefined): string {
 }
 
 const sanitizeHtml = (html: string): string => {
-  // This is a basic sanitizer - in production, use a library like DOMPurify
   return html
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
     .replace(/on\w+="[^"]*"/gi, '');
 };
 
 export default function Search() {
-  // Component state
   const [searchedInput, setSearchedInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [filteredResults, setFilteredResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [platform, setPlatform] = useState<"mac" | "windows">("windows");
   const [selectedIndex, setSelectedIndex] = useState(0);
-
-  // Refs
   const inputRef = useRef<HTMLInputElement>(null);
   const componentMountedRef = useRef(true);
 
-  // Detect platform on mount (only once)
   useEffect(() => {
     const platformStr = navigator.platform.toLowerCase();
     const userAgentStr = navigator.userAgent.toLowerCase();
@@ -84,43 +74,34 @@ export default function Search() {
       setPlatform("windows");
     }
 
-    // Cleanup function for component unmount
     return () => {
       componentMountedRef.current = false;
     };
   }, []);
 
-  // Handle dialog state changes
   const handleOpenChange = useCallback((open: boolean) => {
     setIsOpen(open);
     if (open) {
       isSearchDialogOpen = true;
-      // Focus the input when dialog opens
       setTimeout(() => {
         inputRef.current?.focus();
       }, 0);
     } else {
       isSearchDialogOpen = false;
-      // Clear search when dialog closes
       setSearchedInput("");
     }
   }, []);
 
-  // Global keyboard shortcut handler
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Only handle Ctrl+K / Cmd+K if no dialog is already open
       if ((platform === "mac" ? event.metaKey : event.ctrlKey) && event.key === "k") {
         event.preventDefault();
-
-        // Only open if no other search dialog is already open
         if (!isSearchDialogOpen) {
           handleOpenChange(true);
         }
         return;
       }
 
-      // Only handle navigation keys if this dialog is open
       if (!isOpen) return;
 
       switch (event.key) {
@@ -151,26 +132,21 @@ export default function Search() {
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      // If this component is unmounting while its dialog is open, reset the global flag
       if (isOpen) {
         isSearchDialogOpen = false;
       }
     };
   }, [isOpen, filteredResults, platform, selectedIndex, handleOpenChange]);
 
-  // Reset selected index when results change
   useEffect(() => {
     setSelectedIndex(0);
   }, [filteredResults]);
 
-  // Optimized search function
   const performSearch = useCallback(
     (input: string) => {
       if (!componentMountedRef.current) return;
 
       setIsLoading(true);
-
-      // Use setTimeout to prevent UI freezing during search
       setTimeout(() => {
         if (!componentMountedRef.current) return;
 
@@ -182,27 +158,22 @@ export default function Search() {
     []
   );
 
-  // Memoized debounced search
   const debouncedSearch = useMemo(
     () => debounce(performSearch, DEBOUNCE_DELAY_MS),
     [performSearch]
   );
 
-  // Trigger search when input changes
   useEffect(() => {
     if (searchedInput.trim().length >= MIN_SEARCH_LENGTH) {
       debouncedSearch(searchedInput);
     } else {
       setFilteredResults([]);
     }
-
-    // Cancel debounced search on cleanup
     return () => {
       debouncedSearch.cancel?.();
     };
   }, [searchedInput, debouncedSearch]);
 
-  // Render document structure for navigation
   const renderDocumentStructure = useCallback(
     (documents: DocumentItem[], parentRelativePath: string = ""): React.ReactNode[] => {
       if (!documents || !Array.isArray(documents)) {
@@ -242,7 +213,6 @@ export default function Search() {
     [handleOpenChange]
   );
 
-  // Render search results
   const renderSearchResults = useCallback(() => {
     return filteredResults.map((item, index) => {
       const absoluteHref = getAbsoluteDocPath(item.href);
@@ -274,7 +244,6 @@ export default function Search() {
     });
   }, [filteredResults, selectedIndex, handleOpenChange]);
 
-  // Get scroll area content based on search state
   const getScrollAreaContent = useCallback(() => {
     const trimmedInput = searchedInput.trim();
 
@@ -313,17 +282,23 @@ export default function Search() {
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
         <DialogTrigger asChild>
           <button
-            className="group h-8 lg:flex w-full items-center gap-2 rounded-md bg-muted/50 text-sm backdrop-blur-sm shadow-none hover:bg-accent hover:text-accent-foreground border border-input px-3"
+            className={cn(
+              "group flex w-full items-center text-sm transition-colors rounded-md h-8 md:px-3 md:border md:border-input gap-2",
+              "bg-muted/50 dark:bg-background/70 hover:bg-muted/70 dark:hover:bg-background/80",
+              "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 dark:focus-visible:ring-offset-neutral-900",
+              "md:bg-background md:hover:bg-muted",
+              "dark:md:bg-neutral-800"
+            )}
             aria-label="Search documentation"
           >
-            <span className="flex-1 hidden xl:inline-flex text-muted-foreground text-sm group-hover:text-foreground transition-colors">
+            <SearchIcon className="h-5 w-5 text-[#000] flex-shrink-0 md:hidden flex" />
+            <span className="flex-1 text-left text-muted-foreground group-hover:text-foreground hidden lg:inline-flex">
               Search documentation...
             </span>
-            <span className="flex-1 hidden lg:inline-flex xl:hidden text-muted-foreground text-sm group-hover:text-foreground transition-colors">
+            <span className="flex-1 text-left text-muted-foreground group-hover:text-foreground hidden md:inline-flex lg:hidden">
               Search docs...
             </span>
-            <SearchIcon className="h-4 w-4 lg:hidden text-muted-foreground group-hover:text-foreground" />
-            <kbd className="pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-xs text-muted-foreground sm:flex">
+            <kbd className="ml-auto pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-card px-1.5 font-mono text-[10px] font-medium text-muted-foreground sm:flex">
               {platform === "mac" ? "⌘ K" : "Ctrl K"}
             </kbd>
           </button>

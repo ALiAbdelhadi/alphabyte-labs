@@ -22,5 +22,8 @@ export const rightSidebar = true
 export const feedbackEdit = true
 export const tableOfContent = true
 export const toTopScroll = true
+export const GitHubLink = {
+  href: "https://github.com/ALiAbdelhadi/alphabyte-labs",
+}
 
 export const loadFromGithub = false

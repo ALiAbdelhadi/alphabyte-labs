@@ -41,9 +41,9 @@ const ChangeTheme = () => {
         >
           <span>
             {theme === "light" ? (
-              <LuMoon className="!h-5 !w-5" />
+              <LuMoon className="!h-5 !w-5 text-[#000]" />
             ) : (
-              <LuSun className="!h-5 !w-5" />
+              <LuSun className="!h-5 !w-5 text-gray-100" />
             )}
           </span>
           <span className="sr-only">Toggle theme</span>

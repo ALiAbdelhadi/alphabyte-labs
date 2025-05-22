@@ -1,15 +1,11 @@
 import { HslColor, OklchColor, RgbColor } from "@/types"
-import { formatHex, hsl, oklch } from "culori"
+import { formatHex, oklch } from "culori"
 
 import { hexToHSL } from "./color-utils"
-
-// تعريف دالة بديلة لـ hexToHSL في حالة وجود مشاكل في استيراد الدالة الأصلية
-// أو يمكنك استبدالها بدالة hexToHSL الحالية
 export function hexToHSLImproved(hex: string): HslColor | null {
   if (!hex || !hex.startsWith("#")) return null
 
   try {
-    // استخدام مكتبة culori إذا كانت متاحة
     const color = hexToHSL(hex)
     if (color) {
       return {
@@ -18,9 +14,6 @@ export function hexToHSLImproved(hex: string): HslColor | null {
         lightness: Math.round((color.lightness || 0) * 100),
       }
     }
-
-    // استخدام طريقة احتياطية إذا فشلت culori
-    // تحويل من سداسي عشري إلى RGB
     let r = 0,
       g = 0,
       b = 0
@@ -33,10 +26,9 @@ export function hexToHSLImproved(hex: string): HslColor | null {
       g = parseInt(hex.substring(3, 5), 16)
       b = parseInt(hex.substring(5, 7), 16)
     } else {
-      return null // صيغة غير صالحة
+      return null 
     }
 
-    // تحويل من RGB إلى HSL
     r /= 255
     g /= 255
     b /= 255
@@ -162,10 +154,8 @@ export function generatePalette(baseHex: string, steps = 10): string[] {
       )
     }
 
-    // إضافة اللون الأساسي
     palette.push(baseHex)
 
-    // توليد ظلال أغمق
     for (let i = 1; i <= steps; i++) {
       const lightness = Math.max(
         baseHsl.lightness - (i * baseHsl.lightness) / steps,
@@ -188,15 +178,13 @@ export function generatePalette(baseHex: string, steps = 10): string[] {
     return palette
   } catch (error) {
     console.error("Error generating palette:", error)
-    return [baseHex] // على الأقل إرجاع اللون الأساسي
+    return [baseHex]
   }
 }
 
-// توليد سمة كاملة للألوان من اللون الأساسي
 export function generateTheme(primaryHex: string): Record<string, string> {
   console.log("Generating theme from primary color:", primaryHex)
 
-  // استخدام الدالة المحسنة كاحتياطي
   const primary = hexToHSL(primaryHex) || hexToHSLImproved(primaryHex)
   if (!primary) {
     console.error("Could not convert primary hex to HSL:", primaryHex)
@@ -204,27 +192,19 @@ export function generateTheme(primaryHex: string): Record<string, string> {
   }
 
   try {
-    // توليد الألوان المكملة (على عكس عجلة الألوان)
     const complementaryHue = (primary.h + 180) % 360
 
-    // توليد الألوان المتشابهة
     const analogous1Hue = (primary.h + 30) % 360
     const analogous2Hue = (primary.h - 30 + 360) % 360
 
-    // توليد الألوان الثلاثية
     const triadic1Hue = (primary.h + 120) % 360
     const triadic2Hue = (primary.h + 240) % 360
 
     const theme = {
-      // الخلفية والنص الأمامي
       background: hslToCssVar({ h: primary.h, s: 15, lightness: 98 }),
       foreground: hslToCssVar({ h: primary.h, s: 10, lightness: 15 }),
-
-      // اللون الأساسي
       primary: hslToCssVar(primary),
       "primary-foreground": hslToCssVar({ h: primary.h, s: 5, lightness: 98 }),
-
-      // اللون الثانوي (أقل تشبعًا من الأساسي)
       secondary: hslToCssVar({
         h: primary.h,
         s: Math.max(primary.s - 30, 10),
@@ -236,7 +216,6 @@ export function generateTheme(primaryHex: string): Record<string, string> {
         lightness: 20,
       }),
 
-      // لون التأكيد (لون متشابه)
       accent: hslToCssVar({ h: analogous1Hue, s: primary.s, lightness: 45 }),
       "accent-foreground": hslToCssVar({
         h: analogous1Hue,
@@ -244,20 +223,16 @@ export function generateTheme(primaryHex: string): Record<string, string> {
         lightness: 98,
       }),
 
-      // لون خافت
       muted: hslToCssVar({ h: primary.h, s: 10, lightness: 85 }),
       "muted-foreground": hslToCssVar({ h: primary.h, s: 10, lightness: 35 }),
 
-      // لون التدمير (باستخدام درجة أحمر)
       destructive: hslToCssVar({ h: 350, s: 70, lightness: 45 }),
       "destructive-foreground": hslToCssVar({ h: 350, s: 5, lightness: 98 }),
 
-      // ألوان الواجهة
       border: hslToCssVar({ h: primary.h, s: 10, lightness: 70 }),
       input: hslToCssVar({ h: 0, s: 0, lightness: 100 }),
       ring: hslToCssVar({ h: primary.h, s: 70, lightness: 55 }),
 
-      // ألوان المخططات
       "chart-1": hslToCssVar(primary),
       "chart-2": hslToCssVar({ h: analogous1Hue, s: 60, lightness: 50 }),
       "chart-3": hslToCssVar({ h: analogous2Hue, s: 60, lightness: 50 }),
@@ -273,63 +248,49 @@ export function generateTheme(primaryHex: string): Record<string, string> {
   }
 }
 
-// توليد ألوان للسمات الداكنة من ألوان السمات الفاتحة
 export function generateDarkTheme(
   lightTheme: Record<string, string>
 ): Record<string, string> {
   const darkTheme: Record<string, string> = {}
 
   try {
-    // معالجة كل لون في السمة الفاتحة
     Object.entries(lightTheme).forEach(([key, value]) => {
       if (!value) {
         console.warn(`Missing value for key: ${key}`)
-        darkTheme[key] = "0 0% 0%" // قيمة افتراضية
+        darkTheme[key] = "0 0% 0%"
         return
       }
-
-      // تحليل قيم HSL
       const parts = value.split(" ")
       if (parts.length !== 3) {
         console.warn(`Invalid HSL format for key ${key}: ${value}`)
-        darkTheme[key] = "0 0% 0%" // قيمة افتراضية
+        darkTheme[key] = "0 0% 0%"
         return
       }
 
       const h = Number.parseInt(parts[0], 10)
       const s = Number.parseInt(parts[1], 10)
       const l = Number.parseInt(parts[2], 10)
-
-      // عكس السطوع للسمة الداكنة
       let darkLightness: number
       if (key === "background") {
-        darkLightness = 10 // خلفية داكنة جدًا
+        darkLightness = 10 
       } else if (key === "foreground") {
-        darkLightness = 90 // نص أمامي فاتح
+        darkLightness = 90 
       } else if (key.includes("foreground")) {
-        // بالنسبة لألوان النص الأمامي، اجعلها أفتح
         darkLightness = Math.min(l + 70, 95)
       } else if (key.includes("muted")) {
-        // بالنسبة للألوان الخافتة، اجعلها أغمق
         darkLightness = Math.max(l - 70, 15)
       } else if (key.includes("destructive")) {
-        // اجعل ألوان التدمير أكثر حيوية
         darkLightness = Math.min(l + 15, 60)
       } else if (key.includes("chart")) {
-        // اجعل ألوان المخططات أكثر سطوعًا
         darkLightness = Math.min(l + 20, 65)
       } else {
-        // بالنسبة للألوان الأخرى، اعكس السطوع
         darkLightness = 100 - l
-        // تأكد من أن ألوان السمة الداكنة ليست داكنة جدًا
         if (darkLightness < 15) darkLightness = 15
         if (darkLightness > 85) darkLightness = 85
       }
-
-      // ضبط التشبع للسمة الداكنة
       let darkSaturation = s
       if (!key.includes("foreground") && !key.includes("background")) {
-        darkSaturation = Math.min(s + 10, 100) // أكثر تشبعًا قليلاً
+        darkSaturation = Math.min(s + 10, 100)
       }
 
       darkTheme[key] = `${h} ${darkSaturation}% ${darkLightness}%`

@@ -137,10 +137,43 @@ export const blockExamples = { items: [
     "hooks": []
   },
   {
-    "name": "feature-showcase-1",
-    "target": "@/registry/view/feature-showcase-1/page",
+    "name": "features-showcase-1",
+    "target": "@/registry/view/features-showcase-1/page",
     "components": [
-      "@/registry/view/feature-showcase-1/components/feature-showcase"
+      "@/registry/view/features-showcase-1/components/feature-showcase"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "features-showcase-2",
+    "target": "@/registry/view/features-showcase-2/page",
+    "components": [
+      "@/registry/view/features-showcase-2/components/features-showcase"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "features-showcase-3",
+    "target": "@/registry/view/features-showcase-3/page",
+    "components": [
+      "@/registry/view/features-showcase-3/components/features-showcase"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "features-showcase-4",
+    "target": "@/registry/view/features-showcase-4/page",
+    "components": [
+      "@/registry/view/features-showcase-4/components/features-showcase"
     ],
     "constant": [],
     "lib": [],
@@ -290,6 +323,7 @@ export const blockExamples = { items: [
     "name": "pricing-4",
     "target": "@/registry/view/pricing-4/page",
     "components": [
+      "@/registry/view/pricing-4/components/billing-toggle",
       "@/registry/view/pricing-4/components/pricing-section"
     ],
     "constant": [],

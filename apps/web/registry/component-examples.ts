@@ -722,6 +722,15 @@ export const componentExamples = { items: [
     language: "tsx"
   },
   {
+    name: "sonner-info-demo",
+    baseComponent: "sonner",
+    variant: "info",
+    componentPath: "@/components/ui/sonner",
+    componentDemoPath: "@/registry/examples/sonner-demo/sonner-info-demo",
+    component: React.lazy(() => import("@/registry/examples/sonner-demo/sonner-info-demo")),
+    language: "tsx"
+  },
+  {
     name: "sonner-loading-demo",
     baseComponent: "sonner",
     variant: "loading",
@@ -746,15 +755,6 @@ export const componentExamples = { items: [
     componentPath: "@/components/ui/sonner",
     componentDemoPath: "@/registry/examples/sonner-demo/sonner-warning-demo",
     component: React.lazy(() => import("@/registry/examples/sonner-demo/sonner-warning-demo")),
-    language: "tsx"
-  },
-  {
-    name: "sonnet-info-demo",
-    baseComponent: "sonnet",
-    variant: "info",
-    componentPath: "@/components/library/sonnet",
-    componentDemoPath: "@/registry/examples/sonner-demo/sonnet-info-demo",
-    component: React.lazy(() => import("@/registry/examples/sonner-demo/sonnet-info-demo")),
     language: "tsx"
   },
   {

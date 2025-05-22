@@ -9,12 +9,13 @@ links:
 ## About
 <MdxBadge>Sonner</MdxBadge> is built on top of
 [Sonner](https://sonner.emilkowal.ski/) by
-[emilkowalski_](https://x.com/emilkowalski_). ## Installation
+[emilkowalski_](https://x.com/emilkowalski_). 
+## Installation
 <div className="not-prose px-4 md:px-0">
   <Step>
     <StepItem title="Install Dependencies">
       First, you need to install dependencies:
-      <Pre>{`npm install clsx tailwind-merge sonner next-themes`}</Pre>
+      <Pre>{`npm install clsx tailwind-merge sonner`}</Pre>
     </StepItem>
     <StepItem title="Create utils.ts">
       <ComponentUtilsText />
@@ -24,11 +25,7 @@ links:
       <ComponentSource name="sonner-demo" />
     </StepItem>
     <StepItem title="Edit layout.tsx for Toaster component">
-      in Your main <MdxBadge>layout.tsx</MdxBadge> add{" "}
-      <MdxBadge>
-        \<Toaster />
-      </MdxBadge>{" "}
-      to show the toast :
+    in Your main <MdxBadge>layout.tsx</MdxBadge> add{" "} <MdxBadge> \<Toaster /></MdxBadge>{" "} to show the toast :
       <Pre
         highlightLines={[8]}
       >{`import { Toaster } from "@/components/library/sonner"

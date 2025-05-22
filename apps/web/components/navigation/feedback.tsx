@@ -1,8 +1,7 @@
-import Link from "next/link"
-import { GitHubLink } from "@/settings/navigation"
-import { LuArrowUpRight } from "react-icons/lu"
-
 import { cn } from "@/lib/utils"
+import { GitHubLink } from "@/settings/settings"
+import Link from "next/link"
+import { LuArrowUpRight } from "react-icons/lu"
 
 type SideBarEdit = {
   title: string

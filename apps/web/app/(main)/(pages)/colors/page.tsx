@@ -1,21 +1,21 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-import { colorsData } from "@/constant/colors/color"
-import { ColorFormat } from "@/types"
-
 import { ColorFormatToggle } from "@/components/color-format-toggle"
 import ColorPalettes from "@/components/color-palettes"
 import Container from "@/components/Container"
 import { Button } from "@/components/ui/button"
+import { colorsData } from "@/constant/colors/color"
+import { ColorFormat } from "@/types"
+import Link from "next/link"
+import { useState } from "react"
 
 const ColorsPage = () => {
   const [colorFormat, setColorFormat] = useState<ColorFormat>("hex")
+
   return (
-    <div>
+    <div className="min-h-screen bg-background">
       <Container>
-        <section className="my-14 md:my-16 space-y-3">
+        <section className="py-12 md:py-16 space-y-8">
           <div className="space-y-2">
             <h1 className="text-2xl lg:text-4xl md:text-3xl font-bold">
               Colors Library
@@ -37,12 +37,14 @@ const ColorsPage = () => {
               </Button>
             </Link>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-end">
-            <ColorFormatToggle
-              onFormatChange={(value) => setColorFormat(value)}
-            />
+          <div className="sticky top-4 z-10 flex justify-end py-2">
+            <div className="bg-background/80 backdrop-blur-sm p-2 rounded-lg shadow-sm border">
+              <ColorFormatToggle
+                onFormatChange={(value) => setColorFormat(value)}
+              />
+            </div>
           </div>
-          <div className="space-y-8" id="browse-colors">
+          <div className="space-y-8 pb-16" id="browse-colors">
             <ColorPalettes
               colorPalettes={colorsData}
               colorFormat={colorFormat}

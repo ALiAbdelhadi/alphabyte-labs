@@ -1,11 +1,9 @@
 "use client"
 
+import { cn } from "@/lib/utils"
 import { languageIcons } from "@/settings/LanguageIcon"
 import { Check, Clipboard, FileCode } from "lucide-react"
 import Prism from "prismjs"
-
-import { cn } from "@/lib/utils"
-
 import "prismjs/components/prism-css"
 import "prismjs/components/prism-javascript"
 import "prismjs/components/prism-jsx"
@@ -15,7 +13,6 @@ import "prismjs/plugins/line-highlight/prism-line-highlight"
 import "prismjs/plugins/line-highlight/prism-line-highlight.css"
 import "prismjs/plugins/line-numbers/prism-line-numbers"
 import "prismjs/plugins/line-numbers/prism-line-numbers.css"
-
 import { useEffect, useRef, useState } from "react"
 
 interface PreProps {
@@ -27,40 +24,26 @@ interface PreProps {
   showLineNumbers?: boolean
   contentKey?: string | number
 }
+function CopyButton({ content }: { content: string }) {
+  const [isCopied, setIsCopied] = useState(false)
 
-const CopyButton = ({ content }: { content: string }) => {
-  const [isCopied, setCopied] = useState(false)
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(content)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch (error) {
-      console.error("Failed to copy:", error)
-    }
+  const handleCopy = () => {
+    navigator.clipboard.writeText(content).then(() => {
+      setIsCopied(true)
+      setTimeout(() => setIsCopied(false), 2000)
+    })
   }
 
   return (
     <button
-      onClick={copyToClipboard}
-      className="text-gray-200 hover:text-white text-sm"
-      aria-label="Copy code"
+      onClick={handleCopy}
+      className="flex items-center justify-center w-8 h-8 rounded-sm hover:bg-muted-foreground/50 transition-all duration-200"
     >
-      <span className={cn("transition-all", isCopied && "mr-2.5")}>
-        Cop
-        <span className="relative">
-          <span
-            className={`inline-block transition-opacity duration-300 ${isCopied ? "opacity-0" : "opacity-100"}`}
-          >
-            y
-          </span>
-          <span
-            className={`absolute left-0 transition-all duration-300 ${isCopied ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"}`}
-          >
-            ied{" "}
-          </span>
-        </span>
-      </span>{" "}
+      {isCopied ? (
+        <Check className="w-[18px] h-[18px] text-green-500" />
+      ) : (
+        <Clipboard className="w-[18px] h-[18px] text-gray-100" />
+      )}
     </button>
   )
 }

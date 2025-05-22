@@ -1,14 +1,54 @@
+"use client"
+
+import { useState } from "react"
 import type React from "react"
 import { Check } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { BillingToggle } from "./billing-toggle"
 
 export default function PricingSection() {
+    const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly")
+    const discount = 20
+
+    const plans = {
+        essential: {
+            monthly: {
+                price: "$14.99",
+                suffix: "/month",
+            },
+            annual: {
+                price: "$149.90",
+                suffix: "/year",
+            },
+        },
+        creator: {
+            monthly: {
+                price: "$29.99",
+                suffix: "/month",
+            },
+            annual: {
+                price: "$299.90",
+                suffix: "/year",
+            },
+        },
+        business: {
+            monthly: {
+                price: "$59.99",
+                suffix: "/month",
+            },
+            annual: {
+                price: "$599.90",
+                suffix: "/year",
+            },
+        },
+    }
+
     return (
         <div className={cn("w-full py-16 px-4 md:px-6 lg:px-8", "bg-white dark:bg-black")}>
             <div className="max-w-6xl mx-auto">
                 <h2
                     className={cn(
-                        "text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-16",
+                        "text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8",
                         "text-slate-900 dark:text-white",
                     )}
                 >
@@ -16,6 +56,9 @@ export default function PricingSection() {
                     <br />
                     your business
                 </h2>
+                <div className="flex flex-col items-center justify-center mb-16">
+                    <BillingToggle billingCycle={billingCycle} setBillingCycle={setBillingCycle} discount={discount} />
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
                     <div
                         className={cn(
@@ -27,8 +70,10 @@ export default function PricingSection() {
                         <div className="mb-6">
                             <h3 className={cn("text-xl font-semibold mb-2", "text-slate-900 dark:text-white")}>Essentials Plan</h3>
                             <div className="flex items-baseline">
-                                <span className={cn("text-3xl font-bold", "text-slate-900 dark:text-white")}>$14.99</span>
-                                <span className="text-muted-foreground ml-1">/month</span>
+                                <span className={cn("text-3xl font-bold", "text-slate-900 dark:text-white")}>
+                                    {plans.essential[billingCycle].price}
+                                </span>
+                                <span className="text-muted-foreground ml-1">{plans.essential[billingCycle].suffix}</span>
                             </div>
                             <p className="text-muted-foreground mt-2 text-sm">Perfect for solopreneurs and content creators</p>
                         </div>
@@ -65,14 +110,7 @@ export default function PricingSection() {
                         )}
                     >
                         <div className="absolute top-0 left-0 right-0 h-full overflow-hidden rounded-xl z-0">
-                            <div className="dark:hidden">
-                                <div className="absolute -top-10 -left-5 w-48 h-48 bg-gradient-radial from-purple-300/70 via-purple-300/40 to-transparent rounded-full blur-xl" />
-                                <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 w-56 h-56 bg-gradient-radial from-teal-300/60 via-emerald-300/30 to-transparent rounded-full blur-xl" />
-                                <div className="absolute -top-10 right-0 w-48 h-48 bg-gradient-radial from-pink-300/70 via-pink-300/40 to-transparent rounded-full blur-xl" />
-                                <div className="absolute top-10 left-1/4 w-32 h-32 bg-gradient-radial from-indigo-300/50 to-transparent rounded-full blur-xl" />
-                                <div className="absolute top-20 right-1/4 w-36 h-36 bg-gradient-radial from-cyan-300/40 to-transparent rounded-full blur-xl" />
-                            </div>
-                            <div className="hidden dark:block">
+                            <div className="block">
                                 <div className="absolute top-0 -left-5 w-44 h-44 bg-gradient-radial from-purple-400 to-transparent rounded-full blur-xl" />
                                 <div className="absolute top-0 left-1/4 w-44 h-44 bg-gradient-radial from-violet-400 to-transparent rounded-full blur-xl" />
                                 <div className="absolute -top-4 right-1/2 w-48 h-44 bg-gradient-radial from-pink-300 to-transparent rounded-full blur-xl" />
@@ -83,8 +121,10 @@ export default function PricingSection() {
                         <div className="mb-6 relative z-10">
                             <h3 className={cn("text-xl font-semibold mb-2", "text-slate-900 dark:text-white")}>Creator Plan</h3>
                             <div className="flex items-baseline">
-                                <span className={cn("text-3xl font-bold", "text-slate-900 dark:text-white")}>$29.99</span>
-                                <span className="text-muted-foreground ml-1">/month</span>
+                                <span className={cn("text-3xl font-bold", "text-slate-900 dark:text-white")}>
+                                    {plans.creator[billingCycle].price}
+                                </span>
+                                <span className="text-muted-foreground ml-1">{plans.creator[billingCycle].suffix}</span>
                             </div>
                             <p className="text-muted-foreground mt-2 text-sm">Ideal for growing creators</p>
                         </div>
@@ -128,8 +168,10 @@ export default function PricingSection() {
                         <div className="mb-6">
                             <h3 className={cn("text-xl font-semibold mb-2", "text-slate-900 dark:text-white")}>Business Plan</h3>
                             <div className="flex items-baseline">
-                                <span className={cn("text-3xl font-bold", "text-slate-900 dark:text-white")}>$59.99</span>
-                                <span className="text-muted-foreground ml-1">/month</span>
+                                <span className={cn("text-3xl font-bold", "text-slate-900 dark:text-white")}>
+                                    {plans.business[billingCycle].price}
+                                </span>
+                                <span className="text-muted-foreground ml-1">{plans.business[billingCycle].suffix}</span>
                             </div>
                             <p className="text-muted-foreground mt-2 text-sm">Built for growing businesses, and agencies</p>
                         </div>

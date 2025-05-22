@@ -1,23 +1,12 @@
-import { useEffect, useState } from "react"
+"use client"
+
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { formatHsl, formatOklch, formatRgb, hexToHSL, hexToOklch, hexToRgb } from "@/lib/color-utils"
+import { cn } from "@/lib/utils"
 import type { Color, ColorFormat } from "@/types"
 import { Check, Copy } from "lucide-react"
+import { useEffect, useState } from "react"
 import { toast } from "sonner"
-
-import {
-  formatHsl,
-  formatOklch,
-  formatRgb,
-  hexToHSL,
-  hexToOklch,
-  hexToRgb,
-} from "@/lib/color-utils"
-import { cn } from "@/lib/utils"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
 
 interface ColorSwatchProps {
   color: Color
@@ -27,21 +16,25 @@ interface ColorSwatchProps {
 export function ColorSwatch({ color, globalFormat }: ColorSwatchProps) {
   const [copied, setCopied] = useState(false)
   const [format, setFormat] = useState<ColorFormat>("hex")
+
   useEffect(() => {
-    if (globalFormat && globalFormat !== "hex") {
+    if (globalFormat) {
       setFormat(globalFormat)
     }
   }, [globalFormat])
+
   const { name, hex } = color
   const rgb = hexToRgb(hex)
   const hsl = hexToHSL(hex)
   const oklch = hexToOklch(hex)
+
   const formatMap = {
     hex,
     rgb: rgb ? formatRgb(rgb) : "",
     hsl: hsl ? formatHsl(hsl) : "",
     oklch: oklch ? formatOklch(oklch) : "",
   }
+
   const currentValue = formatMap[format] || hex
 
   const copyToClipboard = () => {
@@ -50,24 +43,19 @@ export function ColorSwatch({ color, globalFormat }: ColorSwatchProps) {
 
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
-    toast.message(`Copied ${currentValue} to clipboard`, {
+    toast.success(`Copied ${currentValue} to clipboard`, {
       duration: 2000,
     })
   }
+
   const cycleFormat = () => {
-    if (globalFormat && globalFormat !== "hex") return
+    if (globalFormat) return
     const formats: ColorFormat[] = ["hex", "rgb", "hsl", "oklch"]
     const currentIndex = formats.indexOf(format)
     const nextIndex = (currentIndex + 1) % formats.length
     setFormat(formats[nextIndex])
   }
 
-  const formatNameMap: Record<ColorFormat, string> = {
-    hex: "HEX",
-    rgb: "RGB",
-    hsl: "HSL",
-    oklch: "OKLCH",
-  }
   return (
     <div className="group flex flex-col">
       <div
@@ -109,9 +97,13 @@ export function ColorSwatch({ color, globalFormat }: ColorSwatchProps) {
           {name}
         </h4>
         <p className="font-mono text-center text-xs mt-1 truncate  transition-colors text-muted-foreground/80 group-hover:text-foreground/80">
-          {currentValue.replace(/\s/g, "")}
+          {formatValue(currentValue)}
         </p>
       </div>
     </div>
   )
+}
+
+function formatValue(value: string): string {
+  return value.replace(/\s/g, "")
 }
