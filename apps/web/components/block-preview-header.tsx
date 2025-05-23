@@ -1,9 +1,9 @@
 "use client"
 
-import Link from "next/link"
-import { Monitor, Tablet, Smartphone, Fullscreen, Minimize2, Maximize2 } from 'lucide-react'
 import { Separator } from "@/components/ui/separator"
-import { TabsList, TabsContainer, TabsTrigger } from "@/components/ui/tabs"
+import { TabsContainer, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Fullscreen, Monitor, Smartphone, Tablet } from 'lucide-react'
+import Link from "next/link"
 import { CopyButton } from "./copy-button-for-block-preview"
 
 interface BlockPreviewHeaderProps {

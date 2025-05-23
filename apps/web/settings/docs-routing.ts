@@ -16,6 +16,7 @@ export const DocsRouting: DocsConfig = {
   sidebarItems: [
     {
       title: "Getting Started",
+      
       id: "getting-started",
       items: [
         {

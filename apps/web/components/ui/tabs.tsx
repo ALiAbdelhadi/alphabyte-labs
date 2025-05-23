@@ -1,9 +1,9 @@
 "use client"
 
-import { cn } from "@/lib/utils"
+import * as React from "react"
 import * as TabsPrimitive from "@radix-ui/react-tabs"
 import { AnimatePresence, motion } from "framer-motion"
-import * as React from "react"
+import { cn } from "@/lib/utils"
 
 const Tabs = TabsPrimitive.Root
 
@@ -15,8 +15,7 @@ const TabsList = React.forwardRef<
     ref={ref}
     className={cn(
       "inline-flex items-center justify-center rounded-lg bg-transparent p-0.5 text-muted-foreground",
-      "h-9",
-      className
+      className,
     )}
     {...props}
   />
@@ -54,6 +53,7 @@ const TabsContainer = React.forwardRef<
     }
   }, [activeIndex])
 
+  // Update active style on mount, resize, and when active index changes
   React.useEffect(() => {
     updateActiveStyle()
 
@@ -62,9 +62,12 @@ const TabsContainer = React.forwardRef<
     }
 
     window.addEventListener("resize", handleResize)
+
+    // Use ResizeObserver to detect size changes in the container and tabs
     const resizeObserver = new ResizeObserver(() => {
       requestAnimationFrame(updateActiveStyle)
     })
+
     if (containerRef.current) {
       resizeObserver.observe(containerRef.current)
     }
@@ -79,6 +82,7 @@ const TabsContainer = React.forwardRef<
     }
   }, [activeIndex, updateActiveStyle])
 
+  // Observe DOM changes that might affect positioning
   React.useEffect(() => {
     if (!containerRef.current) return
 
@@ -103,10 +107,7 @@ const TabsContainer = React.forwardRef<
         else if (ref) ref.current = el
         containerRef.current = el as HTMLDivElement
       }}
-      className={cn(
-        "relative bg-muted py-1 px-1 rounded-[7px] flex",
-        className
-      )}
+      className={cn("relative bg-muted py-1 px-1 rounded-[7px] flex", className)}
       {...props}
     >
       <motion.div
@@ -118,34 +119,30 @@ const TabsContainer = React.forwardRef<
           top: "4px",
         }}
         animate={activeStyle}
-        transition={{
-          stiffness: 10000,
-          mass: 1,
-        }}
         layout
       />
       {React.Children.map(children, (child, index) =>
         React.isValidElement(child)
           ? React.cloneElement(child as React.ReactElement<any>, {
-              onClick: (e: React.MouseEvent) => {
-                setActiveIndex(index)
-                if ((child as React.ReactElement<any>).props.onClick) {
-                  ;(child as React.ReactElement<any>).props.onClick(e)
+            onClick: (e: React.MouseEvent) => {
+              setActiveIndex(index)
+              if ((child as React.ReactElement<any>).props.onClick) {
+                ; (child as React.ReactElement<any>).props.onClick(e)
+              }
+            },
+            ref: (el: HTMLButtonElement) => {
+              if (el) tabRefs.current.set(index, el)
+              const childRef = (child as any).ref
+              if (childRef) {
+                if (typeof childRef === "function") {
+                  childRef(el)
+                } else {
+                  childRef.current = el
                 }
-              },
-              ref: (el: HTMLButtonElement) => {
-                if (el) tabRefs.current.set(index, el)
-                const childRef = (child as any).ref
-                if (childRef) {
-                  if (typeof childRef === "function") {
-                    childRef(el)
-                  } else {
-                    childRef.current = el
-                  }
-                }
-              },
-            })
-          : child
+              }
+            },
+          })
+          : child,
       )}
     </TabsPrimitive.List>
   )
@@ -160,13 +157,13 @@ const TabsTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       "inline-flex items-center justify-center whitespace-nowrap rounded-[7px] px-3.5 py-1.5",
-      "text-sm font-medium transition-all",
+      "text-sm font-medium",
       "relative z-10",
       "data-[state=active]:text-foreground data-[state=active]:font-semibold data-[state=inactive]:text-muted-foreground",
       "hover:text-foreground",
       "disabled:pointer-events-none disabled:opacity-50",
-      "transition-all duration-200 ease-in-out",
-      className
+      "transition-colors duration-200 ease-in-out",
+      className,
     )}
     {...props}
   />
@@ -177,18 +174,14 @@ const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
 >(({ className, ...props }, ref) => (
-  <TabsPrimitive.Content
-    ref={ref}
-    className={cn("relative overflow-hidden mt-3", className)}
-    {...props}
-  >
+  <TabsPrimitive.Content ref={ref} className={cn("mt-3", className)} {...props}>
     <AnimatePresence mode="wait">
       <motion.div
         key={props.value}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -10 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
       >
         {props.children}
       </motion.div>

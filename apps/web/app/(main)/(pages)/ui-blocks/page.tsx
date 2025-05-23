@@ -9,6 +9,27 @@ import { useTheme } from "next-themes"
 import Link from "next/link"
 import { useDeferredValue, useEffect, useState } from "react"
 
+
+const blockExample = [
+  {
+    id: "carousel-1",
+    name: "carousel-1",
+    title: "Carousel",
+  },
+  {
+    id: "navbar-1",
+    name: "navbar-1",
+    title: "Navbar",
+  },
+  {
+    id: "new-collection-1",
+    name: "new-collection-1",
+    title: "New Collection",
+  },
+]
+
+
+
 const UiBlocksPage = () => {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -44,33 +65,22 @@ const UiBlocksPage = () => {
         </section>
       </Container>
       {/* Blocks */}
-      {/* Block one */}
       <div className="py-10 md:py-12">
         <Container>
           <h2 className="text-muted-foreground mb-3">Latest Blocks</h2>
           <div className="space-y-8">
-            <h3 className="text-3xl font-medium mb-4">Carousels</h3>
-            <BlockPreview
-              id="carousel-1"
-              BlockId="carousel-1"
-              BlockName="Carousel1"
-            />
-            {/* Block two */}
-            <h3 className="text-3xl font-medium mb-4">Navbar</h3>
-            <BlockPreview
-              id="navbar-1"
-              BlockName="Navbar"
-              BlockId="navbar-1"
-              fileTree={"navbar-1-tree"}
-            />
-            {/* Block Three */}
-            <h3 className="text-3xl font-medium mb-4">New Collection</h3>
-            <BlockPreview
-              id="new-collection-1"
-              BlockName="New Collection"
-              BlockId="new-collection-1"
-              fileTree="new-collection-1-tree"
-            />
+            {
+              blockExample.map((block) => (
+                <div key={block.id}>
+                  <h3 className="text-3xl font-medium mb-4">{block.title}</h3>
+                  <BlockPreview
+                    id={block.id}
+                    BlockId={block.id}
+                    BlockName={block.name}
+                  />
+                </div>
+              ))
+            }
           </div>
           {/* Tons Of Blocks Ready to copy and past or even download it */}
           <div id="browse-all-blocks" className="py-10 md:py-14 lg:py-20">

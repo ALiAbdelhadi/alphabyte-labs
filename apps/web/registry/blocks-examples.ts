@@ -437,6 +437,39 @@ export const blockExamples = { items: [
     "hooks": []
   },
   {
+    "name": "subscription-email-1",
+    "target": "@/registry/view/subscription-email-1/page",
+    "components": [
+      "@/registry/view/subscription-email-1/components/subscription-email"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "subscription-email-2",
+    "target": "@/registry/view/subscription-email-2/page",
+    "components": [
+      "@/registry/view/subscription-email-2/components/subscription-email"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
+    "name": "subscription-email-3",
+    "target": "@/registry/view/subscription-email-3/page",
+    "components": [
+      "@/registry/view/subscription-email-3/components/subscription-email"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": []
+  },
+  {
     "name": "timeline-1",
     "target": "@/registry/view/timeline-1/page",
     "components": [
