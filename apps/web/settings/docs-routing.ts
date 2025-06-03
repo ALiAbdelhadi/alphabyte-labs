@@ -138,6 +138,10 @@ export const DocsRouting: DocsConfig = {
           href: "/steps",
         },
         {
+          title: "Switch",
+          href: "/switch",
+        },
+        {
           title: "Tabs",
           href: "/tabs",
         },

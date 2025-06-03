@@ -767,6 +767,15 @@ export const componentExamples = { items: [
     language: "tsx"
   },
   {
+    name: "switch-demo",
+    baseComponent: "switch",
+    variant: null,
+    componentPath: "@/components/ui/switch",
+    componentDemoPath: "@/registry/examples/switch-demo/switch-demo",
+    component: React.lazy(() => import("@/registry/examples/switch-demo/switch-demo")),
+    language: "tsx"
+  },
+  {
     name: "tabs-demo",
     baseComponent: "tabs",
     variant: null,
