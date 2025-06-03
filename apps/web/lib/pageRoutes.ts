@@ -27,34 +27,29 @@ function isRoute(
   return "title" in node && typeof node.title === "string"
 }
 
-function getAllLinks(node: Paths | SidebarItem, parentHref: string = ""): Page[] {
+function getAllLinks(node: Paths | SidebarItem): Page[] {
   const pages: Page[] = []
 
   if (isRoute(node) && node.href && (!hasNoLink(node) || !node.noLink)) {
-    // For components section, we need special handling
-    if (node.id === "components" && node.items) {
-      // Add the parent component route if it has items
-      node.items.forEach((subNode) => {
-        if (isRoute(subNode) && subNode.href) {
+    // For regular docs pages
+    pages.push({ title: node.title, href: node.href })
+  }
+
+  if (isRoute(node) && node.items) {
+    node.items.forEach((subNode) => {
+      if (isRoute(subNode) && subNode.href) {
+        // Handle components section specially
+        if (node.id === "components") {
           pages.push({
             title: subNode.title,
             href: `/components${subNode.href}`
           })
+        } else {
+          pages.push({
+            title: subNode.title,
+            href: subNode.href
+          })
         }
-      })
-    } else if (parentHref === "components") {
-      // For component items, use the parent href structure
-      pages.push({ title: node.title, href: `/components${node.href}` })
-    } else {
-      // For regular docs
-      pages.push({ title: node.title, href: node.href })
-    }
-  }
-
-  if (isRoute(node) && node.items && node.id !== "components") {
-    node.items.forEach((subNode) => {
-      if (isRoute(subNode)) {
-        pages.push(...getAllLinks(subNode, node.id || ""))
       }
     })
   }
@@ -69,5 +64,8 @@ export const PageRoutes = Routes.map((route) => getAllLinks(route))
 // Debug function to check generated routes
 export function debugRoutes() {
   console.log("Generated PageRoutes:", PageRoutes)
+  PageRoutes.forEach((route, index) => {
+    console.log(`${index}: ${route.title} -> ${route.href}`)
+  })
   return PageRoutes
 }

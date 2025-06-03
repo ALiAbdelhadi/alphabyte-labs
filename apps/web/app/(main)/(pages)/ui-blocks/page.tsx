@@ -40,7 +40,7 @@ const UiBlocksPage = () => {
   const registryBlocks = blockExamples.items
   const DeferredItems = useDeferredValue(registryBlocks)
   return (
-    <div className="py-8 bg-[#f8f8f9] dark:bg-[#111111]">
+    <div className="py-8">
       <Container>
         <section className="my-14 md:my-16 space-y-3">
           <div className="space-y-2">

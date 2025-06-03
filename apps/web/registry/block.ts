@@ -5,6 +5,19 @@ export interface FileTree {
     children?: FileTree[]
 }
 
+export interface Block {
+    name: string
+    target: string
+    components: string[]
+    constant: string[]
+    lib: string[]
+    context: string[]
+    hooks: string[]
+    layout?: string
+    types?: string[]
+    styles?: string[]
+}
+
 import { blockExamples } from "./blocks-examples"
 
 function getExtensionFromLanguage(language: string): string {
@@ -57,16 +70,14 @@ function getLanguageFromExtension(filePath: string): string {
         mdx: "mdx",
     }
 
-    return extension && extension in extensionMap ? extensionMap[extension] : "typescript" // Default to typescript
+    return extension && extension in extensionMap ? extensionMap[extension] : "typescript"
 }
 
-// Helper function to check if a filename already has an extension
 function hasExtension(filename: string): boolean {
     const extensions = [".ts", ".tsx", ".js", ".jsx", ".css", ".scss", ".less", ".json", ".html", ".md", ".mdx"]
     return extensions.some((ext) => filename.toLowerCase().endsWith(ext))
 }
 
-// Helper function to extract filename without duplicating extension
 function extractFileName(path: string): string {
     const pathParts = path.split("/")
     return pathParts[pathParts.length - 1] || ""
@@ -76,7 +87,6 @@ export async function generateFileTreeFromBlockId(blockId: string) {
     const block = blockExamples.items.find((item) => item.name === blockId)
     if (!block) return []
 
-    // Get the source map to extract language information
     const sourceMap = await getBlockSourceMap()
     const blockData = sourceMap?.[blockId] || {}
 
@@ -89,42 +99,51 @@ export async function generateFileTreeFromBlockId(blockId: string) {
                     path: block.target,
                     language: "tsx",
                 },
-                {
-                    name: "components",
-                    children: await Promise.all(
-                        block.components.map(async (comp) => {
-                            const fileName = extractFileName(comp)
-                            // Get language from source map if available
-                            const language = await getFileLanguage(blockId, comp)
-
-                            // Only add extension if the filename doesn't already have one
-                            let finalName = fileName
-                            if (!hasExtension(fileName)) {
-                                finalName = `${fileName}${getExtensionFromLanguage(language)}`
-                            }
-
-                            return {
-                                name: finalName,
-                                path: comp,
-                                language,
-                            }
-                        }),
-                    ),
-                },
             ],
         },
     ]
 
+    // Add layout.tsx if it exists
+    if (block.layout) {
+        fileTree[0].children?.push({
+            name: "layout.tsx",
+            path: block.layout,
+            language: "tsx",
+        })
+    }
+
+    // Add components folder
+    if (block.components && block.components.length > 0) {
+        fileTree[0].children?.push({
+            name: "components",
+            children: await Promise.all(
+                block.components.map(async (comp) => {
+                    const fileName = extractFileName(comp)
+                    const language = await getFileLanguage(blockId, comp)
+
+                    let finalName = fileName
+                    if (!hasExtension(fileName)) {
+                        finalName = `${fileName}${getExtensionFromLanguage(language)}`
+                    }
+
+                    return {
+                        name: finalName,
+                        path: comp,
+                        language,
+                    }
+                }),
+            ),
+        })
+    }
+
+    // Add constants folder
     if (block.constant && block.constant.length > 0) {
         fileTree[0].children?.push({
-            name: "constant",
+            name: "constants",
             children: await Promise.all(
                 block.constant.map(async (constant) => {
                     const fileName = extractFileName(constant)
-                    // Get language from source map if available
                     const language = await getFileLanguage(blockId, constant)
-
-                    // Only add extension if the filename doesn't already have one
                     let finalName = fileName || "index"
                     if (!hasExtension(finalName)) {
                         finalName = `${finalName}${getExtensionFromLanguage(language)}`
@@ -140,16 +159,14 @@ export async function generateFileTreeFromBlockId(blockId: string) {
         })
     }
 
+    // Add lib folder
     if (block.lib && block.lib.length > 0) {
         fileTree[0].children?.push({
             name: "lib",
             children: await Promise.all(
                 block.lib.map(async (lib) => {
                     const fileName = extractFileName(lib)
-                    // Get language from source map if available
                     const language = await getFileLanguage(blockId, lib)
-
-                    // Only add extension if the filename doesn't already have one
                     let finalName = fileName || "utils"
                     if (!hasExtension(finalName)) {
                         finalName = `${finalName}${getExtensionFromLanguage(language)}`
@@ -165,16 +182,14 @@ export async function generateFileTreeFromBlockId(blockId: string) {
         })
     }
 
+    // Add context folder
     if (block.context && block.context.length > 0) {
         fileTree[0].children?.push({
             name: "context",
             children: await Promise.all(
                 block.context.map(async (context) => {
                     const fileName = extractFileName(context)
-                    // Get language from source map if available
                     const language = await getFileLanguage(blockId, context)
-
-                    // Only add extension if the filename doesn't already have one
                     let finalName = fileName || "index"
                     if (!hasExtension(finalName)) {
                         finalName = `${finalName}${getExtensionFromLanguage(language)}`
@@ -190,16 +205,14 @@ export async function generateFileTreeFromBlockId(blockId: string) {
         })
     }
 
+    // Add hooks folder
     if (block.hooks && block.hooks.length > 0) {
         fileTree[0].children?.push({
             name: "hooks",
             children: await Promise.all(
                 block.hooks.map(async (hook) => {
                     const fileName = extractFileName(hook)
-                    // Get language from source map if available
                     const language = await getFileLanguage(blockId, hook)
-
-                    // Only add extension if the filename doesn't already have one
                     let finalName = fileName || "index"
                     if (!hasExtension(finalName)) {
                         finalName = `${finalName}${getExtensionFromLanguage(language)}`
@@ -215,6 +228,52 @@ export async function generateFileTreeFromBlockId(blockId: string) {
         })
     }
 
+    // Add types folder if it exists
+    if (block.types && block.types.length > 0) {
+        fileTree[0].children?.push({
+            name: "types",
+            children: await Promise.all(
+                block.types.map(async (type: string) => {
+                    const fileName = extractFileName(type)
+                    const language = await getFileLanguage(blockId, type)
+                    let finalName = fileName || "index"
+                    if (!hasExtension(finalName)) {
+                        finalName = `${finalName}${getExtensionFromLanguage(language)}`
+                    }
+
+                    return {
+                        name: finalName,
+                        path: type,
+                        language,
+                    }
+                }),
+            ),
+        })
+    }
+
+    // Add styles folder if it exists
+    if (block.styles && block.styles.length > 0) {
+        fileTree[0].children?.push({
+            name: "styles",
+            children: await Promise.all(
+                block.styles.map(async (style: string) => {
+                    const fileName = extractFileName(style)
+                    const language = await getFileLanguage(blockId, style)
+                    let finalName = fileName || "styles"
+                    if (!hasExtension(finalName)) {
+                        finalName = `${finalName}${getExtensionFromLanguage(language)}`
+                    }
+
+                    return {
+                        name: finalName,
+                        path: style,
+                        language,
+                    }
+                }),
+            ),
+        })
+    }
+
     return fileTree
 }
 
@@ -222,7 +281,6 @@ export function normalizePath(path: string, type: "lib" | "constant"): string {
     let normalizedPath = path
 
     if (type === "lib") {
-        // Remove extension if present
         if (
             normalizedPath.endsWith(".ts") ||
             normalizedPath.endsWith(".tsx") ||
@@ -231,16 +289,11 @@ export function normalizePath(path: string, type: "lib" | "constant"): string {
         ) {
             normalizedPath = normalizedPath.replace(/\.(ts|tsx|js|jsx)$/, "")
         }
-
-        // Handle utils path
         if (normalizedPath.endsWith("/utils")) {
-            // Path already has /utils, keep it as is
         } else if (!normalizedPath.includes("/utils")) {
-            // Add /utils if not present
             normalizedPath = `${normalizedPath}/utils`
         }
     } else if (type === "constant") {
-        // Remove extension if present
         if (
             normalizedPath.endsWith(".ts") ||
             normalizedPath.endsWith(".tsx") ||
@@ -250,14 +303,10 @@ export function normalizePath(path: string, type: "lib" | "constant"): string {
         ) {
             normalizedPath = normalizedPath.replace(/\.(ts|tsx|js|jsx|json)$/, "")
         }
-
-        // Handle index path - but don't add /index for JSON files
         const isJsonFile = path.toLowerCase().endsWith(".json")
 
         if (normalizedPath.endsWith("/index")) {
-            // Path already has /index, keep it as is
         } else if (!normalizedPath.includes("/index") && !isJsonFile) {
-            // Add /index if not present and not a JSON file
             normalizedPath = `${normalizedPath}/index`
         }
     }
@@ -265,12 +314,6 @@ export function normalizePath(path: string, type: "lib" | "constant"): string {
     return normalizedPath
 }
 
-/**
- * Gets the language for a specific file in a block using the source map
- * @param blockId The ID of the block
- * @param filePath The path of the file
- * @returns The language of the file
- */
 export async function getFileLanguage(blockId: string, filePath: string): Promise<string> {
     const sourceMap = await getBlockSourceMap()
     if (!sourceMap || !sourceMap[blockId]) {
@@ -279,44 +322,48 @@ export async function getFileLanguage(blockId: string, filePath: string): Promis
 
     const blockData = sourceMap[blockId]
 
-    // Check in components
+    // Check for layout file
+    if (filePath.includes("layout.tsx") && blockData.layout && blockData.layout[filePath]) {
+        return blockData.layout[filePath].language || "tsx"
+    }
+
     if (filePath.includes("/components/") && blockData.components && blockData.components[filePath]) {
         return blockData.components[filePath].language || "tsx"
     }
 
-    // Check in constant
     if (filePath.includes("/constant/") && blockData.constant && blockData.constant[filePath]) {
         return blockData.constant[filePath].language || "typescript"
     }
 
-    // Check in lib
     if (filePath.includes("/lib/") && blockData.lib && blockData.lib[filePath]) {
         return blockData.lib[filePath].language || "typescript"
     }
 
-    // Check in context
     if (filePath.includes("/context/") && blockData.context && blockData.context[filePath]) {
         return blockData.context[filePath].language || "tsx"
     }
 
-    // Check in hooks
     if (filePath.includes("/hooks/") && blockData.hooks && blockData.hooks[filePath]) {
         return blockData.hooks[filePath].language || "tsx"
     }
 
-    // Check if it's the main page file
+    if (filePath.includes("/types/") && blockData.types && blockData.types[filePath]) {
+        return blockData.types[filePath].language || "typescript"
+    }
+
+    if (filePath.includes("/styles/") && blockData.styles && blockData.styles[filePath]) {
+        return blockData.styles[filePath].language || "css"
+    }
+
     if (blockData[filePath]) {
         if (typeof blockData[filePath] === "object" && blockData[filePath].language) {
             return blockData[filePath].language
         }
-        return "tsx" // Default for page files
+        return "tsx"
     }
 
-    // Fallback to extension-based detection
     return getLanguageFromExtension(filePath)
 }
-
-// New functions for block-preview logic
 
 export interface CodeFile {
     path: string
@@ -324,13 +371,6 @@ export interface CodeFile {
     language?: string
 }
 
-/**
- * Loads source code for a specific file in a block
- * @param blockId The ID of the block
- * @param filePath The path of the file
- * @param sourceMap The source map containing code content
- * @returns The content and language of the file
- */
 export async function loadSourceCode(
     blockId: string,
     filePath: string,
@@ -350,8 +390,19 @@ export async function loadSourceCode(
     let content = ""
     let fileLanguage = await getFileLanguage(blockId, filePath)
 
-    // Extract content based on file path
-    if (filePath.includes("/components/")) {
+    // Handle layout files
+    if (filePath.includes("layout.tsx")) {
+        if (blockData.layout) {
+            if (typeof blockData.layout[filePath] === "object") {
+                content = blockData.layout[filePath].content || "// Layout code not found"
+                fileLanguage = blockData.layout[filePath].language || fileLanguage
+            } else {
+                content = blockData.layout[filePath] || "// Layout code not found"
+            }
+        } else {
+            content = "// No layout defined for this block"
+        }
+    } else if (filePath.includes("/components/")) {
         if (typeof blockData.components?.[filePath] === "object") {
             content = blockData.components[filePath].content || "// Component code not found"
             fileLanguage = blockData.components[filePath].language || fileLanguage
@@ -360,10 +411,7 @@ export async function loadSourceCode(
         }
     } else if (filePath.includes("/constant/")) {
         if (blockData.constant) {
-            // Check if it's a JSON file
             const isJsonFile = filePath.toLowerCase().endsWith(".json")
-
-            // Try with original path first for JSON files
             if (isJsonFile) {
                 if (typeof blockData.constant[filePath] === "object") {
                     content = blockData.constant[filePath].content || "// Constant code not found"
@@ -372,7 +420,6 @@ export async function loadSourceCode(
                     content = blockData.constant[filePath]
                     fileLanguage = "json"
                 } else {
-                    // Try with path without extension
                     const pathWithoutExt = filePath.replace(/\.json$/, "")
                     if (typeof blockData.constant[pathWithoutExt] === "object") {
                         content = blockData.constant[pathWithoutExt].content || "// Constant code not found"
@@ -383,7 +430,6 @@ export async function loadSourceCode(
                     }
                 }
             } else {
-                // For non-JSON files, use the normal normalization
                 const normalizedFilePath = normalizePath(filePath, "constant")
 
                 if (typeof blockData.constant[normalizedFilePath] === "object") {
@@ -392,14 +438,12 @@ export async function loadSourceCode(
                 } else if (blockData.constant[normalizedFilePath]) {
                     content = blockData.constant[normalizedFilePath]
                 } else {
-                    // Try with original path if normalized path fails
                     if (typeof blockData.constant[filePath] === "object") {
                         content = blockData.constant[filePath].content || "// Constant code not found"
                         fileLanguage = blockData.constant[filePath].language || fileLanguage
                     } else if (blockData.constant[filePath]) {
                         content = blockData.constant[filePath]
                     } else {
-                        // Try without /index suffix
                         const basePathWithoutIndex = normalizedFilePath.replace("/index", "")
                         if (typeof blockData.constant[basePathWithoutIndex] === "object") {
                             content = blockData.constant[basePathWithoutIndex].content || "// Constant code not found"
@@ -420,22 +464,18 @@ export async function loadSourceCode(
     } else if (filePath.includes("/lib/")) {
         if (blockData.lib) {
             const normalizedFilePath = normalizePath(filePath, "lib")
-
-            // Try with normalized path first
             if (typeof blockData.lib[normalizedFilePath] === "object") {
                 content = blockData.lib[normalizedFilePath].content || "// Lib code not found"
                 fileLanguage = blockData.lib[normalizedFilePath].language || fileLanguage
             } else if (blockData.lib[normalizedFilePath]) {
                 content = blockData.lib[normalizedFilePath]
             } else {
-                // Try with original path if normalized path fails
                 if (typeof blockData.lib[filePath] === "object") {
                     content = blockData.lib[filePath].content || "// Lib code not found"
                     fileLanguage = blockData.lib[filePath].language || fileLanguage
                 } else if (blockData.lib[filePath]) {
                     content = blockData.lib[filePath]
                 } else {
-                    // Try without /utils suffix
                     const basePathWithoutUtils = normalizedFilePath.replace("/utils", "")
                     if (typeof blockData.lib[basePathWithoutUtils] === "object") {
                         content = blockData.lib[basePathWithoutUtils].content || "// Lib code not found"
@@ -474,8 +514,29 @@ export async function loadSourceCode(
         } else {
             content = "// No context defined for this block"
         }
+    } else if (filePath.includes("/types/")) {
+        if (blockData.types) {
+            if (typeof blockData.types[filePath] === "object") {
+                content = blockData.types[filePath].content || "// Types code not found"
+                fileLanguage = blockData.types[filePath].language || fileLanguage
+            } else {
+                content = blockData.types[filePath] || "// Types code not found"
+            }
+        } else {
+            content = "// No types defined for this block"
+        }
+    } else if (filePath.includes("/styles/")) {
+        if (blockData.styles) {
+            if (typeof blockData.styles[filePath] === "object") {
+                content = blockData.styles[filePath].content || "// Styles code not found"
+                fileLanguage = blockData.styles[filePath].language || fileLanguage
+            } else {
+                content = blockData.styles[filePath] || "// Styles code not found"
+            }
+        } else {
+            content = "// No styles defined for this block"
+        }
     } else {
-        // page.tsx or other root file
         if (typeof blockData[filePath] === "object") {
             content = blockData[filePath].content || "// Page code not found"
             fileLanguage = blockData[filePath].language || fileLanguage
@@ -487,7 +548,6 @@ export async function loadSourceCode(
     return { content, language: fileLanguage }
 }
 
-// Add this function after the loadSourceCode function
 export function debugSourceMap(blockId: string, sourceMap: Record<string, any> | null): void {
     if (!sourceMap) {
         console.warn("Source map is not loaded yet")
@@ -501,19 +561,17 @@ export function debugSourceMap(blockId: string, sourceMap: Record<string, any> |
     }
 
     console.log("Block data structure:", {
+        layout: blockData.layout ? Object.keys(blockData.layout) : [],
         components: blockData.components ? Object.keys(blockData.components) : [],
         lib: blockData.lib ? Object.keys(blockData.lib) : [],
         constant: blockData.constant ? Object.keys(blockData.constant) : [],
         hooks: blockData.hooks ? Object.keys(blockData.hooks) : [],
         context: blockData.context ? Object.keys(blockData.context) : [],
+        types: blockData.types ? Object.keys(blockData.types) : [],
+        styles: blockData.styles ? Object.keys(blockData.styles) : [],
     })
 }
 
-/**
- * Finds the first file in a file tree
- * @param tree The file tree to search
- * @returns The path of the first file found, or null if no files are found
- */
 export function findFirstFile(tree: FileTree[]): string | null {
     for (const item of tree) {
         if (item.path) {

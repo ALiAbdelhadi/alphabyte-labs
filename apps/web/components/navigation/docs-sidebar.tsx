@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation"
 import { DocsConfig, DocsRouting } from "@/settings/docs-routing"
-
 import DocsSidebarItem from "./docs-sidebar-item"
 
 const NEW_COMPONENTS = ["diagrams", "steps", "product-card"]

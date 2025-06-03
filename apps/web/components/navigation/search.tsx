@@ -278,29 +278,34 @@ export default function Search() {
   }, [isLoading, searchedInput, filteredResults, renderDocumentStructure, renderSearchResults]);
 
   return (
-    <div className="relative md:w-full max-w-xl">
+    <div className="relative lg:w-full max-w-xl">
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
         <DialogTrigger asChild>
           <button
             className={cn(
-              "group flex w-full items-center text-sm transition-colors rounded-md h-8 md:px-3 md:border md:border-input gap-2",
-              "bg-muted/50 dark:bg-background/70 hover:bg-muted/70 dark:hover:bg-background/80",
+              "group flex w-full items-center text-sm transition-colors rounded-md h-8 lg:px-3 gap-2 ",
+              "lg:bg-muted/50 bg-transparent dark:bg-background/70 hover:bg-muted/70 dark:hover:bg-background/80",
               "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 dark:focus-visible:ring-offset-neutral-900",
-              "md:bg-background md:hover:bg-muted",
-              "dark:md:bg-neutral-800"
+              "lg:bg-muted",
+              "dark:lg:bg-neutral-800"
             )}
             aria-label="Search documentation"
           >
-            <SearchIcon className="h-5 w-5 text-[#000] flex-shrink-0 md:hidden flex" />
-            <span className="flex-1 text-left text-muted-foreground group-hover:text-foreground hidden lg:inline-flex">
+            <SearchIcon className="h-5 w-5 text-[#000] flex-shrink-0 lg:hidden flex" />
+            <span className="flex-1 text-left text-muted-foreground group-hover:text-foreground hidden xl:inline-flex">
               Search documentation...
             </span>
-            <span className="flex-1 text-left text-muted-foreground group-hover:text-foreground hidden md:inline-flex lg:hidden">
+            <span className="flex-1 text-left text-muted-foreground group-hover:text-foreground hidden lg:inline-flex lg:hidden">
               Search docs...
             </span>
-            <kbd className="ml-auto pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-card px-1.5 font-mono text-[10px] font-medium text-muted-foreground sm:flex">
-              {platform === "mac" ? "⌘ K" : "Ctrl K"}
-            </kbd>
+            <div className="flex items-center gap-1">
+              <kbd className="ml-auto pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-card px-1.5 font-mono text-[10px] font-medium text-muted-foreground lg:flex">
+                {platform === "mac" ? "⌘" : "Ctrl"}
+              </kbd>
+              <kbd className="ml-auto pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-card px-1.5 font-mono text-[10px] font-medium text-muted-foreground lg:flex">
+                {platform === "mac" ? "K" : "K"}
+              </kbd>
+            </div>
           </button>
         </DialogTrigger>
         <DialogContent className="max-w-2xl overflow-hidden dark:bg-neutral-900 rounded-lg top-[40%] lg:top-[50%] !p-1 shadow-2xl">

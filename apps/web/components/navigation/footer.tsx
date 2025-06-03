@@ -14,7 +14,7 @@ export function Footer() {
     <footer
       className={cn("w-full h-16", isDocsRoute && "border-t border-grid")}
     >
-      <div className="flex flex-wrap items-center justify-center sm:justify-between gap-4 sm:gap-0 w-full h-full mx-auto container text-sm text-muted-foreground">
+      <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-0 w-full h-full mx-auto container text-sm text-muted-foreground">
         <p className="text-center text-muted-foreground">
           &copy; {new Date().getFullYear()}{" "}
           <Link
@@ -30,11 +30,6 @@ export function Footer() {
           </Link>
           .
         </p>
-        {Company.branding !== false && (
-          <div className="text-center hidden md:block">
-            <p className="font-semibold">Alphabyte-labs</p>
-          </div>
-        )}
       </div>
     </footer>
   )

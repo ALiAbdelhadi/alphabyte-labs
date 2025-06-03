@@ -1,14 +1,6 @@
 "use client"
 
-import { type CSSProperties, useCallback, useEffect, useRef, useState, memo } from "react"
-import type { FileTree } from "@/registry/block"
-import { motion } from "framer-motion"
-import { ChevronDown, File, Folder, PanelLeft, PanelRight } from "lucide-react"
-import { useTheme } from "next-themes"
-
-// UI Components
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import {
     Sidebar,
     SidebarGroup,
@@ -21,14 +13,17 @@ import {
     SidebarProvider,
 } from "@/components/ui/sidebar"
 import { cn } from "@/lib/utils"
+import type { FileTree } from "@/registry/block"
 import { languageIcons } from "@/settings/LanguageIcon"
+import { motion } from "framer-motion"
+import { ChevronDown, File, Folder, PanelLeft, PanelRight } from "lucide-react"
+import { useTheme } from "next-themes"
+import { type CSSProperties, memo, useCallback, useEffect, useRef, useState } from "react"
 
-// Constants
 const MIN_SIDEBAR_WIDTH = 220
 const MAX_SIDEBAR_WIDTH = 400
 const DEFAULT_SIDEBAR_WIDTH = 280
 
-// Types
 interface TreeProps {
     item: FileTree
     level: number
@@ -55,17 +50,12 @@ const styles = {
     headerBg: "bg-[#333333]",
 }
 
-/**
- * Cleans file names to prevent duplicate extensions
- */
 function cleanFileName(fileName: string): string {
-    // Handle common duplicate extension patterns
     const patterns = [/\.ts\.ts$/, /\.tsx\.tsx$/, /\.js\.js$/, /\.jsx\.jsx$/, /\.json\.json$/, /\.css\.css$/]
 
     let cleanedName = fileName
     for (const pattern of patterns) {
         if (pattern.test(cleanedName)) {
-            // Replace duplicate extension with single extension
             cleanedName = cleanedName.replace(pattern, pattern.toString().slice(1, 4))
         }
     }
@@ -73,17 +63,11 @@ function cleanFileName(fileName: string): string {
     return cleanedName
 }
 
-/**
- * Gets the file extension from a filename
- */
 function getFileExtension(filename: string): string {
     const parts = filename.split(".")
     return parts.length > 1 ? parts[parts.length - 1].toLowerCase() : ""
 }
 
-/**
- * Gets the appropriate icon for a file based on its extension
- */
 function getFileIcon(filename: string) {
     const ext = getFileExtension(filename)
     if (ext && languageIcons[ext]) {
@@ -92,15 +76,11 @@ function getFileIcon(filename: string) {
     return <File className="h-4 w-4" />
 }
 
-/**
- * Tree component renders a single file or folder in the file tree
- */
 const Tree = memo(function Tree({ item, level, activeFile, setActiveFile }: TreeProps) {
     const displayName = cleanFileName(item.name)
     const indentStyle = { "--indent": `${level * 1.25}rem` } as CSSProperties
     const isFolder = Boolean(item.children)
 
-    // File item rendering
     if (!isFolder) {
         return (
             <SidebarMenuItem>
@@ -127,8 +107,6 @@ const Tree = memo(function Tree({ item, level, activeFile, setActiveFile }: Tree
             </SidebarMenuItem>
         )
     }
-
-    // Folder item rendering
     return (
         <SidebarMenuItem>
             <Collapsible className="group/collapsible w-full" defaultOpen>
@@ -173,9 +151,6 @@ const Tree = memo(function Tree({ item, level, activeFile, setActiveFile }: Tree
     )
 })
 
-/**
- * LoadingFileTree component displays a loading animation
- */
 const LoadingFileTree = () => (
     <div className="p-4 text-center">
         <div className="animate-pulse space-y-2">
@@ -186,19 +161,11 @@ const LoadingFileTree = () => (
         <p className="text-sm text-[#8a8a8a] mt-3">Loading file tree...</p>
     </div>
 )
-
-/**
- * EmptyFileTree component displays when no files are found
- */
 const EmptyFileTree = () => (
     <div className="p-4 text-center">
         <p className="text-sm text-[#8a8a8a]">No files found</p>
     </div>
 )
-
-/**
- * BlockFileTree is the main component that renders the file explorer sidebar
- */
 export function BlockFileTree({
     fileTree,
     activeFile,
@@ -220,7 +187,6 @@ export function BlockFileTree({
         setSidebarIsOpen(prev => !prev)
     }, [])
 
-    // Handle sidebar resizing
     useEffect(() => {
         const resizeHandle = resizeHandleRef.current
         const sidebar = sidebarRef.current
@@ -258,7 +224,6 @@ export function BlockFileTree({
         }
     }, [])
 
-    // Handle window width changes for responsive behavior
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth < 768 && sidebarIsOpen) {

@@ -7,7 +7,7 @@ export interface DocsConfig {
 export const DocsRouting: DocsConfig = {
   mainNav: [
     { title: "Docs", href: "/docs/introduction" },
-    { title: "Components", href: "/docs/components/accordion" },
+    { title: "Components", href: "/docs/components" },
     { title: "Blocks", href: "/ui-blocks" },
     { title: "Themes", href: "/themes" },
     { title: "Colors", href: "/colors" },
@@ -16,7 +16,6 @@ export const DocsRouting: DocsConfig = {
   sidebarItems: [
     {
       title: "Getting Started",
-      
       id: "getting-started",
       items: [
         {
@@ -40,7 +39,7 @@ export const DocsRouting: DocsConfig = {
     {
       title: "Components",
       id: "components",
-      href: "components",
+      href: "/components",
       items: [
         {
           title: "Accordion",
@@ -148,5 +147,5 @@ export const DocsRouting: DocsConfig = {
         },
       ],
     },
-  ],
+  ]
 }

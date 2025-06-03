@@ -1,5 +1,9 @@
 const BlockLayout = ({ children }: { children: React.ReactNode }) => {
-  return children
+  return (
+    <div className="block-layout">
+      {children}
+    </div>
+  )
 }
 
 export default BlockLayout

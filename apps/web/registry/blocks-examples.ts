@@ -9,7 +9,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "banner-1",
@@ -20,7 +22,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "carousel-1",
@@ -34,7 +38,9 @@ export const blockExamples = { items: [
     ],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "carousel-2",
@@ -48,7 +54,9 @@ export const blockExamples = { items: [
     ],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "case-studies-1",
@@ -59,7 +67,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "case-studies-2",
@@ -70,16 +80,28 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
-    "name": "dashbaord-1",
-    "target": "@/registry/view/dashbaord-1/page",
-    "components": [],
-    "constant": [],
-    "lib": [],
+    "name": "dashboard-1",
+    "target": "@/registry/view/dashboard-1/page",
+    "components": [
+      "@/registry/view/dashboard-1/components/dashboard",
+      "@/registry/view/dashboard-1/components/sidebar"
+    ],
+    "constant": [
+      "@/registry/view/dashboard-1/constant/index"
+    ],
+    "lib": [
+      "@/registry/view/dashboard-1/lib/utils.ts"
+    ],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": [],
+    "layout": "@/registry/view/dashboard-1/layout"
   },
   {
     "name": "dashboard-2",
@@ -96,7 +118,9 @@ export const blockExamples = { items: [
       "@/registry/view/dashboard-2/lib/utils.ts"
     ],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "dashboard-3",
@@ -119,7 +143,9 @@ export const blockExamples = { items: [
       "@/registry/view/dashboard-3/lib/utils.ts"
     ],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "expanded-gallery-1",
@@ -134,7 +160,9 @@ export const blockExamples = { items: [
       "@/registry/view/expanded-gallery-1/lib/motion.ts"
     ],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "features-showcase-1",
@@ -145,7 +173,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "features-showcase-2",
@@ -156,7 +186,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "features-showcase-3",
@@ -167,7 +199,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "features-showcase-4",
@@ -178,7 +212,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "login-1",
@@ -189,7 +225,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "login-2",
@@ -200,7 +238,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "login-3",
@@ -211,7 +251,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "login-4",
@@ -222,7 +264,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "navbar-1",
@@ -235,7 +279,9 @@ export const blockExamples = { items: [
     ],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "new-collection-1",
@@ -246,7 +292,27 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
+  },
+  {
+    "name": "orders-page-1",
+    "target": "@/registry/view/orders-page-1/page",
+    "components": [
+      "@/registry/view/orders-page-1/components/orders-page",
+      "@/registry/view/orders-page-1/components/sidebar"
+    ],
+    "constant": [
+      "@/registry/view/orders-page-1/constant/index"
+    ],
+    "lib": [
+      "@/registry/view/orders-page-1/lib/utils.ts"
+    ],
+    "context": [],
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "orders-page-2",
@@ -259,7 +325,9 @@ export const blockExamples = { items: [
       "@/registry/view/orders-page-2/lib/utils.ts"
     ],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "orders-page-3",
@@ -282,7 +350,9 @@ export const blockExamples = { items: [
       "@/registry/view/orders-page-3/lib/utils.ts"
     ],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "pricing-1",
@@ -293,7 +363,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "pricing-2",
@@ -305,7 +377,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "pricing-3",
@@ -317,7 +391,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "pricing-4",
@@ -329,7 +405,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "product-overview-1",
@@ -347,7 +425,9 @@ export const blockExamples = { items: [
       "@/registry/view/product-overview-1/lib/utils.ts"
     ],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "products-carousel-1",
@@ -363,7 +443,9 @@ export const blockExamples = { items: [
       "@/registry/view/products-carousel-1/lib/utils.ts"
     ],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "products-list-1",
@@ -377,7 +459,9 @@ export const blockExamples = { items: [
     ],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "service-1",
@@ -390,7 +474,9 @@ export const blockExamples = { items: [
     ],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "signup-1",
@@ -401,7 +487,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "signup-2",
@@ -412,7 +500,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "signup-3",
@@ -423,7 +513,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "signup-4",
@@ -434,7 +526,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "subscription-email-1",
@@ -445,7 +539,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "subscription-email-2",
@@ -456,7 +552,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "subscription-email-3",
@@ -467,7 +565,9 @@ export const blockExamples = { items: [
     "constant": [],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   },
   {
     "name": "timeline-1",
@@ -481,6 +581,8 @@ export const blockExamples = { items: [
     ],
     "lib": [],
     "context": [],
-    "hooks": []
+    "hooks": [],
+    "types": [],
+    "styles": []
   }
 ] }

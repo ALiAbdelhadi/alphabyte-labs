@@ -65,7 +65,7 @@ const ComponentsPage = async (props: DocsPageProps) => {
                   href={docs.links.doc}
                   target="_blank"
                   rel="noreferrer"
-                  className={cn(badgeVariants({ variant: "secondary" }), "gap-1")}
+                  className={cn("!rounded-lg", badgeVariants({ variant: "secondary" }), "gap-1")}
                 >
                   Docs
                   <ExternalLink className="h-3 w-3" />
@@ -76,7 +76,7 @@ const ComponentsPage = async (props: DocsPageProps) => {
                   href={docs.links.api}
                   target="_blank"
                   rel="noreferrer"
-                  className={cn(badgeVariants({ variant: "secondary" }), "gap-1")}
+                  className={cn("!rounded-lg", badgeVariants({ variant: "secondary" }), "gap-1")}
                 >
                   API Reference
                   <ExternalLink className="h-3 w-3" />
@@ -85,9 +85,7 @@ const ComponentsPage = async (props: DocsPageProps) => {
             </div>
           ) : null}
           <Typography>
-            <ErrorBoundary>
-              <div>{content}</div>
-            </ErrorBoundary>
+            <ErrorBoundary>{content}</ErrorBoundary>
             <Pagination pathname={pathName} />
           </Typography>
         </div>

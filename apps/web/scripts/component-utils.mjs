@@ -122,6 +122,15 @@ async function dirExists(dirPath) {
   }
 }
 
+async function fileExists(filePath) {
+  try {
+    const stats = await fs.stat(filePath)
+    return stats.isFile()
+  } catch {
+    return false
+  }
+}
+
 async function getBlocksStructure() {
   const blockDirs = await fs.readdir(blocksDir).catch(() => [])
   const blocks = []
@@ -133,126 +142,118 @@ async function getBlocksStructure() {
     if (!stat || !stat.isDirectory()) continue
 
     const pagePath = path.join(blockPath, "page.tsx")
-    const pageExists = await fs.access(pagePath).then(() => true).catch(() => false)
+    const layoutPath = path.join(blockPath, "layout.tsx")
+    const pageExists = await fileExists(pagePath)
+    const layoutExists = await fileExists(layoutPath)
+
     if (!pageExists) continue
 
     const target = toImportPath(pagePath)
+    let layout = null
 
     const components = []
     const constant = []
     const lib = []
     const context = []
     const hooks = []
+    const types = []
+    const styles = []
+
     if (!blockSourceMap[dirName]) {
       blockSourceMap[dirName] = {
         components: {},
         constant: {},
         lib: {},
         context: {},
-        hooks: {}
+        hooks: {},
+        types: {},
+        styles: {},
+        layout: {}
       }
     }
 
+    // Process page.tsx
     if (pageExists) {
       const pageContent = await readFileContent(pagePath)
       if (pageContent) {
-        blockSourceMap[dirName][target] = pageContent
-      }
-    }
-
-    const componentsDir = path.join(blockPath, "components")
-    const constantDir = path.join(blockPath, "constant")
-    const libDir = path.join(blockPath, "lib")
-    const contextDir = path.join(blockPath, "context")
-    const hooksDir = path.join(blockPath, "hooks")
-
-    const componentFiles = await getAllTSXFiles(componentsDir)
-    for (const file of componentFiles) {
-      const importPath = toImportPath(file)
-      components.push(importPath)
-      const content = await readFileContent(file)
-      if (content) {
-        // Add language information based on file extension
-        blockSourceMap[dirName].components[importPath] = {
-          content,
-          language: getLanguageFromExtension(file)
+        blockSourceMap[dirName][target] = {
+          content: pageContent,
+          language: getLanguageFromExtension(pagePath)
         }
       }
     }
 
-    if (await dirExists(constantDir)) {
-      const constantFiles = await getAllFiles(constantDir)
-      for (const file of constantFiles) {
-        const importPath = toImportPath(file)
-        constant.push(importPath)
-        const content = await readFileContent(file)
-        if (content) {
-          // Add language information based on file extension
-          blockSourceMap[dirName].constant[importPath] = {
-            content,
-            language: getLanguageFromExtension(file)
+    // Process layout.tsx if it exists
+    if (layoutExists) {
+      layout = toImportPath(layoutPath)
+      const layoutContent = await readFileContent(layoutPath)
+      if (layoutContent) {
+        blockSourceMap[dirName].layout[layout] = {
+          content: layoutContent,
+          language: getLanguageFromExtension(layoutPath)
+        }
+      }
+    }
+
+    // Process all subdirectories
+    const subdirectories = [
+      { name: 'components', array: components, key: 'components' },
+      { name: 'constant', array: constant, key: 'constant' },
+      { name: 'constants', array: constant, key: 'constant' }, // Support both naming conventions
+      { name: 'lib', array: lib, key: 'lib' },
+      { name: 'context', array: context, key: 'context' },
+      { name: 'hooks', array: hooks, key: 'hooks' },
+      { name: 'types', array: types, key: 'types' },
+      { name: 'styles', array: styles, key: 'styles' }
+    ]
+
+    for (const subdir of subdirectories) {
+      const subdirPath = path.join(blockPath, subdir.name)
+
+      if (await dirExists(subdirPath)) {
+        let files = []
+
+        if (subdir.name === 'components') {
+          files = await getAllTSXFiles(subdirPath)
+        } else if (subdir.name === 'styles') {
+          files = await getAllFiles(subdirPath, ['.css', '.scss', '.less'])
+        } else {
+          files = await getAllFiles(subdirPath)
+        }
+
+        for (const file of files) {
+          const importPath = toImportPath(file)
+          subdir.array.push(importPath)
+          const content = await readFileContent(file)
+          if (content) {
+            blockSourceMap[dirName][subdir.key][importPath] = {
+              content,
+              language: getLanguageFromExtension(file)
+            }
           }
         }
       }
     }
 
-    if (await dirExists(libDir)) {
-      const libFiles = await getAllFiles(libDir)
-      for (const file of libFiles) {
-        const importPath = toImportPath(file)
-        lib.push(importPath)
-        const content = await readFileContent(file)
-        if (content) {
-          // Add language information based on file extension
-          blockSourceMap[dirName].lib[importPath] = {
-            content,
-            language: getLanguageFromExtension(file)
-          }
-        }
-      }
-    }
-
-    if (await dirExists(contextDir)) {
-      const contextFiles = await getAllFiles(contextDir, ['.tsx', '.ts', '.jsx', '.js'])
-      for (const file of contextFiles) {
-        const importPath = toImportPath(file)
-        context.push(importPath)
-        const content = await readFileContent(file)
-        if (content) {
-          // Add language information based on file extension
-          blockSourceMap[dirName].context[importPath] = {
-            content,
-            language: getLanguageFromExtension(file)
-          }
-        }
-      }
-    }
-
-    if (await dirExists(hooksDir)) {
-      const hooksFiles = await getAllFiles(hooksDir, ['.tsx', '.ts', '.jsx', '.js'])
-      for (const file of hooksFiles) {
-        const importPath = toImportPath(file)
-        hooks.push(importPath)
-        const content = await readFileContent(file)
-        if (content) {
-          // Add language information based on file extension
-          blockSourceMap[dirName].hooks[importPath] = {
-            content,
-            language: getLanguageFromExtension(file)
-          }
-        }
-      }
-    }
-
-    blocks.push({
+    // Create block object
+    const blockObj = {
       name: dirName,
       target,
       components,
       constant,
       lib,
       context,
-      hooks
-    })
+      hooks,
+      types,
+      styles
+    }
+
+    // Add layout if it exists
+    if (layout) {
+      blockObj.layout = layout
+    }
+
+    blocks.push(blockObj)
   }
 
   return { blocks, blockSourceMap }
@@ -318,7 +319,6 @@ async function generateFiles() {
 
   const { blocks, blockSourceMap } = await getBlocksStructure()
 
-
   const componentExamplesResult = `// This file was automatically generated
 import React from "react"
 export const componentExamples = { items: [
@@ -353,6 +353,8 @@ export const REGISTRY = {
   await fs.writeFile(outputBlocksViewSourceMap, JSON.stringify(blockSourceMap, null, 2), "utf-8")
 
   console.log("✅ All files generated successfully")
+  console.log(`📦 Generated ${blocks.length} blocks`)
+  console.log(`🧩 Generated ${registryItems.length} component examples`)
 }
 
 generateFiles().catch((err) => {

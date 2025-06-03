@@ -35,13 +35,10 @@ export default function BlockPreview({
   BlockId,
   fileTree: initialFileTree,
 }: BlockPreview) {
-  // State for UI
   const [active, setActive] = useState("desktop")
   const [previewWidth, setPreviewWidth] = useState("100%")
   const [view, setView] = useState<"preview" | "code">("preview")
   const [codeFoldingEnabled, setCodeFoldingEnabled] = useState(true)
-
-  // State for data
   const [activeFile, setActiveFile] = useState<string | null>(null)
   const [iframeHeight, setIframeHeight] = useState(500)
   const [resolvedCodeFiles, setResolvedCodeFiles] = useState<CodeFile[]>(codeFiles)
@@ -280,8 +277,10 @@ export default function BlockPreview({
         className="overflow-hidden preview min-h-[86.5vh] transition-all w-full"
         id={id}
         src={iframeSource}
-        sandbox="allow-scripts allow-same-origin"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
         loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        referrerPolicy="strict-origin-when-cross-origin"
       />
     )
   }, [isIframeVisible, iframeHeight, id, iframeSource])

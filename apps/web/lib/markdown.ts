@@ -1,10 +1,13 @@
+import { Settings } from "@/config/meta"
+import { components } from "@/lib/components"
+import { PageRoutes } from "@/lib/pageRoutes"
+import { GitHubLink } from "@/settings/settings"
 import { createReadStream, promises as fs } from "fs"
-import path from "path"
-import { ComponentType } from "react"
-import { GitHubLink } from "@/settings/navigation"
 import matter from "gray-matter"
 import { Element, Text } from "hast"
 import { compileMDX } from "next-mdx-remote/rsc"
+import path from "path"
+import { ComponentType } from "react"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeCodeTitles from "rehype-code-titles"
 import rehypeKatex from "rehype-katex"
@@ -13,10 +16,6 @@ import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import { Node } from "unist"
 import { visit } from "unist-util-visit"
-
-import { Settings } from "@/config/meta"
-import { components } from "@/lib/components"
-import { PageRoutes } from "@/lib/pageRoutes"
 
 declare module "hast" {
   interface Element {
@@ -181,19 +180,35 @@ function sluggify(text: string) {
     .replace(/[^a-zA-Z0-9\u4e00-\u9fa5\-_]/g, "")
 }
 
+
 const pathIndexMap = new Map(
   PageRoutes.map((route, index) => [route.href, index])
 )
 
 export function getPreviousNext(path: string) {
-  const index = pathIndexMap.get(path)
+  const cleanPath = path.startsWith('/') ? path : `/${path}`
+  let index = pathIndexMap.get(cleanPath)
+  
+  if (index === undefined) {
+    index = pathIndexMap.get(path)
+  }
+  
+  if (index === undefined) {
+    for (const [routePath, routeIndex] of pathIndexMap.entries()) {
+      if (routePath.includes(path) || path.includes(routePath.replace(/^\//, ''))) {
+        index = routeIndex
+        break
+      }
+    }
+  }
+
 
   if (index === undefined || index === -1) {
     return { prev: null, next: null }
   }
 
   const prev = index > 0 ? PageRoutes[index - 1] : null
-  const next = index < PageRoutes.length - 1 ? PageRoutes[index + 1] : null
+  const next = index < PageRoutes.length - 1 ? PageRoutes[index + 1] : null  
   return { prev, next }
 }
 
