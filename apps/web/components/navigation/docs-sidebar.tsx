@@ -37,7 +37,7 @@ export function DocsSidebar({
           const sectionTitle = section.title
           return (
             <div key={`section-${sectionIndex}`} className="mb-4">
-              <div className="font-semibold text-primary text-[1rem] md:text-[15px] mb-2 rtl:text-right px-2">
+              <div className="font-semibold text-foreground/70 text-[1rem] md:text-[15px] mb-2 rtl:text-right px-2">
                 {sectionTitle}
               </div>
               <ul className="space-y-[2px]">

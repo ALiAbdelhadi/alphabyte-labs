@@ -1,9 +1,8 @@
 "use client"
 
+import { cn } from "@/lib/utils"
 import * as React from "react"
 import { Drawer as DrawerPrimitive } from "vaul"
-
-import { cn } from "@/lib/utils"
 
 const Drawer = ({
   shouldScaleBackground = true,
@@ -28,7 +27,7 @@ const DrawerOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Overlay
     ref={ref}
-    className={cn("fixed inset-0 z-50 bg-black/80", className)}
+    className={cn("fixed inset-0 z-50 bg-black/40 backdrop-blur-sm", className)}
     {...props}
   />
 ))
@@ -36,19 +35,27 @@ DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
 
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> & {
+    description?: string
+  }
+>(({ className, children, description, ...props }, ref) => (
   <DrawerPortal>
     <DrawerOverlay />
     <DrawerPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background",
+        "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-2xl bg-background",
         className
       )}
+      aria-describedby={description ? "drawer-description" : undefined}
       {...props}
     >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
+      <div className="mx-auto mt-4 w-[100px] !min-h-[4px] bg-muted rounded-full " />
+      {description && (
+        <div id="drawer-description" className="sr-only">
+          {description}
+        </div>
+      )}
       {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>
@@ -106,13 +113,14 @@ DrawerDescription.displayName = DrawerPrimitive.Description.displayName
 
 export {
   Drawer,
-  DrawerPortal,
-  DrawerOverlay,
-  DrawerTrigger,
   DrawerClose,
   DrawerContent,
-  DrawerHeader,
-  DrawerFooter,
-  DrawerTitle,
   DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerTitle,
+  DrawerTrigger
 }
+

@@ -51,7 +51,7 @@ export default function RootLayout({
     <Fragment>
       <html lang="en" suppressHydrationWarning>
         <body
-          className="font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif] bg-background font-medium antialiased min-h-svh !mr-"
+          className="font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif] bg-background antialiased min-h-svh !mr-"
           suppressHydrationWarning
         >
           <ThemeProvider

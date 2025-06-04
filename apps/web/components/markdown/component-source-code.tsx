@@ -1,13 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { REGISTRY } from "@/registry"
-
 import Pre from "@/components/pre"
-
+import { REGISTRY } from "@/registry"
+import { useEffect, useState } from "react"
 import { CodeBlockWrapper } from "../code-block-wrapper"
 import LoadingIcon from "../icons/loading-icon"
 import MdxBadge from "../markdown/mdx-badge"
+import { fixImport } from "@/scripts/fixImport.mjs"
 
 export interface ComponentSourceProps {
   code?: string
@@ -32,8 +31,8 @@ export default function ComponentSource({
   const registryComponent = REGISTRY.items.find(
     (item) => item.name === fullComponentName
   )
-  const componentName = (registryComponent && 'baseComponent' in registryComponent) ? registryComponent.baseComponent : undefined
-  const componentPath = (registryComponent && 'componentPath' in registryComponent) ? registryComponent.componentPath : undefined
+  const componentName = (registryComponent && 'baseComponent' in registryComponent) ? fixImport(registryComponent.baseComponent) : undefined
+  const componentPath = (registryComponent && 'componentPath' in registryComponent) ? fixImport(registryComponent.componentPath) : undefined
   useEffect(() => {
     if (providedCode || !componentPath) return
     setIsLoadingCode(true)

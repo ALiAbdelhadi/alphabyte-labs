@@ -1,10 +1,9 @@
 "use client"
 
-import * as React from "react"
-import * as AccordionPrimitive from "@radix-ui/react-accordion"
-import { LuPlus } from "react-icons/lu"
-
 import { cn } from "@/lib/utils"
+import * as AccordionPrimitive from "@radix-ui/react-accordion"
+import * as React from "react"
+import { LuPlus } from "react-icons/lu"
 
 const Accordion = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,

@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import * as TabsPrimitive from "@radix-ui/react-tabs"
-
+import { AnimatePresence, motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 const Tabs = TabsPrimitive.Root
@@ -14,13 +14,140 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground",
-      className
+      "inline-flex items-center justify-center rounded-lg bg-transparent p-0.5 text-muted-foreground",
+      className,
     )}
     {...props}
   />
 ))
 TabsList.displayName = TabsPrimitive.List.displayName
+
+const TabsContainer = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & {
+    defaultIndex?: number
+    value?: string
+    defaultValue?: string
+    onValueChange?: (value: string) => void
+  }
+>(({ className, defaultIndex = 0, children, ...props }, ref) => {
+  const [activeIndex, setActiveIndex] = React.useState(defaultIndex)
+  const tabRefs = React.useRef<Map<number, HTMLButtonElement>>(new Map())
+  const containerRef = React.useRef<HTMLDivElement>(null)
+  const [activeStyle, setActiveStyle] = React.useState({
+    left: "0px",
+    width: "0px",
+  })
+
+  const updateActiveStyle = React.useCallback(() => {
+    const activeElement = tabRefs.current.get(activeIndex)
+    if (activeElement && containerRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect()
+      const tabRect = activeElement.getBoundingClientRect()
+      const left = tabRect.left - containerRect.left
+
+      setActiveStyle({
+        left: `${left}px`,
+        width: `${tabRect.width}px`,
+      })
+    }
+  }, [activeIndex])
+
+  // Update active style on mount, resize, and when active index changes
+  React.useEffect(() => {
+    updateActiveStyle()
+
+    const handleResize = () => {
+      requestAnimationFrame(updateActiveStyle)
+    }
+
+    window.addEventListener("resize", handleResize)
+
+    // Use ResizeObserver to detect size changes in the container and tabs
+    const resizeObserver = new ResizeObserver(() => {
+      requestAnimationFrame(updateActiveStyle)
+    })
+
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current)
+    }
+
+    tabRefs.current.forEach((tabElement) => {
+      resizeObserver.observe(tabElement)
+    })
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+      resizeObserver.disconnect()
+    }
+  }, [activeIndex, updateActiveStyle])
+
+  // Observe DOM changes that might affect positioning
+  React.useEffect(() => {
+    if (!containerRef.current) return
+
+    const observer = new MutationObserver(() => {
+      requestAnimationFrame(updateActiveStyle)
+    })
+
+    observer.observe(containerRef.current, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      characterData: true,
+    })
+
+    return () => observer.disconnect()
+  }, [updateActiveStyle])
+
+  return (
+    <TabsPrimitive.List
+      ref={(el) => {
+        if (typeof ref === "function") ref(el)
+        else if (ref) ref.current = el
+        containerRef.current = el as HTMLDivElement
+      }}
+      className={cn("relative bg-muted py-1 px-1 rounded-[7px] flex", className)}
+      {...props}
+    >
+      <motion.div
+        className="absolute rounded-[6px] bg-background shadow-sm border-none"
+        style={{
+          willChange: "left, width",
+          transitionProperty: "left, width",
+          height: "calc(100% - 8px)",
+          top: "4px",
+        }}
+        animate={activeStyle}
+        layout
+      />
+      {React.Children.map(children, (child, index) =>
+        React.isValidElement(child)
+          ? React.cloneElement(child as React.ReactElement<any>, {
+            onClick: (e: React.MouseEvent) => {
+              setActiveIndex(index)
+              if ((child as React.ReactElement<any>).props.onClick) {
+                ; (child as React.ReactElement<any>).props.onClick(e)
+              }
+            },
+            ref: (el: HTMLButtonElement) => {
+              if (el) tabRefs.current.set(index, el)
+              const childRef = (child as any).ref
+              if (childRef) {
+                if (typeof childRef === "function") {
+                  childRef(el)
+                } else {
+                  childRef.current = el
+                }
+              }
+            },
+          })
+          : child,
+      )}
+    </TabsPrimitive.List>
+  )
+})
+TabsContainer.displayName = "TabsContainer"
 
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
@@ -29,8 +156,14 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow",
-      className
+      "inline-flex items-center justify-center whitespace-nowrap rounded-[7px] px-3.5 py-1.5",
+      "text-sm font-medium",
+      "relative z-10",
+      "data-[state=active]:text-foreground data-[state=active]:font-semibold data-[state=inactive]:text-muted-foreground",
+      "hover:text-foreground",
+      "disabled:pointer-events-none disabled:opacity-50",
+      "transition-colors duration-200 ease-in-out",
+      className,
     )}
     {...props}
   />
@@ -41,15 +174,20 @@ const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
 >(({ className, ...props }, ref) => (
-  <TabsPrimitive.Content
-    ref={ref}
-    className={cn(
-      "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-      className
-    )}
-    {...props}
-  />
+  <TabsPrimitive.Content ref={ref} className={cn("mt-3", className)} {...props}>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={props.value}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+      >
+        {props.children}
+      </motion.div>
+    </AnimatePresence>
+  </TabsPrimitive.Content>
 ))
 TabsContent.displayName = TabsPrimitive.Content.displayName
 
-export { Tabs, TabsList, TabsTrigger, TabsContent }
+export { Tabs, TabsContainer, TabsContent, TabsList, TabsTrigger }

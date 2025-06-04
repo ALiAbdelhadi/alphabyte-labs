@@ -1,22 +1,21 @@
 "use client"
 
-import type React from "react"
-import { useState } from "react"
-import Link from "next/link"
-import { FcGoogle } from "react-icons/fc"
-import { FiEye, FiEyeOff } from "react-icons/fi"
-
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/registry/ui/card"
+import { Input } from "@/registry/ui/input"
+import { Label } from "@/registry/ui/label"
+import Link from "next/link"
+import type React from "react"
+import { useState } from "react"
+import { FcGoogle } from "react-icons/fc"
+import { FiEye, FiEyeOff } from "react-icons/fi"
 
 export function LoginForm({
   className,

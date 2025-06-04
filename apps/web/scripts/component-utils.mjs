@@ -1,22 +1,22 @@
-import fs from "fs/promises"
-import path, { dirname } from "path"
-import { fileURLToPath } from "url"
+import fs from "fs/promises";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 import { fixImport } from "./fixImport.mjs";
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-const projectRoot = path.resolve(__dirname, "../")
-const componentsDemoDir = path.join(projectRoot, "registry/examples")
-const componentsDir = path.join(projectRoot, "components/ui")
-const blocksDir = path.join(projectRoot, "registry/view")
-const outputFile = path.join(projectRoot, "registry/component-examples.ts")
-const registryOutputFile = path.join(projectRoot, "registry/index.ts")
-const sourceMapDemoOutputFile = path.join(projectRoot, "registry/component-demo-source-map.json")
-const sourceMapOutputFile = path.join(projectRoot, "registry/component-source-map.json")
-const outputBlocksView = path.join(projectRoot, "registry/blocks-examples.ts")
-const outputBlocksViewSourceMap = path.join(projectRoot, "registry/blocks-view-source-map.json")
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const projectRoot = path.resolve(__dirname, "../");
+const componentsDemoDir = path.join(projectRoot, "registry/examples");
+const componentsDir = path.join(projectRoot, "registry/ui");
+const blocksDir = path.join(projectRoot, "registry/view");
+const outputFile = path.join(projectRoot, "registry/component-examples.ts");
+const registryOutputFile = path.join(projectRoot, "registry/index.ts");
+const sourceMapDemoOutputFile = path.join(projectRoot, "registry/component-demo-source-map.json");
+const sourceMapOutputFile = path.join(projectRoot, "registry/component-source-map.json");
+const outputBlocksView = path.join(projectRoot, "registry/blocks-examples.ts");
+const outputBlocksViewSourceMap = path.join(projectRoot, "registry/blocks-view-source-map.json");
 
-const SILENT_MODE = true
+const SILENT_MODE = true;            
 
 /**
  * Determines the language based on file extension
@@ -172,7 +172,6 @@ async function getBlocksStructure() {
       }
     }
 
-    // Process page.tsx
     if (pageExists) {
       const pageContent = await readFileContent(pagePath)
       if (pageContent) {
@@ -183,7 +182,6 @@ async function getBlocksStructure() {
       }
     }
 
-    // Process layout.tsx if it exists
     if (layoutExists) {
       layout = toImportPath(layoutPath)
       const layoutContent = await readFileContent(layoutPath)
@@ -195,11 +193,10 @@ async function getBlocksStructure() {
       }
     }
 
-    // Process all subdirectories
     const subdirectories = [
       { name: 'components', array: components, key: 'components' },
       { name: 'constant', array: constant, key: 'constant' },
-      { name: 'constants', array: constant, key: 'constant' }, // Support both naming conventions
+      { name: 'constants', array: constant, key: 'constant' },
       { name: 'lib', array: lib, key: 'lib' },
       { name: 'context', array: context, key: 'context' },
       { name: 'hooks', array: hooks, key: 'hooks' },
@@ -235,7 +232,6 @@ async function getBlocksStructure() {
       }
     }
 
-    // Create block object
     const blockObj = {
       name: dirName,
       target,
@@ -248,7 +244,6 @@ async function getBlocksStructure() {
       styles
     }
 
-    // Add layout if it exists
     if (layout) {
       blockObj.layout = layout
     }
@@ -260,7 +255,6 @@ async function getBlocksStructure() {
 }
 
 async function generateFiles() {
-  // Get component files
   const ComponentFile = await getAllTSXFiles(componentsDir)
   const demoComponentFile = await getAllTSXFiles(componentsDemoDir)
 
@@ -268,7 +262,6 @@ async function generateFiles() {
   const componentSourceMap = {}
   const componentDemoSourceMap = {}
 
-  // Process component files
   for (const file of ComponentFile) {
     const path = toImportPath(file)
     const content = await readFileContent(file)
@@ -280,7 +273,6 @@ async function generateFiles() {
     }
   }
 
-  // Process demo component files
   for (const file of demoComponentFile) {
     const fileName = path.basename(file, ".tsx")
     const match = fileName.match(/^(.+?)(?:-(.+?))?-demo$/)
@@ -289,13 +281,12 @@ async function generateFiles() {
     const baseName = match[1]
     const variant = match[2] || null
 
-    // Find the corresponding component file
     const componentFile = ComponentFile.find(f => {
       const componentBaseName = path.basename(f, path.extname(f))
       return componentBaseName === baseName || componentBaseName.startsWith(baseName + "-")
     })
 
-    const componentImportPath = componentFile ? toImportPath(componentFile) : `@/components/library/${baseName}`
+    const componentImportPath = componentFile ? toImportPath(componentFile) : `@/components/ui/${baseName}`
     const demoImportPath = toImportPath(file)
     const content = await readFileContent(file)
 

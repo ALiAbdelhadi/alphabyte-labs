@@ -9,7 +9,7 @@ import ComponentUtils, {
 import MdxBadge from "@/components/markdown/mdx-badge"
 import Pre from "@/components/pre"
 import { Note } from "@/components/ui/note"
-import { Step, StepItem } from "@/components/ui/step"
+import { Step, StepItem } from "@/components/step"
 import FolderTreeDemo from "@/registry/examples/folder-tree-demo"
 import { ChevronRightIcon } from "lucide-react"
 import { MDXComponents } from "mdx/types"

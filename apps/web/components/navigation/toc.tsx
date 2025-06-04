@@ -5,6 +5,7 @@ import Link from "next/link"
 import clsx from "clsx"
 
 import { ScrollArea } from "@/components/ui/scroll-area"
+import TocCtaCard from "../toc-cta-card"
 
 type TocProps = {
   tocs: { href: string; level: number; text: string }[]
@@ -69,30 +70,29 @@ export default function Toc({ tocs }: TocProps) {
     })
 
   return (
-    <div className="flex flex-col gap-3 w-full pl-2 not-prose transition-all ">
+    <div className="flex flex-col gap-3 w-full pl-2 not-prose transition-all max-w-[230px]">
       <h3 className="text-sm font-semibold">On this page</h3>
-      <ScrollArea className="pt-0.5 pb-4">
-        <nav className="flex flex-col text-gray-500 dark:text-gray-400 ml-0.5 hide-scrollbar">
+      <nav className="flex flex-col text-gray-500 dark:text-gray-400 ml-0.5">
+        <ScrollArea className="max-h-[12rem]">
           <ul className="space-y-[6px]">
             {tocs.map(({ href, level, text }) => (
               <li className="text-sm" key={href}>
                 <Link
-                  key={href}
                   href={href}
                   scroll={false}
                   onClick={(e) => handleSmoothScroll(e, href)}
-                  className={getLinkClassName(
-                    level,
-                    activeId === href.slice(1)
-                  )}
+                  className={getLinkClassName(level, activeId === href.slice(1))}
                 >
                   {text}
                 </Link>
               </li>
             ))}
           </ul>
-        </nav>
-      </ScrollArea>
+        </ScrollArea>
+        <div className="mt-4">
+          <TocCtaCard />
+        </div>
+      </nav>
     </div>
   )
 }

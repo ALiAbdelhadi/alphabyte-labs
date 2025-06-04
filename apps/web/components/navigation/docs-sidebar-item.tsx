@@ -1,11 +1,10 @@
 "use client"
 
+import { SheetClose } from "@/components/ui/sheet"
+import { cn } from "@/lib/utils"
+import { SidebarItem } from "@/types"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { SidebarItem } from "@/types"
-
-import { cn } from "@/lib/utils"
-import { SheetClose } from "@/components/ui/sheet"
 
 interface DocsSidebarItemProps extends SidebarItem {
   level: number
@@ -34,7 +33,7 @@ export default function DocsSidebarItem(props: DocsSidebarItemProps) {
 
   const content = (
     <div className={cn("space-x-3 flex")}>
-      <span className="text-[1rem] md:text-sm text-gray-700 dark:text-gray-400 capitalize">
+      <span className="text-[1rem] md:text-sm text-primary capitalize">
         {itemKey}
       </span>
       {isNewComponent && (

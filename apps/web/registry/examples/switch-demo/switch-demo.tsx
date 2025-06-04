@@ -8,6 +8,7 @@ const SwitchDemo: React.FC = () => {
         <div>
             <Switch
                 checked={basicSwitch}
+                onCheckedChange={setBasicSwitch}
             />
         </div>
     );

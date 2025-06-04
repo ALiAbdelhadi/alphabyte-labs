@@ -5,6 +5,7 @@ import Pagination from "@/components/navigation/Pagination"
 import Toc from "@/components/navigation/toc"
 import { Typography } from "@/components/typography"
 import { badgeVariants } from "@/components/ui/badge"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Settings } from "@/config/meta"
 import { ErrorBoundary } from "@/lib/debug-wrapper"
 import { getDocument } from "@/lib/markdown"
@@ -28,10 +29,8 @@ const ComponentsPage = async (props: DocsPageProps) => {
     const { slug = [] } = DocsParams
     const pathName = slug.join("/")
 
-    // Enhanced path resolution
     let documentPath = pathName
 
-    // Debug logging
     console.log("Original slug:", slug)
     console.log("PathName:", pathName)
     console.log("Looking for document at:", documentPath)

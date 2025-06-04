@@ -1,12 +1,11 @@
 "use client"
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
+import { cn } from "@/lib/utils"
 import { Slot } from "@radix-ui/react-slot"
+import { useRouter } from "next/navigation"
+import * as React from "react"
 import { BsThreeDots } from "react-icons/bs"
 import { LuChevronRight } from "react-icons/lu"
-
-import { cn } from "@/lib/utils"
 
 const Breadcrumb = React.forwardRef<
   HTMLElement,
@@ -127,5 +126,5 @@ export {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
+  BreadcrumbSeparator
 }

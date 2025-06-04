@@ -24,8 +24,12 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "core-js-pure",
+      "puppeteer",
       "rehype-code-titles",
-      "sharp"
+      "sharp",
+      "unrs-resolver"
     ]
   }
 }

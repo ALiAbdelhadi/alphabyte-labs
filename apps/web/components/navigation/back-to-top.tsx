@@ -32,7 +32,7 @@ export function BackToTop({ className }: { className?: string }): ReactElement {
     <button
       ref={ref}
       onClick={ScrollUp}
-      className={cn("flex items-center ml-2 transition opacity-0", className)}
+      className={cn("flex items-center ml-2 transition opacity-0 !mt-4", className)}
     >
       <CircleArrowUp className="inline-block w-[18px] h-[18px] mr-1 align-middle" />
       <span>Scroll to top</span>

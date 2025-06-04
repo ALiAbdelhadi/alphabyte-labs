@@ -1,8 +1,7 @@
 import Link from "next/link"
+import { Step, StepItem } from "@/components/step"
 
-import { Step, StepItem } from "@/components/ui/step"
-
-const StepsDemo = () => {
+const StepDemo = () => {
   return (
     <Step>
       <StepItem title="Step one">
@@ -21,4 +20,4 @@ const StepsDemo = () => {
   )
 }
 
-export default StepsDemo
+export default StepDemo

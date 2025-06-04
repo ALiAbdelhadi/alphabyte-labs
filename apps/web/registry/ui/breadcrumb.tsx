@@ -1,8 +1,11 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { ChevronRight, MoreHorizontal } from "lucide-react"
+"use client"
 
 import { cn } from "@/lib/utils"
+import { Slot } from "@radix-ui/react-slot"
+import { useRouter } from "next/navigation"
+import * as React from "react"
+import { BsThreeDots } from "react-icons/bs"
+import { LuChevronRight } from "react-icons/lu"
 
 const Breadcrumb = React.forwardRef<
   HTMLElement,
@@ -19,7 +22,7 @@ const BreadcrumbList = React.forwardRef<
   <ol
     ref={ref}
     className={cn(
-      "flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5",
+      "flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground",
       className
     )}
     {...props}
@@ -43,13 +46,25 @@ const BreadcrumbLink = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentPropsWithoutRef<"a"> & {
     asChild?: boolean
+    href?: string
   }
->(({ asChild, className, ...props }, ref) => {
+>(({ asChild, className, href, ...props }, ref) => {
+  const router = useRouter()
+
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (href && href.startsWith("/")) {
+      event.preventDefault()
+      router.push(href)
+    }
+  }
+
   const Comp = asChild ? Slot : "a"
 
   return (
     <Comp
       ref={ref}
+      href={href}
+      onClick={handleClick}
       className={cn("transition-colors hover:text-foreground", className)}
       {...props}
     />
@@ -66,7 +81,7 @@ const BreadcrumbPage = React.forwardRef<
     role="link"
     aria-disabled="true"
     aria-current="page"
-    className={cn("font-normal text-foreground", className)}
+    className={cn("font-medium text-foreground", className)}
     {...props}
   />
 ))
@@ -80,10 +95,10 @@ const BreadcrumbSeparator = ({
   <li
     role="presentation"
     aria-hidden="true"
-    className={cn("[&>svg]:w-3.5 [&>svg]:h-3.5", className)}
+    className={cn("[&>svg]:size-3.5", className)}
     {...props}
   >
-    {children ?? <ChevronRight />}
+    {children ?? <LuChevronRight className="mt-[2px]" />}
   </li>
 )
 BreadcrumbSeparator.displayName = "BreadcrumbSeparator"
@@ -98,18 +113,18 @@ const BreadcrumbEllipsis = ({
     className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...props}
   >
-    <MoreHorizontal className="h-4 w-4" />
+    <BsThreeDots className="h-4 w-4" />
     <span className="sr-only">More</span>
   </span>
 )
-BreadcrumbEllipsis.displayName = "BreadcrumbElipssis"
+BreadcrumbEllipsis.displayName = "BreadcrumbEllipsis"
 
 export {
   Breadcrumb,
-  BreadcrumbList,
+  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
+  BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
-  BreadcrumbEllipsis,
+  BreadcrumbSeparator
 }
