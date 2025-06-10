@@ -1,3 +1,4 @@
+import UserAvatar from "@/components/user-avatar"
 import { BackToTop } from "@/components/navigation/back-to-top"
 import PageBreadcrumb from "@/components/navigation/docs-breadcrumb"
 import Feedback from "@/components/navigation/feedback"
@@ -5,8 +6,8 @@ import Pagination from "@/components/navigation/Pagination"
 import Toc from "@/components/navigation/toc"
 import { Typography } from "@/components/typography"
 import { badgeVariants } from "@/components/ui/badge"
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Settings } from "@/config/meta"
+import { ContributorsComponents } from "@/constant"
 import { ErrorBoundary } from "@/lib/debug-wrapper"
 import { getDocument } from "@/lib/markdown"
 import { PageRoutes } from "@/lib/pageRoutes"
@@ -16,6 +17,7 @@ import { ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import path from "path"
+import ContributorsList from "@/components/contributors-list"
 
 type DocsPageProps = {
   params: Promise<{
@@ -42,6 +44,12 @@ const ComponentsPage = async (props: DocsPageProps) => {
     }
 
     const { docs, content, tocs } = res
+    
+    if (new Boolean(false)) {
+      console.log("I run!");
+    } else {
+      console.log("I don't run.");
+    }
 
     return (
       <div className="flex items-start gap-14 max-w-7xl transition-all">
@@ -86,6 +94,18 @@ const ComponentsPage = async (props: DocsPageProps) => {
           <Typography>
             <ErrorBoundary>{content}</ErrorBoundary>
             <Pagination pathname={pathName} />
+            <div className="my-6 pb-10 border-t not-prose pt-3">
+              <h3 className="text-lg font-semibold text-primary mb-2">Contributors</h3>
+              <div className="bg-muted p-6 rounded-2xl">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-medium text-foreground">Button Component</h3>
+                    <p className="text-sm text-muted-foreground mt-1">Last updated 2 days ago</p>
+                  </div>
+                  <ContributorsList contributors={ContributorsComponents} maxDisplay={3} size={32} />
+                </div>
+              </div>
+            </div>
           </Typography>
         </div>
         {Settings.rightbar && (

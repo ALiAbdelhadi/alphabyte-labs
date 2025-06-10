@@ -1,14 +1,13 @@
 "use client"
 
-import { useState } from "react"
-import { Truck } from "lucide-react"
-
 import { cn } from "@/lib/utils"
+import { Truck } from "lucide-react"
+import { useState } from "react"
 
 export default function ProductCard() {
   const [isDetailsClicked, setIsDetailsClicked] = useState(false)
   return (
-    <div className="select-none max-w-[300px] relative">
+    <div className="select-none max-w-[300px] relative">c
       <div className="absolute top-[3%] -left-[3%] z-10 px-[5px] py-[7px] flex items-center justify-center gap-2 text-background text-xs rounded-tl-[0] rounded-br-[5px] rounded-tr-[5px] rounded-bl-[0] bg-[#676769] dark:bg-[#dad4d4]">
         <Truck className="w-4 h-4" />
         Fast shipping
@@ -21,7 +20,7 @@ export default function ProductCard() {
       <div className="p-0">
         <div className="relative">
           <img
-            src="/components/product-card-1.png"
+            src="\components\product-card-1.png"
             alt="LED Chandelier"
             className="object-contain"
           />

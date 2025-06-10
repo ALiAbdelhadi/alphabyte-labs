@@ -4,9 +4,9 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/registry/ui/breadcrumb"
 
-const BreadcrumbResponsiveDemo = () => {
+export default function BreadcrumbResponsiveDemo() {
   return (
     <Breadcrumb>
       <BreadcrumbList className="flex flex-wrap">
@@ -33,5 +33,3 @@ const BreadcrumbResponsiveDemo = () => {
     </Breadcrumb>
   )
 }
-
-export default BreadcrumbResponsiveDemo

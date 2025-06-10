@@ -8,10 +8,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
+} from "@/registry/ui/alert-dialog"
+import { Button } from "@/registry/ui/button"
 
-const AlertDialogLgDemo = () => {
+export default function AlertDialogLgDemo() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -33,5 +33,3 @@ const AlertDialogLgDemo = () => {
     </AlertDialog>
   )
 }
-
-export default AlertDialogLgDemo

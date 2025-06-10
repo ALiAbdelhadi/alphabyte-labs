@@ -1,9 +1,8 @@
-import React from "react"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/ui/button"
 
-const ButtonDestructiveDemo = () => {
-  return <Button variant="destructive">Destructive button</Button>
+export default function ButtonDestructiveDemo() {
+  return (
+    <Button variant="destructive">Destructive</Button>
+  )
 }
-
-export default ButtonDestructiveDemo

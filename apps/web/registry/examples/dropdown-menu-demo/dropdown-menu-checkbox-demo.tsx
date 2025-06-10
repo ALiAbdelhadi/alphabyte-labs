@@ -1,8 +1,6 @@
 "use client"
 
-import { useState } from "react"
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/ui/button"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -10,10 +8,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/registry/ui/dropdown-menu"
+import { useState } from "react"
 
-const DropDownCheckboxDemo = () => {
-  const [showIcons, setShowIcons] = useState(false)
+export default function DropdownMenuCheckBoxDemo() {
+    const [showIcons, setShowIcons] = useState(false)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -32,5 +31,3 @@ const DropDownCheckboxDemo = () => {
     </DropdownMenu>
   )
 }
-
-export default DropDownCheckboxDemo

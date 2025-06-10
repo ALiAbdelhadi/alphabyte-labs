@@ -90,7 +90,7 @@ import {
 } from "lucide-react"
 import * as React from "react"
 import { z } from "zod"
-import { formatPrice } from "../lib/utils"
+import { formatPrice } from "../../orders-page-2/lib/utils"
 
 export const orderItemSchema = z.object({
     id: z.number(),

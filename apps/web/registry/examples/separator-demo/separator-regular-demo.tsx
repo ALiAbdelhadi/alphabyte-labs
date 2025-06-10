@@ -1,6 +1,6 @@
-import { Separator } from "@/components/ui/separator"
+import { Separator } from "@/registry/ui/separator"
 
-const SeparatorRegularDemo = () => {
+export default function SeparatorRegularDemo() {
   return (
     <div className="p-4 rounded-lg ">
       <div className="p-4">Content Above</div>
@@ -9,5 +9,3 @@ const SeparatorRegularDemo = () => {
     </div>
   )
 }
-
-export default SeparatorRegularDemo

@@ -8,10 +8,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
+} from "@/registry/ui/alert-dialog"
+import { Button } from "@/registry/ui/button"
 
-const AlertDialogSmDemo = () => {
+export default function AlertDialogLgDemo() {
   return (
     <div className="flex flex-col gap-4">
       <AlertDialog>
@@ -34,5 +34,3 @@ const AlertDialogSmDemo = () => {
     </div>
   )
 }
-
-export default AlertDialogSmDemo

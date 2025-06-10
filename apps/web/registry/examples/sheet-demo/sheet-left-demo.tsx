@@ -1,16 +1,15 @@
-import Link from "next/link"
-import { Heart, Menu, Settings, ShoppingCart, User } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/ui/button"
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/registry/ui/sheet"
+import { Heart, Menu, Settings, ShoppingCart, User } from "lucide-react"
+import Link from "next/link"
 
-const SheetLeftDemo = () => {
+export default function SheetLeftDemo() {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -67,5 +66,3 @@ const SheetLeftDemo = () => {
     </Sheet>
   )
 }
-
-export default SheetLeftDemo

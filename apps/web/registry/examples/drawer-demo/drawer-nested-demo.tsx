@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/ui/button"
 import {
   Drawer,
   DrawerClose,
@@ -8,9 +8,9 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer"
+} from "@/registry/ui/drawer"
 
-const NestedDrawerDemo = () => {
+export default function NestedDrawerDemo() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -61,5 +61,3 @@ const NestedDrawerDemo = () => {
     </Drawer>
   )
 }
-
-export default NestedDrawerDemo

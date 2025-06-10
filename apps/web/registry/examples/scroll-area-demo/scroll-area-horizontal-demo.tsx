@@ -1,23 +1,20 @@
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { ScrollArea } from "@/registry/ui/scroll-area"
 
-const HorizontalScrollDemo = () => {
+export default function ScrollAreaHorizontalDemo() {
   return (
-    <div className="w-full max-w-3xl mx-auto p-6">
-      <ScrollArea className="h-32 w-full rounded-md border">
-        <div className="flex gap-4 p-4">
+    <div className="w-full max-w-3xl mx-auto p-6 border rounded-md">
+      <ScrollArea className="h-[200px] w-full">
+        <div className="flex p-4 gap-4">
           {Array.from({ length: 20 }).map((_, i) => (
             <div
               key={i}
-              className="flex-shrink-0 w-40 h-20 rounded-md bg-gray-100 flex items-center justify-center"
+              className="flex-shrink-0 !w-[200px] !h-[150px] rounded-md bg-muted flex items-center justify-center"
             >
-              <span className="text-gray-500">Item {i + 1}</span>
+              Card {i + 1}
             </div>
           ))}
         </div>
-        <ScrollBar orientation="horizontal" />
       </ScrollArea>
     </div>
   )
 }
-
-export default HorizontalScrollDemo

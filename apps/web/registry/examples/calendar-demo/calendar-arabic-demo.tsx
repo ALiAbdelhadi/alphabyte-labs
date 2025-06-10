@@ -1,9 +1,8 @@
 "use client"
 
-import * as React from "react"
+import { Calendar } from "@/registry/ui/calendar"
 import { arSA } from "date-fns/locale"
-
-import { Calendar } from "@/components/ui/calendar"
+import * as React from "react"
 
 const convertToArabicDigits = (num: number): string => {
   const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"]

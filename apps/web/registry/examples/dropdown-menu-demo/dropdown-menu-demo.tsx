@@ -1,5 +1,3 @@
-import { Download, Edit, Share } from "lucide-react"
-
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -8,9 +6,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/registry/ui/dropdown-menu"
+import { Download, Edit, Share } from "lucide-react"
 
-const DropdownMenuDemo = () => {
+export default function DropdownMenuDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -35,5 +34,3 @@ const DropdownMenuDemo = () => {
     </DropdownMenu>
   )
 }
-
-export default DropdownMenuDemo

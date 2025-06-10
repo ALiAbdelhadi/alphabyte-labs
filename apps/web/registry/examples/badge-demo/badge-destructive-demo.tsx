@@ -1,9 +1,7 @@
-import React from "react"
+import { Badge } from "@/registry/ui/badge"
 
-import { Badge } from "@/components/ui/badge"
-
-const BadgeDestructiveDemo = () => {
-  return <Badge variant="destructive">Destructive</Badge>
+export default function BadgeDestructiveDemo() {
+  return (
+    <Badge variant="destructive">Destructive</Badge>
+  )
 }
-
-export default BadgeDestructiveDemo

@@ -1,9 +1,9 @@
-import React from "react"
+import { Button } from "@/registry/ui/button"
 
-import { Button } from "@/components/ui/button"
-
-const ButtonPrimaryDemo = () => {
-  return <Button variant="default">Primary button</Button>
+export default function ButtonPrimaryDemo() {
+  return (
+    <Button variant="default">
+      Primary
+    </Button>
+  )
 }
-
-export default ButtonPrimaryDemo

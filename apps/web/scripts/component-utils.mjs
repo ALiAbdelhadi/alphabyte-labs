@@ -16,7 +16,7 @@ const sourceMapOutputFile = path.join(projectRoot, "registry/component-source-ma
 const outputBlocksView = path.join(projectRoot, "registry/blocks-examples.ts");
 const outputBlocksViewSourceMap = path.join(projectRoot, "registry/blocks-view-source-map.json");
 
-const SILENT_MODE = true;            
+const SILENT_MODE = true;
 
 /**
  * Determines the language based on file extension

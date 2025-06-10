@@ -6,6 +6,8 @@ import clsx from "clsx"
 
 import { ScrollArea } from "@/components/ui/scroll-area"
 import TocCtaCard from "../toc-cta-card"
+import { ContributorsComponents } from "@/constant"
+import UserAvatar from "../user-avatar"
 
 type TocProps = {
   tocs: { href: string; level: number; text: string }[]

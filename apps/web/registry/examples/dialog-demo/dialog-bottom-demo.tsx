@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -6,9 +6,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/registry/ui/dialog"
 
-const DialogBottomDemo = () => {
+export default function DialogBottomDemo() {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -25,5 +25,3 @@ const DialogBottomDemo = () => {
     </Dialog>
   )
 }
-
-export default DialogBottomDemo

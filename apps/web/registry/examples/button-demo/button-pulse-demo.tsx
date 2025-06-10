@@ -1,9 +1,7 @@
-import React from "react"
+import { Button } from "@/registry/ui/button"
 
-import { Button } from "@/components/ui/button"
-
-const ButtonPulseAnimationDemo = () => {
-  return <Button animation={"pulse"}>Pulse Animation button</Button>
+export default function ButtonPulseDemo() {
+  return (
+    <Button animation="pulse">Pulse Animation</Button>
+  )
 }
-
-export default ButtonPulseAnimationDemo

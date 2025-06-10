@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import {
   Drawer,
   DrawerClose,
@@ -10,7 +9,8 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer"
+} from "@/registry/ui/drawer"
+import { Button } from "@/registry/ui/button"
 
 export default function DrawerDemo() {
   return (

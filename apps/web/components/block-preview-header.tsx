@@ -1,7 +1,7 @@
 "use client"
 
 import { Separator } from "@/components/ui/separator"
-import { TabsContainer, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Fullscreen, Monitor, Smartphone, Tablet } from 'lucide-react'
 import Link from "next/link"
 import { CopyButton } from "./copy-button-for-block-preview"
@@ -22,7 +22,7 @@ export function BlockPreviewHeader({
     contentToCopy,
 }: BlockPreviewHeaderProps) {
     return (
-        <nav className="flex flex-row justify-between md:gap-4 gap-2 items-center mb-4">
+        <nav className="flex flex-row justify-between md:gap-4 gap-2 items-center">
             <div className="flex items-center md:gap-4 gap-1 justify-start flex-row w-full">
                 <div className="flex items-center md:gap-2 gap-1">
                     <h3 className="text-lg md:text-xl font-medium text-wrap text-gray-900 dark:text-gray-100">{BlockName}</h3>
@@ -31,45 +31,58 @@ export function BlockPreviewHeader({
                     </span>
                 </div>
                 <Separator orientation="vertical" className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden" />
-                <TabsList className="inline-flex h-9 items-center text-muted-foreground max-w-fit justify-start rounded-none bg-transparent">
-                    <TabsContainer className="bg-muted rounded-[7px]">
+                <Tabs
+                    defaultValue="preview"
+                    className="inline-flex h-9 items-center text-muted-foreground max-w-fit justify-start"
+                    onValueChange={(value) => setView(value as "preview" | "code")}
+                >
+                    <TabsList className="bg-muted rounded-[7px]">
                         <TabsTrigger
                             value="preview"
                             className="text-sm border-none rounded-[6px] sm:px-3 px-1"
-                            onClick={() => setView("preview")}
                         >
                             preview
                         </TabsTrigger>
                         <TabsTrigger
                             value="code"
                             className="text-sm border-none rounded-[6px] sm:px-3 px-1"
-                            onClick={() => setView("code")}
                         >
                             code
                         </TabsTrigger>
-                    </TabsContainer>
-                </TabsList>
+                    </TabsList>
+                </Tabs>
             </div>
             <div className="flex items-center md:flex-row flex-col gap-4">
-                <TabsContainer className="items-center shadow-sm py-1 px-2 rounded-[7px] md:flex hidden">
-                    {[
-                        { id: "desktop", icon: <Monitor className="w-4 h-4" /> },
-                        { id: "tablet", icon: <Tablet className="w-4 h-4" /> },
-                        { id: "smartphone", icon: <Smartphone className="w-4 h-4" /> },
-                    ].map((device) => (
-                        <button
-                            key={device.id}
+                <Tabs
+                    defaultValue="desktop"
+                    className="items-center shadow-sm rounded-[7px] md:flex hidden"
+                    onValueChange={(value) => setActive(value)}
+                >
+                    <TabsList className="py-1 px-2 rounded-[7px]">
+                        <TabsTrigger
+                            value="desktop"
                             className="p-1.5 rounded-[6px] transition relative z-10"
-                            onClick={() => setActive(device.id)}
                         >
-                            {device.icon}
-                        </button>
-                    ))}
-                    <Separator orientation="vertical" className="shrink-0 bg-border dark:bg-gray-500 w-[1.5px] h-5" />
-                    <Link href={iframeSource} target="_blank" className="!ml-[7px]">
-                        <Fullscreen className="w-4 h-4" />
-                    </Link>
-                </TabsContainer>
+                            <Monitor className="w-4 h-4" />
+                        </TabsTrigger>
+                        <TabsTrigger
+                            value="tablet"
+                            className="p-1.5 rounded-[6px] transition relative z-10"
+                        >
+                            <Tablet className="w-4 h-4" />
+                        </TabsTrigger>
+                        <TabsTrigger
+                            value="smartphone"
+                            className="p-1.5 rounded-[6px] transition relative z-10"
+                        >
+                            <Smartphone className="w-4 h-4" />
+                        </TabsTrigger>
+                        <Separator orientation="vertical" className="shrink-0 bg-border dark:bg-gray-500 w-[1.5px] h-5 ml-2" />
+                        <Link href={iframeSource} target="_blank" className="ml-[7px]">
+                            <Fullscreen className="w-4 h-4" />
+                        </Link>
+                    </TabsList>
+                </Tabs>
                 <Separator orientation="vertical" className="shrink-0 bg-border w-[1.5px] h-5 md:block hidden" />
                 <div className="flex items-center gap-2">
                     <CopyButton content={contentToCopy} />

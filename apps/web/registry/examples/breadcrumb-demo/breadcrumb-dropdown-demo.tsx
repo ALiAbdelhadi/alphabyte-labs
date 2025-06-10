@@ -5,15 +5,15 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/registry/ui/breadcrumb"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/registry/ui/dropdown-menu"
 
-const BreadcrumbDropdownMenu = () => {
+export default function BreadcrumbDropdownDemo() {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -49,5 +49,3 @@ const BreadcrumbDropdownMenu = () => {
     </Breadcrumb>
   )
 }
-
-export default BreadcrumbDropdownMenu

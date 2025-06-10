@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { TrendingDownIcon, TrendingUpIcon } from "lucide-react"
-import { formatPrice } from "../lib/utils"
+import { formatPrice } from "../../orders-page-2/lib/utils"
 
 export function OrdersCards() {
     return (

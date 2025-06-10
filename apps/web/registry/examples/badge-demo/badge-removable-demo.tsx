@@ -1,10 +1,9 @@
 "use client"
 
+import { Badge } from "@/registry/ui/badge"
 import { useState } from "react"
 
-import { Badge } from "@/components/ui/badge"
-
-const BadgeRemoveAbleDemo = () => {
+export default function BadgeRemovableDemo() {
   const [isVisible, setIsVisible] = useState(true)
 
   if (!isVisible) {
@@ -21,5 +20,3 @@ const BadgeRemoveAbleDemo = () => {
     </Badge>
   )
 }
-
-export default BadgeRemoveAbleDemo

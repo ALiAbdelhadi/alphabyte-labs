@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Tabs, TabsContainer, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
     Bell,
     DollarSign,
@@ -46,9 +46,9 @@ const mockOrders: Order[] = [
         id: 1001,
         customerName: "Ahmed Hassan",
         customerEmail: "ahmed.hassan@email.com",
-        customerAvatar: "",
+        customerAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
         productName: "iPhone 15 Pro Max",
-        productImage: "/",
+        productImage: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=100&h=100&fit=crop",
         productPrice: 1199,
         quantity: 1,
         shippingPrice: 25,
@@ -61,9 +61,9 @@ const mockOrders: Order[] = [
         id: 1002,
         customerName: "Fatima Al-Zahra",
         customerEmail: "fatima.zahra@email.com",
-        customerAvatar: "",
+        customerAvatar: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=100&h=100&fit=crop&crop=face",
         productName: "MacBook Air M3",
-        productImage: "/",
+        productImage: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=100&h=100&fit=crop",
         productPrice: 1299,
         quantity: 1,
         shippingPrice: 0,
@@ -76,9 +76,9 @@ const mockOrders: Order[] = [
         id: 1003,
         customerName: "Omar Khaled",
         customerEmail: "omar.khaled@email.com",
-        customerAvatar: "",
+        customerAvatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
         productName: "AirPods Pro 2",
-        productImage: "/",
+        productImage: "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=100&h=100&fit=crop",
         productPrice: 249,
         quantity: 2,
         shippingPrice: 15,
@@ -91,9 +91,9 @@ const mockOrders: Order[] = [
         id: 1004,
         customerName: "Layla Mohammed",
         customerEmail: "layla.mohammed@email.com",
-        customerAvatar: "",
+        customerAvatar: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=100&h=100&fit=crop&crop=face",
         productName: "iPad Pro 12.9",
-        productImage: "/",
+        productImage: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=100&h=100&fit=crop",
         productPrice: 1099,
         quantity: 1,
         shippingPrice: 20,
@@ -108,7 +108,7 @@ const mockOrders: Order[] = [
         customerEmail: "youssef.ali@email.com",
         customerAvatar: "",
         productName: "Apple Watch Series 9",
-        productImage: "/",
+        productImage: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&h=100&fit=crop",
         productPrice: 399,
         quantity: 1,
         shippingPrice: 10,
@@ -123,7 +123,7 @@ const mockOrders: Order[] = [
         customerEmail: "nour.abdel@email.com",
         customerAvatar: "",
         productName: "Magic Keyboard",
-        productImage: "/",
+        productImage: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=100&h=100&fit=crop",
         productPrice: 299,
         quantity: 1,
         shippingPrice: 12,
@@ -158,12 +158,12 @@ const LABEL_MAP: Record<OrderStatus, string> = {
 
 function DashboardHeader() {
     return (
-        <header className="border-b bg-white">
+        <header className="border-b">
             <div className="flex h-16 items-center px-4 lg:px-6">
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
                         <Package className="h-6 w-6 text-blue-600" />
-                        <h1 className="text-xl font-semibold">EcommerceAdmin</h1>
+                        <h1 className="text-xl font-semibold">E-commerce Admin</h1>
                     </div>
                 </div>
                 <div className="ml-auto flex items-center gap-4">
@@ -279,7 +279,7 @@ export default function Dashboard() {
     return (
         <>
             <Sidebar />
-            <div className="min-h-screen bg-gray-50/50">
+            <div className="min-h-screen">
                 <DashboardHeader />
                 <div className="flex flex-col gap-6 p-4 lg:p-6">
                     <div>
@@ -297,13 +297,11 @@ export default function Dashboard() {
                         </div>
                         <Tabs value={filter} onValueChange={setFilter} className="w-full">
                             <TabsList className="max-w-fit">
-                                <TabsContainer>
-                                    <TabsTrigger value="all">All Orders</TabsTrigger>
-                                    <TabsTrigger value="awaiting_shipment">Awaiting</TabsTrigger>
-                                    <TabsTrigger value="processing">Processing</TabsTrigger>
-                                    <TabsTrigger value="fulfilled">Fulfilled</TabsTrigger>
-                                    <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
-                                </TabsContainer>
+                                <TabsTrigger value="all">All Orders</TabsTrigger>
+                                <TabsTrigger value="awaiting_shipment">Awaiting</TabsTrigger>
+                                <TabsTrigger value="processing">Processing</TabsTrigger>
+                                <TabsTrigger value="fulfilled">Fulfilled</TabsTrigger>
+                                <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
                             </TabsList>
                         </Tabs>
                         <Card>

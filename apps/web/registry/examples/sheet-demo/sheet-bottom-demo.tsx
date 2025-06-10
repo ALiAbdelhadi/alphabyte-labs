@@ -1,6 +1,4 @@
-import { Heart, ShoppingCart, User } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/ui/button"
 import {
   Sheet,
   SheetContent,
@@ -8,9 +6,10 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/registry/ui/sheet"
+import { Heart, ShoppingCart, User } from "lucide-react"
 
-const SheetBottomDemo = () => {
+export default function SheetBottomDemo() {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -54,5 +53,3 @@ const SheetBottomDemo = () => {
     </Sheet>
   )
 }
-
-export default SheetBottomDemo

@@ -1,7 +1,7 @@
-import { Input } from "@/components/ui/input"
+import { Input } from "@/registry/ui/input"
 
-const InputDemo = () => {
-  return <Input className="w-56" type="email" placeholder="Email" />
+export default function InputDemo() {
+  return (
+    <Input className="w-56" type="email" placeholder="Email" />
+  )
 }
-
-export default InputDemo

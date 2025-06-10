@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
-import Pre from "@/components/pre"
+import Pre from "@/registry/ui/pre"
 
-const CodeBlockDemo = ({ className }: { className: string }) => {
+export default function PreDemo({ className }: { className?: string }) {
   const ExampleCode = `function MyComponent(props) {
    return (
       <div>
@@ -19,5 +19,3 @@ const CodeBlockDemo = ({ className }: { className: string }) => {
     </Pre>
   )
 }
-
-export default CodeBlockDemo

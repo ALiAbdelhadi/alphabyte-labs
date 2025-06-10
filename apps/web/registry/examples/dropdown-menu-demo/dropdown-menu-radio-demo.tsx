@@ -1,8 +1,6 @@
 "use client"
 
-import { useState } from "react"
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,9 +9,10 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/registry/ui/dropdown-menu"
+import { useState } from "react"
 
-const DropdownRadioDemo = () => {
+export default function DropdownMenuRadioDemo() {
   const [selectedPlan, setSelectedPlan] = useState("basic")
   return (
     <DropdownMenu>
@@ -37,5 +36,3 @@ const DropdownRadioDemo = () => {
     </DropdownMenu>
   )
 }
-
-export default DropdownRadioDemo

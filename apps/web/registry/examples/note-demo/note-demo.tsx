@@ -1,7 +1,7 @@
-import { Note } from "@/components/ui/note"
+import { Note } from "@/registry/ui/note"
 
-const NoteDemo = () => {
-  return <Note variant="info">This is an informational note.</Note>
+export default function NoteDemo() {
+  return (
+    <Note variant="info">This is an informational note.</Note>
+  )
 }
-
-export default NoteDemo

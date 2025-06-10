@@ -1,9 +1,7 @@
-import React from "react"
+import { Button } from "@/registry/ui/button"
 
-import { Button } from "@/components/ui/button"
-
-const ButtonOutlineDemo = () => {
-  return <Button variant={"outline"}>Outline button</Button>
+export default function ButtonOutlineDemo() {
+  return (
+    <Button variant="outline">Outline</Button>
+  )
 }
-
-export default ButtonOutlineDemo

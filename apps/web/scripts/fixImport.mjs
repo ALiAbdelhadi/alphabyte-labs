@@ -4,7 +4,7 @@
  * @returns {string} The content with fixed imports
  */
 export function fixImport(content) {
-    const regex = /@\/(.+?)\/((?:.*?\/)?(?:components|ui|hooks|lib|constant|context))\/([\w-]+)/g
+    const regex = /@\/(.+?)\/((?:.*?\/)?(?:components|ui|hooks|lib|constant|context|library))\/([\w-]+)/g
 
     const replacement = (
         match,
@@ -14,7 +14,7 @@ export function fixImport(content) {
     ) => {
         if (type.endsWith("components")) {
             return `@/components/${component}`
-        } else if (type.endsWith("u0i")) {
+        } else if (type.endsWith("ui")) {
             return `@/components/ui/${component}`
         } else if (type.endsWith("hooks")) {
             return `@/hooks/${component}`

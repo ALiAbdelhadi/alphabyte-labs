@@ -1,7 +1,7 @@
-import { Switch } from "@/components/ui/switch";
-import React, { useState } from 'react';
+import { Switch } from "@/registry/ui/switch";
+import { useState } from 'react';
 
-const SwitchDemo: React.FC = () => {
+export default function SwitchDemo() {
     const [basicSwitch, setBasicSwitch] = useState(false);
 
     return (
@@ -12,6 +12,4 @@ const SwitchDemo: React.FC = () => {
             />
         </div>
     );
-};
-
-export default SwitchDemo;
+}

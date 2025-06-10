@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/ui/button"
 import {
   Sheet,
   SheetContent,
@@ -6,9 +6,9 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/registry/ui/sheet"
 
-const SheetTopDemo = () => {
+export default function SheetTopDemo() {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -39,5 +39,3 @@ const SheetTopDemo = () => {
     </Sheet>
   )
 }
-
-export default SheetTopDemo

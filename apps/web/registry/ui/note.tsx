@@ -1,6 +1,5 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import {
   AlertTriangleIcon,
@@ -9,6 +8,7 @@ import {
   X,
   XCircleIcon,
 } from "lucide-react"
+import React, { useEffect, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
 

@@ -1,7 +1,9 @@
-import { Note } from "@/components/ui/note"
+import { Note } from "@/registry/ui/note"
 
-const NoteSuccessDemo = () => {
-  return <Note variant="success">Operation completed successfully!</Note>
+export default function NoteSuccessDemo() {
+  return (
+    <Note variant="success">
+      Your action was successful! Everything is working as expected.
+    </Note>
+  )
 }
-
-export default NoteSuccessDemo

@@ -1,4 +1,4 @@
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from "@/registry/ui/scroll-area"
 
 export default function ScrollAreaDemo() {
   return (

@@ -165,6 +165,19 @@ export const blockExamples = { items: [
     "styles": []
   },
   {
+    "name": "faq-1",
+    "target": "@/registry/view/faq-1/page",
+    "components": [
+      "@/registry/view/faq-1/components/faqs"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": [],
+    "types": [],
+    "styles": []
+  },
+  {
     "name": "features-showcase-1",
     "target": "@/registry/view/features-showcase-1/page",
     "components": [
@@ -346,9 +359,7 @@ export const blockExamples = { items: [
     "constant": [
       "@/registry/view/orders-page-3/constant/data.json"
     ],
-    "lib": [
-      "@/registry/view/orders-page-3/lib/utils.ts"
-    ],
+    "lib": [],
     "context": [],
     "hooks": [],
     "types": [],
@@ -522,6 +533,32 @@ export const blockExamples = { items: [
     "target": "@/registry/view/signup-4/page",
     "components": [
       "@/registry/view/signup-4/components/signup-form"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": [],
+    "types": [],
+    "styles": []
+  },
+  {
+    "name": "status-bar-1",
+    "target": "@/registry/view/status-bar-1/page",
+    "components": [
+      "@/registry/view/status-bar-1/components/status-bar"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": [],
+    "types": [],
+    "styles": []
+  },
+  {
+    "name": "status-section-1",
+    "target": "@/registry/view/status-section-1/page",
+    "components": [
+      "@/registry/view/status-section-1/components/status-section"
     ],
     "constant": [],
     "lib": [],

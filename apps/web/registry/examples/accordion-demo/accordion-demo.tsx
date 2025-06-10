@@ -3,9 +3,9 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "@/registry/ui/accordion"
 
-const AccordionDemo = () => {
+export default function AccordionDemo() {
   return (
     <Accordion type="multiple" className="w-full max-w-2xl">
       <AccordionItem value="tech-1">
@@ -35,5 +35,3 @@ const AccordionDemo = () => {
     </Accordion>
   )
 }
-
-export default AccordionDemo

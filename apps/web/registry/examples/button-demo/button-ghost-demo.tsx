@@ -1,9 +1,7 @@
-import React from "react"
-
 import { Button } from "@/components/ui/button"
 
-const ButtonGhostDemo = () => {
-  return <Button variant="ghost">Ghost button</Button>
+export default function ButtonGhostDemo() {
+  return (
+    <Button variant="ghost">Ghost</Button>
+  )
 }
-
-export default ButtonGhostDemo

@@ -1,8 +1,6 @@
-import { Settings } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
+import { Button } from "@/registry/ui/button"
+import { Checkbox } from "@/registry/ui/checkbox"
+import { Label } from "@/registry/ui/label"
 import {
   Sheet,
   SheetClose,
@@ -12,9 +10,10 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/registry/ui/sheet"
+import { Settings } from "lucide-react"
 
-const SheetDemo = () => {
+export default function SheetDemo() {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -70,5 +69,3 @@ const SheetDemo = () => {
     </Sheet>
   )
 }
-
-export default SheetDemo

@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/ui/button"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/registry/ui/tooltip"
 
-const TooltipDelayDemo = () => {
+export default function TooltipBottomDemo() {
   return (
     <TooltipProvider>
       <Tooltip>
@@ -20,5 +20,3 @@ const TooltipDelayDemo = () => {
     </TooltipProvider>
   )
 }
-
-export default TooltipDelayDemo

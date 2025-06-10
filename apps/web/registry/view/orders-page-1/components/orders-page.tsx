@@ -9,7 +9,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Tabs, TabsContainer, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
     ArrowDown,
     ArrowUp,
@@ -696,14 +696,12 @@ export default function OrdersPage() {
                         <OrdersStats orders={orders} />
                         <Tabs value={activeFilter} onValueChange={(value) => setActiveFilter(value as OrderStatus | "all")} className="pt-4">
                             <TabsList>
-                                <TabsContainer>
-                                    <TabsTrigger value="all">All Orders ({orderCountsByStatus.all})</TabsTrigger>
-                                    {Object.keys(ORDER_STATUS_DETAILS).map(statusKey => (
-                                        <TabsTrigger key={statusKey} value={statusKey}>
-                                            {ORDER_STATUS_DETAILS[statusKey as OrderStatus].label} ({orderCountsByStatus[statusKey as OrderStatus]})
-                                        </TabsTrigger>
-                                    ))}
-                                </TabsContainer>
+                                <TabsTrigger value="all">All Orders ({orderCountsByStatus.all})</TabsTrigger>
+                                {Object.keys(ORDER_STATUS_DETAILS).map(statusKey => (
+                                    <TabsTrigger key={statusKey} value={statusKey}>
+                                        {ORDER_STATUS_DETAILS[statusKey as OrderStatus].label} ({orderCountsByStatus[statusKey as OrderStatus]})
+                                    </TabsTrigger>
+                                ))}
                             </TabsList>
                         </Tabs>
                         <Card>

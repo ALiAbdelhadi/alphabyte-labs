@@ -1,10 +1,9 @@
 "use client"
 
-import { useState } from "react"
-import { Truck } from "lucide-react"
-
+import { Badge } from "@/registry/ui/badge"
 import { cn } from "@/lib/utils"
-import { Badge } from "@/components/ui/badge"
+import { Truck } from "lucide-react"
+import { useState } from "react"
 
 export default function ProductCardDemo() {
   const [isDetailsClicked, setIsDetailsClicked] = useState(false)
@@ -22,7 +21,7 @@ export default function ProductCardDemo() {
       <div className="p-0">
         <div className="relative">
           <img
-            src="/JY-BO-001-650MM-8W (1).png"
+            src="\components\product-card-1.png"
             alt="LED Chandelier"
             className="object-contain"
           />

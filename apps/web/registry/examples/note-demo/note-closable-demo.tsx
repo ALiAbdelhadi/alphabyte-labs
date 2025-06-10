@@ -1,8 +1,6 @@
-import React from "react"
+import { Note } from "@/registry/ui/note"
 
-import { Note } from "@/components/ui/note"
-
-const NoteClosableDemo = () => {
+export default function NoteClosableDemo() {
   return (
     <Note variant="info" closable>
       **Turbopack** is a high-performance bundler and dev server for Next.js.
@@ -11,5 +9,3 @@ const NoteClosableDemo = () => {
     </Note>
   )
 }
-
-export default NoteClosableDemo

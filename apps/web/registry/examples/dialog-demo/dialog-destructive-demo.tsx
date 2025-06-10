@@ -1,9 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
-import { AlertTriangle, Trash2 } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/ui/button"
 import {
   Dialog,
   DialogAction,
@@ -13,7 +10,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/registry/ui/dialog"
+import { AlertTriangle, Trash2 } from "lucide-react"
+import { useState } from "react"
 
 export default function DestructiveDialogDemo() {
   const [isDeleting, setIsDeleting] = useState(false)

@@ -1,8 +1,7 @@
+import { Button } from "@/registry/ui/button"
 import { toast } from "sonner"
 
-import { Button } from "@/components/ui/button"
-
-const SonnerDemo = () => {
+export default function SonnerDemo() {
   return (
     <Button
       variant="outline"
@@ -20,5 +19,3 @@ const SonnerDemo = () => {
     </Button>
   )
 }
-
-export default SonnerDemo

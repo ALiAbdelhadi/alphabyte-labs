@@ -7,9 +7,9 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/registry/ui/breadcrumb"
 
-const BreadcrumbIconsDemo = () => {
+export default function BreadcrumbIconsDemo() {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -44,5 +44,3 @@ const BreadcrumbIconsDemo = () => {
     </Breadcrumb>
   )
 }
-
-export default BreadcrumbIconsDemo

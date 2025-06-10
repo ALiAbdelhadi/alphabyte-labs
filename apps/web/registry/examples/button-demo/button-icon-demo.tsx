@@ -1,14 +1,11 @@
 import React from "react"
 import { ChevronRightIcon } from "lucide-react"
+import { Button } from "@/registry/ui/button"
 
-import { Button } from "@/components/ui/button"
-
-const ButtonIconDemo = () => {
+export default function ButtonIconDemo() {
   return (
-    <Button variant="outline">
-      <ChevronRightIcon className="w-6 h-6" />
+    <Button variant="default" icon={<ChevronRightIcon size={16} />}>
+      Next
     </Button>
   )
 }
-
-export default ButtonIconDemo

@@ -66,10 +66,6 @@ export const DocsRouting: DocsConfig = {
           href: "/calendar",
         },
         {
-          title: "Code Block",
-          href: "/code-block",
-        },
-        {
           title: "Collapsible",
           href: "/collapsible",
         },
@@ -112,6 +108,10 @@ export const DocsRouting: DocsConfig = {
         {
           title: "Popover",
           href: "/popover",
+        },
+        {
+          title: "Pre (Code Block)",
+          href: "/pre",
         },
         {
           title: "Product Card",

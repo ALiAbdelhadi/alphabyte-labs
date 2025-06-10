@@ -1,7 +1,7 @@
-import { Note } from "@/components/ui/note"
+import { Note } from "@/registry/ui/note"
 
-const NoteErrorDemo = () => {
-  return <Note variant="error">An error has occurred. Please try again.</Note>
+export default function NoteErrorDemo() {
+  return (
+    <Note variant="error">An error has occurred. Please try again.</Note>
+  )
 }
-
-export default NoteErrorDemo

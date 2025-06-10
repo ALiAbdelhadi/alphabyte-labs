@@ -1,7 +1,7 @@
+import { Button } from "@/registry/ui/button"
 import { toast } from "sonner"
-import { Button } from "@/components/ui/button"
 
-const SonnerCustomDemo = () => {
+export default function SonnerCustomDemo() {
   const promise = () =>
     new Promise((resolve) =>
       setTimeout(() => resolve({ name: "Sonner" }), 2000)
@@ -23,5 +23,3 @@ const SonnerCustomDemo = () => {
     </Button>
   )
 }
-
-export default SonnerCustomDemo

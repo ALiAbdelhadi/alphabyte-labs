@@ -1,6 +1,4 @@
-import { Camera, Trash2 } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,9 +8,10 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/registry/ui/dropdown-menu"
+import { Camera, Trash2 } from "lucide-react"
 
-const DropDownMenuNestedDemo = () => {
+export default function DropdownNestedDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -39,5 +38,3 @@ const DropDownMenuNestedDemo = () => {
     </DropdownMenu>
   )
 }
-
-export default DropDownMenuNestedDemo

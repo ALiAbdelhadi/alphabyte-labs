@@ -1,14 +1,10 @@
-import React from "react"
+import { Button } from "@/registry/ui/button"
 import Link from "next/link"
 
-import { Button } from "@/components/ui/button"
-
-const ButtonLinkDemo = () => {
+export default function ButtonLinkDemo() {
   return (
     <Button variant="link" asChild>
-      <Link href={"/href"}>Link button</Link>
+      <Link href={"/href"}>Link</Link>
     </Button>
   )
 }
-
-export default ButtonLinkDemo

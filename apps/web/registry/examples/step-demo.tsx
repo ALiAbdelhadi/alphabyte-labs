@@ -1,7 +1,7 @@
 import Link from "next/link"
-import { Step, StepItem } from "@/components/step"
+import { Step, StepItem } from "@/registry/ui/step"
 
-const StepDemo = () => {
+export default function StepDemo() {
   return (
     <Step>
       <StepItem title="Step one">
@@ -19,5 +19,3 @@ const StepDemo = () => {
     </Step>
   )
 }
-
-export default StepDemo

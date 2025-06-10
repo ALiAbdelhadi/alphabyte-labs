@@ -4,9 +4,9 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/custom-tabs"
+} from "@/registry/ui/custom-tabs"
 
-const TabsLineDemo = ({ className }: { className: string }) => {
+export default function TabsDemoLine({ className }: { className?: string }) {
   return (
     <Tabs defaultValue="preview" className="mt-4 w-full">
       <TabsList className="inline-flex h-9 items-center text-muted-foreground w-full justify-start rounded-none border-b bg-transparent p-0 mb-2">
@@ -31,5 +31,3 @@ const TabsLineDemo = ({ className }: { className: string }) => {
     </Tabs>
   )
 }
-
-export default TabsLineDemo

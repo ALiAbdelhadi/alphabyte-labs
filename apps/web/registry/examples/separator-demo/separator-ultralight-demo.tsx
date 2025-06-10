@@ -1,8 +1,6 @@
-import React from "react"
+import { Separator } from "@/registry/ui/separator"
 
-import { Separator } from "@/components/ui/separator"
-
-const SeparatorUltralightDemo = () => {
+export default function SeparatorUltralightDemo() {
   return (
     <div className="p-4 rounded-lg ">
       <div className="p-4">Content Above</div>
@@ -11,5 +9,3 @@ const SeparatorUltralightDemo = () => {
     </div>
   )
 }
-
-export default SeparatorUltralightDemo

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Tabs, TabsContainer, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
     Bell,
     DollarSign,
@@ -158,12 +158,12 @@ const LABEL_MAP: Record<OrderStatus, string> = {
 
 function DashboardHeader() {
     return (
-        <header className="border-b bg-white">
+        <header className="border-b">
             <div className="flex h-16 items-center px-4 lg:px-6">
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
                         <Package className="h-6 w-6 text-blue-600" />
-                        <h1 className="text-xl font-semibold">EcommerceAdmin</h1>
+                        <h1 className="text-xl font-semibold">E-commerce Admin</h1>
                     </div>
                 </div>
                 <div className="ml-auto flex items-center gap-4">
@@ -279,7 +279,7 @@ export default function Dashboard() {
     return (
         <>
             <Sidebar />
-            <div className="min-h-screen bg-gray-50/50">
+            <div className="min-h-screen">
                 <DashboardHeader />
                 <div className="flex flex-col gap-6 p-4 lg:p-6">
                     <div>
@@ -297,13 +297,11 @@ export default function Dashboard() {
                         </div>
                         <Tabs value={filter} onValueChange={setFilter} className="w-full">
                             <TabsList className="max-w-fit">
-                                <TabsContainer>
-                                    <TabsTrigger value="all">All Orders</TabsTrigger>
-                                    <TabsTrigger value="awaiting_shipment">Awaiting</TabsTrigger>
-                                    <TabsTrigger value="processing">Processing</TabsTrigger>
-                                    <TabsTrigger value="fulfilled">Fulfilled</TabsTrigger>
-                                    <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
-                                </TabsContainer>
+                                <TabsTrigger value="all">All Orders</TabsTrigger>
+                                <TabsTrigger value="awaiting_shipment">Awaiting</TabsTrigger>
+                                <TabsTrigger value="processing">Processing</TabsTrigger>
+                                <TabsTrigger value="fulfilled">Fulfilled</TabsTrigger>
+                                <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
                             </TabsList>
                         </Tabs>
                         <Card>

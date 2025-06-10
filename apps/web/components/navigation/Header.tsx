@@ -17,15 +17,15 @@ import {
 } from "@/components/ui/sheet"
 import { navItems } from "@/constant"
 import { cn } from "@/lib/utils"
+import { GitHubLink } from "@/settings/settings"
 import { AnimatePresence, motion } from "framer-motion"
-import { Github, GithubIcon, X } from "lucide-react"
+import { X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useRef, useState } from "react"
 import ChangeTheme from "../ChangeTheme"
 import { Button } from "../ui/button"
 import { Separator } from "../ui/separator"
-import { GitHubLink } from "@/settings/settings"
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)

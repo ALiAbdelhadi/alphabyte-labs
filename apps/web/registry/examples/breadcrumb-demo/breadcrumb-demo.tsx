@@ -1,5 +1,3 @@
-import { HiHome } from "react-icons/hi2"
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,9 +5,10 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/registry/ui/breadcrumb"
+import { HiHome } from "react-icons/hi2"
 
-const BreadcrumbDemo = () => {
+export default function BreadcrumbDemo() {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -30,5 +29,3 @@ const BreadcrumbDemo = () => {
     </Breadcrumb>
   )
 }
-
-export default BreadcrumbDemo

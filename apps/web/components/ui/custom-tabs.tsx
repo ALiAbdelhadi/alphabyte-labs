@@ -1,10 +1,9 @@
 "use client"
 
-import * as React from "react"
-import * as TabsPrimitive from "@radix-ui/react-tabs"
-import { AnimatePresence, motion } from "framer-motion"
-
 import { cn } from "@/lib/utils"
+import * as TabsPrimitive from "@radix-ui/react-tabs"
+import { motion } from "framer-motion"
+import * as React from "react"
 
 const Tabs = TabsPrimitive.Root
 
@@ -47,10 +46,10 @@ const TabsList = React.forwardRef<
       {React.Children.map(props.children, (child, index) =>
         React.isValidElement(child)
           ? React.cloneElement(child, {
-              ref: (el: HTMLButtonElement) => (tabRefs.current[index] = el),
-              onClick: () => setActiveIndex(index),
-              isActive: index === activeIndex,
-            })
+            ref: (el: HTMLButtonElement) => (tabRefs.current[index] = el),
+            onClick: () => setActiveIndex(index),
+            isActive: index === activeIndex,
+          })
           : child
       )}
     </TabsPrimitive.List>
@@ -85,19 +84,9 @@ const TabsContent = React.forwardRef<
     className={cn("mt-2 relative overflow-hidden", className)}
     {...props}
   >
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={props.value}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-      >
-        {props.children}
-      </motion.div>
-    </AnimatePresence>
+    {props.children}
   </TabsPrimitive.Content>
 ))
 TabsContent.displayName = TabsPrimitive.Content.displayName
 
-export { Tabs, TabsList, TabsTrigger, TabsContent }
+export { Tabs, TabsContent, TabsList, TabsTrigger }

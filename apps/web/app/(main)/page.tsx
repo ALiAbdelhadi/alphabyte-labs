@@ -1,8 +1,6 @@
-import Link from "next/link"
-
 import Container from "@/components/Container"
 import { Button } from "@/components/ui/button"
-
+import Link from "next/link"
 const Home = () => {
   return (
     <div className="min-h-[81.6vh] py-10 md:py-14">

@@ -1,7 +1,7 @@
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/registry/ui/badge"
 
-const BadgeWarningDemo = () => {
-  return <Badge variant="warning">Warning</Badge>
+export default function BadgeWarningDemo() {
+  return (
+    <Badge variant="warning">Warning</Badge>
+  )
 }
-
-export default BadgeWarningDemo

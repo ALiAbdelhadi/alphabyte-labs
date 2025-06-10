@@ -1,69 +1,93 @@
 "use client"
 
-import * as React from "react"
+import { cn } from "@/lib/utils"
 import * as TabsPrimitive from "@radix-ui/react-tabs"
 import { AnimatePresence, motion } from "framer-motion"
-import { cn } from "@/lib/utils"
+import * as React from "react"
 
-const Tabs = TabsPrimitive.Root
+const TabsContext = React.createContext<{
+  orientation?: "horizontal" | "vertical"
+  value?: string
+}>({})
+
+const Tabs = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root> & {
+    orientation?: "horizontal" | "vertical"
+  }
+>(({ className, orientation = "horizontal", ...props }, ref) => {
+  const [currentValue, setCurrentValue] = React.useState(props.defaultValue || props.value)
+
+  const handleValueChange = (value: string) => {
+    setCurrentValue(value)
+    props.onValueChange?.(value)
+  }
+
+  return (
+    <TabsContext.Provider value={{ orientation, value: currentValue }}>
+      <TabsPrimitive.Root
+        ref={ref}
+        orientation={orientation}
+        className={cn("flex gap-2", orientation === "horizontal" ? "flex-col" : "flex-row", className)}
+        onValueChange={handleValueChange}
+        {...props}
+      />
+    </TabsContext.Provider>
+  )
+})
+Tabs.displayName = TabsPrimitive.Root.displayName
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.List
-    ref={ref}
-    className={cn(
-      "inline-flex items-center justify-center rounded-lg bg-transparent p-0.5 text-muted-foreground",
-      className,
-    )}
-    {...props}
-  />
-))
-TabsList.displayName = TabsPrimitive.List.displayName
-
-const TabsContainer = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & {
-    defaultIndex?: number
-    value?: string
-    defaultValue?: string
-    onValueChange?: (value: string) => void
-  }
->(({ className, defaultIndex = 0, children, ...props }, ref) => {
-  const [activeIndex, setActiveIndex] = React.useState(defaultIndex)
-  const tabRefs = React.useRef<Map<number, HTMLButtonElement>>(new Map())
+>(({ className, children, ...props }, ref) => {
+  const { orientation, value } = React.useContext(TabsContext)
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [activeStyle, setActiveStyle] = React.useState({
     left: "0px",
+    top: "0px",
     width: "0px",
+    height: "0px",
   })
 
   const updateActiveStyle = React.useCallback(() => {
-    const activeElement = tabRefs.current.get(activeIndex)
-    if (activeElement && containerRef.current) {
-      const containerRect = containerRef.current.getBoundingClientRect()
-      const tabRect = activeElement.getBoundingClientRect()
-      const left = tabRect.left - containerRect.left
+    if (!containerRef.current || !value) return
 
+    const activeTab = containerRef.current.querySelector('[data-state="active"]') as HTMLElement
+    if (!activeTab) return
+
+    const containerRect = containerRef.current.getBoundingClientRect()
+    const tabRect = activeTab.getBoundingClientRect()
+
+    if (orientation === "horizontal") {
       setActiveStyle({
-        left: `${left}px`,
+        left: `${tabRect.left - containerRect.left}px`,
+        top: "4px",
         width: `${tabRect.width}px`,
+        height: "calc(100% - 8px)",
+      })
+    } else {
+      setActiveStyle({
+        left: "4px",
+        top: `${tabRect.top - containerRect.top}px`,
+        width: "calc(100% - 8px)",
+        height: `${tabRect.height}px`,
       })
     }
-  }, [activeIndex])
+  }, [orientation, value])
 
-  // Update active style on mount, resize, and when active index changes
   React.useEffect(() => {
-    updateActiveStyle()
+    const timeoutId = setTimeout(updateActiveStyle, 0)
+    return () => clearTimeout(timeoutId)
+  }, [updateActiveStyle, value])
 
+  React.useEffect(() => {
     const handleResize = () => {
       requestAnimationFrame(updateActiveStyle)
     }
 
     window.addEventListener("resize", handleResize)
 
-    // Use ResizeObserver to detect size changes in the container and tabs
     const resizeObserver = new ResizeObserver(() => {
       requestAnimationFrame(updateActiveStyle)
     })
@@ -72,17 +96,11 @@ const TabsContainer = React.forwardRef<
       resizeObserver.observe(containerRef.current)
     }
 
-    tabRefs.current.forEach((tabElement) => {
-      resizeObserver.observe(tabElement)
-    })
-
     return () => {
       window.removeEventListener("resize", handleResize)
       resizeObserver.disconnect()
     }
-  }, [activeIndex, updateActiveStyle])
-
-  // Observe DOM changes that might affect positioning
+  }, [updateActiveStyle])
   React.useEffect(() => {
     if (!containerRef.current) return
 
@@ -94,7 +112,7 @@ const TabsContainer = React.forwardRef<
       childList: true,
       subtree: true,
       attributes: true,
-      characterData: true,
+      attributeFilter: ["data-state"],
     })
 
     return () => observer.disconnect()
@@ -105,49 +123,31 @@ const TabsContainer = React.forwardRef<
       ref={(el) => {
         if (typeof ref === "function") ref(el)
         else if (ref) ref.current = el
-        containerRef.current = el as HTMLDivElement
+        containerRef.current = el
       }}
-      className={cn("relative bg-muted py-1 px-1 rounded-[7px] flex", className)}
+      className={cn(
+        "relative bg-muted py-1 px-1 rounded-[7px] inline-flex items-center justify-center",
+        orientation === "horizontal" ? "flex-row h-9" : "flex-col h-fit w-fit",
+        className,
+      )}
       {...props}
     >
+      {/* Animated indicator */}
       <motion.div
-        className="absolute rounded-[6px] bg-background shadow-sm border-none"
-        style={{
-          willChange: "left, width",
-          transitionProperty: "left, width",
-          height: "calc(100% - 8px)",
-          top: "4px",
-        }}
+        className="absolute rounded-[6px] bg-background shadow-sm border-none z-0"
         animate={activeStyle}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 30,
+        }}
         layout
       />
-      {React.Children.map(children, (child, index) =>
-        React.isValidElement(child)
-          ? React.cloneElement(child as React.ReactElement<any>, {
-            onClick: (e: React.MouseEvent) => {
-              setActiveIndex(index)
-              if ((child as React.ReactElement<any>).props.onClick) {
-                ; (child as React.ReactElement<any>).props.onClick(e)
-              }
-            },
-            ref: (el: HTMLButtonElement) => {
-              if (el) tabRefs.current.set(index, el)
-              const childRef = (child as any).ref
-              if (childRef) {
-                if (typeof childRef === "function") {
-                  childRef(el)
-                } else {
-                  childRef.current = el
-                }
-              }
-            },
-          })
-          : child,
-      )}
+      {children}
     </TabsPrimitive.List>
   )
 })
-TabsContainer.displayName = "TabsContainer"
+TabsList.displayName = TabsPrimitive.List.displayName
 
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
@@ -173,21 +173,25 @@ TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
 const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.Content ref={ref} className={cn("mt-3", className)} {...props}>
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={props.value}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
-      >
-        {props.children}
-      </motion.div>
-    </AnimatePresence>
-  </TabsPrimitive.Content>
-))
+>(({ className, children, ...props }, ref) => {
+  const { orientation } = React.useContext(TabsContext)
+
+  return (
+    <TabsPrimitive.Content ref={ref} className={cn("mt-3", className)} {...props}>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={props.value}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        >
+          {children}
+        </motion.div>
+      </AnimatePresence>
+    </TabsPrimitive.Content >
+  )
+})
 TabsContent.displayName = TabsPrimitive.Content.displayName
 
-export { Tabs, TabsContainer, TabsContent, TabsList, TabsTrigger }
+export { Tabs, TabsContent, TabsList, TabsTrigger }

@@ -1,14 +1,12 @@
-import { LuStar } from "react-icons/lu"
-
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/registry/ui/breadcrumb"
 
-const BreadcrumbCustomSeparator = () => {
+export default function BreadcrumbCustomSeparatorDemo() {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -28,5 +26,3 @@ const BreadcrumbCustomSeparator = () => {
     </Breadcrumb>
   )
 }
-
-export default BreadcrumbCustomSeparator

@@ -308,15 +308,6 @@ export const componentExamples = { items: [
     language: "tsx"
   },
   {
-    name: "code-block-demo",
-    baseComponent: "code",
-    variant: "block",
-    componentPath: "@/components/ui/code",
-    componentDemoPath: "@/registry/examples/code-block-demo",
-    component: React.lazy(() => import("@/registry/examples/code-block-demo")),
-    language: "tsx"
-  },
-  {
     name: "collapsible-demo",
     baseComponent: "collapsible",
     variant: null,
@@ -578,10 +569,19 @@ export const componentExamples = { items: [
     language: "tsx"
   },
   {
+    name: "pre-demo",
+    baseComponent: "pre",
+    variant: null,
+    componentPath: "@/registry/ui/pre",
+    componentDemoPath: "@/registry/examples/pre-demo",
+    component: React.lazy(() => import("@/registry/examples/pre-demo")),
+    language: "tsx"
+  },
+  {
     name: "product-card-demo",
     baseComponent: "product",
     variant: "card",
-    componentPath: "@/components/ui/product",
+    componentPath: "@/registry/ui/product-card",
     componentDemoPath: "@/registry/examples/product-card-demo",
     component: React.lazy(() => import("@/registry/examples/product-card-demo")),
     language: "tsx"
@@ -620,15 +620,6 @@ export const componentExamples = { items: [
     componentPath: "@/registry/ui/separator",
     componentDemoPath: "@/registry/examples/separator-demo/separator-horizontal-demo",
     component: React.lazy(() => import("@/registry/examples/separator-demo/separator-horizontal-demo")),
-    language: "tsx"
-  },
-  {
-    name: "separator-light-demo",
-    baseComponent: "separator",
-    variant: "light",
-    componentPath: "@/registry/ui/separator",
-    componentDemoPath: "@/registry/examples/separator-demo/separator-light-demo",
-    component: React.lazy(() => import("@/registry/examples/separator-demo/separator-light-demo")),
     language: "tsx"
   },
   {
@@ -782,6 +773,15 @@ export const componentExamples = { items: [
     componentPath: "@/registry/ui/tabs",
     componentDemoPath: "@/registry/examples/tabs-demo/tabs-demo",
     component: React.lazy(() => import("@/registry/examples/tabs-demo/tabs-demo")),
+    language: "tsx"
+  },
+  {
+    name: "tabs-vertical-demo",
+    baseComponent: "tabs",
+    variant: "vertical",
+    componentPath: "@/registry/ui/tabs",
+    componentDemoPath: "@/registry/examples/tabs-demo/tabs-vertical-demo",
+    component: React.lazy(() => import("@/registry/examples/tabs-demo/tabs-vertical-demo")),
     language: "tsx"
   },
   {

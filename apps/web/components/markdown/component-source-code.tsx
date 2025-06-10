@@ -31,8 +31,8 @@ export default function ComponentSource({
   const registryComponent = REGISTRY.items.find(
     (item) => item.name === fullComponentName
   )
-  const componentName = (registryComponent && 'baseComponent' in registryComponent) ? fixImport(registryComponent.baseComponent) : undefined
-  const componentPath = (registryComponent && 'componentPath' in registryComponent) ? fixImport(registryComponent.componentPath) : undefined
+  const componentName = (registryComponent && 'baseComponent' in registryComponent) ? registryComponent.baseComponent : undefined
+  const componentPath = (registryComponent && 'componentPath' in registryComponent) ? registryComponent.componentPath : undefined
   useEffect(() => {
     if (providedCode || !componentPath) return
     setIsLoadingCode(true)
@@ -69,7 +69,7 @@ export default function ComponentSource({
       <CodeBlockWrapper>
         {componentCode ? (
           <Pre
-            folderPath={componentPath}
+            folderPath={fixImport(componentPath ?? '')}
             raw={componentCode}
             className="language-tsx pb-5"
           >
