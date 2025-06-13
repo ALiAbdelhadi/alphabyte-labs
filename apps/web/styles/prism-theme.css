@@ -1,43 +1,258 @@
+/* Apple Design System Color Variables */
 :root {
-  --code-background: #1e1e1e;
-  --code-text-color: #cccccc;
-  --code-selection-background: #264f78;
-  --code-comment-color: #6a9955;
-  --code-line-number-color: #666;
-  --code-toolbar-background: #2d2d2d;
-  --code-folder-path-color: hsl(var(--muted));
+  /* Light mode - Apple inspired colors */
+  --apple-background: #fafafa;
+  --apple-surface: #f5f5f7;
+  --apple-primary: #1d1d1f;
+  --apple-secondary: #6e6e73;
+  --apple-tertiary: #8e8e93;
+  --apple-border: #d2d2d7;
+  --apple-hover: rgba(0, 0, 0, 0.04);
+  --apple-focus: #007aff;
+  --apple-selection: rgba(0, 122, 255, 0.15);
+
+  /* Status colors */
+  --apple-success: #30d158;
+  --apple-error: #ff3b30;
+  --apple-warning: #ff9500;
+  --apple-red: #ff3b30;
+  --apple-yellow: #ff9500;
+  --apple-green: #30d158;
+
+  /* Code syntax colors - Light mode */
+  --code-background: #fafafa;
+  --code-text-color: #1d1d1f;
+  --code-selection-background: rgba(0, 122, 255, 0.15);
+  --code-comment-color: #8e8e93;
+  --code-line-number-color: #8e8e93;
+  --code-line-number-bg: #fafafa;
+  --code-toolbar-background: rgba(245, 245, 247, 0.8);
+  --code-border-color: #d2d2d7;
+  --code-folder-path-color: #6e6e73;
+  --code-highlight-bg: rgba(0, 0, 0, 0.03);
+
+  /* Apple-inspired syntax colors for light mode */
+  --code-keyword-color: #ad3da4;
+  --code-string-color: #d12f1b;
+  --code-function-color: #3f6ec0;
+  --code-number-color: #272ad8;
+  --code-class-color: #0f68a0;
+  --code-property-color: #326d74;
+  --code-operator-color: #1d1d1f;
+  --code-punctuation-color: #1d1d1f;
+  --code-tag-color: #ad3da4;
+  --code-attribute-color: #836c28;
+  --code-boolean-color: #ad3da4;
+  --code-variable-color: #326d74;
+  --code-regex-color: #d12f1b;
+  --code-parameter-color: #326d74;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode - Apple inspired colors */
+    --apple-background: #1c1c1e;
+    --apple-surface: rgba(44, 44, 46, 0.8);
+    --apple-primary: #f2f2f7;
+    --apple-secondary: #8e8e93;
+    --apple-tertiary: #6d6d70;
+    --apple-border: #38383a;
+    --apple-hover: rgba(255, 255, 255, 0.04);
+    --apple-focus: #0a84ff;
+    --apple-selection: rgba(10, 132, 255, 0.25);
+
+    /* Status colors for dark mode */
+    --apple-success: #32d74b;
+    --apple-error: #ff453a;
+    --apple-warning: #ff9f0a;
+    --apple-red: #ff453a;
+    --apple-yellow: #ff9f0a;
+    --apple-green: #32d74b;
+
+    /* Code syntax colors - Dark mode */
+    --code-background: #1c1c1e;
+    --code-text-color: #f2f2f7;
+    --code-selection-background: rgba(10, 132, 255, 0.25);
+    --code-comment-color: #8e8e93;
+    --code-line-number-color: #8e8e93;
+    --code-line-number-bg: #1c1c1e;
+    --code-toolbar-background: rgba(44, 44, 46, 0.8);
+    --code-border-color: #38383a;
+    --code-folder-path-color: #8e8e93;
+    --code-highlight-bg: rgba(255, 255, 255, 0.03);
+
+    /* Apple-inspired syntax colors for dark mode */
+    --code-keyword-color: #ff7ab2;
+    --code-string-color: #ff8170;
+    --code-function-color: #4eb0cc;
+    --code-number-color: #d9c97c;
+    --code-class-color: #6bdfff;
+    --code-property-color: #41a1c0;
+    --code-operator-color: #f2f2f7;
+    --code-punctuation-color: #f2f2f7;
+    --code-tag-color: #ff7ab2;
+    --code-attribute-color: #ffd479;
+    --code-boolean-color: #ff7ab2;
+    --code-variable-color: #41a1c0;
+    --code-regex-color: #ff8170;
+    --code-parameter-color: #41a1c0;
+  }
+}
+
+/* Force dark mode when .dark class is present */
+.dark {
+  --apple-background: #1c1c1e;
+  --apple-surface: rgba(44, 44, 46, 0.8);
+  --apple-primary: #f2f2f7;
+  --apple-secondary: #8e8e93;
+  --apple-tertiary: #6d6d70;
+  --apple-border: #38383a;
+  --apple-hover: rgba(255, 255, 255, 0.04);
+  --apple-focus: #0a84ff;
+  --apple-selection: rgba(10, 132, 255, 0.25);
+
+  --apple-success: #32d74b;
+  --apple-error: #ff453a;
+  --apple-warning: #ff9f0a;
+  --apple-red: #ff453a;
+  --apple-yellow: #ff9f0a;
+  --apple-green: #32d74b;
+
+  --code-background: #1c1c1e;
+  --code-text-color: #f2f2f7;
+  --code-selection-background: rgba(10, 132, 255, 0.25);
+  --code-comment-color: #8e8e93;
+  --code-line-number-color: #8e8e93;
+  --code-line-number-bg: #1c1c1e;
+  --code-toolbar-background: rgba(44, 44, 46, 0.8);
+  --code-border-color: #38383a;
+  --code-folder-path-color: #8e8e93;
+  --code-highlight-bg: rgba(255, 255, 255, 0.03);
+
+  --code-keyword-color: #ff7ab2;
+  --code-string-color: #ff8170;
+  --code-function-color: #4eb0cc;
+  --code-number-color: #d9c97c;
+  --code-class-color: #6bdfff;
+  --code-property-color: #41a1c0;
+  --code-operator-color: #f2f2f7;
+  --code-punctuation-color: #f2f2f7;
+  --code-tag-color: #ff7ab2;
+  --code-attribute-color: #ffd479;
+  --code-boolean-color: #ff7ab2;
+  --code-variable-color: #41a1c0;
+  --code-regex-color: #ff8170;
+  --code-parameter-color: #41a1c0;
+}
+
+/* Apple Design System Utility Classes */
+.text-apple-primary {
+  color: var(--apple-primary);
+}
+.text-apple-secondary {
+  color: var(--apple-secondary);
+}
+.text-apple-tertiary {
+  color: var(--apple-tertiary);
+}
+.text-apple-success {
+  color: var(--apple-success);
+}
+.text-apple-error {
+  color: var(--apple-error);
+}
+.bg-apple-background {
+  background-color: var(--apple-background);
+}
+.bg-apple-surface {
+  background-color: var(--apple-surface);
+}
+.bg-apple-hover {
+  background-color: var(--apple-hover);
+}
+.border-apple-border {
+  border-color: var(--apple-border);
+}
+.shadow-apple {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Code block container with Apple aesthetics */
 .code-block-container {
   background-color: var(--code-background);
-  border-radius: 6px;
+  border: 1px solid var(--code-border-color);
+  border-radius: 12px;
   width: 100%;
   position: relative;
+  font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Source Code Pro", monospace;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
 }
 
+.code-block-container:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Code block header with Apple styling */
 .code-block-header {
-  background-color: var(--code-background);
-  border-bottom: 1px solid #333;
-}
-
-.code-block-toolbar {
   background-color: var(--code-toolbar-background);
-  padding-left: 1rem;
-  padding-right: 1rem;
-  border-radius: 6px 6px 0 0;
+  border-bottom: 1px solid var(--code-border-color);
+  border-radius: 12px 12px 0 0;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
+/* Line numbers without border - Apple style */
+.line-numbers.apple-no-border .line-numbers-rows {
+  border-right: none !important;
+  padding-right: 1.5rem !important;
+  top: 0 !important;
+  left: -4rem !important;
+  position: absolute;
+  height: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  background-color: var(--code-background);
+}
+
+.line-numbers-rows > span {
+  padding: 0;
+  border: 0;
+  display: block;
+  counter-increment: linenumber;
+  color: var(--code-line-number-color) !important;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: right;
+  font-weight: 400;
+}
+
+.line-numbers-rows > span::before {
+  content: counter(linenumber) !important;
+  display: block;
+  padding-right: 1em;
+  text-align: right;
+  color: var(--code-line-number-color) !important;
+  opacity: 0.6;
+}
+
+/* Base code styling with Apple typography */
 pre[class*="language-"],
 code[class*="language-"] {
   color: var(--code-text-color);
   font-size: 14px;
+  font-weight: 400;
   text-shadow: none;
   direction: ltr;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
-  line-height: 1.5;
+  line-height: 1.6;
   -moz-tab-size: 4;
   -o-tab-size: 4;
   tab-size: 4;
@@ -46,8 +261,13 @@ code[class*="language-"] {
   -ms-hyphens: none;
   hyphens: none;
   background: transparent;
+  font-family: inherit;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Selection styling with Apple blue */
 pre[class*="language-"]::selection,
 code[class*="language-"]::selection,
 pre[class*="language-"] *::selection,
@@ -56,74 +276,44 @@ code[class*="language-"] *::selection {
   background: var(--code-selection-background);
 }
 
-@media print {
-  pre[class*="language-"],
-  code[class*="language-"] {
-    text-shadow: none;
-  }
-}
-
+/* Pre element styling */
 pre[class*="language-"] {
-  padding: 0.8rem;
+  padding: 20px;
   margin: 0;
   overflow-x: auto;
-  border-radius: 0 0 6px 6px;
+  border-radius: 0 0 12px 12px;
+  background-color: var(--code-background);
 }
 
-.line-numbers .line-numbers-rows {
-  border-right: none !important;
-  padding-right: 1rem !important;
-  top: -2.5px !important;
-  left: -39px !important;
-  position: absolute;
-  height: 100%;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+pre.line-numbers.apple-no-border {
+  counter-reset: linenumber;
+  padding-left: 4rem;
 }
 
-.line-numbers-rows > span {
-  padding: 0;
-  border: 0;
-  display: block;
-  counter-increment: linenumbers;
-  color: hsl(var(--muted)) !important;
-  font-size: 14px;
-  line-height: 1.5;
-  text-align: right;
-}
-
+/* Inline code styling */
 :not(pre) > code[class*="language-"] {
-  padding: 0.3em;
-  border-radius: 0.3em;
-  color: #db4c69;
+  padding: 4px 8px;
+  border-radius: 6px;
   background: var(--code-background);
-}
-/*********************************************************
-* Tokens (No changes here, kept for completeness)
-*/
-.namespace {
-  opacity: 0.7;
+  border: 1px solid var(--code-border-color);
+  font-size: 13px;
 }
 
-.token.doctype .token.doctype-tag {
-  color: #569cd6;
-}
-
-.token.doctype .token.name {
-  color: #9cdcfe;
-}
-
+/* Token styling with Apple colors */
 .token.comment,
-.token.prolog {
-  color: #6a9955;
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--code-comment-color);
+  font-style: italic;
 }
 
-.token.punctuation,
-.language-html .language-css .token.punctuation,
-.language-html .language-javascript .token.punctuation {
-  color: #d4d4d4;
+.token.punctuation {
+  color: var(--code-punctuation-color);
+}
+
+.token.namespace {
+  opacity: 0.8;
 }
 
 .token.property,
@@ -132,9 +322,9 @@ pre[class*="language-"] {
 .token.number,
 .token.constant,
 .token.symbol,
-.token.inserted,
-.token.unit {
-  color: #b5cea8;
+.token.deleted {
+  color: var(--code-number-color);
+  font-weight: 500;
 }
 
 .token.selector,
@@ -142,181 +332,168 @@ pre[class*="language-"] {
 .token.string,
 .token.char,
 .token.builtin,
-.token.deleted {
-  color: #ce9178;
-}
-
-.language-css .token.string.url {
-  text-decoration: underline;
+.token.inserted {
+  color: var(--code-string-color);
 }
 
 .token.operator,
-.token.entity {
-  color: #d4d4d4;
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: var(--code-operator-color);
 }
 
-.token.operator.arrow {
-  color: #569cd6;
-}
-
-.token.atrule {
-  color: #ce9178;
-}
-
-.token.atrule .token.rule {
-  color: #c586c0;
-}
-
-.token.atrule .token.url {
-  color: #9cdcfe;
-}
-
-.token.atrule .token.url .token.function {
-  color: #dcdcaa;
-}
-
-.token.atrule .token.url .token.punctuation {
-  color: #d4d4d4;
-}
-
+.token.atrule,
+.token.attr-value,
 .token.keyword {
-  color: #d681ce;
+  color: var(--code-keyword-color);
+  font-weight: 600;
 }
 
+.token.function,
+.token.class-name {
+  color: var(--code-function-color);
+  font-weight: 500;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: var(--code-variable-color);
+}
+
+/* Specific token styling */
 .token.keyword.module,
 .token.keyword.control-flow {
-  color: #c586c0;
+  color: var(--code-keyword-color);
+  font-weight: 600;
 }
 
 .token.function,
 .token.function .token.maybe-class-name {
-  color: #dcdcaa;
-}
-.token.regex {
-  color: #d16969;
-}
-
-.token.important {
-  color: #569cd6;
-}
-
-.token.italic {
-  font-style: italic;
-}
-
-.token.constant {
-  color: #4ec9b0;
+  color: var(--code-function-color);
+  font-weight: 500;
 }
 
 .token.class-name,
 .token.maybe-class-name {
-  color: #4ec9b0;
-}
-
-.token.console {
-  color: #9cdcfe;
+  color: var(--code-class-color);
+  font-weight: 500;
 }
 
 .token.parameter {
-  color: #9cdcfe;
-}
-
-.token.interpolation {
-  color: #9cdcfe;
-}
-
-.token.punctuation.interpolation-punctuation {
-  color: #569cd6;
-}
-
-.token.boolean {
-  color: #569cd6;
+  color: var(--code-parameter-color);
 }
 
 .token.property,
 .token.variable,
 .token.imports .token.maybe-class-name,
 .token.exports .token.maybe-class-name {
-  color: #9cdcfe;
-}
-
-.token.selector {
-  color: #d7ba7d;
-}
-
-.token.escape {
-  color: #d7ba7d;
+  color: var(--code-property-color);
 }
 
 .token.tag {
-  color: #569cd6;
-}
-
-.token.tag .token.punctuation {
-  color: #c1c1c1;
-}
-
-.token.cdata {
-  color: #808080;
+  color: var(--code-tag-color);
+  font-weight: 500;
 }
 
 .token.attr-name {
-  color: #9cdcfe;
+  color: var(--code-attribute-color);
 }
 
-.token.attr-value,
-.token.attr-value .token.punctuation {
-  color: #ce9178;
+/* Line highlighting with Apple-style bg-gray-50/50 equivalent */
+.line-highlight {
+  background: var(--code-highlight-bg);
+  box-shadow: inset 3px 0 0 var(--apple-focus);
+  border-radius: 2px;
 }
 
-.token.attr-value .token.punctuation.attr-equals {
-  color: #d4d4d4;
+/* Apple-style scrollbar */
+.code-block-container pre::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.token.entity {
-  color: #569cd6;
+.code-block-container pre::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.token.namespace {
-  color: #4ec9b0;
+.code-block-container pre::-webkit-scrollbar-thumb {
+  background: var(--apple-tertiary);
+  border-radius: 4px;
+  opacity: 0.3;
 }
 
-.plain-text {
-  color: #fff;
+.code-block-container pre::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
 }
 
-pre[class*="language-javascript"],
-code[class*="language-javascript"],
-pre[class*="language-jsx"],
-code[class*="language-jsx"],
-pre[class*="language-typescript"],
-code[class*="language-typescript"],
-pre[class*="language-tsx"],
-code[class*="language-tsx"] {
-  color: #569cd6;
+/* Search highlight with Apple blue */
+.search-highlight {
+  background-color: var(--apple-selection);
+  border-radius: 2px;
 }
 
-pre[class*="language-css"],
-code[class*="language-css"] {
-  color: #ce9178;
+/* JSX specific styling */
+.language-jsx .token.tag .token.punctuation,
+.language-tsx .token.tag .token.punctuation {
+  color: var(--code-punctuation-color);
 }
 
-pre[class*="language-html"],
-code[class*="language-html"] {
-  color: #d4d4d4 !important;
+.language-jsx .token.tag .token.class-name,
+.language-tsx .token.tag .token.class-name {
+  color: var(--code-class-color);
+  font-weight: 500;
 }
 
-.language-regex .token.anchor {
-  color: #dcdcaa;
+/* React component styling */
+.language-jsx .token.tag.token.class-name,
+.language-tsx .token.tag.token.class-name {
+  color: var(--code-class-color);
+  font-weight: 500;
 }
 
-.language-html .token.punctuation {
-  color: #808080;
+/* String interpolation */
+.token.interpolation {
+  color: var(--code-text-color);
 }
-/*********************************************************
-* Line highlighting (No changes here, kept for completeness)
-*/
-pre[class*="language-"] > code[class*="language-"] {
-  position: relative;
-  z-index: 1;
+
+.token.interpolation-punctuation {
+  color: var(--code-keyword-color);
+  font-weight: 600;
+}
+
+/* Enhanced focus states for accessibility */
+.code-block-container:focus-within {
+  outline: 2px solid var(--apple-focus);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Hide scrollbar when not needed */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Word wrap support */
+pre.whitespace-pre-wrap code {
+  white-space: pre-wrap;
 }

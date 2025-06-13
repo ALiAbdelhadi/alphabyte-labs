@@ -12,10 +12,20 @@ export interface ComponentPreviewProps {
   className?: string
   name: string
   variant?: string
+  showLineNumbers?: boolean
+  maxHeight?: number
+  highlightLines?: number[]
 }
 
-
-export default function ComponentPreview({ code: providedCode, className, name, variant }: ComponentPreviewProps) {
+export default function ComponentPreview({
+  code: providedCode,
+  className,
+  name,
+  variant,
+  showLineNumbers = true,
+  maxHeight = 500,
+  highlightLines = []
+}: ComponentPreviewProps) {
   const [componentCode, setComponentCode] = useState<string | null>(providedCode || null)
   const [isLoadingCode, setIsLoadingCode] = useState<boolean>(false)
 
@@ -56,7 +66,13 @@ export default function ComponentPreview({ code: providedCode, className, name, 
   }, [providedCode, componentDemoPath])
 
   if (!registryComponent) {
-    return <div className={cn("mt-4 w-full", className)}>Component not found</div>
+    return (
+      <div className={cn("mt-4 w-full", className)}>
+        <div className="flex items-center justify-center p-8 border rounded-lg bg-muted/20">
+          <p className="text-sm text-muted-foreground">Component "{fullComponentName}" not found</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -69,14 +85,15 @@ export default function ComponentPreview({ code: providedCode, className, name, 
           Code
         </TabsTrigger>
       </TabsList>
+
       <div className="not-prose">
         <TabsContent value="preview" className={cn("border rounded-xl relative", className)}>
           <div className="overflow-visible">
             <React.Suspense
               fallback={
                 <div className="flex w-full min-h-[350px] items-center justify-center text-sm text-muted-foreground gap-2">
-                  <LoadingIcon size={14} />
-                  Loading...
+                  <LoadingIcon size={16} />
+                  Loading component...
                 </div>
               }
             >
@@ -85,26 +102,43 @@ export default function ComponentPreview({ code: providedCode, className, name, 
                   <DynamicComponent className="" />
                 </div>
               ) : (
-                <div className="flex w-full items-center justify-center text-sm text-muted-foreground">
-                  Component not found with name {fullComponentName}
+                <div className="flex w-full min-h-[350px] items-center justify-center text-sm text-muted-foreground">
+                  <div className="text-center">
+                    <p>Component not found</p>
+                    <p className="text-xs mt-1 opacity-70">{fullComponentName}</p>
+                  </div>
                 </div>
               )}
             </React.Suspense>
           </div>
         </TabsContent>
-        <TabsContent value="code">
+
+        <TabsContent value="code" className="mt-0">
           {componentCode ? (
-            <Pre raw={componentCode} className="language-tsx">
+            <Pre
+              raw={componentCode}
+              className="language-tsx"
+              showLineNumbers={showLineNumbers}
+              folderPath={componentDemoPath}
+              title={`${fullComponentName}.tsx`}
+              maxHeight={maxHeight}
+              showHeader={true}
+              highlightLines={highlightLines}
+              enableSearch={true}
+            >
               {componentCode}
             </Pre>
           ) : isLoadingCode ? (
-            <div className="flex w-full items-center justify-center text-sm text-muted-foreground p-4 gap-2">
-              <LoadingIcon size={14} />
-              Loading code...
+            <div className="flex w-full items-center justify-center text-sm text-muted-foreground p-12 gap-2 border rounded-lg bg-muted/10 dark:bg-muted/5">
+              <LoadingIcon size={16} />
+              Loading source code...
             </div>
           ) : (
-            <div className="flex w-full items-center justify-center text-sm text-muted-foreground p-4">
-              No code available
+            <div className="flex w-full items-center justify-center text-sm text-muted-foreground p-12 border rounded-lg bg-muted/10 dark:bg-muted/5">
+              <div className="text-center">
+                <p>No source code available</p>
+                <p className="text-xs mt-1 opacity-70">for {fullComponentName}</p>
+              </div>
             </div>
           )}
         </TabsContent>

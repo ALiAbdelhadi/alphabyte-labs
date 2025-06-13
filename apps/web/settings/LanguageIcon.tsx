@@ -83,6 +83,6 @@ export const languageIcons: Record<string, JSX.Element> = {
       quality={100}
     />
   ),
-  bash: <Terminal className="w-[18px] h-[18px] text-gray-100 rounded-lg" />,
+  bash: <Terminal className="w-[18px] h-[18px] dark:text-gray-100 text-gray-950 rounded-lg" />,
   json: <FileJson2 className="w-[18px] h-[18px] text-yellow-500 rounded-lg" />
 }

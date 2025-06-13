@@ -1,9 +1,7 @@
 "use client"
 
-import { Company } from "@/config/meta"
 import { cn } from "@/lib/utils"
 import { GitHubLink } from "@/settings/settings"
-
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -17,12 +15,13 @@ export function Footer() {
       <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-0 w-full h-full mx-auto container text-sm text-muted-foreground">
         <p className="text-center text-muted-foreground">
           &copy; {new Date().getFullYear()}{" "}
+          Built by the team behind{" "}
           <Link
             className="font-semibold underline "
             target="_blank"
-            href={Company.link}
+            href={"https://alphabyte-labs.vercel.app"}
           >
-            {Company.name}{" "}
+            Alphabyte-labs{" "}
           </Link>
           The source code is available on{" "}
           <Link href={GitHubLink.href} target="_blank" className="underline">

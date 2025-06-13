@@ -38,7 +38,6 @@ export const ContributorsList: React.FC<ContributorsListProps> = ({ contributors
                     />
                 ))}
             </div>
-
             {remainingCount > 0 && (
                 <div
                     className="flex items-center justify-center -ml-1 bg-gray-50 text-gray-500 text-xs font-medium rounded-full ring-1 ring-gray-100"
