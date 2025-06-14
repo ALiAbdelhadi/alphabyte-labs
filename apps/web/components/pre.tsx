@@ -77,15 +77,15 @@ const CopyButton: React.FC<CopyButtonProps> = ({ content, className }) => {
 
   const buttonConfig = {
     idle: {
-      icon: <Clipboard className="w-[18px] h-[18px] text-apple-secondary hover:text-apple-primary transition-colors" />,
+      icon: <Clipboard className="w-[18px] h-[18px] text-muted-foreground hover:text-foreground transition-colors" />,
       title: "Copy to clipboard",
     },
     copied: {
-      icon: <Check className="w-[18px] h-[18px] text-apple-success" />,
+      icon: <Check className="w-[18px] h-[18px] text-green-500" />,
       title: "Copied!",
     },
     error: {
-      icon: <RotateCcw className="w-[18px] h-[18px] text-apple-error" />,
+      icon: <RotateCcw className="w-[18px] h-[18px] text-red-500" />,
       title: "Failed to copy",
     },
   }
@@ -96,8 +96,7 @@ const CopyButton: React.FC<CopyButtonProps> = ({ content, className }) => {
     <button
       onClick={handleCopy}
       className={cn(
-        "flex items-center justify-center w-8 h-8 rounded-md hover:bg-apple-hover transition-all duration-200 m-0 p-0",
-        "focus:outline-none focus:ring-2 focus:ring-apple-focus focus:ring-offset-1",
+        "flex items-center justify-center w-8 h-8 rounded-sm hover:bg-muted/50 transition-all duration-200 m-0 p-0",
         className,
       )}
       title={currentConfig.title}
@@ -128,21 +127,18 @@ const SearchInput: React.FC<{
   }, [onClose])
 
   return (
-    <div className="flex items-center space-x-2 px-4 py-3 border-b border-apple-border bg-apple-surface">
-      <Search className="w-4 h-4 text-apple-secondary" />
+    <div className="flex items-center space-x-2 px-3 py-2 border-b border-border bg-background">
+      <Search className="w-4 h-4 text-muted-foreground" />
       <input
         ref={inputRef}
         type="text"
         value={searchQuery}
         onChange={(e) => onSearchChange(e.target.value)}
         placeholder="Search in code..."
-        className="flex-1 bg-transparent text-sm outline-none placeholder:text-apple-tertiary text-apple-primary font-medium"
+        className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground text-foreground"
       />
-      <button
-        onClick={onClose}
-        className="p-1.5 hover:bg-apple-hover rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-apple-focus"
-      >
-        <X className="w-4 h-4 text-apple-secondary hover:text-apple-primary" />
+      <button onClick={onClose} className="p-1 hover:bg-muted rounded transition-colors">
+        <X className="w-4 h-4 text-muted-foreground hover:text-foreground" />
       </button>
     </div>
   )
@@ -169,47 +165,46 @@ const CodeHeader: React.FC<{
   content,
   customActions,
 }) => (
-  <div className="code-block-header overflow-x-auto hide-scrollbar flex items-center justify-between h-[44px] px-4 bg-apple-surface border-b border-apple-border backdrop-blur-xl">
-    <div className="flex items-center justify-between space-x-4">
-      <div className="flex space-x-2 items-center" role="presentation" aria-label="Window controls">
-        <div className="w-3 h-3 rounded-full bg-apple-red/30 border border-apple-red/40" />
-        <div className="w-3 h-3 rounded-full bg-apple-yellow/30 border border-apple-yellow/40" />
-        <div className="w-3 h-3 rounded-full bg-apple-green/30 border border-apple-green/40" />
-      </div>
-      {title ? (
-        <div>
-          <span className="font-semibold text-apple-primary text-sm">{title}</span>
-          {description && <p className="text-xs mt-1 text-apple-secondary">{description}</p>}
+    <div className="code-block-header code-block-toolbar overflow-x-auto hide-scrollbar flex items-center justify-between h-[35px] px-4 bg-muted/30 border-b border-border">
+      <div className="flex items-center justify-between space-x-4">
+        <div className="flex space-x-2 items-center" role="presentation" aria-label="Window controls">
+          <div className="w-3 h-3 rounded-full bg-red-500/30 border border-red-500/40" />
+          <div className="w-3 h-3 rounded-full bg-yellow-500/30 border border-yellow-500/40" />
+          <div className="w-3 h-3 rounded-full bg-green-500/30 border border-green-500/40" />
         </div>
-      ) : folderPath ? (
-        <span className="code-block-folder-path font-medium text-apple-secondary text-sm text-nowrap max-w-md">
-          {folderPath}
-        </span>
-      ) : null}
-    </div>
-    <div className="flex items-center space-x-2">
-      {enableSearch && (
-        <button
-          onClick={onToggleSearch}
-          className={cn(
-            "flex items-center justify-center w-8 h-8 rounded-md hover:bg-apple-hover transition-all duration-200",
-            "focus:outline-none focus:ring-2 focus:ring-apple-focus focus:ring-offset-1",
-            isSearchVisible && "bg-apple-hover",
-          )}
-          title="Search in code"
-          aria-label="Toggle search"
-        >
-          <Search className="w-[18px] h-[18px] text-apple-secondary hover:text-apple-primary transition-colors" />
-        </button>
-      )}
-      <CopyButton content={content} />
-      <div className="w-[18px] h-[18px] rounded-sm" title={`Language: ${language}`}>
-        {languageIcons[language] || <FileCode className="w-[18px] h-[18px] text-apple-secondary" />}
+        {title ? (
+          <div>
+            <span className="font-medium text-foreground text-sm">{title}</span>
+            {description && <p className="text-xs mt-1 text-muted-foreground">{description}</p>}
+          </div>
+        ) : folderPath ? (
+          <span className="code-block-folder-path font-medium text-muted-foreground text-sm text-nowrap max-w-md">
+            {folderPath}
+          </span>
+        ) : null}
       </div>
-      {customActions}
+      <div className="flex items-center space-x-2">
+        {enableSearch && (
+          <button
+            onClick={onToggleSearch}
+            className={cn(
+              "flex items-center justify-center w-8 h-8 rounded-sm hover:bg-muted/50 transition-all duration-200",
+              isSearchVisible && "bg-muted/70",
+            )}
+            title="Search in code"
+            aria-label="Toggle search"
+          >
+            <Search className="w-[18px] h-[18px] text-muted-foreground hover:text-foreground transition-colors" />
+          </button>
+        )}
+        <CopyButton content={content} />
+        <div className="w-[18px] h-[18px] rounded-sm" title={`Language: ${language}`}>
+          {languageIcons[language] || <FileCode className="w-[18px] h-[18px] text-muted-foreground" />}
+        </div>
+        {customActions}
+      </div>
     </div>
-  </div>
-)
+  )
 
 const Pre: React.FC<PreProps> = ({
   children,
@@ -272,7 +267,7 @@ const Pre: React.FC<PreProps> = ({
 
     // Ensure line numbers are properly initialized
     if (showLineNumbers && preRef.current) {
-      preRef.current.classList.add("line-numbers", "apple-no-border")
+      preRef.current.classList.add("line-numbers")
     }
   }, [displayContent, isClient, language, showLineNumbers])
 
@@ -294,13 +289,13 @@ const Pre: React.FC<PreProps> = ({
   }, [])
 
   // Ensure line numbers class is properly applied
-  const lineNumbersClass = showLineNumbers ? "line-numbers apple-no-border" : ""
+  const lineNumbersClass = showLineNumbers ? "line-numbers" : ""
 
   if (!isClient) {
     return (
-      <div className="code-block-container relative group rounded-xl my-5 w-full border border-apple-border bg-apple-background shadow-apple">
+      <div className="code-block-container relative group rounded-[6px] my-5 w-full border border-border bg-background">
         <pre className={`overflow-x-auto ${lineNumbersClass}`} style={{ maxHeight: `${maxHeight}px` }}>
-          <code className="text-apple-primary">{content}</code>
+          <code className="text-foreground">{content}</code>
         </pre>
       </div>
     )
@@ -308,7 +303,7 @@ const Pre: React.FC<PreProps> = ({
 
   return (
     <div
-      className="code-block-container relative group rounded-xl w-full border border-apple-border bg-apple-background shadow-apple transition-all duration-200"
+      className="code-block-container relative group rounded-[6px] w-full border border-border bg-background shadow-sm"
       role="region"
       aria-label="Code block"
     >
@@ -335,14 +330,14 @@ const Pre: React.FC<PreProps> = ({
           className,
           "overflow-x-auto",
           "border-none",
-          "bg-apple-background",
+          "bg-background",
           lineNumbersClass,
           wordWrap && "whitespace-pre-wrap",
         )}
         style={{ maxHeight: `${maxHeight}px` }}
         data-line={highlightLines.length > 0 ? highlightLines.join(",") : undefined}
       >
-        <code ref={codeRef} className={`language-${language} text-apple-primary`} data-language={language}>
+        <code ref={codeRef} className={`language-${language} text-foreground`} data-language={language}>
           {displayContent}
         </code>
       </pre>
