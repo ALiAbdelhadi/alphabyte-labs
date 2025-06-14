@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils"
 import { languageIcons } from "@/settings/LanguageIcon"
-import "@/styles/prism-theme.css"
 import { Check, Clipboard, FileCode, RotateCcw, Search, X } from "lucide-react"
 import Prism from "prismjs"
 import "prismjs/components/prism-bash"
@@ -330,6 +329,8 @@ const Pre: React.FC<PreProps> = ({
           className,
           "overflow-x-auto",
           "border-none",
+          "font-mono",
+          "font-medium",
           "bg-background",
           lineNumbersClass,
           wordWrap && "whitespace-pre-wrap",

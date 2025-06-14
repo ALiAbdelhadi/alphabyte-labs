@@ -1,13 +1,11 @@
-import { Settings } from "@/config/meta"
 import { ThemeProvider } from "@/components/context/theme-provider"
-import { Toaster } from "@/components/ui/sonner"
 import Providers from "@/components/Providers"
-
+import { Toaster } from "@/components/ui/sonner"
+import { Settings } from "@/config/meta"
 import "@/styles/globals.css"
 import "@/styles/prism-theme.css"
-
-import { Fragment } from "react"
 import { Metadata } from "next"
+import { Fragment } from "react"
 
 const baseUrl = Settings.metadataBase
 
