@@ -84,7 +84,7 @@ const ExpandableGallery: React.FC<ExpandableGalleryProps> = ({
       <motion.div className="absolute inset-0" transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
         <Image
           fill
-          src={imgUrl || "/placeholder.svg"}
+          src={imgUrl}
           alt={title}
           className={cn("object-cover")}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

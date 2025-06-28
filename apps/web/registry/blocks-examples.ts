@@ -27,6 +27,32 @@ export const blockExamples = { items: [
     "styles": []
   },
   {
+    "name": "banner-2",
+    "target": "@/registry/view/banner-2/page",
+    "components": [
+      "@/registry/view/banner-2/components/banner"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": [],
+    "types": [],
+    "styles": []
+  },
+  {
+    "name": "bento-grid-1",
+    "target": "@/registry/view/bento-grid-1/page",
+    "components": [
+      "@/registry/view/bento-grid-1/components/bento-grid"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": [],
+    "types": [],
+    "styles": []
+  },
+  {
     "name": "carousel-1",
     "target": "@/registry/view/carousel-1/page",
     "components": [
@@ -98,7 +124,9 @@ export const blockExamples = { items: [
       "@/registry/view/dashboard-1/lib/utils.ts"
     ],
     "context": [],
-    "hooks": [],
+    "hooks": [
+      "@/registry/view/dashboard-1/hooks/use-responsive-orientation"
+    ],
     "types": [],
     "styles": [],
     "layout": "@/registry/view/dashboard-1/layout"
@@ -323,7 +351,9 @@ export const blockExamples = { items: [
       "@/registry/view/orders-page-1/lib/utils.ts"
     ],
     "context": [],
-    "hooks": [],
+    "hooks": [
+      "@/registry/view/orders-page-1/hooks/use-responsive-orientation"
+    ],
     "types": [],
     "styles": []
   },
@@ -359,6 +389,19 @@ export const blockExamples = { items: [
     "constant": [
       "@/registry/view/orders-page-3/constant/data.json"
     ],
+    "lib": [],
+    "context": [],
+    "hooks": [],
+    "types": [],
+    "styles": []
+  },
+  {
+    "name": "personal-card-1",
+    "target": "@/registry/view/personal-card-1/page",
+    "components": [
+      "@/registry/view/personal-card-1/components/personal-card"
+    ],
+    "constant": [],
     "lib": [],
     "context": [],
     "hooks": [],

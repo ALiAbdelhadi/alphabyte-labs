@@ -1,5 +1,4 @@
 import Container from "@/components/Container"
-
 import { LoginForm } from "./components/login-form"
 
 export default function LogInPage() {

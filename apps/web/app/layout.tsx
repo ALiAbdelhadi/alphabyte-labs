@@ -3,10 +3,9 @@ import Providers from "@/components/Providers"
 import { Toaster } from "@/components/ui/sonner"
 import { Settings } from "@/config/meta"
 import "@/styles/globals.css"
-import "@/styles/prism-theme.css"
 import { Metadata } from "next"
 import { Fragment } from "react"
-
+import "@/styles/prism-theme.css"
 const baseUrl = Settings.metadataBase
 
 export const metadata: Metadata = {

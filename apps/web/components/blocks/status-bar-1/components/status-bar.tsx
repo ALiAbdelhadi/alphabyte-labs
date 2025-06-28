@@ -4,35 +4,21 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { CheckCircle, Circle } from "lucide-react";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export default function StatusBar() {
     const pathname = usePathname();
-    const [productId, setProductId] = useState("");
-
-    useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const response = await fetch(`/api/products/${productId}`);
-                const data = await response.json();
-                setProductId(data.productId);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchProduct();
-    }, [productId]);
 
     const STEPS = [
         {
             name: "Preview",
             description: "Review your product before confirming your order.",
-            url: `/preview/${productId}`,
+            url: `/preview`, // Here you put the link (URL) to be active when the user is on the page
         },
         {
             name: "Confirm",
             description: "Enter your shipping address and information.",
-            url: "/confirm",
+            url: "/view/status-bar-1",
         },
         {
             name: "Complete",

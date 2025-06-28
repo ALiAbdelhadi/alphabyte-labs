@@ -22,6 +22,8 @@ import {
 import { useMemo, useState } from "react"
 import { formatDate, formatPrice } from "../lib/utils"
 import { Sidebar } from "./sidebar"
+import { useResponsiveOrientation } from "../hooks/use-responsive-orientation"
+import { cn } from "@/lib/utils"
 
 type OrderStatus = "awaiting_shipment" | "processing" | "fulfilled" | "cancelled"
 
@@ -261,7 +263,7 @@ function DashboardSummary({ orders }: { orders: Order[] }) {
 
 export default function Dashboard() {
     const [filter, setFilter] = useState<string>("all")
-
+    const orientation = useResponsiveOrientation()
     const filteredOrders = useMemo(() => {
         if (filter === "all") return mockOrders
         return mockOrders.filter((order) => order.status === filter)
@@ -295,13 +297,34 @@ export default function Dashboard() {
                                 Export
                             </Button>
                         </div>
-                        <Tabs value={filter} onValueChange={setFilter} className="w-full">
-                            <TabsList className="max-w-fit">
-                                <TabsTrigger value="all">All Orders</TabsTrigger>
-                                <TabsTrigger value="awaiting_shipment">Awaiting</TabsTrigger>
-                                <TabsTrigger value="processing">Processing</TabsTrigger>
-                                <TabsTrigger value="fulfilled">Fulfilled</TabsTrigger>
-                                <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
+                        <Tabs orientation={orientation} value={filter} onValueChange={setFilter} className="w-full">
+                            <TabsList
+                                className={cn(
+                                    orientation === "horizontal"
+                                        ? "inline-flex h-10 items-center justify-center p-1 text-muted-foreground max-w-fit"
+                                        : "flex flex-col h-auto w-full max-w-xs space-y-1 p-2",
+                                )}
+                            >
+                                <TabsTrigger className={cn(
+                                    "inline-flex items-center justify-center whitespace-nowrap",
+                                    orientation === "vertical" && "justify-between w-full py-3 px-4",
+                                )} value="all">All Orders</TabsTrigger>
+                                <TabsTrigger className={cn(
+                                    "inline-flex items-center justify-center whitespace-nowrap",
+                                    orientation === "vertical" && "justify-between w-full py-3 px-4",
+                                )} value="awaiting_shipment">Awaiting</TabsTrigger>
+                                <TabsTrigger className={cn(
+                                    "inline-flex items-center justify-center whitespace-nowrap",
+                                    orientation === "vertical" && "justify-between w-full py-3 px-4",
+                                )} value="processing">Processing</TabsTrigger>
+                                <TabsTrigger className={cn(
+                                    "inline-flex items-center justify-center whitespace-nowrap",
+                                    orientation === "vertical" && "justify-between w-full py-3 px-4",
+                                )} value="fulfilled">Fulfilled</TabsTrigger>
+                                <TabsTrigger className={cn(
+                                    "inline-flex items-center justify-center whitespace-nowrap",
+                                    orientation === "vertical" && "justify-between w-full py-3 px-4",
+                                )} value="cancelled">Cancelled</TabsTrigger>
                             </TabsList>
                         </Tabs>
                         <Card>
@@ -334,7 +357,7 @@ export default function Dashboard() {
                                                     <TableCell>
                                                         <div className="flex items-center gap-2">
                                                             <Avatar className="h-8 w-8">
-                                                                <AvatarImage src={order.customerAvatar || "/placeholder.svg"} />
+                                                                <AvatarImage src={order.customerAvatar} />
                                                                 <AvatarFallback>
                                                                     {order.customerName
                                                                         .split(" ")
@@ -351,7 +374,7 @@ export default function Dashboard() {
                                                     <TableCell>
                                                         <div className="flex items-center gap-2">
                                                             <img
-                                                                src={order.productImage || "/placeholder.svg"}
+                                                                src={order.productImage}
                                                                 alt={order.productName}
                                                                 className="h-10 w-10 rounded object-cover"
                                                             />

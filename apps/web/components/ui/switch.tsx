@@ -90,7 +90,7 @@ export const Switch: React.FC<SwitchProps> = ({
                             >
                                 <SwitchPrimitive.Thumb
                                     className={cn(
-                                        "block rounded-full bg-white dark:bg-black shadow-lg transition-transform duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.275)]",
+                                        "block rounded-full bg-white dark:bg-black shadow-lg transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]",
                                         config.thumb,
                                         config.translate,
                                         props.disabled ? "" : "hover:scale-105"

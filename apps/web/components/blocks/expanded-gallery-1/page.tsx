@@ -34,8 +34,8 @@ export default function GalleryPage() {
           className={cn(
             "transition-all duration-700 ease-out",
             isMobile
-              ? "grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5" 
-              : "flex flex-row items-center justify-center gap-3 sm:gap-4 md:gap-5", 
+              ? "grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5"
+              : "flex flex-row items-center justify-center gap-3 sm:gap-4 md:gap-5",
           )}
         >
           {galleryItems.map((item, index) => (

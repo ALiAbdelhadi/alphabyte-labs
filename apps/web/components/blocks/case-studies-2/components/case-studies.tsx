@@ -1,12 +1,11 @@
 "use client"
 
-import type React from "react"
-import { createContext, useContext, useEffect, useRef, useState } from "react"
-import Image from "next/image"
+import { useOutsideClick } from "@/hooks/out-side-click"
 import { AnimatePresence, motion } from "framer-motion"
 import { ArrowLeft, ArrowRight, ExternalLink, X } from "lucide-react"
-
-import { useOutsideClick } from "@/hooks/out-side-click"
+import Image from "next/image"
+import type React from "react"
+import { createContext, useContext, useEffect, useRef, useState } from "react"
 
 interface CaseStudy {
   id: string
@@ -27,7 +26,6 @@ interface CaseStudiesCarouselProps {
   caseStudies: CaseStudy[]
 }
 
-// Create context for the carousel
 const CarouselContext = createContext<{
   onCardClose: (index: number) => void
   currentIndex: number
@@ -116,7 +114,7 @@ export default function CaseStudiesCarousel({
     if (carouselRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current
       setCanScrollLeft(scrollLeft > 0)
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10) // Small buffer
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10) 
     }
   }
 
@@ -155,7 +153,7 @@ export default function CaseStudiesCarousel({
     <CarouselContext.Provider
       value={{ onCardClose: handleCardClose, currentIndex: activeIndex }}
     >
-      <div className="w-full py-8 md:py-16 px-4 md:px-6 bg-white dark:bg-gray-950 transition-colors duration-200">
+      <div className="w-full py-8 md:py-16 px-4 md:px-6 bg-white dark:bg-black transition-colors duration-200">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12">
             <div className="max-w-3xl mb-6 md:mb-0">

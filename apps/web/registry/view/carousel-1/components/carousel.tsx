@@ -213,7 +213,7 @@ export const BlurImage = ({
         className
       )}
       onLoad={() => setLoading(false)}
-      src={src || "/placeholder.svg"}
+      src={src}
       width={width}
       height={height}
       loading="lazy"

@@ -42,7 +42,7 @@ function FeatureCard({ icon, title, description, variant, className }: FeatureCa
     )
 }
 
-export default function FeaturesShowcase() {
+export default function FinancialFeatures() {
     const features = [
         {
             icon: <CreditCard className="h-8 w-8" />,

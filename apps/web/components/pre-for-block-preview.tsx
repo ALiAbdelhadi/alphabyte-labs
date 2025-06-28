@@ -1,18 +1,19 @@
 "use client"
 
-import Prism from "prismjs"
-
 import { cn } from "@/lib/utils"
-
+import Prism from "prismjs"
+import "prismjs/components/prism-bash"
+import "prismjs/components/prism-css"
 import "prismjs/components/prism-javascript"
+import "prismjs/components/prism-json"
 import "prismjs/components/prism-jsx"
+import "prismjs/components/prism-markdown"
 import "prismjs/components/prism-tsx"
 import "prismjs/components/prism-typescript"
 import "prismjs/plugins/line-highlight/prism-line-highlight"
 import "prismjs/plugins/line-highlight/prism-line-highlight.css"
 import "prismjs/plugins/line-numbers/prism-line-numbers"
 import "prismjs/plugins/line-numbers/prism-line-numbers.css"
-
 import { ComponentProps, useEffect, useState } from "react"
 
 interface PreProps extends ComponentProps<"pre"> {

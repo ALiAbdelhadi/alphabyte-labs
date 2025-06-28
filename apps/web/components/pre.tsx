@@ -173,7 +173,7 @@ const CodeHeader: React.FC<{
         </div>
         {title ? (
           <div>
-            <span className="font-medium text-foreground text-sm">{title}</span>
+            <span className="font-medium text-foreground text-sm text-nowrap">{title}</span>
             {description && <p className="text-xs mt-1 text-muted-foreground">{description}</p>}
           </div>
         ) : folderPath ? (
@@ -187,7 +187,7 @@ const CodeHeader: React.FC<{
           <button
             onClick={onToggleSearch}
             className={cn(
-              "flex items-center justify-center w-8 h-8 rounded-sm hover:bg-muted/50 transition-all duration-200",
+              "md:flex hidden items-center justify-center w-8 h-8 rounded-sm hover:bg-muted/50 transition-all duration-200",
               isSearchVisible && "bg-muted/70",
             )}
             title="Search in code"
@@ -258,19 +258,14 @@ const Pre: React.FC<PreProps> = ({
   useEffect(() => {
     if (!isClient || !codeRef.current) return
 
-    // Reset the content to ensure proper line numbering
     codeRef.current.textContent = displayContent
-
-    // Force Prism to re-highlight and generate line numbers
     Prism.highlightElement(codeRef.current)
 
-    // Ensure line numbers are properly initialized
     if (showLineNumbers && preRef.current) {
       preRef.current.classList.add("line-numbers")
     }
   }, [displayContent, isClient, language, showLineNumbers])
 
-  // Handlers
   const handleToggleSearch = useCallback(() => {
     setIsSearchVisible((prev) => !prev)
     if (isSearchVisible) {
@@ -287,7 +282,6 @@ const Pre: React.FC<PreProps> = ({
     setSearchQuery("")
   }, [])
 
-  // Ensure line numbers class is properly applied
   const lineNumbersClass = showLineNumbers ? "line-numbers" : ""
 
   if (!isClient) {

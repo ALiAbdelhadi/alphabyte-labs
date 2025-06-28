@@ -1,15 +1,19 @@
-
 "use client"
+
+import type React from "react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { TableCell, TableRow } from "@/components/ui/table"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { cn } from "@/lib/utils"
+import { CardDescription } from "@/registry/ui/card"
+import { Table, TableBody, TableHead, TableHeader } from "@/registry/ui/table"
 import {
     ArrowDown,
     ArrowUp,
@@ -25,9 +29,10 @@ import {
     Search,
     Settings,
     Truck,
-    X
+    X,
 } from "lucide-react"
 import { useCallback, useMemo, useState } from "react"
+import { useResponsiveOrientation } from "../hooks/use-responsive-orientation"
 import { formatDate, formatPrice } from "../lib/utils"
 import { Sidebar } from "./sidebar"
 
@@ -75,7 +80,7 @@ const mockOrders: Order[] = [
         shippingAddress: "123 Tahrir Square, Cairo, Egypt",
         trackingNumber: "TRK001234567",
         paymentMethod: "Credit Card",
-        notes: "Gift wrapping requested"
+        notes: "Gift wrapping requested",
     },
     {
         id: 1002,
@@ -128,7 +133,7 @@ const mockOrders: Order[] = [
         createdAt: "2024-01-13T16:45:00Z",
         shippingAddress: "321 Heliopolis, Cairo, Egypt",
         paymentMethod: "Credit Card",
-        notes: "Customer requested cancellation"
+        notes: "Customer requested cancellation",
     },
     {
         id: 1005,
@@ -148,34 +153,55 @@ const mockOrders: Order[] = [
         trackingNumber: "TRK009876543",
         paymentMethod: "Bank Transfer",
     },
-];
+    {
+        id: 1006,
+        customerName: "Nour Abdel Rahman",
+        customerEmail: "nour.abdel@email.com",
+        customerPhone: "+20 444 555 6666",
+        productName: "Magic Keyboard",
+        productImage: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=100&h=100&fit=crop",
+        productPrice: 399,
+        quantity: 1,
+        shippingPrice: 10,
+        discountRate: 0,
+        totalPrice: 409,
+        status: "fulfilled",
+        createdAt: "2024-01-13T11:30:00Z",
+        shippingAddress: "654 Maadi, Cairo, Egypt",
+        trackingNumber: "TRK009876543",
+        paymentMethod: "Bank Transfer",
+    },
+]
 
-const ORDER_STATUS_DETAILS: Record<OrderStatus, { label: string; badgeClass: string; icon?: React.ElementType; colorClass?: string; }> = {
+const ORDER_STATUS_DETAILS: Record<
+    OrderStatus,
+    { label: string; badgeClass: string; icon?: React.ElementType; colorClass?: string }
+> = {
     awaiting_shipment: {
         label: "Awaiting Shipment",
         badgeClass: "bg-blue-500 text-white hover:bg-blue-600",
         icon: Truck,
-        colorClass: "text-blue-600"
+        colorClass: "text-blue-600",
     },
     processing: {
         label: "Processing",
         badgeClass: "bg-yellow-500 text-white hover:bg-yellow-600",
         icon: RefreshCw,
-        colorClass: "text-yellow-600"
+        colorClass: "text-yellow-600",
     },
     fulfilled: {
         label: "Fulfilled",
         badgeClass: "bg-green-500 text-white hover:bg-green-600",
         icon: Package,
-        colorClass: "text-green-600"
+        colorClass: "text-green-600",
     },
     cancelled: {
         label: "Cancelled",
         badgeClass: "bg-red-500 text-white hover:bg-red-600",
         icon: X,
-        colorClass: "text-red-600"
+        colorClass: "text-red-600",
     },
-};
+}
 
 const DATE_RANGE_OPTIONS = [
     { value: "all", label: "All Time" },
@@ -183,22 +209,21 @@ const DATE_RANGE_OPTIONS = [
     { value: "week", label: "This Week" },
     { value: "month", label: "This Month" },
     { value: "quarter", label: "This Quarter" },
-];
+]
 
 const adminUser = {
     name: "Admin User",
     avatarUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-    initials: "AU"
-};
-
+    initials: "AU",
+}
 
 interface OrdersHeaderProps {
-    searchQuery: string;
-    setSearchQuery: (query: string) => void;
-    dateRange: string;
-    setDateRange: (range: string) => void;
-    onRefresh: () => void;
-    onExport: () => void;
+    searchQuery: string
+    setSearchQuery: (query: string) => void
+    dateRange: string
+    setDateRange: (range: string) => void
+    onRefresh: () => void
+    onExport: () => void
 }
 
 function OrdersHeader({
@@ -207,75 +232,89 @@ function OrdersHeader({
     dateRange,
     setDateRange,
     onRefresh,
-    onExport
+    onExport,
 }: OrdersHeaderProps) {
     return (
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-2 lg:px-4 py-4">
-            <div className="flex items-center gap-2">
-                <Package className="h-6 w-6 text-primary" />
-                <h1 className="text-xl font-semibold tracking-tight">Ecommerce Orders</h1>
-            </div>
-            <div className="ml-auto flex items-center gap-2 ">
-                <div className="relative">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input
-                        type="search"
-                        placeholder="Search orders by ID, customer, product..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-8 w-full md:w-64 lg:w-80"
-                    />
+        <header className="sticky top-0 z-30 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between lg:px-6">
+                <div className="flex items-center gap-2">
+                    <Package className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                    <h1 className="text-lg sm:text-xl font-semibold tracking-tight">Ecommerce Orders</h1>
                 </div>
-                <Select value={dateRange} onValueChange={setDateRange}>
-                    <SelectTrigger className="w-auto md:w-40">
-                        <Calendar className="h-4 w-4 mr-0 md:mr-2" />
-                        <span className="hidden md:inline"><SelectValue /></span>
-                    </SelectTrigger>
-                    <SelectContent>
-                        {DATE_RANGE_OPTIONS.map(option => (
-                            <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-                <Button onClick={onRefresh} variant="ghost" size="icon" aria-label="Refresh orders">
-                    <RefreshCw className="h-4 w-4" />
-                </Button>
-                <Button onClick={onExport} variant="outline" size="sm">
-                    <Download className="mr-2 h-4 w-4" />
-                    Export
-                </Button>
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="relative" aria-label="Notifications">
-                            <Bell className="h-4 w-4" />
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-2">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                        <div className="relative">
+                            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <Input
+                                type="search"
+                                placeholder="Search orders..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="pl-8 w-full sm:w-48 md:w-64 lg:w-80"
+                            />
+                        </div>
+                        <Select value={dateRange} onValueChange={setDateRange}>
+                            <SelectTrigger className="w-full sm:w-auto md:w-40">
+                                <Calendar className="h-4 w-4 mr-2" />
+                                <span className="sm:hidden md:inline">
+                                    <SelectValue />
+                                </span>
+                                <span className="hidden sm:inline md:hidden">Date</span>
+                            </SelectTrigger>
+                            <SelectContent>
+                                {DATE_RANGE_OPTIONS.map((option) => (
+                                    <SelectItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Button onClick={onRefresh} variant="ghost" size="icon" aria-label="Refresh orders">
+                            <RefreshCw className="h-4 w-4" />
                         </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-80">
-                        <DropdownMenuItem>No new notifications</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" aria-label="User account">
-                            <Avatar className="h-8 w-8">
-                                <AvatarImage src={adminUser.avatarUrl} alt={adminUser.name} />
-                                <AvatarFallback>{adminUser.initials}</AvatarFallback>
-                            </Avatar>
+                        <Button onClick={onExport} variant="outline" size="sm" className="hidden sm:flex">
+                            <Download className="mr-2 h-4 w-4" />
+                            <span className="hidden md:inline">Export</span>
+                            <span className="md:hidden">CSV</span>
                         </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem>My Profile</DropdownMenuItem>
-                        <DropdownMenuItem>Settings</DropdownMenuItem>
-                        <DropdownMenuItem>Logout</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                        <Button onClick={onExport} variant="ghost" size="icon" className="sm:hidden" aria-label="Export">
+                            <Download className="h-4 w-4" />
+                        </Button>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon" className="relative" aria-label="Notifications">
+                                    <Bell className="h-4 w-4" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-80">
+                                <DropdownMenuItem>No new notifications</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon" aria-label="User account">
+                                    <Avatar className="h-7 w-7 sm:h-8 sm:w-8">
+                                        <AvatarImage src={adminUser.avatarUrl || "/placeholder.svg"} alt={adminUser.name} />
+                                        <AvatarFallback>{adminUser.initials}</AvatarFallback>
+                                    </Avatar>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem>My Profile</DropdownMenuItem>
+                                <DropdownMenuItem>Settings</DropdownMenuItem>
+                                <DropdownMenuItem>Logout</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
+                </div>
             </div>
         </header>
     )
 }
-
 interface OrdersStatsProps {
-    orders: Order[];
+    orders: Order[]
 }
 
 function OrdersStats({ orders }: OrdersStatsProps) {
@@ -285,22 +324,22 @@ function OrdersStats({ orders }: OrdersStatsProps) {
             processing: 0,
             fulfilled: 0,
             cancelled: 0,
-        };
+        }
         const statusCounts = orders.reduce((acc, order) => {
-            acc[order.status]++;
-            return acc;
-        }, initialCounts);
+            acc[order.status]++
+            return acc
+        }, initialCounts)
 
         const totalRevenue = orders
-            .filter(order => order.status !== "cancelled")
-            .reduce((sum, order) => sum + order.totalPrice, 0);
+            .filter((order) => order.status !== "cancelled")
+            .reduce((sum, order) => sum + order.totalPrice, 0)
 
         return {
             totalOrders: orders.length,
             ...statusCounts,
             totalRevenue,
-        };
-    }, [orders]);
+        }
+    }, [orders])
 
     const statCards = [
         { title: "Total Orders", value: stats.totalOrders, icon: Package, description: "All orders in system" },
@@ -309,62 +348,69 @@ function OrdersStats({ orders }: OrdersStatsProps) {
             value: stats.fulfilled,
             iconElement: <div className="h-4 w-4 rounded-full bg-green-500" />,
             valueClass: ORDER_STATUS_DETAILS.fulfilled.colorClass,
-            description: "Completed orders"
+            description: "Completed orders",
         },
         {
             title: ORDER_STATUS_DETAILS.processing.label,
             value: stats.processing,
             iconElement: <div className="h-4 w-4 rounded-full bg-yellow-500" />,
             valueClass: ORDER_STATUS_DETAILS.processing.colorClass,
-            description: "Being processed"
+            description: "Being processed",
         },
         {
             title: ORDER_STATUS_DETAILS.awaiting_shipment.label,
             value: stats.awaiting_shipment,
             icon: ORDER_STATUS_DETAILS.awaiting_shipment.icon,
             valueClass: ORDER_STATUS_DETAILS.awaiting_shipment.colorClass,
-            description: "Ready to ship"
+            description: "Ready to ship",
         },
         {
             title: ORDER_STATUS_DETAILS.cancelled.label,
             value: stats.cancelled,
             icon: ORDER_STATUS_DETAILS.cancelled.icon,
             valueClass: ORDER_STATUS_DETAILS.cancelled.colorClass,
-            description: "Cancelled orders"
+            description: "Cancelled orders",
         },
-    ];
+    ]
 
     return (
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {statCards.map((card) => {
-                const IconComponent = card.icon;
+                const IconComponent = card.icon
                 return (
                     <Card key={card.title}>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium">{card.title}</CardTitle>
-                            {IconComponent ? <IconComponent className={`h-4 w-4 text-muted-foreground ${card.valueClass || ''}`} /> : card.iconElement}
+                            {IconComponent ? (
+                                <IconComponent className={`h-4 w-4 text-muted-foreground ${card.valueClass || ""}`} />
+                            ) : (
+                                card.iconElement
+                            )}
                         </CardHeader>
                         <CardContent>
-                            <div className={`text-2xl font-bold ${card.valueClass || ''}`}>{card.value}</div>
+                            <div className={`text-2xl font-bold ${card.valueClass || ""}`}>{card.value}</div>
                             <p className="text-xs text-muted-foreground">{card.description}</p>
                         </CardContent>
                     </Card>
-                );
+                )
             })}
         </div>
-    );
+    )
 }
 
 interface OrderActionsProps {
-    order: Order;
+    order: Order
 }
 
 function OrderActions({ order }: OrderActionsProps) {
-    const handleViewOrder = useCallback(() => console.log("View order:", order.id), [order.id]);
-    const handleEditOrder = useCallback(() => console.log("Edit order:", order.id), [order.id]);
-    const handlePrintInvoice = useCallback(() => console.log("Print invoice:", order.id), [order.id]);
-    const handleTrackShipment = useCallback(() => console.log("Track shipment:", order.trackingNumber), [order.trackingNumber]);
-    const handleCancelOrder = useCallback(() => console.log("Cancel order:", order.id), [order.id]);
+    const handleViewOrder = useCallback(() => console.log("View order:", order.id), [order.id])
+    const handleEditOrder = useCallback(() => console.log("Edit order:", order.id), [order.id])
+    const handlePrintInvoice = useCallback(() => console.log("Print invoice:", order.id), [order.id])
+    const handleTrackShipment = useCallback(
+        () => console.log("Track shipment:", order.trackingNumber),
+        [order.trackingNumber],
+    )
+    const handleCancelOrder = useCallback(() => console.log("Cancel order:", order.id), [order.id])
 
     return (
         <DropdownMenu>
@@ -396,30 +442,31 @@ function OrderActions({ order }: OrderActionsProps) {
                 )}
             </DropdownMenuContent>
         </DropdownMenu>
-    );
+    )
 }
 
 interface OrderRowProps {
-    order: Order;
+    order: Order
 }
 
 function OrderRow({ order }: OrderRowProps) {
-    const customerInitials = useMemo(() =>
-        order.customerName
-            .split(" ")
-            .map((n) => n[0])
-            .join("")
-            .toUpperCase(),
-        [order.customerName]
-    );
+    const customerInitials = useMemo(
+        () =>
+            order.customerName
+                .split(" ")
+                .map((n) => n[0])
+                .join("")
+                .toUpperCase(),
+        [order.customerName],
+    )
 
     const handleImageError = useCallback((event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-        event.currentTarget.src = "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&h=100&fit=crop";
-    }, []);
+        event.currentTarget.src = "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&h=100&fit=crop"
+    }, [])
 
     const handleAvatarError = useCallback((event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-        (event.target as HTMLImageElement).style.display = 'none';
-    }, []);
+        ; (event.target as HTMLImageElement).style.display = "none"
+    }, [])
 
     return (
         <TableRow className="hover:bg-muted/50">
@@ -428,15 +475,19 @@ function OrderRow({ order }: OrderRowProps) {
                 <div className="flex items-center gap-3">
                     <Avatar className="h-9 w-9">
                         <AvatarImage
-                            src={order.customerAvatar}
+                            src={order.customerAvatar || "/placeholder.svg"}
                             alt={`${order.customerName}'s avatar`}
                             onError={handleAvatarError}
                         />
                         <AvatarFallback>{customerInitials}</AvatarFallback>
                     </Avatar>
                     <div>
-                        <div className="font-medium truncate" title={order.customerName}>{order.customerName}</div>
-                        <div className="text-sm text-muted-foreground truncate" title={order.customerEmail}>{order.customerEmail}</div>
+                        <div className="font-medium truncate" title={order.customerName}>
+                            {order.customerName}
+                        </div>
+                        <div className="text-sm text-muted-foreground truncate" title={order.customerEmail}>
+                            {order.customerEmail}
+                        </div>
                     </div>
                 </div>
             </TableCell>
@@ -449,18 +500,16 @@ function OrderRow({ order }: OrderRowProps) {
                         onError={handleImageError}
                         loading="lazy"
                     />
-                    <span className="font-medium text-nowrap truncate" title={order.productName}>{order.productName}</span>
+                    <span className="font-medium text-nowrap truncate" title={order.productName}>
+                        {order.productName}
+                    </span>
                 </div>
             </TableCell>
             <TableCell className="text-right text-nowrap">
                 {order.discountRate > 0 ? (
                     <>
-                        <div className="line-through text-xs text-muted-foreground">
-                            {formatPrice(order.productPrice)}
-                        </div>
-                        <div className="font-medium">
-                            {formatPrice(order.productPrice * (1 - order.discountRate))}
-                        </div>
+                        <div className="line-through text-xs text-muted-foreground">{formatPrice(order.productPrice)}</div>
+                        <div className="font-medium">{formatPrice(order.productPrice * (1 - order.discountRate))}</div>
                     </>
                 ) : (
                     <div className="font-medium">{formatPrice(order.productPrice)}</div>
@@ -498,7 +547,7 @@ function OrderRow({ order }: OrderRowProps) {
                 <OrderActions order={order} />
             </TableCell>
         </TableRow>
-    );
+    )
 }
 
 export default function OrdersPage() {
@@ -507,8 +556,8 @@ export default function OrdersPage() {
     const [dateRange, setDateRange] = useState("all")
     const [sortField, setSortField] = useState<SortField>("createdAt")
     const [sortDirection, setSortDirection] = useState<SortDirection>("desc")
-
-    const [orders, setOrders] = useState<Order[]>(mockOrders);
+    const orientation = useResponsiveOrientation()
+    const [orders, setOrders] = useState<Order[]>(mockOrders)
 
     const orderCountsByStatus = useMemo(() => {
         const counts: Record<OrderStatus | "all", number> = {
@@ -517,143 +566,160 @@ export default function OrdersPage() {
             processing: 0,
             fulfilled: 0,
             cancelled: 0,
-        };
-        orders.forEach(order => {
+        }
+        orders.forEach((order) => {
             if (counts[order.status] !== undefined) {
-                counts[order.status]++;
+                counts[order.status]++
             }
-        });
-        return counts;
-    }, [orders]);
+        })
+        return counts
+    }, [orders])
 
     const filteredAndSortedOrders = useMemo(() => {
-        let processedOrders = [...orders];
+        let processedOrders = [...orders]
 
         if (activeFilter !== "all") {
-            processedOrders = processedOrders.filter(order => order.status === activeFilter);
+            processedOrders = processedOrders.filter((order) => order.status === activeFilter)
         }
 
         if (dateRange !== "all") {
-            const now = new Date();
-            let startDateFilter: Date | null = null;
+            const now = new Date()
+            let startDateFilter: Date | null = null
 
             switch (dateRange) {
                 case "today":
-                    startDateFilter = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
-                    break;
+                    startDateFilter = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0)
+                    break
                 case "week":
-                    const firstDayOfWeek = new Date(now);
-                    firstDayOfWeek.setDate(now.getDate() - now.getDay());
-                    firstDayOfWeek.setHours(0, 0, 0, 0);
-                    startDateFilter = firstDayOfWeek;
-                    break;
+                    const firstDayOfWeek = new Date(now)
+                    firstDayOfWeek.setDate(now.getDate() - now.getDay())
+                    firstDayOfWeek.setHours(0, 0, 0, 0)
+                    startDateFilter = firstDayOfWeek
+                    break
                 case "month":
-                    startDateFilter = new Date(now.getFullYear(), now.getMonth(), 1);
-                    break;
+                    startDateFilter = new Date(now.getFullYear(), now.getMonth(), 1)
+                    break
                 case "quarter":
-                    const currentQuarter = Math.floor(now.getMonth() / 3);
-                    startDateFilter = new Date(now.getFullYear(), currentQuarter * 3, 1);
-                    break;
+                    const currentQuarter = Math.floor(now.getMonth() / 3)
+                    startDateFilter = new Date(now.getFullYear(), currentQuarter * 3, 1)
+                    break
             }
             if (startDateFilter) {
-                processedOrders = processedOrders.filter(order => new Date(order.createdAt) >= startDateFilter!);
+                processedOrders = processedOrders.filter((order) => new Date(order.createdAt) >= startDateFilter!)
             }
         }
 
         if (searchQuery) {
-            const query = searchQuery.toLowerCase().trim();
-            processedOrders = processedOrders.filter(order =>
-                order.id.toString().includes(query) ||
-                order.customerName.toLowerCase().includes(query) ||
-                order.customerEmail.toLowerCase().includes(query) ||
-                order.productName.toLowerCase().includes(query) ||
-                (order.trackingNumber && order.trackingNumber.toLowerCase().includes(query))
-            );
+            const query = searchQuery.toLowerCase().trim()
+            processedOrders = processedOrders.filter(
+                (order) =>
+                    order.id.toString().includes(query) ||
+                    order.customerName.toLowerCase().includes(query) ||
+                    order.customerEmail.toLowerCase().includes(query) ||
+                    order.productName.toLowerCase().includes(query) ||
+                    (order.trackingNumber && order.trackingNumber.toLowerCase().includes(query)),
+            )
         }
 
         processedOrders.sort((a, b) => {
-            const valA = a[sortField];
-            const valB = b[sortField];
+            const valA = a[sortField]
+            const valB = b[sortField]
 
-            let comparison = 0;
+            let comparison = 0
 
-            if (typeof valA === 'number' && typeof valB === 'number') {
-                comparison = valA - valB;
-            } else if (sortField === 'createdAt') {
-                comparison = new Date(valA as string).getTime() - new Date(valB as string).getTime();
-            } else if (typeof valA === 'string' && typeof valB === 'string') {
-                comparison = valA.toLowerCase().localeCompare(valB.toLowerCase());
+            if (typeof valA === "number" && typeof valB === "number") {
+                comparison = valA - valB
+            } else if (sortField === "createdAt") {
+                comparison = new Date(valA as string).getTime() - new Date(valB as string).getTime()
+            } else if (typeof valA === "string" && typeof valB === "string") {
+                comparison = valA.toLowerCase().localeCompare(valB.toLowerCase())
             } else {
-                if (valA > valB) comparison = 1;
-                else if (valA < valB) comparison = -1;
+                if (valA > valB) comparison = 1
+                else if (valA < valB) comparison = -1
             }
 
-            return sortDirection === "asc" ? comparison : -comparison;
-        });
+            return sortDirection === "asc" ? comparison : -comparison
+        })
 
-        return processedOrders;
-    }, [orders, activeFilter, searchQuery, dateRange, sortField, sortDirection]);
+        return processedOrders
+    }, [orders, activeFilter, searchQuery, dateRange, sortField, sortDirection])
 
     const handleRefresh = useCallback(() => {
-        console.log("Refreshing orders...");
-        setOrders([...mockOrders]);
-        setSearchQuery("");
-        setActiveFilter("all");
-        setDateRange("all");
-        setSortField("createdAt");
-        setSortDirection("desc");
-    }, []);
+        console.log("Refreshing orders...")
+        setOrders([...mockOrders])
+        setSearchQuery("")
+        setActiveFilter("all")
+        setDateRange("all")
+        setSortField("createdAt")
+        setSortDirection("desc")
+    }, [])
 
     const handleExport = useCallback(() => {
-        console.log("Exporting orders...", filteredAndSortedOrders);
+        console.log("Exporting orders...", filteredAndSortedOrders)
         if (filteredAndSortedOrders.length > 0) {
-            const headers = Object.keys(filteredAndSortedOrders[0]).join(",");
-            const rows = filteredAndSortedOrders.map(order =>
-                Object.values(order).map(val => typeof val === 'string' ? `"${val.replace(/"/g, '""')}"` : val).join(",")
-            ).join("\n");
-            const csvContent = `data:text/csv;charset=utf-8,${headers}\n${rows}`;
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `orders_export_${new Date().toISOString().split('T')[0]}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            const headers = Object.keys(filteredAndSortedOrders[0]).join(",")
+            const rows = filteredAndSortedOrders
+                .map((order) =>
+                    Object.values(order)
+                        .map((val) => (typeof val === "string" ? `"${val.replace(/"/g, '""')}"` : val))
+                        .join(","),
+                )
+                .join("\n")
+            const csvContent = `data:text/csv;charset=utf-8,${headers}\n${rows}`
+            const encodedUri = encodeURI(csvContent)
+            const link = document.createElement("a")
+            link.setAttribute("href", encodedUri)
+            link.setAttribute("download", `orders_export_${new Date().toISOString().split("T")[0]}.csv`)
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
         } else {
-            console.warn("No data to export.");
+            console.warn("No data to export.")
         }
-    }, [filteredAndSortedOrders]);
+    }, [filteredAndSortedOrders])
 
-    const handleSort = useCallback((field: SortField) => {
-        if (sortField === field) {
-            setSortDirection(prev => prev === "asc" ? "desc" : "asc");
-        } else {
-            setSortField(field);
-            setSortDirection("desc");
-        }
-    }, [sortField]);
+    const handleSort = useCallback(
+        (field: SortField) => {
+            if (sortField === field) {
+                setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"))
+            } else {
+                setSortField(field)
+                setSortDirection("desc")
+            }
+        },
+        [sortField],
+    )
 
-    const SortIndicator = useCallback(({ field }: { field: SortField }) => {
-        if (sortField !== field) return null;
-        const Icon = sortDirection === "asc" ? ArrowUp : ArrowDown;
-        return <Icon className="ml-1 h-3 w-3 text-muted-foreground" />;
-    }, [sortField, sortDirection]);
+    const SortIndicator = useCallback(
+        ({ field }: { field: SortField }) => {
+            if (sortField !== field) return null
+            const Icon = sortDirection === "asc" ? ArrowUp : ArrowDown
+            return <Icon className="ml-1 h-3 w-3 text-muted-foreground" />
+        },
+        [sortField, sortDirection],
+    )
 
-    const tableHeaders: Array<{ key: SortField | string; label: string; sortable?: boolean; className?: string, cellClassName?: string }> = [
-        { key: "id", label: "Order ID", sortable: true, className: "w-[100px]" },
-        { key: "customerName", label: "Customer", sortable: true },
-        { key: "productName", label: "Product" },
-        { key: "productPrice", label: "Unit Price", sortable: true, className: "text-right" },
-        { key: "discountRate", label: "Discount", className: "text-center" },
-        { key: "quantity", label: "Qty", className: "text-center" },
-        { key: "shippingPrice", label: "Shipping", className: "text-right" },
-        { key: "totalPrice", label: "Total", sortable: true, className: "text-right font-semibold" },
-        { key: "createdAt", label: "Date", sortable: true },
-        { key: "status", label: "Status", sortable: true },
-        { key: "paymentMethod", label: "Payment" },
-        { key: "trackingNumber", label: "Tracking", className: "text-center" },
-        { key: "actions", label: "Actions", className: "text-center w-[50px]" },
-    ];
+    const tableHeaders: Array<{
+        key: SortField | string
+        label: string
+        sortable?: boolean
+        className?: string
+        cellClassName?: string
+    }> = [
+            { key: "id", label: "Order ID", sortable: true, className: "w-[100px]" },
+            { key: "customerName", label: "Customer", sortable: true },
+            { key: "productName", label: "Product" },
+            { key: "productPrice", label: "Unit Price", sortable: true, className: "text-right" },
+            { key: "discountRate", label: "Discount", className: "text-center" },
+            { key: "quantity", label: "Qty", className: "text-center" },
+            { key: "shippingPrice", label: "Shipping", className: "text-right" },
+            { key: "totalPrice", label: "Total", sortable: true, className: "text-right font-semibold" },
+            { key: "createdAt", label: "Date", sortable: true },
+            { key: "status", label: "Status", sortable: true },
+            { key: "paymentMethod", label: "Payment" },
+            { key: "trackingNumber", label: "Tracking", className: "text-center" },
+            { key: "actions", label: "Actions", className: "text-center w-[50px]" },
+        ]
 
     return (
         <>
@@ -671,84 +737,159 @@ export default function OrdersPage() {
                     <div className="flex flex-col gap-6">
                         <div>
                             <h2 className="text-2xl lg:text-3xl font-bold tracking-tight">Orders</h2>
-                            <p className="text-muted-foreground">
-                                Manage, track, and process all customer orders efficiently.
-                            </p>
+                            <p className="text-muted-foreground">Manage, track, and process all customer orders efficiently.</p>
                         </div>
                         <OrdersStats orders={orders} />
-                        <Tabs value={activeFilter} onValueChange={(value) => setActiveFilter(value as OrderStatus | "all")} className="pt-4">
-                            <TabsList>
-                                <TabsTrigger value="all">All Orders ({orderCountsByStatus.all})</TabsTrigger>
-                                {Object.keys(ORDER_STATUS_DETAILS).map(statusKey => (
-                                    <TabsTrigger key={statusKey} value={statusKey}>
-                                        {ORDER_STATUS_DETAILS[statusKey as OrderStatus].label} ({orderCountsByStatus[statusKey as OrderStatus]})
+                        <div className="w-full">
+                            <Tabs
+                                orientation={orientation}
+                                value={activeFilter}
+                                onValueChange={(value) => setActiveFilter(value as OrderStatus | "all")}
+                                className="w-full mb-5"
+                            >
+                                <TabsList
+                                    className={cn(
+                                        orientation === "horizontal"
+                                            ? "inline-flex h-10 items-center justify-center p-1 text-muted-foreground max-w-fit"
+                                            : "flex flex-col h-auto w-full max-w-xs space-y-1 p-2",
+                                    )}
+                                >
+                                    <TabsTrigger
+                                        value="all"
+                                        className={cn(
+                                            "inline-flex items-center justify-center whitespace-nowrap",
+                                            orientation === "vertical" && "justify-between w-full py-3 px-4",
+                                        )}
+                                    >
+                                        <span>All Orders</span>
+                                        {orientation === "vertical" && (
+                                            <Badge variant="secondary" className="ml-2 text-xs">
+                                                {orderCountsByStatus.all}
+                                            </Badge>
+                                        )}
                                     </TabsTrigger>
-                                ))}
-                            </TabsList>
-                        </Tabs>
-                        <Card>
-                            <CardHeader className="px-7">
-                                <div className="flex items-center justify-between">
-                                    <div>
-                                        <CardTitle>Orders Overview</CardTitle>
-                                        <CardDescription>
-                                            Detailed list of all customer orders and their statuses.
-                                        </CardDescription>
+                                    <TabsTrigger
+                                        value="awaiting_shipment"
+                                        className={cn(
+                                            "inline-flex items-center justify-center whitespace-nowrap",
+                                            orientation === "vertical" && "justify-between w-full py-3 px-4",
+                                        )}
+                                    >
+                                        <span>{orientation === "horizontal" ? "Awaiting" : "Awaiting Shipment"}</span>
+                                        {orientation === "vertical" && (
+                                            <Badge variant="secondary" className="ml-2 text-xs">
+                                                {orderCountsByStatus.awaiting_shipment}
+                                            </Badge>
+                                        )}
+                                    </TabsTrigger>
+                                    <TabsTrigger
+                                        value="processing"
+                                        className={cn(
+                                            "inline-flex items-center justify-center whitespace-nowrap",
+                                            orientation === "vertical" && "justify-between w-full py-3 px-4",
+                                        )}
+                                    >
+                                        <span>Processing</span>
+                                        {orientation === "vertical" && (
+                                            <Badge variant="secondary" className="ml-2 text-xs">
+                                                {orderCountsByStatus.processing}
+                                            </Badge>
+                                        )}
+                                    </TabsTrigger>
+                                    <TabsTrigger
+                                        value="fulfilled"
+                                        className={cn(
+                                            "inline-flex items-center justify-center whitespace-nowrap",
+                                            orientation === "vertical" && "justify-between w-full py-3 px-4",
+                                        )}
+                                    >
+                                        <span>Fulfilled</span>
+                                        {orientation === "vertical" && (
+                                            <Badge variant="secondary" className="ml-2 text-xs">
+                                                {orderCountsByStatus.fulfilled}
+                                            </Badge>
+                                        )}
+                                    </TabsTrigger>
+                                    <TabsTrigger
+                                        value="cancelled"
+                                        className={cn(
+                                            "inline-flex items-center justify-center whitespace-nowrap",
+                                            orientation === "vertical" && "justify-between w-full py-3 px-4",
+                                        )}
+                                    >
+                                        <span>Cancelled</span>
+                                        {orientation === "vertical" && (
+                                            <Badge variant="secondary" className="ml-2 text-xs">
+                                                {orderCountsByStatus.cancelled}
+                                            </Badge>
+                                        )}
+                                    </TabsTrigger>
+                                </TabsList>
+                            </Tabs>
+                            <Card>
+                                <CardHeader className="px-7">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <CardTitle>Orders Overview</CardTitle>
+                                            <CardDescription>
+                                                Detailed list of all customer orders and their statuses.
+                                            </CardDescription>
+                                        </div>
+                                        <Button variant="outline" size="sm" onClick={() => console.log("Advanced Filters Clicked")}>
+                                            <Filter className="mr-2 h-4 w-4" />
+                                            Advanced Filters
+                                        </Button>
                                     </div>
-                                    <Button variant="outline" size="sm" onClick={() => console.log("Advanced Filters Clicked")}>
-                                        <Filter className="mr-2 h-4 w-4" />
-                                        Advanced Filters
-                                    </Button>
-                                </div>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="overflow-x-auto">
-                                    <Table>
-                                        <TableHeader>
-                                            <TableRow>
-                                                {tableHeaders.map(th => (
-                                                    <TableHead
-                                                        key={th.key}
-                                                        className={`${th.className || ''} ${th.sortable ? 'cursor-pointer hover:bg-muted' : ''} text-nowrap`}
-                                                        onClick={th.sortable ? () => handleSort(th.key as SortField) : undefined}
-                                                        aria-sort={th.sortable && sortField === th.key ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
-                                                    >
-                                                        <div className="flex items-center">
-                                                            {th.label}
-                                                            {th.sortable && <SortIndicator field={th.key as SortField} />}
-                                                        </div>
-                                                    </TableHead>
-                                                ))}
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            {filteredAndSortedOrders.length > 0 ? (
-                                                filteredAndSortedOrders.map((order) => (
-                                                    <OrderRow key={order.id} order={order} />
-                                                ))
-                                            ) : (
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="overflow-x-auto">
+                                        <Table>
+                                            <TableHeader>
                                                 <TableRow>
-                                                    <TableCell colSpan={tableHeaders.length} className="h-24 text-center">
-                                                        <div className="flex flex-col items-center justify-center space-y-2 py-8">
-                                                            <Package className="h-12 w-12 text-muted-foreground" />
-                                                            <h3 className="text-lg font-medium">No orders found.</h3>
-                                                            <p className="text-muted-foreground text-sm">
-                                                                {searchQuery ? "Try adjusting your search or filter criteria." : "No orders match the current filters."}
-                                                            </p>
-                                                            {(searchQuery || activeFilter !== 'all' || dateRange !== 'all') &&
-                                                                <Button variant="outline" size="sm" onClick={handleRefresh} className="mt-2">
-                                                                    Clear Filters & Search
-                                                                </Button>
-                                                            }
-                                                        </div>
-                                                    </TableCell>
+                                                    {tableHeaders.map(th => (
+                                                        <TableHead
+                                                            key={th.key}
+                                                            className={`${th.className || ''} ${th.sortable ? 'cursor-pointer hover:bg-muted' : ''} text-nowrap`}
+                                                            onClick={th.sortable ? () => handleSort(th.key as SortField) : undefined}
+                                                            aria-sort={th.sortable && sortField === th.key ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
+                                                        >
+                                                            <div className="flex items-center">
+                                                                {th.label}
+                                                                {th.sortable && <SortIndicator field={th.key as SortField} />}
+                                                            </div>
+                                                        </TableHead>
+                                                    ))}
                                                 </TableRow>
-                                            )}
-                                        </TableBody>
-                                    </Table>
-                                </div>
-                            </CardContent>
-                        </Card>
+                                            </TableHeader>
+                                            <TableBody>
+                                                {filteredAndSortedOrders.length > 0 ? (
+                                                    filteredAndSortedOrders.map((order) => (
+                                                        <OrderRow key={order.id} order={order} />
+                                                    ))
+                                                ) : (
+                                                    <TableRow>
+                                                        <TableCell colSpan={tableHeaders.length} className="h-24 text-center">
+                                                            <div className="flex flex-col items-center justify-center space-y-2 py-8">
+                                                                <Package className="h-12 w-12 text-muted-foreground" />
+                                                                <h3 className="text-lg font-medium">No orders found.</h3>
+                                                                <p className="text-muted-foreground text-sm">
+                                                                    {searchQuery ? "Try adjusting your search or filter criteria." : "No orders match the current filters."}
+                                                                </p>
+                                                                {(searchQuery || activeFilter !== 'all' || dateRange !== 'all') &&
+                                                                    <Button variant="outline" size="sm" onClick={handleRefresh} className="mt-2">
+                                                                        Clear Filters & Search
+                                                                    </Button>
+                                                                }
+                                                            </div>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                )}
+                                            </TableBody>
+                                        </Table>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
                     </div>
                 </main>
             </div>

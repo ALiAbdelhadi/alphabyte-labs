@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
-import { ChevronDown, ChevronUp, AlertTriangle, CheckCircle, XCircle, Info } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { AlertTriangle, CheckCircle, ChevronDown, ChevronUp, Info, XCircle } from "lucide-react"
+import { useState } from "react"
 
 interface Service {
     id: string

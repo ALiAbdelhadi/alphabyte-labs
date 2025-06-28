@@ -15,7 +15,6 @@ export const ContributorsComponents = [
     email: "ali.abdelhadi@example.com",
     href: "https://github.com/aliabdelhadi",
     role: "core" as const,
-    imageUrl: "/placeholder.svg?height=36&width=36",
   },
   {
     id: "2",
@@ -23,7 +22,6 @@ export const ContributorsComponents = [
     email: "nour.mahmoud@example.com",
     href: "https://github.com/nourmahmoud",
     role: "contributor" as const,
-    imageUrl: "/placeholder.svg?height=36&width=36",
   },
   {
     id: "3",
@@ -31,7 +29,6 @@ export const ContributorsComponents = [
     email: "salma.hassan@example.com",
     href: "https://github.com/salmahsn",
     role: "contributor" as const,
-    imageUrl: "/placeholder.svg?height=36&width=36",
   },
   {
     id: "4",
@@ -39,6 +36,5 @@ export const ContributorsComponents = [
     email: "mostafa.naggar@example.com",
     href: "https://github.com/mostafanaggar",
     role: "guest" as const,
-    imageUrl: "/placeholder.svg?height=36&width=36",
   },
 ]
