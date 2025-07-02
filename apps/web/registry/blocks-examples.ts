@@ -409,6 +409,19 @@ export const blockExamples = { items: [
     "styles": []
   },
   {
+    "name": "personal-card-2",
+    "target": "@/registry/view/personal-card-2/page",
+    "components": [
+      "@/registry/view/personal-card-2/components/personal-card"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": [],
+    "types": [],
+    "styles": []
+  },
+  {
     "name": "pricing-1",
     "target": "@/registry/view/pricing-1/page",
     "components": [

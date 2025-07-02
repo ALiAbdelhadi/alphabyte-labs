@@ -13,6 +13,7 @@ import {
 } from "@/registry/block"
 import type React from "react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import LoadingIcon from "./icons/loading-icon"
 
 interface BlockPreview {
   children?: React.ReactNode
@@ -290,11 +291,9 @@ export default function BlockPreview({
     if (isIframeVisible) return null
 
     return (
-      <div id={id} className="min-h-[86.5vh] w-full flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-        <div className="animate-pulse flex flex-col items-center">
-          <div className="h-4 w-40 bg-gray-300 dark:bg-gray-700 rounded mb-2" />
-          <div className="h-2 w-24 bg-gray-200 dark:bg-gray-800 rounded" />
-        </div>
+      <div id={id} className="min-h-[86.5vh] w-full flex items-center justify-center bg-background text-sm gap-2">
+        <LoadingIcon size={14} />
+        Loading block content...
       </div>
     )
   }, [isIframeVisible, id])

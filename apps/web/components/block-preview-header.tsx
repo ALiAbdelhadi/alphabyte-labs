@@ -25,7 +25,7 @@ export function BlockPreviewHeader({
         <nav className="flex flex-row justify-between md:gap-4 gap-2 items-center">
             <div className="flex items-center md:gap-4 gap-1 justify-start flex-row w-full">
                 <div className="flex items-center md:gap-2 gap-1">
-                    <h3 className="text-lg md:text-xl font-medium text-wrap text-gray-900 dark:text-gray-100">{BlockName}</h3>
+                    <h3 className="text-lg md:text-xl font-medium text-wrap text-foreground">{BlockName}</h3>
                     <span className="inline-flex items-center gap-1 bg-teal-200 px-2 py-1 text-xs font-medium text-teal-800 rounded-md select-none">
                         Free
                     </span>

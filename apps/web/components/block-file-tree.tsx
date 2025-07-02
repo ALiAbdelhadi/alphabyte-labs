@@ -19,6 +19,7 @@ import { motion } from "framer-motion"
 import { ChevronDown, File, Folder, PanelLeft, PanelRight } from "lucide-react"
 import { useTheme } from "next-themes"
 import { type CSSProperties, memo, useCallback, useEffect, useRef, useState } from "react"
+import LoadingIcon from "./icons/loading-icon"
 
 const MIN_SIDEBAR_WIDTH = 220
 const MAX_SIDEBAR_WIDTH = 400
@@ -38,28 +39,14 @@ interface BlockFileTreeProps {
     isLoadingFileTree?: boolean
 }
 
-// Style constants
-const styles = {
-    menuItem: "whitespace-nowrap flex items-center gap-2 text-sm transition-colors duration-150",
-    textColor: "text-[#cccccc] hover:text-white",
-    hoverBg: "hover:bg-[#2a2d2e]",
-    activeBg: "data-[active=true]:bg-[#37373d] data-[active=true]:text-white",
-    iconColor: "text-[#8a8a8a]",
-    border: "border-[#474747]",
-    bg: "bg-[#252526]",
-    headerBg: "bg-[#333333]",
-}
-
 function cleanFileName(fileName: string): string {
     const patterns = [/\.ts\.ts$/, /\.tsx\.tsx$/, /\.js\.js$/, /\.jsx\.jsx$/, /\.json\.json$/, /\.css\.css$/]
-
     let cleanedName = fileName
     for (const pattern of patterns) {
         if (pattern.test(cleanedName)) {
             cleanedName = cleanedName.replace(pattern, pattern.toString().slice(1, 4))
         }
     }
-
     return cleanedName
 }
 
@@ -88,18 +75,15 @@ const Tree = memo(function Tree({ item, level, activeFile, setActiveFile }: Tree
                     isActive={item.path === activeFile}
                     onClick={() => item.path && setActiveFile(item.path)}
                     className={cn(
-                        styles.menuItem,
-                        styles.textColor,
-                        styles.hoverBg,
-                        styles.activeBg,
-                        "pl-[--indent]"
+                        "whitespace-nowrap flex items-center gap-2 text-sm transition-colors duration-150",
+                        "sidebar-text sidebar-item-hover",
+                        "pl-[--indent]",
+                        item.path === activeFile && "sidebar-item-active",
                     )}
                     style={indentStyle}
                 >
                     <div className="w-4 ml-1" />
-                    <span className="w-[14px] h-[14px]">
-                        {getFileIcon(displayName)}
-                    </span>
+                    <span className="w-[14px] h-[14px]">{getFileIcon(displayName)}</span>
                     <span className="flex-1 truncate max-w-[180px]" title={displayName}>
                         {displayName}
                     </span>
@@ -107,16 +91,16 @@ const Tree = memo(function Tree({ item, level, activeFile, setActiveFile }: Tree
             </SidebarMenuItem>
         )
     }
+
     return (
         <SidebarMenuItem>
             <Collapsible className="group/collapsible w-full" defaultOpen>
                 <CollapsibleTrigger asChild>
                     <SidebarMenuButton
                         className={cn(
-                            styles.menuItem,
-                            styles.textColor,
-                            styles.hoverBg,
-                            "pl-[--indent]"
+                            "whitespace-nowrap flex items-center gap-2 text-sm transition-colors duration-150",
+                            "sidebar-text sidebar-item-hover",
+                            "pl-[--indent]",
                         )}
                         style={indentStyle}
                     >
@@ -124,7 +108,7 @@ const Tree = memo(function Tree({ item, level, activeFile, setActiveFile }: Tree
                             className={cn(
                                 "h-3.5 w-3.5 transition-transform duration-200",
                                 "group-data-[state=closed]/collapsible:-rotate-90",
-                                styles.iconColor
+                                "sidebar-text-muted",
                             )}
                         />
                         <Folder className="h-4 w-4" />
@@ -153,43 +137,35 @@ const Tree = memo(function Tree({ item, level, activeFile, setActiveFile }: Tree
 
 const LoadingFileTree = () => (
     <div className="p-4 text-center">
-        <div className="animate-pulse space-y-2">
-            <div className="h-4 bg-[#37373d] rounded w-3/4 mx-auto" />
-            <div className="h-4 bg-[#37373d] rounded w-1/2 mx-auto" />
-            <div className="h-4 bg-[#37373d] rounded w-2/3 mx-auto" />
-        </div>
-        <p className="text-sm text-[#8a8a8a] mt-3">Loading file tree...</p>
+        <LoadingIcon />
+        <p className="text-sm sidebar-text-muted mt-3">Loading file tree...</p>
     </div>
 )
+
 const EmptyFileTree = () => (
     <div className="p-4 text-center">
-        <p className="text-sm text-[#8a8a8a]">No files found</p>
+        <p className="text-sm sidebar-text-muted">No files found</p>
     </div>
 )
-export function BlockFileTree({
-    fileTree,
-    activeFile,
-    setActiveFile,
-    isLoadingFileTree = false
-}: BlockFileTreeProps) {
+
+export function BlockFileTree({ fileTree, activeFile, setActiveFile, isLoadingFileTree = false }: BlockFileTreeProps) {
     const [sidebarIsOpen, setSidebarIsOpen] = useState(true)
     const [sidebarWidth, setSidebarWidth] = useState(DEFAULT_SIDEBAR_WIDTH)
     const [isDragging, setIsDragging] = useState(false)
-
     const sidebarRef = useRef<HTMLDivElement>(null)
     const resizeHandleRef = useRef<HTMLDivElement>(null)
     const openButtonRef = useRef<HTMLButtonElement>(null)
     const closeButtonRef = useRef<HTMLButtonElement>(null)
-
     const { theme } = useTheme()
 
     const toggleSidebar = useCallback(() => {
-        setSidebarIsOpen(prev => !prev)
+        setSidebarIsOpen((prev) => !prev)
     }, [])
 
     useEffect(() => {
         const resizeHandle = resizeHandleRef.current
         const sidebar = sidebarRef.current
+
         if (!resizeHandle || !sidebar) return
 
         const handleMouseDown = (e: MouseEvent) => {
@@ -200,10 +176,7 @@ export function BlockFileTree({
             const startWidth = sidebar.offsetWidth
 
             const handleMouseMove = (e: MouseEvent) => {
-                const newWidth = Math.max(
-                    MIN_SIDEBAR_WIDTH,
-                    Math.min(MAX_SIDEBAR_WIDTH, startWidth + e.clientX - startX)
-                )
+                const newWidth = Math.max(MIN_SIDEBAR_WIDTH, Math.min(MAX_SIDEBAR_WIDTH, startWidth + e.clientX - startX))
                 setSidebarWidth(newWidth)
             }
 
@@ -244,11 +217,7 @@ export function BlockFileTree({
                     aria-label="Open sidebar"
                     className={cn(
                         "relative z-20 p-2 flex items-center justify-center border-r",
-                        styles.border,
-                        styles.bg,
-                        styles.textColor,
-                        styles.hoverBg,
-                        "transition-colors duration-150"
+                        "sidebar-open-button transition-colors duration-150",
                     )}
                 >
                     <PanelRight strokeWidth={1.5} className="w-5 h-5" />
@@ -271,19 +240,12 @@ export function BlockFileTree({
                 <SidebarProvider className="flex !h-full flex-col">
                     <Sidebar
                         collapsible="none"
-                        className={cn(
-                            "w-full flex-1 border-r",
-                            styles.border,
-                            styles.bg,
-                            styles.textColor,
-                            "transition-colors duration-150"
-                        )}
+                        className={cn("w-full flex-1 border-r sidebar-container transition-colors duration-150")}
                     >
                         <SidebarGroupLabel
                             className={cn(
                                 "h-12 rounded-none border-b px-4 text-sm flex justify-between items-center",
-                                styles.border,
-                                styles.headerBg
+                                "sidebar-header",
                             )}
                         >
                             <div className="flex space-x-2 items-center">
@@ -291,17 +253,15 @@ export function BlockFileTree({
                                 <div className="w-3 h-3 rounded-full bg-yellow-500/30 border border-yellow-500/40" />
                                 <div className="w-3 h-3 rounded-full bg-green-500/30 border border-green-500/40" />
                             </div>
-                            <h3 className="text-sm font-medium text-[#cccccc]">EXPLORER</h3>
+                            <h3 className="text-sm font-medium sidebar-text">EXPLORER</h3>
                             {sidebarIsOpen && (
                                 <button
                                     ref={closeButtonRef}
                                     onClick={toggleSidebar}
                                     aria-label="Close sidebar"
                                     className={cn(
-                                        "p-1 rounded-md",
-                                        styles.iconColor,
-                                        "hover:text-white hover:bg-[#2a2d2e]",
-                                        "transition-colors duration-150"
+                                        "p-1 rounded-md sidebar-text-muted sidebar-item-hover",
+                                        "transition-colors duration-150",
                                     )}
                                 >
                                     <PanelLeft strokeWidth={1.5} className="w-5 h-5" />
@@ -344,7 +304,7 @@ export function BlockFileTree({
                 >
                     <div
                         className={cn(
-                            "absolute top-0 right-0 w-1 h-full bg-[#0e639c] opacity-0 transition-opacity duration-150",
+                            "absolute top-0 right-0 w-1 h-full sidebar-resize-handle opacity-0 transition-opacity duration-150",
                             isDragging ? "opacity-50" : "group-hover:opacity-30",
                         )}
                     />

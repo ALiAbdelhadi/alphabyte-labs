@@ -65,7 +65,7 @@ export function Pre({
 
   if (!isClient) {
     return (
-      <div className="code-block-container relative group rounded-[6px] custom-scrollbar my-5 w-full">
+      <div className="code-block-container relative group rounded-[6px] custom-scrollbar w-full">
         <pre
           className={`overflow-x-auto max-h-[650px] hide-scrollbar ${lineNumbersClass}`}
         >
