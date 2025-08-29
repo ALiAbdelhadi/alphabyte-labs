@@ -57,9 +57,9 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky z-50 h-14  inset-0 top-0 w-full transition-all",
-        "bg-[hsla(0,0%,100%,.7)] dark:bg-[#d5dae003]",
-        "backdrop-blur-lg backdrop-filter backdrop-saturate-[200%]",
+        "sticky z-50 h-14 inset-0 top-0 w-full transition-all",
+        "bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(20,20,20,0.4)]",
+        "backdrop-blur-md backdrop-saturate-[180%]",
         isDocsRoute && "lg:border-b border-dashed"
       )}
     >

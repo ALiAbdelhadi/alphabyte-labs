@@ -111,6 +111,34 @@ export const blockExamples = { items: [
     "styles": []
   },
   {
+    "name": "contact-1",
+    "target": "@/registry/view/contact-1/page",
+    "components": [
+      "@/registry/view/contact-1/components/contact"
+    ],
+    "constant": [],
+    "lib": [
+      "@/registry/view/contact-1/lib/utils.ts"
+    ],
+    "context": [],
+    "hooks": [],
+    "types": [],
+    "styles": []
+  },
+  {
+    "name": "contact-2",
+    "target": "@/registry/view/contact-2/page",
+    "components": [
+      "@/registry/view/contact-2/components/contact"
+    ],
+    "constant": [],
+    "lib": [],
+    "context": [],
+    "hooks": [],
+    "types": [],
+    "styles": []
+  },
+  {
     "name": "dashboard-1",
     "target": "@/registry/view/dashboard-1/page",
     "components": [

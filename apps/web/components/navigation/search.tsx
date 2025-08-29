@@ -309,7 +309,7 @@ export default function Search() {
             </div>
           </button>
         </DialogTrigger>
-        <DialogContent className="max-w-2xl overflow-hidden rounded-lg top-[40%] lg:top-[50%] !p-1 shadow-2xl">
+        <DialogContent className="max-w-xl overflow-hidden rounded-lg top-[40%] lg:top-[50%] !p-1 shadow-2xl">
           <div className="border-b">
             <div className="relative flex items-center">
               <SearchIcon className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
