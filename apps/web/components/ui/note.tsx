@@ -1,216 +1,105 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
-import { AnimatePresence, motion } from "framer-motion"
-import {
-  AlertTriangleIcon,
-  CheckCircle2Icon,
-  InfoIcon,
-  X,
-  XCircleIcon,
-} from "lucide-react"
-
 import { cn } from "@/lib/utils"
+import { AnimatePresence, motion } from "framer-motion"
+import { AlertTriangle, CheckCircle2, Info, X, XCircle } from "lucide-react"
+import { JSX, useState } from "react"
 
-type NoteVariant = "info" | "warning" | "success" | "error" | "normal"
+type NoteVariant = "info" | "warning" | "success" | "error" | "neutral"
 
 interface NoteProps {
   variant?: NoteVariant
-  className?: string
-  closable?: boolean
-  noIcon?: boolean
   title?: string
   children: React.ReactNode
-  dismissible?: boolean
+  closable?: boolean
   onClose?: () => void
-  actionLabel?: string
-  onAction?: () => void
+  className?: string
 }
 
-const variantConfig: Record<
+const variantStyles: Record<
   NoteVariant,
-  {
-    bg: string
-    border: string
-    icon: string
-    shadowColor: string
-  }
+  { border: string; text: string; icon: JSX.Element }
 > = {
   info: {
-    bg: "bg-blue-50/90 dark:bg-blue-900/30",
-    border: "border-blue-500",
-    icon: "text-blue-500",
-    shadowColor: "shadow-blue-500/10",
+    border: "border-blue-200 dark:border-blue-800",
+    text: "text-blue-600 dark:text-blue-400",
+    icon: <Info className="w-4 h-4" />,
   },
   warning: {
-    bg: "bg-amber-50/90 dark:bg-amber-900/30",
-    border: "border-amber-500",
-    icon: "text-amber-500",
-    shadowColor: "shadow-amber-500/10",
+    border: "border-amber-200 dark:border-amber-800",
+    text: "text-amber-600 dark:text-amber-400",
+    icon: <AlertTriangle className="w-4 h-4" />,
   },
   success: {
-    bg: "bg-green-50/90 dark:bg-green-900/30",
-    border: "border-green-500",
-    icon: "text-green-500",
-    shadowColor: "shadow-green-500/10",
+    border: "border-green-200 dark:border-green-800",
+    text: "text-green-600 dark:text-green-400",
+    icon: <CheckCircle2 className="w-4 h-4" />,
   },
   error: {
-    bg: "bg-red-50/90 dark:bg-red-900/30",
-    border: "border-red-500",
-    icon: "text-red-500",
-    shadowColor: "shadow-red-500/10",
+    border: "border-red-600 dark:border-red-800",
+    text: "text-red-600 dark:text-red-400",
+    icon: <XCircle className="w-4 h-4" />,
   },
-  normal: {
-    bg: "bg-gray-50/90 dark:bg-gray-900/30",
-    border: "border-gray-500",
-    icon: "text-gray-500",
-    shadowColor: "shadow-gray-500/10",
+  neutral: {
+    border: "border-gray-200 dark:border-gray-700",
+    text: "text-gray-600 dark:text-gray-400",
+    icon: <Info className="w-4 h-4" />,
   },
 }
 
-// خريطة ألوان الأزرار لضمان تحليل Tailwind في وقت البناء
-const variantTextColors: Record<NoteVariant, string> = {
-  info: "text-blue-600 dark:text-blue-400",
-  warning: "text-amber-600 dark:text-amber-400",
-  success: "text-green-600 dark:text-green-400",
-  error: "text-red-600 dark:text-red-400",
-  normal: "text-gray-600 dark:text-gray-400",
-}
-
-const Note: React.FC<NoteProps> = ({
-  variant = "info",
-  className,
-  closable = false,
-  noIcon = false,
+export function Note({
+  variant = "neutral",
   title,
   children,
-  dismissible = false,
+  closable,
   onClose,
-  actionLabel,
-  onAction,
-}) => {
-  const [isClosed, setIsClosed] = useState(false)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  useEffect(() => {
-    if (dismissible) {
-      timeoutRef.current = setTimeout(handleClose, 5000)
-    }
-
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
-    }
-  }, [dismissible])
+  className,
+}: NoteProps) {
+  const [visible, setVisible] = useState(true)
+  const style = variantStyles[variant]
 
   const handleClose = () => {
-    setIsClosed(true)
+    setVisible(false)
     onClose?.()
   }
 
-  const config = variantConfig[variant]
-
   return (
     <AnimatePresence>
-      {!isClosed && (
+      {visible && (
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{
-            opacity: 0,
-            height: 0,
-            marginTop: 0,
-            marginBottom: 0,
-            overflow: "hidden",
-          }}
-          transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1.0] }}
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.2 }}
           className={cn(
-            "p-4 rounded-lg relative backdrop-blur-sm",
-            "border border-black/5 dark:border-white/5",
-            config.bg,
-            config.border,
-            `shadow-sm ${config.shadowColor}`,
+            "relative flex items-start gap-2 rounded-xl border-2 p-3 bg-white/80 dark:bg-zinc-900/50 backdrop-blur-sm",
+            style.border,
             className
           )}
         >
-          {closable && (
-            <button
-              onClick={handleClose}
-              className="absolute right-2 top-2 p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-150"
-              aria-label="Close"
-            >
-              <X className="w-4 h-4 text-black/40 dark:text-white/40" />
-            </button>
-          )}
+          <div className={cn("mt-0.5", style.text)}>{style.icon}</div>
 
-          <div className="flex gap-3">
-            {!noIcon && (
-              <div className={cn("mt-0.5 flex-shrink-0", config.icon)}>
-                {variant === "info" && (
-                  <InfoIcon className="w-5 h-5" strokeWidth={2} />
-                )}
-                {variant === "warning" && (
-                  <AlertTriangleIcon className="w-5 h-5" strokeWidth={2} />
-                )}
-                {variant === "success" && (
-                  <CheckCircle2Icon className="w-5 h-5" strokeWidth={2} />
-                )}
-                {variant === "error" && (
-                  <XCircleIcon className="w-5 h-5" strokeWidth={2} />
-                )}
-              </div>
+          <div className="flex-1 space-y-1">
+            {title && (
+              <h4 className="text-sm font-medium text-black dark:text-white">
+                {title}
+              </h4>
             )}
-
-            <div className="space-y-2 flex-1">
-              {title && (
-                <h4 className="font-medium text-sm leading-tight text-black dark:text-white">
-                  {title}
-                </h4>
-              )}
-
-              <div className="text-sm text-black/80 dark:text-white/80 leading-relaxed">
-                {children}
-              </div>
-
-              {actionLabel && onAction && (
-                <button
-                  onClick={onAction}
-                  className={cn(
-                    "text-sm font-medium mt-1",
-                    variantTextColors[variant]
-                  )}
-                  aria-label={actionLabel}
-                >
-                  {actionLabel}
-                </button>
-              )}
+            <div className="text-sm text-zinc-700 dark:text-zinc-300">
+              {children}
             </div>
           </div>
 
-          {dismissible && (
-            <div className="absolute bottom-0 left-0 h-1 bg-black/10 dark:bg-white/10 rounded-bl-lg overflow-hidden">
-              <motion.div
-                initial={{ width: "100%" }}
-                animate={{ width: 0 }}
-                transition={{ duration: 5, ease: "linear" }}
-                className={cn(
-                  "h-full",
-                  variant === "info"
-                    ? "bg-blue-500"
-                    : variant === "warning"
-                      ? "bg-amber-500"
-                      : variant === "success"
-                        ? "bg-green-500"
-                        : "bg-red-500"
-                )}
-              />
-            </div>
+          {closable && (
+            <button
+              onClick={handleClose}
+              className="p-1 rounded-md text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition"
+            >
+              <X className="w-4 h-4" />
+            </button>
           )}
         </motion.div>
       )}
     </AnimatePresence>
   )
 }
-
-export { Note }

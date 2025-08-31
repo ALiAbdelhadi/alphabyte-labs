@@ -1,9 +1,8 @@
 "use client"
 
-import React from "react"
-import dynamic from "next/dynamic"
-import { blockExamples } from "@/registry/blocks-examples"
 import LoadingIcon from "@/components/icons/loading-icon"
+import { blockExamples } from "@/registry/blocks-examples"
+import dynamic from "next/dynamic"
 
 interface BlockClientPreviewProps {
   target: string

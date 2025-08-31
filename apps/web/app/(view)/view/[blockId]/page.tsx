@@ -25,8 +25,8 @@ async function BlockPageContent({ blockId }: { blockId: string }) {
   return <BlockClientPreview target={target} />
 }
 
-export default async function BlockPage({ params }: { params: { blockId: string } }) {
-  const blockId = params?.blockId
+export default async function BlockPage({ params }: { params: Promise<{ blockId: string }> }) {
+  const blockId = (await params)?.blockId
   if (!blockId) {
     return notFound()
   }

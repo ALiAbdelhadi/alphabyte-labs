@@ -1,9 +1,5 @@
 "use client"
 
-import { useState } from "react"
-import { ChevronRight, X } from "lucide-react"
-
-import { cn } from "@/lib/utils"
 import {
   Drawer,
   DrawerClose,
@@ -11,6 +7,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
+import { cn } from "@/lib/utils"
+import { ChevronRight, X } from "lucide-react"
+import { useState } from "react"
 
 import { Button } from "../ui/button"
 import { ScrollArea } from "../ui/scroll-area"
@@ -34,9 +33,9 @@ export function DocsNavigationOnMobile() {
             onOpenChange={setOpen}
           >
             <DrawerTrigger asChild>
-              <div className="cursor-pointer w-full flex items-center mb-0.5">
-                <ChevronRight />
-                <DrawerTitle className="font-semibold text-lg">
+              <div className="cursor-pointer w-full flex items-center  mb-0.5">
+                <ChevronRight className="md:w-6 md:h-6 w-5 h-5 " />
+                <DrawerTitle className="font-semibold text-base md:text-lg">
                   Menu
                 </DrawerTitle>
               </div>

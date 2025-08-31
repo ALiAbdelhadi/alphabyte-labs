@@ -285,7 +285,7 @@ export default function Search() {
         <DialogTrigger asChild>
           <button
             className={cn(
-              "group flex w-full items-center text-sm transition-colors rounded-md h-8 lg:px-3 gap-2",
+              "group flex w-full items-center text-sm transition-colors rounded-md h-8 lg:px-3 md:gap-2",
               "lg:bg-muted/50 bg-transparent hover:bg-muted/70",
               "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
               "lg:bg-muted",

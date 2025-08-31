@@ -1,5 +1,3 @@
-import { Fragment } from "react"
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,6 +6,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import { Fragment } from "react"
 
 export default function PageBreadcrumb({ paths }: { paths: string[] }) {
   return (
