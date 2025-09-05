@@ -1,6 +1,4 @@
 "use client"
-
-import Container from "@/components/Container"
 import Pre from "@/components/pre"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -16,8 +14,21 @@ import { toast } from "sonner"
 export default function ThemeGenerator() {
   const [primaryColor, setPrimaryColor] = useState("#0066CC")
   const [defaultRadius, setDefaultRadius] = useState("0.3")
-  const [lightTheme, setLightTheme] = useState<Record<string, string>>({})
-  const [darkTheme, setDarkTheme] = useState<Record<string, string>>({})
+  const [lightTheme, setLightTheme] = useState<Record<string, string>>(() => {
+    try {
+      return generateTheme("#0066CC")
+    } catch {
+      return {}
+    }
+  })
+  const [darkTheme, setDarkTheme] = useState<Record<string, string>>(() => {
+    try {
+      const light = generateTheme("#0066CC")
+      return generateDarkTheme(light)
+    } catch {
+      return {}
+    }
+  })
   const [previewMode, setPreviewMode] = useState<"light" | "dark">("light")
   const [themeVersion, setThemeVersion] = useState(0)
   const [copied, setCopied] = useState(false)
@@ -27,10 +38,7 @@ export default function ThemeGenerator() {
   }, [primaryColor])
 
   useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--radius",
-      `${defaultRadius}rem`
-    )
+    document.documentElement.style.setProperty("--radius", `${defaultRadius}rem`)
   }, [defaultRadius])
 
   const generateThemes = () => {
@@ -50,10 +58,7 @@ export default function ThemeGenerator() {
     }
   }
 
-  const formatCssVariables = (
-    theme: Record<string, string>,
-    isDark = false
-  ) => {
+  const formatCssVariables = (theme: Record<string, string>, isDark = false) => {
     let css = isDark ? ".dark {\n" : ":root {\n"
     css += `  --radius: ${defaultRadius === "full" ? "9999px" : `${defaultRadius}rem`};\n`
 
@@ -68,13 +73,11 @@ export default function ThemeGenerator() {
   const getPreviewStyle = (variable: string) => {
     const theme = previewMode === "light" ? lightTheme : darkTheme
     const value = theme[variable]
-    if (!value) return {}
+    if (!value || !theme) return {}
 
     return {
       backgroundColor: `hsl(${value})`,
-      color: variable.includes("foreground")
-        ? `hsl(${theme[variable.replace("-foreground", "")] || ""})`
-        : undefined,
+      color: variable.includes("foreground") ? `hsl(${theme[variable.replace("-foreground", "")] || ""})` : undefined,
       borderRadius: `var(--radius)`,
     }
   }
@@ -142,6 +145,19 @@ export default function ThemeGenerator() {
     }
   }
 
+  if (!lightTheme || Object.keys(lightTheme).length === 0) {
+    return (
+      <div className="bg-gradient-to-b from-background to-background/60 min-h-screen pb-16">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading theme generator...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="bg-gradient-to-b from-background to-background/60 min-h-screen pb-16">
       <div className="mb-16">
@@ -153,9 +169,7 @@ export default function ThemeGenerator() {
                   <Button
                     key={preset.name}
                     size={"sm"}
-                    variant={
-                      primaryColor === preset.value ? "default" : "outline"
-                    }
+                    variant={primaryColor === preset.value ? "default" : "outline"}
                     onClick={() => setPrimaryColor(preset.value)}
                     className="flex items-center space-x-2 rounded-lg border-none shadow-sm transition-colors"
                   >
@@ -177,9 +191,7 @@ export default function ThemeGenerator() {
                   <Button
                     key={rounded.value}
                     size={"sm"}
-                    variant={
-                      defaultRadius === rounded.value ? "default" : "outline"
-                    }
+                    variant={defaultRadius === rounded.value ? "default" : "outline"}
                     onClick={() => setDefaultRadius(rounded.value)}
                     className="transition-all duration-300 ease-in-out min-w-16 border-none shadow-sm"
                   >
@@ -191,10 +203,7 @@ export default function ThemeGenerator() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-2">
-              <Label
-                htmlFor="primary-color"
-                className="text-sm font-medium mb-2 block"
-              >
+              <Label htmlFor="primary-color" className="text-sm font-medium mb-2 block">
                 Custom Color
               </Label>
               <div className="flex gap-2 items-center">
@@ -227,9 +236,7 @@ export default function ThemeGenerator() {
           <div className="flex justify-between items-center">
             <div>
               <h3 className="text-xl font-semibold">Theme Preview</h3>
-              <p className="text-foreground/70 text-sm">
-                Visualize your color palette
-              </p>
+              <p className="text-foreground/70 text-sm">Visualize your color palette</p>
             </div>
           </div>
           <div
@@ -239,9 +246,7 @@ export default function ThemeGenerator() {
             <div className="grid grid-cols-2 gap-3">
               {Object.keys(lightTheme).map((key, index) => (
                 <div key={key} className="flex flex-col gap-1.5">
-                  <div className="text-xs font-medium opacity-70 text-primary capitalize">
-                    {key}
-                  </div>
+                  <div className="text-xs font-medium opacity-70 text-primary capitalize">{key}</div>
                   <div
                     className="h-16 flex items-center justify-center text-xs shadow-sm border transition-all"
                     style={getPreviewStyle(key)}
@@ -274,9 +279,7 @@ export default function ThemeGenerator() {
                 </div>
                 <div className="flex-1">
                   <h4 className="text-sm font-medium">Card Component</h4>
-                  <p className="text-xs text-muted-foreground">
-                    Styled with your theme
-                  </p>
+                  <p className="text-xs text-muted-foreground">Styled with your theme</p>
                 </div>
               </div>
             </div>
@@ -286,26 +289,14 @@ export default function ThemeGenerator() {
           <div className="flex justify-between items-center">
             <div>
               <h3 className="text-xl font-semibold">CSS Variables</h3>
-              <p className="text-foreground/70 text-sm">
-                Copy these variables to your CSS file
-              </p>
+              <p className="text-foreground/70 text-sm">Copy these variables to your CSS file</p>
             </div>
             <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={downloadCSS}
-                className="gap-2"
-              >
+              <Button variant="outline" size="sm" onClick={downloadCSS} className="gap-2 bg-transparent">
                 <Download className="h-4 w-4" />
                 Download
               </Button>
-              <Button
-                variant={copied ? "secondary" : "default"}
-                size="sm"
-                onClick={copyToClipboard}
-                className="gap-2"
-              >
+              <Button variant={copied ? "secondary" : "default"} size="sm" onClick={copyToClipboard} className="gap-2">
                 <Copy className="h-4 w-4" />
                 <span className={cn("transition-all", copied && "mr-2.5")}>
                   Cop
@@ -334,10 +325,7 @@ export default function ThemeGenerator() {
               {cssContent}
             </Pre>
           </div>
-          <Note
-            variant="normal"
-            className="bg-muted/50 border rounded-lg p-4"
-          >
+          <Note variant="info" className="bg-muted/50 border rounded-lg p-4">
             <div className="flex gap-3">
               <div>
                 <ArrowDownToLine className="h-5 w-5 text-primary mt-0.5" />
@@ -346,20 +334,15 @@ export default function ThemeGenerator() {
                 <h4 className="font-medium text-sm">How to use</h4>
                 <p className="text-sm text-foreground/70 mt-1">
                   Copy these CSS variables into your{" "}
-                  <code className="px-1.5 py-0.5 bg-secondary rounded text-xs">
-                    globals.css
-                  </code>{" "}
-                  file. The variables will be automatically applied to all
-                  components that use the design system.
+                  <code className="px-1.5 py-0.5 bg-secondary rounded text-xs">globals.css</code> file. The variables
+                  will be automatically applied to all components that use the design system.
                 </p>
                 <div className="mt-3 space-y-2">
                   <p className="text-sm text-foreground/70">
-                    <strong>Quick Install:</strong> Download the CSS file or
-                    copy the variables to your project.
+                    <strong>Quick Install:</strong> Download the CSS file or copy the variables to your project.
                   </p>
                   <p className="text-sm text-foreground/70">
-                    <strong>Tailwind Config:</strong> Make sure your Tailwind
-                    config is set up to use CSS variables.
+                    <strong>Tailwind Config:</strong> Make sure your Tailwind config is set up to use CSS variables.
                   </p>
                 </div>
               </div>

@@ -92,7 +92,7 @@
     "language": "tsx"
   },
   "@/registry/examples/button-demo/button-ghost-demo": {
-    "content": "import { Button } from \"@/components/ui/button\"\r\n\r\nexport default function ButtonGhostDemo() {\r\n  return (\r\n    <Button variant=\"ghost\">Ghost</Button>\r\n  )\r\n}",
+    "content": "import { Button } from \"@/components/ui/button\";\r\n\r\n\r\nexport default function ButtonGhostDemo() {\r\n  return (\r\n    <Button variant=\"ghost\">Ghost</Button>\r\n  )\r\n}",
     "language": "tsx"
   },
   "@/registry/examples/button-demo/button-icon-demo": {
@@ -104,7 +104,7 @@
     "language": "tsx"
   },
   "@/registry/examples/button-demo/button-loading-demo": {
-    "content": "\r\nimport { Button } from \"@/components/ui/button\"\r\n\r\nexport default function ButtonLoadingDemo() {\r\n  return (\r\n    <Button variant=\"default\" isLoading>\r\n      Loading\r\n    </Button>\r\n  )\r\n}",
+    "content": "import { Button } from \"@/components/ui/button\";\r\n\r\n\r\nexport default function ButtonLoadingDemo() {\r\n  return (\r\n    <Button variant=\"default\" isLoading>\r\n      Loading\r\n    </Button>\r\n  )\r\n}",
     "language": "tsx"
   },
   "@/registry/examples/button-demo/button-neural-demo": {
@@ -148,7 +148,7 @@
     "language": "tsx"
   },
   "@/registry/examples/diagram-demo/diagram-decision-tree-demo": {
-    "content": "import React from \"react\"\r\n\r\nimport Mermaid from \"@/components/ui/mermaid\"\r\n\r\nconst DiagramDecisionTreeDemo = () => {\r\n  return (\r\n    <Mermaid\r\n      chart={`graph TD;\r\n    A[Start] --> B{Is it raining?};\r\n    B -->|Yes| C[Take an umbrella];\r\n    B -->|No| D[Enjoy the weather];\r\n    C --> E[Go outside];\r\n    D --> E;`}\r\n    />\r\n  )\r\n}\r\n\r\nexport default DiagramDecisionTreeDemo\r\n",
+    "content": "import Mermaid from \"@/components/ui/mermaid\"\r\nimport React from \"react\"\r\n\r\nconst DiagramDecisionTreeDemo = () => {\r\n  return (\r\n    <Mermaid\r\n      chart={`graph TD;\r\n    A[Start] --> B{Is it raining?};\r\n    B -->|Yes| C[Take an umbrella];\r\n    B -->|No| D[Enjoy the weather];\r\n    C --> E[Go outside];\r\n    D --> E;`}\r\n    />\r\n  )\r\n}\r\n\r\nexport default DiagramDecisionTreeDemo\r\n",
     "language": "tsx"
   },
   "@/registry/examples/diagram-demo/diagram-demo": {

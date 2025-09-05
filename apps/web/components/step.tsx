@@ -2,11 +2,11 @@ import { cn } from "@/lib/utils"
 import { StepItemProps, StepProps } from "@/types/components"
 import { Children, PropsWithChildren } from "react"
 
-export function Step({ children }: PropsWithChildren<StepProps>) {
+export function Step({ children, className }: PropsWithChildren<StepProps>) {
   const length = Children.count(children)
 
   return (
-    <div className="flex flex-col w-full relative">
+    <div className={cn("flex flex-col w-full relative", className)}>
       {Children.map(children, (child, index) => (
         <div className="relative pl-10">
           {index < length - 1 && (
@@ -22,16 +22,18 @@ export function Step({ children }: PropsWithChildren<StepProps>) {
   )
 }
 
-export function StepItem({ children, title }: StepItemProps) {
+export function StepItem({ children, title, className }: StepItemProps) {
   return (
-    <div className="space-y-3">
+    <div className={cn("space-y-3", className)}>
       {title && (
         <h3 className="text-base md:text-lg font-medium text-zinc-900 dark:text-zinc-50">
           {title}
         </h3>
       )}
-      <div className="text-sm md:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
-        {children}
+      <div className="text-sm md:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed !-mt-0">
+        <div className="space-y-2">
+          {children}
+        </div>
       </div>
     </div>
   )
