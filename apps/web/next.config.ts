@@ -1,5 +1,5 @@
-import type { NextConfig } from "next"
-
+import { NextConfig } from 'next';
+import createNextIntlPlugin from 'next-intl/plugin';
 const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
   options: {
@@ -20,4 +20,5 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
 }
 
-module.exports = withBundleAnalyzer(withMDX(nextConfig))
+const withNextIntl = createNextIntlPlugin();
+module.exports = withBundleAnalyzer(withMDX(withNextIntl(nextConfig)))

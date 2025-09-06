@@ -25,7 +25,9 @@ import { usePathname } from "next/navigation"
 import { useRef, useState } from "react"
 import ChangeTheme from "../ChangeTheme"
 import { Button } from "../ui/button"
+import { LanguageSwitcher } from "../ui/lang-switcher"
 import { Separator } from "../ui/separator"
+import { useLocale } from "next-intl"
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -53,7 +55,8 @@ export function Header() {
       },
     },
   }
-
+  const locale = useLocale()
+  const isRTL = locale === 'ar'
   return (
     <header
       className={cn(
@@ -100,6 +103,7 @@ export function Header() {
             <Search />
           </div>
           <div className="hidden md:flex items-center gap-3">
+            <LanguageSwitcher currentLocale={locale} />
             <Button
               asChild
               variant="ghost"

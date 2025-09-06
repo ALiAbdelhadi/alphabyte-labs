@@ -2,10 +2,13 @@ import { ThemeProvider } from "@/components/context/theme-provider"
 import Providers from "@/components/Providers"
 import { Toaster } from "@/components/ui/sonner"
 import { Settings } from "@/config/meta"
+import { routing } from '@/i18n/routing'
 import "@/styles/globals.css"
-import { Metadata } from "next"
-import { Fragment } from "react"
 import "@/styles/prism-theme.css"
+import { Metadata } from "next"
+import { NextIntlClientProvider, hasLocale } from 'next-intl'
+import { notFound } from "next/navigation"
+import { Fragment } from "react"
 const baseUrl = Settings.metadataBase
 
 export const metadata: Metadata = {
@@ -39,14 +42,24 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode
+  params: Promise<{ locale: string }>
 }>) {
+  const { locale } = await params
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   return (
     <Fragment>
-      <html lang="en" suppressHydrationWarning>
+      <html lang={locale}
+        suppressHydrationWarning
+        dir={locale === "ar" ? "rtl" : "ltr"}>
         <body
           className="font-[-apple-system,BlinkMacSystemFont,system-ui,'Segoe_UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open_Sans','Helvetica_Neue',sans-serif] bg-background antialiased min-h-svh !mr-"
           suppressHydrationWarning
@@ -58,11 +71,13 @@ export default function RootLayout({
             disableTransitionOnChange
             enableColorScheme
           >
-            <div vaul-drawer-wrapper="">
-              <div className="relative flex min-h-svh flex-col bg-background">
-                <Providers>{children}</Providers>
+            <NextIntlClientProvider>
+              <div vaul-drawer-wrapper="">
+                <div className="relative flex min-h-svh flex-col bg-background">
+                  <Providers>{children}</Providers>
+                </div>
               </div>
-            </div>
+            </NextIntlClientProvider>
           </ThemeProvider>
           <Toaster />
         </body>
