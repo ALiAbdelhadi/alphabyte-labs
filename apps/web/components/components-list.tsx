@@ -1,5 +1,5 @@
 import { DocsRouting } from "@/settings/docs-routing"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 
 export function ComponentsList() {
   const componentsSection = DocsRouting.sidebarItems.find(

@@ -1,5 +1,5 @@
 import { Button } from "@/registry/ui/button"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 
 export default function ButtonLinkDemo() {
   return (

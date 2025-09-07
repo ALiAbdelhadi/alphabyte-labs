@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import clsx from "clsx"
 
 import { ScrollArea } from "@/components/ui/scroll-area"

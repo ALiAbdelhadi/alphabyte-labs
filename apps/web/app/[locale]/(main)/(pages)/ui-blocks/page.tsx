@@ -6,7 +6,7 @@ import Container from "@/components/Container"
 import { Button } from "@/components/ui/button"
 import { blockExamples } from "@/registry/blocks-examples"
 import { useTheme } from "next-themes"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { useDeferredValue, useEffect, useState } from "react"
 
 

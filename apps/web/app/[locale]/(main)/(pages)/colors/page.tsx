@@ -6,7 +6,7 @@ import Container from "@/components/Container"
 import { Button } from "@/components/ui/button"
 import { colorsData } from "@/constant/colors/color"
 import { ColorFormat } from "@/types"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { useState } from "react"
 
 const ColorsPage = () => {

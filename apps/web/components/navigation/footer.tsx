@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import { GitHubLink } from "@/settings/settings"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { usePathname } from "next/navigation"
 
 export function Footer() {

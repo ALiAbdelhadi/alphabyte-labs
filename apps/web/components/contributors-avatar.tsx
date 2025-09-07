@@ -3,7 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import type React from "react"
 import { useMemo } from "react"
 

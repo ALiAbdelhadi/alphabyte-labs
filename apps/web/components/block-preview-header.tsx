@@ -3,7 +3,7 @@
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Fullscreen, Monitor, Smartphone, Tablet } from 'lucide-react'
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { CopyButton } from "./copy-button-for-block-preview"
 
 interface BlockPreviewHeaderProps {

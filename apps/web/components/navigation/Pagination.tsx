@@ -1,6 +1,6 @@
 import { getPreviousNext } from "@/lib/markdown";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils"
 function formatDocPath(path: string | undefined): string {
   if (!path) return "/docs";

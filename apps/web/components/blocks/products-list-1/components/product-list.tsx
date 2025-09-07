@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { products } from "@/registry/view/products-list-1/constant"
 import { MoveLeft, MoveRight } from "lucide-react"
 
