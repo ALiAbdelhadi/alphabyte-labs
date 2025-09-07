@@ -1,0 +1,79 @@
+---
+title: Data Picker
+description: Data Picker component documentation.
+---
+
+<ComponentPreview name="date-picker-demo" />
+## Installation
+The Date Picker is built using a composition of  <MdxBadge>\<Popover \/></MdxBadge> component  and the  <MdxBadge>\<Calendar \/></MdxBadge> component.
+
+See installation instructions for the [Popover](https://alphabyte-labs.vercel.app/docs/components/popover) and the [Calendar](https://alphabyte-labs.vercel.app/docs/components/calendar/) components.
+for quick installation
+
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="Install Dependencies">
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge @radix-ui/react-popover react-day-picker@8.10.1 date-fns `}
+      </Pre>
+    </StepItem>
+    <StepItem title="Create utils.ts">
+      <ComponentUtilsText />
+      <ComponentUtils />
+    </StepItem>
+  </Step>
+</div>
+
+## Usage
+
+<div className="not-prose">
+<Pre>{`"use client"
+
+import * as React from "react"
+import { format } from "date-fns"
+import { CalendarIcon } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
+export default function DatePickerDemo() {
+  const [date, setDate] = React.useState<Date>()
+
+  return (
+
+    <Popover>
+      <PopoverTrigger asChild >
+        <Button
+          variant={"outline"}
+          className={
+            cn(
+              "w-[240px] justify-start text-left font-normal",
+              !date && "text-muted-foreground"
+            )
+          } >
+          <CalendarIcon />
+          {date ? format(date, "PPP") : <span>Pick a date </span>}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0" align="start" >
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          initialFocus
+        />
+      </PopoverContent>
+    </Popover>
+  )
+}`}</Pre>
+
+</div>
+## Examples
+### Date Picker Range
+<ComponentPreview name="date-picker-demo" variant="range" />

@@ -1,0 +1,58 @@
+---
+title: Tooltip
+description: A tooltip is a small pop-up box that appears when a user hovers over an element, providing additional information about that element.
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/tooltip
+  api: https://www.radix-ui.com/docs/primitives/components/tooltip#api-reference
+---
+
+<ComponentPreview name="tooltip-demo" />
+## Installation
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="Install Dependencies">
+      First , you need to install dependencies:
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge @radix-ui/react-tooltip`}
+      </Pre>
+    </StepItem>
+    <StepItem title="Create utils.ts">
+      <ComponentUtilsText />
+      <ComponentUtils />
+    </StepItem>
+    <StepItem title="Create Tooltip Component">
+      <ComponentSource name="tooltip-demo" />
+    </StepItem>
+  </Step>
+</div>
+## Usage
+<div className="space-y-6">
+  <Pre>
+    {`import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip"`}
+  </Pre>
+  <Pre>
+    {`<TooltipProvider>
+    <Tooltip>
+        <TooltipTrigger asChild>Hover</TooltipTrigger>
+            <TooltipContent >
+                <p>Default Tooltip</p>
+            </TooltipContent>
+        </Tooltip>
+    </TooltipProvider>
+`}
+  </Pre>
+</div>
+## Examples 
+### Top Tooltip
+<ComponentPreview name="tooltip-demo" variant="top" />
+### Right Tooltip
+<ComponentPreview name="tooltip-demo" variant="right" />
+### Bottom Tooltip
+<ComponentPreview name="tooltip-demo" variant="bottom" />
+### Left Tooltip
+<ComponentPreview name="tooltip-demo" variant="left" />
+### Tooltip with delay 
+you can set a delay for the tooltip to appear after
+hovering over the trigger element. This can be useful to prevent the tooltip
+from appearing too quickly when the user hovers over the trigger element.
+<ComponentPreview name="tooltip-demo" variant="delay" />

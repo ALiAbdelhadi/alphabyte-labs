@@ -1,4 +1,4 @@
-import UserAvatar from "@/components/user-avatar"
+import ContributorsList from "@/components/contributors-list"
 import { BackToTop } from "@/components/navigation/back-to-top"
 import PageBreadcrumb from "@/components/navigation/docs-breadcrumb"
 import Feedback from "@/components/navigation/feedback"
@@ -8,48 +8,45 @@ import { Typography } from "@/components/typography"
 import { badgeVariants } from "@/components/ui/badge"
 import { Settings } from "@/config/meta"
 import { ContributorsComponents } from "@/constant"
+import { Link } from "@/i18n/navigation"
 import { ErrorBoundary } from "@/lib/debug-wrapper"
 import { getDocument } from "@/lib/markdown"
 import { PageRoutes } from "@/lib/pageRoutes"
 import { cn } from "@/lib/utils"
 import fs from "fs/promises"
 import { ExternalLink } from "lucide-react"
-import { Link } from "@/i18n/navigation"
 import { notFound } from "next/navigation"
 import path from "path"
-import ContributorsList from "@/components/contributors-list"
+import { routing } from "@/i18n/routing"
 
 type DocsPageProps = {
   params: Promise<{
-    slug: string[]
+    locale: string
+    slug?: string[]
   }>
 }
 
 const ComponentsPage = async (props: DocsPageProps) => {
   try {
     const DocsParams = await props.params
-    const { slug = [] } = DocsParams
+    const { locale, slug = [] } = DocsParams
     const pathName = slug.join("/")
 
-    let documentPath = pathName
-
+    console.log("Locale:", locale)
     console.log("Original slug:", slug)
     console.log("PathName:", pathName)
-    console.log("Looking for document at:", documentPath)
+    console.log("Looking for document at:", pathName)
 
-    const res = await getDocument(documentPath)
+    // Handle empty slug case (docs root)
+    const documentPath = pathName || "introduction"
+
+    const res = await getDocument(documentPath, locale)
     if (!res) {
       console.error(`Document not found for path: ${documentPath}`)
       notFound()
     }
 
     const { docs, content, tocs } = res
-    
-    if (new Boolean(false)) {
-      console.log("I run!");
-    } else {
-      console.log("I don't run.");
-    }
 
     return (
       <div className="flex items-start gap-14 max-w-7xl transition-all">
@@ -141,11 +138,11 @@ export default ComponentsPage
 
 export async function generateMetadata(props: DocsPageProps) {
   const DocsParams = await props.params
-  const { slug = [] } = DocsParams
-  const pathName = slug.join("/")
+  const { locale, slug = [] } = DocsParams
+  const pathName = slug.join("/") || "introduction"
 
   try {
-    const res = await getDocument(pathName)
+    const res = await getDocument(pathName, locale)
     if (!res) return { title: "Page Not Found" }
 
     const { docs, lastUpdated } = res
@@ -165,48 +162,54 @@ export async function generateMetadata(props: DocsPageProps) {
 }
 
 export async function generateStaticParams() {
-  console.log("Generating static params...")
+  console.log("Generating static params with locale support...")
   console.log("Available PageRoutes:", PageRoutes)
 
-  const validRoutes = await Promise.all(
-    PageRoutes.map(async (route) => {
-      try {
+  // For each route and each locale, check localized file first then fallback
+  const localizedParams = await Promise.all(
+    routing.locales.flatMap((locale) =>
+      PageRoutes.map(async (route) => {
         const cleanHref = route.href.startsWith('/') ? route.href.slice(1) : route.href
-        const segments = cleanHref.split('/')
-        const lastSegment = segments[segments.length - 1]
-        const contentPath = path.join(
-          process.cwd(),
-          "contents/docs",
-          cleanHref,
-          `${lastSegment}.mdx`
-        )
+        const segments = cleanHref.split('/').filter(Boolean)
 
-        console.log(`Checking file: ${contentPath}`)
-        await fs.access(contentPath, fs.constants.F_OK)
+        // Determine last segment and candidate file paths
+        const lastSegment = segments.length === 0 ? 'introduction' : segments[segments.length - 1]
+        const baseLocalized = path.join(process.cwd(), 'contents', locale, 'docs')
+        const baseDefault = path.join(process.cwd(), 'contents', 'docs')
 
-        return {
-          slug: segments,
-          valid: true,
-          route: route.href
+        const candidates = segments.length === 0
+          ? [
+              path.join(baseLocalized, 'introduction', 'introduction.mdx'),
+              path.join(baseDefault, 'introduction', 'introduction.mdx'),
+            ]
+          : [
+              path.join(baseLocalized, cleanHref, `${lastSegment}.mdx`),
+              path.join(baseDefault, cleanHref, `${lastSegment}.mdx`),
+            ]
+
+        for (const filePath of candidates) {
+          try {
+            console.log(`Checking file: ${filePath}`)
+            await fs.access(filePath, fs.constants.F_OK)
+            return {
+              locale,
+              slug: segments.length === 0 ? [] : segments,
+              valid: true,
+            }
+          } catch {}
         }
-      } catch (error) {
-        console.warn(`MDX file not found for route: ${route.href}`)
-        console.warn(`Expected path: contents/docs/${route.href}/${route.href.split('/').pop()}.mdx`)
-        return {
-          slug: route.href.split("/").filter(Boolean),
-          valid: false,
-          route: route.href
-        }
-      }
-    })
+
+        console.warn(`MDX file not found for route: ${route.href} (locale: ${locale})`)
+        return { locale, slug: segments, valid: false }
+      })
+    )
   )
 
-  const validParams = validRoutes
-    .filter((route) => route.valid)
-    .map((route) => ({
-      slug: route.slug,
-    }))
+  const routesForAllLocales = localizedParams.filter((p) => p.valid).map((p) => ({
+    locale: p.locale,
+    slug: p.slug,
+  }))
 
-  console.log("Valid static params:", validParams)
-  return validParams
+  console.log("Valid static params (with locales):", routesForAllLocales)
+  return routesForAllLocales
 }

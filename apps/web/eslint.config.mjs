@@ -1,6 +1,7 @@
-import { dirname } from "path"
-import { fileURLToPath } from "url"
-import { FlatCompat } from "@eslint/eslintrc"
+import tailwind from 'eslint-plugin-tailwindcss'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
+import { FlatCompat } from '@eslint/eslintrc'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -9,15 +10,19 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 })
 
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+export default [
+  // Next.js recommended rules (via compat from legacy names)
+  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+
+  // TailwindCSS flat config
+  tailwind.configs['flat/recommended'],
+
+  // Project rules
   {
-    plugins: ["react-hooks"],
     rules: {
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
+      'no-console': ['error', { allow: ['info', 'warn', 'error'] }],
+      'tailwindcss/classnames-order': 'error',
+      'tailwindcss/no-custom-classname': 'warn',
     },
   },
 ]
-
-export default eslintConfig

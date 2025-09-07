@@ -1,0 +1,71 @@
+---
+title: "Dialog"
+description: "A dialog component"
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/dialog
+  api: https://www.radix-ui.com/docs/primitives/components/dialog#api-reference
+---
+
+<ComponentPreview name="dialog-demo" />
+
+## Installation
+
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="Install Dependencies">
+      First , you need to install dependencies:
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge @radix-ui/react-dialog`}
+      </Pre>
+    </StepItem>
+    <StepItem title="Create utils.ts">
+      <ComponentUtilsText />
+      <ComponentUtils />
+    </StepItem>
+    <StepItem title="Create Dialog Component">
+      <ComponentSource name="dialog-demo" />
+    </StepItem>
+  </Step>
+</div>
+## Usage
+<div className="not-prose space-y-6">
+  <Pre>
+    {`import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+`}
+  </Pre>
+  <Pre>
+    {`<Dialog>
+  <DialogTrigger>Open</DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Are you absolutely sure?</DialogTitle>
+      <DialogDescription>
+        This action cannot be undone. This will permanently delete your account
+        and remove your data from our servers.
+      </DialogDescription>
+    </DialogHeader>
+  </DialogContent>
+</Dialog>`}
+  </Pre>
+</div>
+## Examples
+
+### Destructive
+
+<ComponentPreview name="dialog-demo" variant="destructive" />
+### Adding custom position
+
+#### Top position
+
+<ComponentPreview name="dialog-demo" variant="top" />
+
+#### Bottom position
+
+<ComponentPreview name="dialog-demo" variant="bottom" />

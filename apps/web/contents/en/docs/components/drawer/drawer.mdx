@@ -1,0 +1,77 @@
+---
+title: Drawer
+description: Drawer component
+links:
+  doc: https://vaul.emilkowal.ski/getting-started
+---
+
+<ComponentPreview name="drawer-demo" />
+## About
+<MdxBadge>Drawer</MdxBadge> is built on top of
+[Vaul](https://github.com/emilkowalski/vaul) by
+[emilkowalski_](https://x.com/emilkowalski_). ## Installation
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="Install Dependencies">
+      First, you need to install dependencies:
+      <Pre>{`npm install clsx tailwind-merge vaul`}</Pre>
+    </StepItem>
+    <StepItem title="Create utils.ts">
+      <ComponentUtilsText />
+      <ComponentUtils />
+    </StepItem>
+    <StepItem title="Create Drawer Component">
+      <ComponentSource name="drawer-demo" />
+    </StepItem>
+    <StepItem title="Edit layout.tsx for background scaling">
+      in Your main <MdxBadge>layout.tsx</MdxBadge> add{" "}
+      <MdxBadge>vaul-drawer-wrapper</MdxBadge> to support scaling:
+      <Pre highlightLines={[4]}>{`<html lang="en" suppressHydrationWarning>
+  <body className="bg-background font-medium antialiased min-h-svh" suppressHydrationWarning>
+      {/* Create a div and passe it vaul-drawer-wrapper like this way */}
+      <div vaul-drawer-wrapper="">
+         <div className="relative flex min-h-svh flex-col bg-background">
+            {children}
+         </div>
+      </div>
+   </body>
+</html>`}</Pre>
+    </StepItem>
+  </Step>
+</div>
+## Usage
+<div className="not-prose space-y-6">
+  <Pre>
+    {`import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+`}
+  </Pre>
+  <Pre>
+    {`<Drawer>
+  <DrawerTrigger>Open</DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+      <DrawerDescription>This action cannot be undone.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      <Button>Submit</Button>
+      <DrawerClose>
+        <Button variant="outline">Cancel</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>`}
+  </Pre>
+</div>
+## Examples 
+### Nested Drawer
+<ComponentPreview name="drawer-demo" variant="nested" />

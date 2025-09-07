@@ -1,0 +1,73 @@
+---
+title: Dropdown Menu
+description: Dropdown menu component for displaying a list of items.
+links:
+  doc: https://www.radix-ui.com/docs/primitives/components/dropdown-menu
+  api: https://www.radix-ui.com/docs/primitives/components/dropdown-menu#api-reference
+---
+
+<ComponentPreview name="dropdown-menu-demo" />
+
+## Installation
+
+<div className="not-prose px-4">
+  <Step>
+    <StepItem title="Install Dependencies">
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge @radix-ui/react-dropdown-menu class-variance-authority`}
+      </Pre>
+    </StepItem>
+    <StepItem title="Create utils.ts">
+      <ComponentUtilsText />
+      <ComponentUtils />
+    </StepItem>
+    <StepItem title="Create Dropdown-menu Component">
+      <ComponentSource name="dropdown-menu-demo" />
+    </StepItem>
+  </Step>
+</div>
+
+## Usage
+
+<div className="not-prose space-y-6">
+  <Pre>{`import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'`}</Pre>
+  <Pre>{`<DropdownMenu>
+    <DropdownMenuTrigger asChild>
+        <Button variant="outline">Open Menu</Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent className="w-56">
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+            <Edit className="mr-2 h-4 w-4" />
+            <span>Edit Profile</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+            <Download className="mr-2 h-4 w-4" />
+            <span>Download</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem disabled>
+            <Share className="mr-2 h-4 w-4" />
+            <span>Share (Disabled)</span>
+        </DropdownMenuItem>
+    </DropdownMenuContent>
+</DropdownMenu>
+`}</Pre>
+</div>
+
+## Examples
+
+### Checkbox
+
+<ComponentPreview name="dropdown-menu-demo" variant="checkbox" />
+### Radio
+<ComponentPreview name="dropdown-menu-demo" variant="radio" />
+### Nested
+<ComponentPreview name="dropdown-menu-demo" variant="nested" />

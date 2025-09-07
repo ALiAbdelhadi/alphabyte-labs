@@ -4,17 +4,17 @@ import { getAllBlocks, getBlocksForSlug } from "@/lib/markdown"
 import Container from "@/components/Container"
 
 export default async function BlockPage(props: {
-  params: Promise<{ slug?: string }>
+  params: Promise<{ slug?: string; locale: string }>
 }) {
   const params = await props.params
 
-  const { slug } = params
+  const { slug, locale } = params
 
   const slugRote = await slug
   if (!slugRote) {
     return notFound()
   }
-  let block = await getBlocksForSlug(slugRote)
+  let block = await getBlocksForSlug(slugRote, locale)
 
   if (!block) {
     block = await getBlocksForSlug(slugRote)
@@ -35,5 +35,8 @@ export default async function BlockPage(props: {
 
 export async function generateStaticParams() {
   const blocks = await getAllBlocks()
-  return blocks.map((block) => ({ slug: block.slug }))
+  const { routing } = await import("@/i18n/routing")
+  return blocks.flatMap((block) =>
+    routing.locales.map((locale) => ({ locale, slug: block.slug }))
+  )
 }

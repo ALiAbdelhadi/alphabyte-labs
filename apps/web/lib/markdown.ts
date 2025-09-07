@@ -52,29 +52,60 @@ async function parseMdx<Frontmatter>(rawMdx: string) {
   })
 }
 
-function computeDocumentPath(slug: string) {
-  const segments = slug.split("/")
-  const lastSegment = segments[segments.length - 1]
+function computeDocumentPath(slug: string, locale?: string) {
+  // Handle empty slug case
+  if (!slug || slug === '' || slug === '/') {
+    slug = 'introduction'
+  }
+
+  // Clean the slug
+  slug = slug.replace(/^\/+|\/+$/g, '') // Remove leading and trailing slashes
+
+  const segments = slug.split("/").filter(Boolean)
+  const lastSegment = segments[segments.length - 1] || 'introduction'
+
+  // Build base path parts: prefer localized folder if provided
+  const localDocsBase = locale ? path.join("contents", locale, "docs") : path.join("contents", "docs")
+
   return Settings.gitload
-    ? `${GitHubLink.href}/raw/main/contents/docs/${slug}/${lastSegment}.mdx`
-    : path.join(process.cwd(), "contents/docs", slug, `${lastSegment}.mdx`)
+    ? (locale
+        ? `${GitHubLink.href}/raw/main/contents/${locale}/docs/${slug}/${lastSegment}.mdx`
+        : `${GitHubLink.href}/raw/main/contents/docs/${slug}/${lastSegment}.mdx`)
+    : path.join(process.cwd(), localDocsBase, slug, `${lastSegment}.mdx`)
 }
 
 const getDocumentPath = (() => {
   const cache = new Map<string, string>()
-  return (slug: string) => {
-    if (!cache.has(slug)) {
-      cache.set(slug, computeDocumentPath(slug))
+  return (slug: string, locale?: string) => {
+    // Normalize slug for caching; include locale tag to prevent collisions
+    const normalizedSlug = slug || 'introduction'
+    const cacheKey = locale ? `${locale}__${normalizedSlug}` : normalizedSlug
+
+    if (!cache.has(cacheKey)) {
+      cache.set(cacheKey, computeDocumentPath(normalizedSlug, locale))
     }
-    return cache.get(slug)!
+    return cache.get(cacheKey)!
   }
 })()
 
-export async function getDocument(slug: string) {
+export async function getDocument(slug: string, locale?: string) {
   try {
-    const contentPath = getDocumentPath(slug)
+    // Handle empty or undefined slug
+    if (!slug || slug.trim() === '' || slug === '/') {
+      slug = 'introduction'
+    }
+
+    // Clean the slug
+    slug = slug.replace(/^\/+|\/+$/g, '')
+
+    console.log(`[getDocument] Processing slug: "${slug}"`)
+
+    const contentPath = getDocumentPath(slug, locale)
+    console.log(`[getDocument] Content path: ${contentPath}`)
+
     let rawMdx = ""
     let lastUpdated: string | null = null
+
     if (Settings.gitload) {
       const response = await fetch(contentPath)
       if (!response.ok) {
@@ -85,13 +116,61 @@ export async function getDocument(slug: string) {
       rawMdx = await response.text()
       lastUpdated = response.headers.get("Last-Modified") ?? null
     } else {
-      rawMdx = await fs.readFile(contentPath, "utf-8")
-      const stats = await fs.stat(contentPath)
-      lastUpdated = stats.mtime.toISOString()
+      // Check if file exists first
+      try {
+        await fs.access(contentPath, fs.constants.F_OK)
+        rawMdx = await fs.readFile(contentPath, "utf-8")
+        const stats = await fs.stat(contentPath)
+        lastUpdated = stats.mtime.toISOString()
+      } catch (accessError) {
+        console.error(`Document file not found: ${contentPath}`)
+
+        // Try alternative paths for different routing structures
+        const localizedBase = locale ? path.join(process.cwd(), "contents", locale, "docs") : null
+        const defaultBase = path.join(process.cwd(), "contents", "docs")
+        const altBases = [localizedBase, defaultBase].filter(Boolean) as string[]
+
+        const alternativePaths = altBases.flatMap((base) => [
+          // For components routes that might be structured differently
+          path.join(base, slug.replace('components/', ''), `${slug.split('/').pop()}.mdx`),
+          // For root level files
+          path.join(base, `${slug}.mdx`),
+          // For nested structures
+          path.join(base, slug, `index.mdx`),
+        ])
+
+        let foundAlternative = false
+        for (const altPath of alternativePaths) {
+          try {
+            console.log(`[getDocument] Trying alternative path: ${altPath}`)
+            await fs.access(altPath, fs.constants.F_OK)
+            rawMdx = await fs.readFile(altPath, "utf-8")
+            const stats = await fs.stat(altPath)
+            lastUpdated = stats.mtime.toISOString()
+            foundAlternative = true
+            console.log(`[getDocument] Found alternative path: ${altPath}`)
+            break
+          } catch (altError) {
+            // Continue to next alternative
+            continue
+          }
+        }
+
+        if (!foundAlternative) {
+          console.error(`[getDocument] No alternative paths found for slug: ${slug}`)
+          return null
+        }
+      }
     }
 
+    if (!rawMdx) {
+      console.error(`[getDocument] No content found for slug: ${slug}`)
+      return null
+    }
+
+    console.log(`[getDocument] Successfully loaded content for slug: ${slug}`)
     const parsedMdx = await parseMdx<BaseMdxFrontmatter>(rawMdx)
-    const tocs = await getTableOfContents(slug)
+    const tocs = await getTableOfContents(slug, locale)
 
     return {
       docs: parsedMdx.frontmatter,
@@ -100,7 +179,7 @@ export async function getDocument(slug: string) {
       lastUpdated,
     }
   } catch (err) {
-    console.error(err)
+    console.error(`[getDocument] Error processing slug: ${slug}`, err)
     return null
   }
 }
@@ -108,19 +187,33 @@ export async function getDocument(slug: string) {
 const headingsRegex = /^(#{2,4})\s(.+)$/gm
 
 export async function getTableOfContents(
-  slug: string
+  slug: string,
+  locale?: string
 ): Promise<Array<{ level: number; text: string; href: string }>> {
   const extractedHeadings: Array<{
     level: number
     text: string
     href: string
   }> = []
+
+  // Handle empty slug
+  if (!slug || slug.trim() === '' || slug === '/') {
+    slug = 'introduction'
+  }
+
+  // Clean the slug
+  slug = slug.replace(/^\/+|\/+$/g, '')
+
   let rawMdx = ""
-  const segments = slug.split("/")
-  const lastSegment = segments[segments.length - 1]
+  const segments = slug.split("/").filter(Boolean)
+  const lastSegment = segments[segments.length - 1] || 'introduction'
+
+  console.log(`[getTableOfContents] Processing slug: "${slug}", lastSegment: "${lastSegment}"`)
 
   if (Settings.gitload) {
-    const contentPath = `${GitHubLink.href}/raw/main/contents/docs/${slug}/${lastSegment}.mdx`
+    const contentPath = locale
+      ? `${GitHubLink.href}/raw/main/contents/${locale}/docs/${slug}/${lastSegment}.mdx`
+      : `${GitHubLink.href}/raw/main/contents/docs/${slug}/${lastSegment}.mdx`
     try {
       const response = await fetch(contentPath)
       if (!response.ok) {
@@ -134,28 +227,59 @@ export async function getTableOfContents(
       return []
     }
   } else {
+    const baseDir = locale
+      ? path.join(process.cwd(), "contents", locale, "docs")
+      : path.join(process.cwd(), "contents", "docs")
     const contentPath = path.join(
-      process.cwd(),
-      "contents/docs",
+      baseDir,
       slug,
       `${lastSegment}.mdx`
     )
+
     try {
       try {
         await fs.access(contentPath, fs.constants.F_OK)
+        rawMdx = await fs.readFile(contentPath, "utf-8")
       } catch (fileError) {
-        console.error(`File does not exist: ${contentPath}`)
-        return []
-      }
+        console.error(`[getTableOfContents] File does not exist: ${contentPath}`)
 
-      const stream = createReadStream(contentPath, { encoding: "utf-8" })
-      for await (const chunk of stream) {
-        rawMdx += chunk
+        // Try alternative paths
+        const localizedBase = locale ? path.join(process.cwd(), "contents", locale, "docs") : null
+        const defaultBase = path.join(process.cwd(), "contents", "docs")
+        const altBases = [localizedBase, defaultBase].filter(Boolean) as string[]
+        const alternativePaths = altBases.flatMap((base) => [
+          path.join(base, slug.replace('components/', ''), `${slug.split('/').pop()}.mdx`),
+          path.join(base, `${slug}.mdx`),
+          path.join(base, slug, `index.mdx`),
+        ])
+
+        let foundAlternative = false
+        for (const altPath of alternativePaths) {
+          try {
+            await fs.access(altPath, fs.constants.F_OK)
+            rawMdx = await fs.readFile(altPath, "utf-8")
+            foundAlternative = true
+            console.log(`[getTableOfContents] Found alternative path: ${altPath}`)
+            break
+          } catch (altError) {
+            continue
+          }
+        }
+
+        if (!foundAlternative) {
+          console.error(`[getTableOfContents] No alternative paths found for slug: ${slug}`)
+          return []
+        }
       }
     } catch (error) {
       console.error("Error reading local file:", error)
       return []
     }
+  }
+
+  if (!rawMdx) {
+    console.log(`[getTableOfContents] No content found for slug: ${slug}`)
+    return []
   }
 
   let match
@@ -169,6 +293,7 @@ export async function getTableOfContents(
     })
   }
 
+  console.log(`[getTableOfContents] Found ${extractedHeadings.length} headings for slug: ${slug}`)
   return extractedHeadings
 }
 
@@ -180,35 +305,41 @@ function sluggify(text: string) {
     .replace(/[^a-zA-Z0-9\u4e00-\u9fa5\-_]/g, "")
 }
 
-
 const pathIndexMap = new Map(
   PageRoutes.map((route, index) => [route.href, index])
 )
 
 export function getPreviousNext(path: string) {
+  // Clean the path
   const cleanPath = path.startsWith('/') ? path : `/${path}`
   let index = pathIndexMap.get(cleanPath)
-  
+
   if (index === undefined) {
     index = pathIndexMap.get(path)
   }
-  
+
   if (index === undefined) {
+    // Try to find partial matches
     for (const [routePath, routeIndex] of pathIndexMap.entries()) {
-      if (routePath.includes(path) || path.includes(routePath.replace(/^\//, ''))) {
+      const normalizedRoutePath = routePath.replace(/^\/+|\/+$/g, '')
+      const normalizedPath = path.replace(/^\/+|\/+$/g, '')
+
+      if (normalizedRoutePath.includes(normalizedPath) || normalizedPath.includes(normalizedRoutePath)) {
         index = routeIndex
         break
       }
     }
   }
 
-
   if (index === undefined || index === -1) {
+    console.log(`[getPreviousNext] No index found for path: ${path}`)
     return { prev: null, next: null }
   }
 
   const prev = index > 0 ? PageRoutes[index - 1] : null
-  const next = index < PageRoutes.length - 1 ? PageRoutes[index + 1] : null  
+  const next = index < PageRoutes.length - 1 ? PageRoutes[index + 1] : null
+
+  console.log(`[getPreviousNext] Path: ${path}, Index: ${index}, Prev: ${prev?.title}, Next: ${next?.title}`)
   return { prev, next }
 }
 
@@ -234,21 +365,34 @@ const postCopy = () => (tree: Node) => {
 }
 
 // Start Blocks
-function getBlocksContentPath(slug: string) {
-  const segments = slug.split("/")
+function getBlocksContentPath(slug: string, locale?: string) {
+  const segments = slug.split("/").filter(Boolean)
   const lastSegment = segments[segments.length - 1]
 
-  return path.join(process.cwd(), "contents/blocks", `${lastSegment}.mdx`)
+  const baseDir = locale
+    ? path.join(process.cwd(), "contents", locale, "blocks")
+    : path.join(process.cwd(), "contents", "blocks")
+  return path.join(baseDir, `${lastSegment}.mdx`)
 }
 
-export async function getBlocksForSlug(slug: string) {
+export async function getBlocksForSlug(slug: string, locale?: string) {
   try {
-    const contentPath = getBlocksContentPath(slug)
+    const contentPath = getBlocksContentPath(slug, locale)
+    console.log(`[getBlocksForSlug] Checking blocks path: ${contentPath}`)
+
     try {
       await fs.access(contentPath, fs.constants.F_OK)
     } catch (error) {
-      console.error(`Block file does not exist: ${contentPath}`)
-      return null
+      // fallback to default blocks dir if locale file not found
+      const fallbackPath = getBlocksContentPath(slug)
+      try {
+        await fs.access(fallbackPath, fs.constants.F_OK)
+        const rawMdx = await fs.readFile(fallbackPath, "utf-8")
+        return await parseMdx<BaseMdxFrontmatter>(rawMdx)
+      } catch {
+        console.error(`Block file does not exist: ${contentPath}`)
+        return null
+      }
     }
 
     const rawMdx = await fs.readFile(contentPath, "utf-8")
@@ -259,36 +403,80 @@ export async function getBlocksForSlug(slug: string) {
   }
 }
 
-export async function getAllBlocks() {
-  const blocksFolder = path.join(process.cwd(), "/contents/blocks/")
+export async function getAllBlocks(locale?: string) {
+  const localizedFolder = locale
+    ? path.join(process.cwd(), "contents", locale, "blocks")
+    : path.join(process.cwd(), "contents", "blocks")
+  const defaultFolder = path.join(process.cwd(), "contents", "blocks")
+  console.log(`[getAllBlocks] Checking blocks folder: ${localizedFolder}`)
+
   try {
-    await fs.access(blocksFolder, fs.constants.F_OK)
+    await fs.access(localizedFolder, fs.constants.F_OK)
   } catch (error) {
-    console.error(`Blocks folder does not exist: ${blocksFolder}`)
-    return []
+    console.error(`Blocks folder does not exist: ${localizedFolder}`)
+    try {
+      await fs.access(defaultFolder, fs.constants.F_OK)
+      console.log(`[getAllBlocks] Falling back to default folder: ${defaultFolder}`)
+    } catch {
+      console.error(`Blocks folder does not exist: ${defaultFolder}`)
+      return []
+    }
   }
 
-  const files = await fs.readdir(blocksFolder)
-  const uncheckedRes = await Promise.all(
-    files.map(async (file) => {
-      const filePath = path.join(blocksFolder, file)
-      const stats = await fs.stat(filePath)
-      if (!stats.isDirectory()) return undefined
-      const mdxPath = path.join(filePath, `${file}.mdx`)
-      try {
-        await fs.access(mdxPath, fs.constants.F_OK)
-      } catch (error) {
-        console.warn(`MDX file not found in directory: ${mdxPath}`)
-        return undefined
-      }
-      const rawMdx = await fs.readFile(mdxPath, "utf-8")
-      return {
-        ...(matter(rawMdx).data as BaseMdxFrontmatter),
-        slug: file,
-      }
-    })
-  )
-  return uncheckedRes.filter((it) => !!it) as (BaseMdxFrontmatter & {
-    slug: string
-  })[]
+  try {
+    const base = (await fs.access(localizedFolder).then(() => true).catch(() => false))
+      ? localizedFolder
+      : defaultFolder
+    const files = await fs.readdir(base)
+    console.log(`[getAllBlocks] Found ${files.length} items in blocks folder: ${base}`)
+
+    const uncheckedRes = await Promise.all(
+      files.map(async (file) => {
+        const filePath = path.join(base, file)
+        const stats = await fs.stat(filePath)
+
+        if (!stats.isDirectory()) {
+          // Handle direct .mdx files
+          if (file.endsWith('.mdx')) {
+            try {
+              const rawMdx = await fs.readFile(filePath, "utf-8")
+              const slug = file.replace('.mdx', '')
+              return {
+                ...(matter(rawMdx).data as BaseMdxFrontmatter),
+                slug,
+              }
+            } catch (error) {
+              console.warn(`Error reading MDX file: ${filePath}`)
+              return undefined
+            }
+          }
+          return undefined
+        }
+
+        // Handle directory structure
+        const mdxPath = path.join(filePath, `${file}.mdx`)
+        try {
+          await fs.access(mdxPath, fs.constants.F_OK)
+          const rawMdx = await fs.readFile(mdxPath, "utf-8")
+          return {
+            ...(matter(rawMdx).data as BaseMdxFrontmatter),
+            slug: file,
+          }
+        } catch (error) {
+          console.warn(`MDX file not found in directory: ${mdxPath}`)
+          return undefined
+        }
+      })
+    )
+
+    const validBlocks = uncheckedRes.filter((it) => !!it) as (BaseMdxFrontmatter & {
+      slug: string
+    })[]
+
+    console.log(`[getAllBlocks] Found ${validBlocks.length} valid blocks`)
+    return validBlocks
+  } catch (error) {
+    console.error("Error reading blocks folder:", error)
+    return []
+  }
 }
