@@ -1,71 +1,66 @@
 ---
-title: Note Component
-description: Introducing the Note Component Communicating Effectively in Your UI
+title:  ملاحظات (Notes)
+description: مكوّن مرن لإبراز المعلومات المهمة داخل واجهة المستخدم.
 ---
 
-**Learn how to use the versatile Note component to communicate important information effectively within your user interface.**
+**استخدم مكوّن الملاحظة للتواصل الفعّال وعرض المعلومات المهمة بشكل واضح داخل واجهتك.**
 
 <ComponentPreview name="note-demo" />
 
-## Installation
+## التثبيت
 
 <div className="not-prose md:px-0 px-4"> 
 <Step>
-<StepItem title="Install Dependencies">
-First, you need to install dependencies:
+<StepItem title="تثبيت المتطلبات">
+قم بتثبيت الحزم المطلوبة:
 <Pre className="language-bash">
 {`npm install clsx tailwind-merge`}
 </Pre>
 </StepItem>
-  <StepItem title="Create utils.ts"> 
-  <ComponentUtilsText/>
-  <ComponentUtils/>
+  <StepItem title="إنشاء ملف utils.ts"> 
+    <ComponentUtilsText/>
+    <ComponentUtils/>
   </StepItem>
-  <StepItem title="Create Note Component" >
-  <ComponentSource name="note-demo"/>
+  <StepItem title="إنشاء مكوّن الملاحظة">
+    <ComponentSource name="note-demo"/>
   </StepItem>
-  <StepItem title="Here you go, Now you can edit and customize it for your needs and make it yours"/>
+  <StepItem title="التخصيص">
+    يمكنك الآن تعديله وتخصيص تصميمه حسب احتياجاتك.
+  </StepItem>
 </Step>
-
 </div>
 
-## Usage
+## الاستخدام
 
 <div className="not-prose space-y-6">
 <Pre className="language-typescript">
-{`import { Note } from "@/components/Note"`}
+{`import { Note } from "@/components/ui/note"`}
 </Pre>
 <Pre className="language-tsx">
-{`import { Note } from "@/components/ui/note"
-
-const NoteDemo = () => {
-return <Note variant="info">This is an informational note.</Note>
+{`const NoteDemo = () => {
+  return <Note variant="info">هذه ملاحظة معلوماتية.</Note>
 }
 
 export default NoteDemo`}
 </Pre>
 </div>
 
-## Example
+## أمثلة
 
-### Standard Note
-
+### ملاحظة قياسية
 <ComponentPreview name="note-demo" />
 
-### Success Note
-
+### ملاحظة نجاح
 <ComponentPreview name="note-demo" variant="success" />
 
-### Warning Note
-
+### ملاحظة تحذير
 <ComponentPreview name="note-demo" variant="warning" />
 
-### Danger Note
-
+### ملاحظة خطأ
 <ComponentPreview name="note-demo" variant="error" />
 
-## Closable Notes
+## ملاحظات قابلة للإغلاق
 
-To allow users to dismiss the note, set the <MdxBadge>closable</MdxBadge> prop to <MdxBadge>true</MdxBadge>.
+لجعل الملاحظة قابلة للإغلاق من قِبل المستخدم، أضف الخاصية <MdxBadge>closable</MdxBadge> بالقيمة <MdxBadge>true</MdxBadge>.
 
 <ComponentPreview name="note-demo" variant="closable" />

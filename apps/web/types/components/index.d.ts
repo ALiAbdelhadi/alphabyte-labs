@@ -27,7 +27,7 @@ type CodeBlockWrapperProps = {
 // steps component props
 type StepItemProps = {
   title?: string
-  children: ReactNode
+  children?: ReactNode
   className?: string
 }
 // steps component props

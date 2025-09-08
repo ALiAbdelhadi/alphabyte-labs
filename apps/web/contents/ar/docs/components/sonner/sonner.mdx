@@ -1,38 +1,41 @@
 ---
-title: Sonner
-description: An opinionated toast component for React.
+title: إشعار (Sonner)
+description: مكوّن Toast جاهز للرأي (Opinionated) مخصص لتطبيقات React.
 links:
   doc: https://sonner.emilkowal.ski
 ---
 
 <ComponentPreview name="sonner-demo" />
-## About
-<MdxBadge>Sonner</MdxBadge> is built on top of
-[Sonner](https://sonner.emilkowal.ski/) by
-[emilkowalski_](https://x.com/emilkowalski_). 
-## Installation
+
+## حول المكوّن
+<MdxBadge>سونر</MdxBadge> مبني على مكتبة
+[Sonner](https://sonner.emilkowal.ski/) بواسطة
+[emilkowalski_](https://x.com/emilkowalski_).
+
+## التثبيت
 <div className="not-prose px-4 md:px-0">
   <Step>
-    <StepItem title="Install Dependencies">
-      First, you need to install dependencies:
+    <StepItem title="تثبيت التبعيات">
+      أولاً، قم بتثبيت التبعيات:
       <Pre>{`npm install clsx tailwind-merge sonner`}</Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
-    <StepItem title="Create Sonner Component">
+    <StepItem title="إنشاء مكوّن Sonner">
       <ComponentSource name="sonner-demo" />
     </StepItem>
-    <StepItem title="Edit layout.tsx for Toaster component">
-    in Your main <MdxBadge>layout.tsx</MdxBadge> add{" "} <MdxBadge> \<Toaster /></MdxBadge>{" "} to show the toast :
+    <StepItem title="تعديل layout.tsx لإضافة مكوّن Toaster">
+      في ملف <MdxBadge>layout.tsx</MdxBadge> الرئيسي لديك، أضف{" "} 
+      <MdxBadge>\<Toaster /></MdxBadge>{" "} لعرض التنبيهات (toasts):
       <Pre
         highlightLines={[8]}
       >{`import { Toaster } from "@/components/ui/sonner"
  
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="ar">
       <body>
         <main>{children}</main>
         <Toaster />
@@ -43,24 +46,29 @@ export default function RootLayout({ children }) {
     </StepItem>
   </Step>
 </div>
-## Usage
+
+## الاستخدام
 <div className="not-prose space-y-6">
   <Pre>{`import { toast } from "sonner"`}</Pre>
-  <Pre>{`toast("Event has been created.")`}</Pre>
+  <Pre>{`toast("تم إنشاء الحدث بنجاح.")`}</Pre>
 </div>
 
-## Types
+## الأنواع
 
-### Success
-
+### نجاح
 <ComponentPreview name="sonner-demo" variant="success" />
-### Info
+
+### معلومات
 <ComponentPreview name="sonner-demo" variant="info" />
-### Warning
+
+### تحذير
 <ComponentPreview name="sonner-demo" variant="warning" />
-### Error
+
+### خطأ
 <ComponentPreview name="sonner-demo" variant="error" />
-### Loading
+
+### تحميل
 <ComponentPreview name="sonner-demo" variant="loading" />
-### Custom
+
+### مخصص
 <ComponentPreview name="sonner-demo" variant="custom" />

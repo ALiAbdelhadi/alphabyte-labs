@@ -1,6 +1,6 @@
 import { Settings } from "@/config/meta"
 import { components } from "@/lib/components"
-import { PageRoutes } from "@/lib/pageRoutes"
+import { getPageRoutes } from "@/lib/pageRoutes"
 import { GitHubLink } from "@/settings/settings"
 import { createReadStream, promises as fs } from "fs"
 import matter from "gray-matter"
@@ -305,26 +305,56 @@ function sluggify(text: string) {
     .replace(/[^a-zA-Z0-9\u4e00-\u9fa5\-_]/g, "")
 }
 
-const pathIndexMap = new Map(
-  PageRoutes.map((route, index) => [route.href, index])
-)
+type SimplePage = { title: string; href: string }
 
-export function getPreviousNext(path: string) {
-  // Clean the path
+// Cache routes per-locale to avoid mixing languages across requests
+let cachedRoutesByLocale: Map<string | undefined, SimplePage[]> | null = null
+let cachedIndexMapByLocale: Map<string | undefined, Map<string, number>> | null = null
+
+async function ensureRoutesIndexed(locale?: string) {
+  if (!cachedRoutesByLocale) {
+    cachedRoutesByLocale = new Map()
+  }
+  if (!cachedIndexMapByLocale) {
+    cachedIndexMapByLocale = new Map()
+  }
+
+  const localeKey = locale
+  if (!cachedRoutesByLocale.has(localeKey)) {
+    const routes = await getPageRoutes()
+    cachedRoutesByLocale.set(localeKey, routes)
+  }
+
+  if (!cachedIndexMapByLocale.has(localeKey)) {
+    const routes = cachedRoutesByLocale.get(localeKey) as SimplePage[]
+    cachedIndexMapByLocale.set(
+      localeKey,
+      new Map(routes.map((route, index) => [route.href, index]))
+    )
+  }
+}
+
+export async function getPreviousNext(path: string, locale?: string) {
+  await ensureRoutesIndexed(locale)
+
+  const routes = (cachedRoutesByLocale as Map<string | undefined, SimplePage[]>).get(locale) as SimplePage[]
+  const indexMap = (cachedIndexMapByLocale as Map<string | undefined, Map<string, number>>).get(locale) as Map<string, number>
+
   const cleanPath = path.startsWith('/') ? path : `/${path}`
-  let index = pathIndexMap.get(cleanPath)
+  let index = indexMap.get(cleanPath)
 
   if (index === undefined) {
-    index = pathIndexMap.get(path)
+    index = indexMap.get(path)
   }
 
   if (index === undefined) {
-    // Try to find partial matches
-    for (const [routePath, routeIndex] of pathIndexMap.entries()) {
+    for (const [routePath, routeIndex] of indexMap.entries()) {
       const normalizedRoutePath = routePath.replace(/^\/+|\/+$/g, '')
       const normalizedPath = path.replace(/^\/+|\/+$/g, '')
-
-      if (normalizedRoutePath.includes(normalizedPath) || normalizedPath.includes(normalizedRoutePath)) {
+      if (
+        normalizedRoutePath.includes(normalizedPath) ||
+        normalizedPath.includes(normalizedRoutePath)
+      ) {
         index = routeIndex
         break
       }
@@ -333,13 +363,15 @@ export function getPreviousNext(path: string) {
 
   if (index === undefined || index === -1) {
     console.log(`[getPreviousNext] No index found for path: ${path}`)
-    return { prev: null, next: null }
+    return { prev: null as SimplePage | null, next: null as SimplePage | null }
   }
 
-  const prev = index > 0 ? PageRoutes[index - 1] : null
-  const next = index < PageRoutes.length - 1 ? PageRoutes[index + 1] : null
+  const prev = index > 0 ? routes[index - 1] : null
+  const next = index < routes.length - 1 ? routes[index + 1] : null
 
-  console.log(`[getPreviousNext] Path: ${path}, Index: ${index}, Prev: ${prev?.title}, Next: ${next?.title}`)
+  console.log(
+    `[getPreviousNext] Path: ${path}, Index: ${index}, Prev: ${prev?.title}, Next: ${next?.title}`
+  )
   return { prev, next }
 }
 

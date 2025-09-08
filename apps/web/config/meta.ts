@@ -1,3 +1,4 @@
+import { OpenGraph, TwitterCard } from "@/config/metadata"
 import {
   branding,
   companyLink,
@@ -18,8 +19,6 @@ import {
   url,
   urlImage,
 } from "@/settings/settings"
-
-import { OpenGraph, TwitterCard } from "@/config/metadata"
 
 type ExtendedOpenGraph = OpenGraph & {
   publishedTime?: string
@@ -113,11 +112,11 @@ export function constructMetadata(props?: MetadataProps) {
 
   const image = props?.image
     ? {
-        url: props.image.url,
-        width: props.image.width || 1200,
-        height: props.image.height || 630,
-        alt: props.image.alt || imageAlt,
-      }
+      url: props.image.url,
+      width: props.image.width || 1200,
+      height: props.image.height || 630,
+      alt: props.image.alt || imageAlt,
+    }
     : Settings.openGraph.images[0]
 
   const type = props?.type || Settings.openGraph.type

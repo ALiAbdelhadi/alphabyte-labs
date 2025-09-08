@@ -1,15 +1,14 @@
+import { Paths } from "@/lib/pageRoutes"
+import { useDocsRouting } from "@/settings/docs-routing"
 import { promises as fs } from "fs"
-import path from "path"
-import { DocsRouting } from "@/settings/docs-routing"
 import grayMatter from "gray-matter"
+import path from "path"
 import remarkMdx from "remark-mdx"
 import remarkParse from "remark-parse"
 import remarkStringify from "remark-stringify"
 import { unified } from "unified"
 import { Node, Parent } from "unist"
 import { visit } from "unist-util-visit"
-
-import { Paths } from "@/lib/pageRoutes"
 
 const docsDir = path.join(process.cwd(), "contents/docs")
 const outputDir = path.join(process.cwd(), "public", "search-data")
@@ -44,6 +43,7 @@ function createSlug(filePath: string): string {
 }
 
 function findDocumentBySlug(slug: string): Paths | null {
+  const docsConfig = useDocsRouting()
   function searchDocs(docs: Paths[], currentPath = ""): Paths | null {
     for (const doc of docs) {
       if (isRoute(doc)) {
@@ -57,7 +57,7 @@ function findDocumentBySlug(slug: string): Paths | null {
     }
     return null
   }
-  return searchDocs(DocsRouting)
+  return searchDocs(docsConfig)
 }
 
 async function ensureDirectoryExists(dir: string) {

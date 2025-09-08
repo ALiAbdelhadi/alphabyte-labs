@@ -1,55 +1,66 @@
 ---
-title: Badge
-description: A badge is a small, often circular, visual element that provides information or context about an item. It can be used to indicate status, notifications, or other relevant details.
+title: الشارة (Badge)
+description: الشارة هي عنصر بصري صغير، غالبًا دائري، يوفّر معلومات أو سياق حول عنصر ما. يمكن استخدامها للإشارة إلى الحالة، الإشعارات، أو تفاصيل أخرى ذات صلة.
 ---
 
 <ComponentPreview name="badge-demo" />
 
-## Installation
+## التثبيت
 
 <div className="not-prose px-4 md:px-0">
   <Step>
-    <StepItem title="Install Dependencies">
-      First , you need to install dependencies:
+    <StepItem title="تثبيت الاعتمادات">
+      أولاً، تحتاج إلى تثبيت الاعتمادات:
       <Pre className="language-bash">{`npm install clsx tailwind-merge `}</Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
-    <StepItem title="Create Badge Component">
+    <StepItem title="إنشاء مكوّن Badge">
       <ComponentSource name="badge-demo" />
     </StepItem>
   </Step>
 </div>
 
-## Usage
+## الاستخدام
 
 <div className="not-prose space-y-6">
   <Pre>{`import { Badge } from '@/components/ui/badge'`}</Pre>
   <Pre>{`<Badge variant="outline">Badge</Badge>`}</Pre>
 </div>
-## Tips 
-Tip: You can use <MdxBadge>badgeVariants</MdxBadge> to create your own
-badge component with different styles.
+
+## نصائح  
+
+💡 يمكنك استخدام <MdxBadge>badgeVariants</MdxBadge> لإنشاء مكوّن شارة خاص بك بأنماط مختلفة.  
+
 <div className="not-prose space-y-6">
   <Pre>{`import { Badge } from '@/components/ui/badge'`}</Pre>
   <Pre>{`<Link className={badgeVariants({ variant: "outline" })}>Badge</Link>`}</Pre>
 </div>
-## Examples 
-### Default
+
+## أمثلة  
+
+### افتراضي
 <ComponentPreview name="badge-demo" />
-### Outline
+
+### مخطط (Outline)
 <ComponentPreview name="badge-demo" variant="outline" />
-### Destructive
+
+### مدمر (Destructive)
 <ComponentPreview name="badge-demo" variant="destructive" />
-### Success
+
+### نجاح (Success)
 <ComponentPreview name="badge-demo" variant="success" />
-### Warning
+
+### تحذير (Warning)
 <ComponentPreview name="badge-demo" variant="warning" />
-### Info
+
+### معلومة (Info)
 <ComponentPreview name="badge-demo" variant="info" />
-### Removable
+
+### قابل للإزالة (Removable)
 <ComponentPreview name="badge-demo" variant="removable" />
-### With icon
+
+### مع أيقونة (With icon)
 <ComponentPreview name="badge-demo" variant="icon" />

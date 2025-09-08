@@ -165,8 +165,8 @@ const CodeHeader: React.FC<{
   customActions,
 }) => (
     <div className="code-block-header code-block-toolbar overflow-x-auto hide-scrollbar flex items-center justify-between h-[35px] px-4 bg-muted/30 border-b border-border">
-      <div className="flex items-center justify-between space-x-4">
-        <div className="flex space-x-2 items-center" role="presentation" aria-label="Window controls">
+      <div className="flex items-center justify-between space-x-4 rtl:space-x-reverse">
+        <div className="flex space-x-2 rtl:space-x-reverse items-center" role="presentation" aria-label="Window controls">
           <div className="w-3 h-3 rounded-full bg-red-500/30 border border-red-500/40" />
           <div className="w-3 h-3 rounded-full bg-yellow-500/30 border border-yellow-500/40" />
           <div className="w-3 h-3 rounded-full bg-green-500/30 border border-green-500/40" />
@@ -177,7 +177,7 @@ const CodeHeader: React.FC<{
             {description && <p className="text-xs mt-1 text-muted-foreground">{description}</p>}
           </div>
         ) : folderPath ? (
-          <span className="code-block-folder-path font-medium text-muted-foreground text-sm text-nowrap max-w-md">
+          <span dir="ltr" className="code-block-folder-path font-medium text-muted-foreground text-sm text-nowrap max-w-md">
             {folderPath}
           </span>
         ) : null}

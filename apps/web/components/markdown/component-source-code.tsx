@@ -2,11 +2,13 @@
 
 import Pre from "@/components/pre"
 import { REGISTRY } from "@/registry"
-import { useEffect, useState } from "react"
-import { CodeBlockWrapper } from "../code-block-wrapper"
-import LoadingIcon from "../icons/loading-icon"
-import MdxBadge from "../markdown/mdx-badge"
 import { fixImport } from "@/scripts/fixImport.mjs"
+import { useTranslations } from "next-intl"
+import { useEffect, useState } from "react"
+import { toast } from "sonner"
+import { CodeBlockWrapper } from "../code-block-wrapper"
+import LoadingIcon from "../icons/loading-icon" 
+import MdxBadge from "../markdown/mdx-badge"
 
 export interface ComponentSourceProps {
   code?: string
@@ -19,6 +21,7 @@ export default function ComponentSource({
   name,
   variant,
 }: ComponentSourceProps) {
+  const t = useTranslations("componentSource")
   const [componentCode, setComponentCode] = useState<string | null>(
     providedCode || null
   )
@@ -44,10 +47,10 @@ export default function ComponentSource({
         if (code) {
           setComponentCode(code)
         } else {
-          console.warn(`Source code not found for ${componentPath}`)
+          toast.warning(t("errors.sourceNotFound"))
         }
       } catch (error) {
-        console.error("Error loading source map:", error)
+        toast.error(t("errors.loadingError"))
       } finally {
         setIsLoadingCode(false)
       }
@@ -57,9 +60,8 @@ export default function ComponentSource({
   const ComponentUtilsText = () => {
     return (
       <p>
-        Third, you need to create a new folder called{" "}
-        <MdxBadge>component</MdxBadge> in you root directory and create a new
-        file called <MdxBadge>{componentName}</MdxBadge>{" "}
+        {t("text.description")}{" "}
+        <MdxBadge>{t("text.componentFolder")}</MdxBadge>{t("text.inRootDirectory")}<MdxBadge>{componentName}</MdxBadge>{" "}
       </p>
     )
   }
@@ -78,11 +80,11 @@ export default function ComponentSource({
         ) : isLoadingCode ? (
           <div className="flex w-full items-center justify-center text-sm text-muted-foreground p-4 gap-2">
             <LoadingIcon size={14} />
-            Loading code...
+            {t("loading.loadingCode")}
           </div>
         ) : (
           <div className="flex w-full items-center justify-center text-sm text-muted-foreground p-4">
-            No code available
+            {t("loading.noCodeAvailable")}
           </div>
         )}
       </CodeBlockWrapper>

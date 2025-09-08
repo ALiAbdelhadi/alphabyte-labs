@@ -370,6 +370,24 @@ export function highlight(snippet: string, searchTerms: string): string {
     }
   )
 }
+export function formatStepIndex(n: number, dir: "ltr" | "rtl"): string {
+  if (dir === "rtl") {
+    const arabicDigits = ["٠","١","٢","٣","٤","٥","٦","٧","٨","٩"]
+    return String(n).replace(/\d/g, d => arabicDigits[Number(d)])
+  }
+  return String(n)
+}
+export function convertToArabicNumerals(num: number): string {
+  const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+  const arabicNumbers = ["٠", "١", "٢", "٣", "٤", "٥", "٤", "٥", "٢", "٩"]
+
+  let result = num.toString()
+  for (let i = 0; i < englishNumbers.length; i++) {
+    result = result.replace(new RegExp(englishNumbers[i], "g"), arabicNumbers[i])
+  }
+  return result
+}
+
 
 // Export date formatting functions (used elsewhere in the app)
 export function formatDate(dateStr: string): string {

@@ -1,34 +1,42 @@
 ---
-title: Drawer
-description: Drawer component
+title: درج جانبي (Drawer)"
+description: "مكون الدرج لعرض محتوى جانبي"
 links:
   doc: https://vaul.emilkowal.ski/getting-started
 ---
 
 <ComponentPreview name="drawer-demo" />
-## About
-<MdxBadge>Drawer</MdxBadge> is built on top of
-[Vaul](https://github.com/emilkowalski/vaul) by
-[emilkowalski_](https://x.com/emilkowalski_). ## Installation
+
+## حول المكون
+
+<MdxBadge>الدرج (Drawer)</MdxBadge> مبني على مكتبة  
+[Vaul](https://github.com/emilkowalski/vaul) من تطوير  
+[emilkowalski_](https://x.com/emilkowalski_).
+
+## التثبيت
+
 <div className="not-prose px-4 md:px-0">
   <Step>
-    <StepItem title="Install Dependencies">
-      First, you need to install dependencies:
+    <StepItem title="تثبيت الحزم المطلوبة">
+      أولاً، تحتاج إلى تثبيت الحزم التالية:
       <Pre>{`npm install clsx tailwind-merge vaul`}</Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
-    <StepItem title="Create Drawer Component">
+
+    <StepItem title="إنشاء مكون الدرج">
       <ComponentSource name="drawer-demo" />
     </StepItem>
-    <StepItem title="Edit layout.tsx for background scaling">
-      in Your main <MdxBadge>layout.tsx</MdxBadge> add{" "}
-      <MdxBadge>vaul-drawer-wrapper</MdxBadge> to support scaling:
-      <Pre highlightLines={[4]}>{`<html lang="en" suppressHydrationWarning>
+
+    <StepItem title="تعديل ملف layout.tsx لدعم خاصية الخلفية المتحركة">
+      في ملف <MdxBadge>layout.tsx</MdxBadge> الرئيسي، أضف  
+      <MdxBadge>vaul-drawer-wrapper</MdxBadge> لدعم خاصية تحريك/تكبير الخلفية:
+      <Pre highlightLines={[4]}>{`<html lang="ar" suppressHydrationWarning>
   <body className="bg-background font-medium antialiased min-h-svh" suppressHydrationWarning>
-      {/* Create a div and passe it vaul-drawer-wrapper like this way */}
+      {/* أنشئ div وأضف له خاصية vaul-drawer-wrapper بهذه الطريقة */}
       <div vaul-drawer-wrapper="">
          <div className="relative flex min-h-svh flex-col bg-background">
             {children}
@@ -39,7 +47,9 @@ links:
     </StepItem>
   </Step>
 </div>
-## Usage
+
+## الاستخدام
+
 <div className="not-prose space-y-6">
   <Pre>
     {`import {
@@ -54,24 +64,28 @@ links:
 } from "@/components/ui/drawer"
 `}
   </Pre>
+
   <Pre>
     {`<Drawer>
-  <DrawerTrigger>Open</DrawerTrigger>
+  <DrawerTrigger>فتح</DrawerTrigger>
   <DrawerContent>
     <DrawerHeader>
-      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-      <DrawerDescription>This action cannot be undone.</DrawerDescription>
+      <DrawerTitle>هل أنت متأكد تمامًا؟</DrawerTitle>
+      <DrawerDescription>هذا الإجراء لا يمكن التراجع عنه.</DrawerDescription>
     </DrawerHeader>
     <DrawerFooter>
-      <Button>Submit</Button>
+      <Button>تأكيد</Button>
       <DrawerClose>
-        <Button variant="outline">Cancel</Button>
+        <Button variant="outline">إلغاء</Button>
       </DrawerClose>
     </DrawerFooter>
   </DrawerContent>
 </Drawer>`}
   </Pre>
 </div>
-## Examples 
-### Nested Drawer
+
+## أمثلة 
+
+### درج متداخل (Nested Drawer)
+
 <ComponentPreview name="drawer-demo" variant="nested" />

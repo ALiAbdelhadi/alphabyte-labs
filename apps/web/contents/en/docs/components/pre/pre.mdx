@@ -9,153 +9,319 @@ description: Showcase beautifully styled and customizable code snippets with adv
 
 <div className="not-prose md:px-0 px-4">
 <Step>
-<StepItem title="Install Dependencies">
-First , you need to install prism.js
-<Pre className="language-bash">
-{`npm i install prismjs clsx tailwind-merge`}
-</Pre>
-</StepItem>
-  <StepItem title="Create utils.ts"> 
-  <ComponentUtilsText/>
-  <ComponentUtils/>
+  <StepItem title="Install Dependencies">
+    First, install Prism.js and other required dependencies:
+    <Pre className="language-bash">
+      {`npm install prismjs clsx tailwind-merge`}
+    </Pre>
+  </StepItem>
+  <StepItem title="Create utils.ts">
+    <ComponentUtilsText />
+    <ComponentUtils />
   </StepItem>
   <StepItem title="Create Pre Component">
-  <ComponentSource name="pre"/>
+    <ComponentSource name="pre" />
   </StepItem>
   <StepItem title="Create prism-theme.css file">
-  Create file called <MdxBadge>prism-theme.css</MdxBadge> in you app directory, and put the following code in it,
-  <Note type="note" className="!mb-5 !my-3">
-   This is the same styling as visual studio code theme dark 
-   </Note>
-   <CodeBlockWrapper>
- <Pre className="language-css" folderPath="prism-theme.css" >
- {`:root {
+    Create a file called <MdxBadge>prism-theme.css</MdxBadge> in your app directory, and apply your Prism.js styles there.
+    <Pre className="language-css" folderPath="prism-theme.css" >
+    {`
+    :root {
   --code-background: #1e1e1e;
-  --code-text-color: #cccccc;
-  --code-selection-background: #264f78;
-  --code-comment-color: #6a9955;
-  --code-line-number-color: #666;
-  --code-toolbar-background: #2d2d2d;
-  --code-folder-path-color: hsl(var(--muted));
+  --code-text-color: #e8e8e8;
+  --code-toolbar-background: #252526;
+  --code-border-color: #404040;
+  --code-folder-path-color: #a0a0a0;
+  --code-selection-background: rgba(173, 214, 255, 0.15);
+  --code-line-numbers-color: #6e7681;
+  --code-line-numbers-hover: #8b949e;
+  --sidebar-background: #252526;
+  --sidebar-header-background: #333333;
+  --sidebar-text-color: #cccccc;
+  --sidebar-text-hover: #ffffff;
+  --sidebar-text-muted: #8a8a8a;
+  --sidebar-item-hover-bg: #2a2d2e;
+  --sidebar-item-active-bg: #37373d;
+  --sidebar-border-color: #474747;
+  --sidebar-resize-handle: #0e639c;
+  --sidebar-loading-bg: #37373d;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) {
+    --code-background: #fafafa;
+    --code-text-color: #24292f;
+    --code-toolbar-background: #f0f0f0;
+    --code-border-color: #d1d9e0;
+    --code-folder-path-color: #636c76;
+    --code-selection-background: rgba(0, 92, 197, 0.12);
+    --code-line-numbers-color: #8c959f;
+    --code-line-numbers-hover: #656d76;
+    --sidebar-background: #f6f8fa;
+    --sidebar-header-background: #f0f3f6;
+    --sidebar-text-color: #24292f;
+    --sidebar-text-hover: #0969da;
+    --sidebar-text-muted: #656d76;
+    --sidebar-item-hover-bg: #f3f4f6;
+    --sidebar-item-active-bg: #dbeafe;
+    --sidebar-border-color: #d0d7de;
+    --sidebar-resize-handle: #0969da;
+    --sidebar-loading-bg: #f3f4f6;
+  }
 }
 
 .code-block-container {
-background-color: var(--code-background);
-border-radius: 6px;
-width: 100%;
-position: relative;
+  background-color: var(--code-background);
+  border-radius: 12px;
+  width: 100%;
+  position: relative;
+  font-family:
+    "Cascadia Code", "Fira Code", "JetBrains Mono", "Consolas", "Monaco",
+    "Courier New", monospace;
+  overflow: hidden;
 }
 
 .code-block-header {
-background-color: var(--code-background);
-border-bottom: 1px solid #333;
-}
-
-.code-block-toolbar {
-background-color: var(--code-toolbar-background);
-padding-left: 1rem;
-padding-right: 1rem;
-border-radius: 6px 6px 0 0;
+  background-color: var(--code-toolbar-background);
+  border-bottom: 1px solid var(--code-border-color);
+  border-radius: 6px 6px 0 0;
 }
 
 pre[class*="language-"],
 code[class*="language-"] {
-color: var(--code-text-color);
-font-size: 14px;
-text-shadow: none;
-direction: ltr;
-text-align: left;
-white-space: pre;
-word-spacing: normal;
-word-break: normal;
-line-height: 1.5;
--moz-tab-size: 4;
--o-tab-size: 4;
-tab-size: 4;
--webkit-hyphens: none;
--moz-hyphens: none;
--ms-hyphens: none;
-hyphens: none;
-background: transparent;
+  color: var(--code-text-color);
+  font-size: 14px;
+  text-shadow: none;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  background: transparent;
+}
+
+pre[class*="language-"] {
+  padding: 0.8rem;
+  margin: 0;
+  overflow-x: auto;
+  border-radius: 0 0 6px 6px;
+}
+
+:not(pre) > code[class*="language-"] {
+  padding: 0.3em;
+  border-radius: 0.3em;
+  color: #e63946;
+  background: var(--code-background);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) :not(pre) > code[class*="language-"] {
+    color: #d73a49;
+  }
 }
 
 pre[class*="language-"]::selection,
 code[class*="language-"]::selection,
-pre[class*="language-"] _::selection,
-code[class_="language-"] \*::selection {
-text-shadow: none;
-background: var(--code-selection-background);
-}
-
-@media print {
-pre[class*="language-"],
-code[class*="language-"] {
-text-shadow: none;
-}
-}
-
-pre[class*="language-"] {
-padding: 0.8rem;
-margin: 0;
-overflow-x: auto;
-border-radius: 0 0 6px 6px;
+pre[class*="language-"] *::selection,
+code[class*="language-"] *::selection {
+  text-shadow: none;
+  background: var(--code-selection-background);
 }
 
 .line-numbers .line-numbers-rows {
-border-right: none !important;
-padding-right: 1rem !important;
-top: -2.5px !important;
-left: -39px !important;
-position: absolute;
-height: 100%;
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
+  border-right: none !important;
+  padding-right: 1rem !important;
+  top: -2.5px !important;
+  left: -39px !important;
+  position: absolute;
+  height: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .line-numbers-rows > span {
-padding: 0;
-border: 0;
-display: block;
-counter-increment: linenumbers;
-color: hsl(var(--muted)) !important;
-font-size: 14px;
-line-height: 1.5;
-text-align: right;
+  padding: 0;
+  border: 0;
+  display: block;
+  counter-increment: linenumbers;
+  color: var(--code-line-numbers-color) !important;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: right;
+  transition: color 0.2s ease;
 }
 
-:not(pre) > code[class*="language-"] {
-padding: 0.3em;
-border-radius: 0.3em;
-color: #db4c69;
-background: var(--code-background);
+.line-numbers-rows > span:hover {
+  color: var(--code-line-numbers-hover) !important;
 }
-/****\*\*\*\*****\*\*\*\*****\*\*\*\*****\*****\*\*\*\*****\*\*\*\*****\*\*\*\*****
 
-- Tokens (No changes here, kept for completeness)
-  \*/
-  .namespace {
-  opacity: 0.7;
+@media print {
+  pre[class*="language-"],
+  code[class*="language-"] {
+    text-shadow: none;
   }
+}
+
+/* Sidebar/File Tree Styles */
+.sidebar-container {
+  background-color: var(--sidebar-background);
+  color: var(--sidebar-text-color);
+  border-color: var(--sidebar-border-color);
+}
+
+.sidebar-header {
+  background-color: var(--sidebar-header-background);
+  border-color: var(--sidebar-border-color);
+  color: var(--sidebar-text-color);
+}
+
+.sidebar-text {
+  color: var(--sidebar-text-color);
+}
+
+.sidebar-text-muted {
+  color: var(--sidebar-text-muted);
+}
+
+.sidebar-item-hover:hover {
+  background-color: var(--sidebar-item-hover-bg);
+  color: var(--sidebar-text-hover);
+}
+
+.sidebar-item-active {
+  background-color: var(--sidebar-item-active-bg);
+  color: var(--sidebar-text-hover);
+}
+
+.sidebar-loading {
+  background-color: var(--sidebar-loading-bg);
+}
+
+.sidebar-resize-handle {
+  background-color: var(--sidebar-resize-handle);
+}
+
+.sidebar-open-button {
+  background-color: var(--sidebar-background);
+  color: var(--sidebar-text-color);
+  border-color: var(--sidebar-border-color);
+}
+
+.sidebar-open-button:hover {
+  background-color: var(--sidebar-item-hover-bg);
+}
+
+/* Token styling continues as before... */
+.token.comment,
+.token.prolog {
+  color: #7c9961;
+  font-style: italic;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.comment,
+  :root:not(.dark) .token.prolog {
+    color: #6a7f3a;
+  }
+}
 
 .token.doctype .token.doctype-tag {
-color: #569cd6;
+  color: #569cd6;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.doctype .token.doctype-tag {
+    color: #005cc5;
+  }
 }
 
 .token.doctype .token.name {
-color: #9cdcfe;
+  color: #9cdcfe;
 }
 
-.token.comment,
-.token.prolog {
-color: #6a9955;
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.doctype .token.name {
+    color: #032f62;
+  }
+}
+
+.token.cdata {
+  color: #8a8a8a;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.cdata {
+    color: #6a737d;
+  }
 }
 
 .token.punctuation,
 .language-html .language-css .token.punctuation,
 .language-html .language-javascript .token.punctuation {
-color: #d4d4d4;
+  color: #e8e8e8;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.punctuation,
+  :root:not(.dark) .language-html .language-css .token.punctuation,
+  :root:not(.dark) .language-html .language-javascript .token.punctuation {
+    color: #24292f;
+  }
+}
+
+.token.operator,
+.token.entity {
+  color: #e8e8e8;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.operator,
+  :root:not(.dark) .token.entity {
+    color: #24292f;
+  }
+}
+
+.token.operator.arrow {
+  color: #5fb3d4;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.operator.arrow {
+    color: #0969da;
+  }
+}
+
+.token.keyword {
+  color: #e879cb;
+  font-weight: 500;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.keyword {
+    color: #cf222e;
+  }
+}
+
+.token.keyword.module,
+.token.keyword.control-flow {
+  color: #d286c5;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.keyword.module,
+  :root:not(.dark) .token.keyword.control-flow {
+    color: #8250df;
+  }
 }
 
 .token.property,
@@ -166,7 +332,40 @@ color: #d4d4d4;
 .token.symbol,
 .token.inserted,
 .token.unit {
-color: #b5cea8;
+  color: #c4d9a5;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.property,
+  :root:not(.dark) .token.tag,
+  :root:not(.dark) .token.boolean,
+  :root:not(.dark) .token.number,
+  :root:not(.dark) .token.constant,
+  :root:not(.dark) .token.symbol,
+  :root:not(.dark) .token.inserted,
+  :root:not(.dark) .token.unit {
+    color: #1a7f37;
+  }
+}
+
+.token.boolean {
+  color: #569cd6;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.boolean {
+    color: #005cc5;
+  }
+}
+
+.token.constant {
+  color: #56c9b0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.constant {
+    color: #0969da;
+  }
 }
 
 .token.selector,
@@ -175,308 +374,494 @@ color: #b5cea8;
 .token.char,
 .token.builtin,
 .token.deleted {
-color: #ce9178;
+  color: #d4967b;
 }
 
-.language-css .token.string.url {
-text-decoration: underline;
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.selector,
+  :root:not(.dark) .token.attr-name,
+  :root:not(.dark) .token.string,
+  :root:not(.dark) .token.char,
+  :root:not(.dark) .token.builtin,
+  :root:not(.dark) .token.deleted {
+    color: #032f62;
+  }
 }
 
-.token.operator,
-.token.entity {
-color: #d4d4d4;
+.token.escape {
+  color: #ddc487;
 }
 
-.token.operator.arrow {
-color: #569cd6;
-}
-
-.token.atrule {
-color: #ce9178;
-}
-
-.token.atrule .token.rule {
-color: #c586c0;
-}
-
-.token.atrule .token.url {
-color: #9cdcfe;
-}
-
-.token.atrule .token.url .token.function {
-color: #dcdcaa;
-}
-
-.token.atrule .token.url .token.punctuation {
-color: #d4d4d4;
-}
-
-.token.keyword {
-color: #d681ce;
-}
-
-.token.keyword.module,
-.token.keyword.control-flow {
-color: #c586c0;
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.escape {
+    color: #6f42c1;
+  }
 }
 
 .token.function,
 .token.function .token.maybe-class-name {
-color: #dcdcaa;
-}
-.token.regex {
-color: #d16969;
+  color: #ebe2aa;
+  font-weight: 500;
 }
 
-.token.important {
-color: #569cd6;
-}
-
-.token.italic {
-font-style: italic;
-}
-
-.token.constant {
-color: #4ec9b0;
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.function,
+  :root:not(.dark) .token.function .token.maybe-class-name {
+    color: #6f42c1;
+  }
 }
 
 .token.class-name,
 .token.maybe-class-name {
-color: #4ec9b0;
+  color: #56c9b0;
 }
 
-.token.console {
-color: #9cdcfe;
-}
-
-.token.parameter {
-color: #9cdcfe;
-}
-
-.token.interpolation {
-color: #9cdcfe;
-}
-
-.token.punctuation.interpolation-punctuation {
-color: #569cd6;
-}
-
-.token.boolean {
-color: #569cd6;
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.class-name,
+  :root:not(.dark) .token.maybe-class-name {
+    color: #6f42c1;
+  }
 }
 
 .token.property,
 .token.variable,
 .token.imports .token.maybe-class-name,
 .token.exports .token.maybe-class-name {
-color: #9cdcfe;
+  color: #a8dcf0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.property,
+  :root:not(.dark) .token.variable,
+  :root:not(.dark) .token.imports .token.maybe-class-name,
+  :root:not(.dark) .token.exports .token.maybe-class-name {
+    color: #005cc5;
+  }
+}
+
+.token.parameter {
+  color: #a8dcf0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.parameter {
+    color: #005cc5;
+  }
+}
+
+.token.console {
+  color: #a8dcf0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.console {
+    color: #005cc5;
+  }
+}
+
+.token.interpolation {
+  color: #a8dcf0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.interpolation {
+    color: #005cc5;
+  }
+}
+
+.token.punctuation.interpolation-punctuation {
+  color: #569cd6;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.punctuation.interpolation-punctuation {
+    color: #005cc5;
+  }
+}
+
+.language-css .token.string.url {
+  text-decoration: underline;
+}
+
+.token.atrule {
+  color: #d4967b;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.atrule {
+    color: #032f62;
+  }
+}
+
+.token.atrule .token.rule {
+  color: #d286c5;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.atrule .token.rule {
+    color: #8250df;
+  }
+}
+
+.token.atrule .token.url {
+  color: #a8dcf0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.atrule .token.url {
+    color: #005cc5;
+  }
+}
+
+.token.atrule .token.url .token.function {
+  color: #f4e474;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.atrule .token.url .token.function {
+    color: #6f42c1;
+  }
+}
+
+.token.atrule .token.url .token.punctuation {
+  color: #e8e8e8;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.atrule .token.url .token.punctuation {
+    color: #24292f;
+  }
 }
 
 .token.selector {
-color: #d7ba7d;
+  color: #ddc487;
 }
 
-.token.escape {
-color: #d7ba7d;
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.selector {
+    color: #6f42c1;
+  }
 }
 
 .token.tag {
-color: #569cd6;
+  color: #569cd6;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.tag {
+    color: #005cc5;
+  }
 }
 
 .token.tag .token.punctuation {
-color: #c1c1c1;
+  color: #c9c9c9;
 }
 
-.token.cdata {
-color: #808080;
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.tag .token.punctuation {
+    color: #24292f;
+  }
 }
 
 .token.attr-name {
-color: #9cdcfe;
+  color: #a8dcf0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.attr-name {
+    color: #005cc5;
+  }
 }
 
 .token.attr-value,
 .token.attr-value .token.punctuation {
-color: #ce9178;
+  color: #d4967b;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.attr-value,
+  :root:not(.dark) .token.attr-value .token.punctuation {
+    color: #032f62;
+  }
 }
 
 .token.attr-value .token.punctuation.attr-equals {
-color: #d4d4d4;
+  color: #e8e8e8;
 }
 
-.token.entity {
-color: #569cd6;
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.attr-value .token.punctuation.attr-equals {
+    color: #24292f;
+  }
 }
 
-.token.namespace {
-color: #4ec9b0;
+.language-html .token.punctuation {
+  color: #9a9a9a;
 }
 
-.plain-text {
-color: #fff;
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .language-html .token.punctuation {
+    color: #6a7681;
+  }
 }
 
 pre[class*="language-javascript"],
 code[class*="language-javascript"],
 pre[class*="language-jsx"],
 code[class*="language-jsx"],
+code[class*="language-json"],
 pre[class*="language-typescript"],
 code[class*="language-typescript"],
 pre[class*="language-tsx"],
 code[class*="language-tsx"] {
-color: #569cd6;
+  color: #569cd6;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) pre[class*="language-javascript"],
+  :root:not(.dark) code[class*="language-javascript"],
+  :root:not(.dark) pre[class*="language-jsx"],
+  :root:not(.dark) code[class*="language-jsx"],
+  :root:not(.dark) pre[class*="language-typescript"],
+  :root:not(.dark) code[class*="language-typescript"],
+  :root:not(.dark) pre[class*="language-tsx"],
+  :root:not(.dark) code[class*="language-tsx"] {
+    color: #005cc5;
+  }
 }
 
 pre[class*="language-css"],
 code[class*="language-css"] {
-color: #ce9178;
+  color: #d4967b;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) pre[class*="language-css"],
+  :root:not(.dark) code[class*="language-css"] {
+    color: #032f62;
+  }
 }
 
 pre[class*="language-html"],
 code[class*="language-html"] {
-color: #d4d4d4 !important;
+  color: var(--code-text-color) !important;
+}
+
+.token.regex {
+  color: #e67373;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.regex {
+    color: #032f62;
+  }
 }
 
 .language-regex .token.anchor {
-color: #dcdcaa;
+  color: #ebe2aa;
 }
 
-.language-html .token.punctuation {
-color: #808080;
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .language-regex .token.anchor {
+    color: #6f42c1;
+  }
 }
-/****\*\*\*\*****\*\*\*\*****\*\*\*\*****\*****\*\*\*\*****\*\*\*\*****\*\*\*\*****
 
-- Line highlighting (No changes here, kept for completeness)
-  _/
-  pre[class_="language-"] > code[class*="language-"] {
+.namespace {
+  opacity: 0.8;
+}
+
+.token.namespace {
+  color: #56c9b0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.namespace {
+    color: #0969da;
+  }
+}
+
+.token.important {
+  color: #569cd6;
+  font-weight: bold;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .token.important {
+    color: #005cc5;
+  }
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.plain-text {
+  color: var(--code-text-color);
+}
+
+pre[class*="language-"] > code[class*="language-"] {
   position: relative;
   z-index: 1;
+}
+
+pre[class*="language-"]:focus-visible {
+  outline: 2px solid #0969da;
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  pre[class*="language-"]:focus-visible {
+    outline-color: #58a6ff;
   }
+}
 
-`}
+.token.keyword,
+.token.function {
+  text-shadow: none;
+}
 
- </Pre>
-</CodeBlockWrapper>
+.token.comment .token.keyword {
+  color: inherit;
+  font-weight: normal;
+}
+
+    `}
+    </Pre>
+    <Note type="note" className="!mb-5 !my-3">
+      You can customize it to look like Visual Studio Code dark theme or any style you prefer.
+    </Note>
   </StepItem>
   <StepItem title="Adding a code language">
-  this step is <MdxBadge>Optional</MdxBadge> it shows a the language of your code
-  you can pass an <MdxBadge>Images</MdxBadge> or <MdxBadge>Icons</MdxBadge> but if you choose icons make sure the library that you choose let you edit in colors of the icon
-  to do that you create a folder called <MdxBadge>language-icon.ts</MdxBadge> and add the following code in it: 
-  <Pre>{`import type { JSX } from "react"
-  import Image from "next/image"
-  import { Terminal } from "lucide-react"
-  
-  export const languageIcons: Record<string, JSX.Element> = {
-    javascript: (
-      <Image
-        src="/icons/javascript.svg"
-        className="w-[18px] h-[18px]"
-        alt="javascript"
-        width={10}
-        height={10}
-        quality={100}
-      />
-    ),
-    js: (
-      <Image
-        src="/icons/javascript.svg"
-        className="w-[18px] h-[18px]"
-        alt="javascript"
-        width={10}
-        height={10}
-        quality={100}
-      />
-    ),
-    jsx: (
-      <Image
-        src="/icons/javascript.svg"
-        className="w-[18px] h-[18px]"
-        alt="jsx"
-        width={10}
-        height={10}
-        quality={100}
-      />
-    ),
-    typescript: (
-      <Image
-        src="/icons/typescript.svg"
-        className="w-[18px] h-[18px]"
-        alt="typescript"
-        width={10}
-        height={10}
-        quality={100}
-      />
-    ),
-    ts: (
-      <Image
-        src="/icons/typescript.svg"
-        className="w-[18px] h-[18px]"
-        alt="typescript"
-        width={10}
-        height={10}
-        quality={100}
-      />
-    ),
-    tsx: (
-      <Image
-        src="/icons/typescript.svg"
-        className="w-[18px] h-[18px]"
-        alt="typescript"
-        width={10}
-        height={10}
-        quality={100}
-      />
-    ),
-    html: (
-      <Image
-        src="/icons/html.svg"
-        alt="html"
-        className="w-[18px] h-[18px]"
-        width={10}
-        height={10}
-        quality={100}
-      />
-    ),
-    css: (
-      <Image
-        src="/icons/css.svg"
-        alt="css"
-        className="w-[18px] h-[18px]"
-        width={10}
-        height={10}
-        quality={100}
-      />
-    ),
-    bash: <Terminal className="w-5 h-5 text-gray-100 rounded-lg" />,
-  }`}</Pre>
+    This step is <MdxBadge>Optional</MdxBadge>.  
+    It shows the language of your code block.  
+    You can pass <MdxBadge>Images</MdxBadge> or <MdxBadge>Icons</MdxBadge>.  
+    If you choose icons, make sure the library you use allows color customization.  
+    Example: create a file <MdxBadge>language-icon.ts</MdxBadge> with mappings for `js`, `ts`, `html`, etc.
+    <Pre className="language-typescript" folderPath="settings/LanguageIcon.tsx" >
+    {`
+    import { CustomImage } from "@/components/custome-image"
+import { FileJson2, Terminal } from "lucide-react"
+import type { JSX } from "react"
+
+export const languageIcons: Record<string, JSX.Element> = {
+  javascript: (
+    <CustomImage
+      src="/icons/javascript.svg"
+      className="w-[18px] h-[18px]"
+      alt="javascript"
+      width={10}
+      height={10}
+      quality={100}
+    />
+  ),
+  js: (
+    <CustomImage
+      src="/icons/javascript.svg"
+      className="w-[18px] h-[18px]"
+      alt="javascript"
+      width={10}
+      height={10}
+      quality={100}
+    />
+  ),
+  jsx: (
+    <CustomImage
+      src="/icons/javascript.svg"
+      className="w-[18px] h-[18px]"
+      alt="jsx"
+      width={10}
+      height={10}
+      quality={100}
+    />
+  ),
+  typescript: (
+    <CustomImage
+      src="/icons/typescript.svg"
+      className="w-[18px] h-[18px]"
+      alt="typescript"
+      width={10}
+      height={10}
+      quality={100}
+    />
+  ),
+  ts: (
+    <CustomImage
+      src="/icons/typescript.svg"
+      className="w-[18px] h-[18px]"
+      alt="typescript"
+      width={10}
+      height={10}
+      quality={100}
+    />
+  ),
+  tsx: (
+    <CustomImage
+      src="/icons/typescript.svg"
+      className="w-[18px] h-[18px]"
+      alt="typescript"
+      width={10}
+      height={10}
+      quality={100}
+    />
+  ),
+  html: (
+    <CustomImage
+      src="/icons/html.svg"
+      alt="html"
+      className="w-[18px] h-[18px]"
+      width={10}
+      height={10}
+      quality={100}
+    />
+  ),
+  css: (
+    <CustomImage
+      src="/icons/css.svg"
+      alt="css"
+      className="w-[18px] h-[18px]"
+      width={10}
+      height={10}
+      quality={100}
+    />
+  ),
+  bash: <Terminal className="w-[18px] h-[18px] dark:text-gray-100 text-gray-950 rounded-lg" />,
+  json: <FileJson2 className="w-[18px] h-[18px] text-yellow-500 rounded-lg" />
+}
+    `}
+    </Pre>
   </StepItem>
-  <StepItem title="Now, Feel  to use it and customize it"/>
+  <StepItem title="Now, feel free to use it and customize it" />
 </Step>
 </div>
+
 ## Usage
-    <div className="not-prose space-y-4">
-    <Pre>
-    {`import Pre from "@/components/ui/pre"`}
-    </Pre>
-    <Pre>
-    {`import Pre from "@/components/ui/pre"
+
+<div className="not-prose space-y-4">
+<Pre>
+{`import Pre from "@/components/ui/pre"`}
+</Pre>
+<Pre>
+{`import Pre from "@/components/ui/pre"
 import { cn } from "@/lib/utils"
 
 const CodeBlockDemo = ({ className }: { className: string }) => {
-const ExampleCode = \`function MyComponent(props) {
-return (
+  const ExampleCode = \`function MyComponent(props) {
+    return (
+      <div>
+        <h1>Hello, {props.name}!</h1>
+        <p>This is an example React component.</p>
+      </div>
+    )
+  };\`
 
-<div>
-  <h1>Hello, {props.name}!</h1>
-  <p>This is an example React component.</p>
-</div>
-)};\` return (
-<Pre className={cn("", className)} highlightLines={[4]} showLineNumbers={true}>
-  {ExampleCode}
-</Pre>
-) }
+  return (
+    <Pre className={cn("", className)} highlightLines={[4]} showLineNumbers={true}>
+      {ExampleCode}
+    </Pre>
+  )
+}
 
 export default CodeBlockDemo`}
-  </Pre>
+</Pre>
 </div>

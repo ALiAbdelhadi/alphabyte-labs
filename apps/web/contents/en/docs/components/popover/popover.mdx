@@ -1,17 +1,18 @@
 ---
 title: Popover
-description: Popover component
+description: A floating panel that appears when users interact with an element.
 links:
   doc: https://www.radix-ui.com/docs/primitives/components/popover
   api: https://www.radix-ui.com/docs/primitives/components/popover#api-reference
 ---
 
 <ComponentPreview name="popover-demo" />
+
 ## Installation
 <div className="not-prose px-4 md:px-0">
   <Step>
     <StepItem title="Install Dependencies">
-      First, you need to install dependencies:
+      First, install the required dependencies:
       <Pre className="language-bash">
         {`npm install clsx tailwind-merge @radix-ui/react-popover`}
       </Pre>
@@ -29,17 +30,25 @@ links:
 ## Usage
 
 <div className="not-prose space-y-6">
-  <Pre>{`import {
+<Pre>{`import { Button } from "@/components/ui/button"
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"`}</Pre>
-  <Pre>{`<Popover>
-  <PopoverTrigger asChild>
-    <Button>Click me</Button>
-  </PopoverTrigger>
-  <PopoverContent>
-    <p>Your content here</p>
-  </PopoverContent>
-</Popover>`}</Pre>
+} from "@/components/ui/popover"
+
+const PopoverDemo = () => {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button>Click me</Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <p>Your content here</p>
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+export default PopoverDemo`}</Pre>
 </div>

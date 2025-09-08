@@ -1,15 +1,16 @@
 ---
 title: Product Card
-description: This section provides an overview of Introduction.
+description: A customizable product card component for displaying product information such as image, title, description, price, and actions.
 ---
 
 <ComponentPreview name="product-card-demo" />
+
 ## Installation
 <div className="not-prose px-4 md:px-0">
   <Step>
     <StepItem title="Install Dependencies">
-      First , you need to install dependencies:
-      <Pre className="language-bash">{`npm i clsx tailwind-merge`}</Pre>
+      First, install the required dependencies:
+      <Pre className="language-bash">{`npm install clsx tailwind-merge`}</Pre>
     </StepItem>
     <StepItem title="Create utils.ts">
       <ComponentUtilsText />
@@ -19,4 +20,27 @@ description: This section provides an overview of Introduction.
       <ComponentSource name="product-card-demo" />
     </StepItem>
   </Step>
+</div>
+
+## Usage
+
+<div className="not-prose space-y-6">
+<Pre>
+{`import { ProductCard } from "@/components/ui/product-card"
+
+const ProductCardDemo = () => {
+  return (
+    <ProductCard
+      image="/images/sample-product.jpg"
+      title="Wireless Headphones"
+      description="High-quality wireless headphones with noise cancellation."
+      price="$199"
+      ctaLabel="Add to Cart"
+      onCtaClick={() => alert("Added to cart!")}
+    />
+  )
+}
+
+export default ProductCardDemo`}
+</Pre>
 </div>

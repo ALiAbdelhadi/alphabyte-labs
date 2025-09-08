@@ -1,12 +1,14 @@
+import { useTranslations } from "next-intl"
 import Pre from "../pre"
 import MdxBadge from "./mdx-badge"
 
 export const ComponentUtilsText = () => {
+  const t = useTranslations("componentUtils")
   return (
     <p>
-      Second, you need to create a new folder called <MdxBadge>lib</MdxBadge> in
-      you root directory and create a new file called{" "}
-      <MdxBadge>utils.ts</MdxBadge> and paste the following code in it:
+      {t("text.description")} <MdxBadge>{t("text.libFolder")}</MdxBadge> in
+      {t("text.inRootDirectory")}{" "}
+      <MdxBadge>{t("text.utilsFile")}</MdxBadge> {t("text.pasteCode")}
       <br />
     </p>
   )

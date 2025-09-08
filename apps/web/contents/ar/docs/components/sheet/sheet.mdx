@@ -1,29 +1,30 @@
 ---
-title: Sheet
-description: A sheet is a component that slides in from the bottom of the screen, typically used for displaying additional content or options without navigating away from the current screen.
+title: لوحة (Sheet)
+description: اللوحة هي مكوّن ينزلق من أسفل الشاشة، ويُستخدم عادةً لعرض محتوى إضافي أو خيارات بدون مغادرة الشاشة الحالية.
 links:
   doc: https://www.radix-ui.com/docs/primitives/components/dialog
   api: https://www.radix-ui.com/docs/primitives/components/dialog#api-reference
 ---
 
 <ComponentPreview name="sheet-demo" />
+
 <div className="not-prose mdx:px-0 px-4">
   <Step>
-    <StepItem title="Install Dependencies">
-      First, you need to install dependencies:
+    <StepItem title="تثبيت التبعيات">
+      أولاً، تحتاج إلى تثبيت التبعيات التالية:
       <Pre>{`npm install clsx tailwind-merge @radix-ui/react-dialog`}</Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
-    <StepItem title="Create Sheet Component">
+    <StepItem title="إنشاء مكوّن Sheet">
       <ComponentSource name="sheet-demo" />
     </StepItem>
   </Step>
 </div>
 
-## Usage
+## الاستخدام
 
 <div className="not-prose space-y-6">
   <Pre>{`import {
@@ -40,49 +41,51 @@ links:
     <SheetTrigger asChild>
         <Button variant="outline" className="flex items-center gap-2">
             <Settings size={16} />
-            Open Settings
+            فتح الإعدادات
         </Button>
     </SheetTrigger>
     <SheetContent side="right">
     <SheetHeader>
-        <SheetTitle>Settings</SheetTitle>
-        <SheetDescription>Configure your application preferences here</SheetDescription>
+        <SheetTitle>الإعدادات</SheetTitle>
+        <SheetDescription>قم بتخصيص تفضيلات تطبيقك هنا</SheetDescription>
     </SheetHeader>
     <div className="py-6">
         <div className="space-y-4">
             <div className="flex items-center justify-between">
-                <Label htmlFor="dark-mode" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Dark Mode</Label>
-                <Checkbox id="dark-mood" />
+                <Label htmlFor="dark-mode" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">الوضع الداكن</Label>
+                <Checkbox id="dark-mode" />
             </div>
             <div className="flex items-center justify-between">
-                <Label htmlFor="notification" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Notification</Label>
+                <Label htmlFor="notification" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">الإشعارات</Label>
                 <Checkbox id="notification" />
             </div>
             <div className="flex items-center justify-between">
-                <Label htmlFor="email-updates" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email Updates</Label>
+                <Label htmlFor="email-updates" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">تحديثات البريد الإلكتروني</Label>
                 <Checkbox id="email-updates" />
             </div>
         </div>
     </div>
     <SheetFooter>
         <SheetClose asChild>
-            <Button>Save Changes</Button>
+            <Button>حفظ التغييرات</Button>
         </SheetClose>
     </SheetFooter>
   </SheetContent>
 </Sheet>`}</Pre>
 </div>
 
-## Examples
+## أمثلة
 
-### Control Side
+### التحكم في الاتجاه
 
-#### Top
-
+#### الأعلى
 <ComponentPreview name="sheet-demo" variant="top" />
-#### Right
+
+#### اليمين
 <ComponentPreview name="sheet-demo" variant="right" />
-#### Bottom
+
+#### الأسفل
 <ComponentPreview name="sheet-demo" variant="bottom" />
-#### Left
+
+#### اليسار
 <ComponentPreview name="sheet-demo" variant="left" />

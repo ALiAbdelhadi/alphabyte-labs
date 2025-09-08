@@ -1,30 +1,34 @@
 ---
-title: Data Picker
-description: Data Picker component documentation.
+title: مُحدد التاريخ (Date Picker)
+description: توثيق مكوّن مُحدد التاريخ.
 ---
 
 <ComponentPreview name="date-picker-demo" />
-## Installation
-The Date Picker is built using a composition of  <MdxBadge>\<Popover \/></MdxBadge> component  and the  <MdxBadge>\<Calendar \/></MdxBadge> component.
 
-See installation instructions for the [Popover](https://alphabyte-labs.vercel.app/docs/components/popover) and the [Calendar](https://alphabyte-labs.vercel.app/docs/components/calendar/) components.
-for quick installation
+## التثبيت
+
+مكوّن <MdxBadge>Date Picker</MdxBadge> مبني باستخدام دمج بين  
+<MdxBadge>\<Popover /\></MdxBadge> و  
+<MdxBadge>\<Calendar /\></MdxBadge>.
+
+راجع تعليمات التثبيت الخاصة بـ [Popover](https://alphabyte-labs.vercel.app/docs/components/popover)  
+و [Calendar](https://alphabyte-labs.vercel.app/docs/components/calendar/) لعملية التثبيت السريعة.
 
 <div className="not-prose px-4 md:px-0">
   <Step>
-    <StepItem title="Install Dependencies">
+    <StepItem title="تثبيت الاعتمادات (Dependencies)">
       <Pre className="language-bash">
         {`npm install clsx tailwind-merge @radix-ui/react-popover react-day-picker@8.10.1 date-fns `}
       </Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
   </Step>
 </div>
 
-## Usage
+## الاستخدام
 
 <div className="not-prose">
 <Pre>{`"use client"
@@ -58,7 +62,7 @@ export default function DatePickerDemo() {
             )
           } >
           <CalendarIcon />
-          {date ? format(date, "PPP") : <span>Pick a date </span>}
+          {date ? format(date, "PPP") : <span>اختر تاريخًا</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start" >
@@ -74,6 +78,9 @@ export default function DatePickerDemo() {
 }`}</Pre>
 
 </div>
-## Examples
-### Date Picker Range
+
+## الأمثلة
+
+### نطاق التواريخ (Date Picker Range)
+
 <ComponentPreview name="date-picker-demo" variant="range" />

@@ -1,29 +1,30 @@
 ---
-title: Diagrams
-description: Add various diagram types, including flowcharts, decision trees and entity-relationship diagrams.
+title: رسوم بيانية (Diagrams)
+description: أضف أنواعًا مختلفة من المخططات، بما في ذلك مخططات التدفق، أشجار القرارات، ومخططات الكيانات والعلاقات.
 ---
 
 <ComponentPreview name="diagram-demo" />
 
-## Installation
+## التثبيت
 
 <div className="not-prose md:px-0 px-4">
 <Step>
-<StepItem title="install dependencies">
-First, To Start Creating Diagrams in your next.js app you need to install a library called <span className="underline text-gray-950">[Mermaid](https://mermaid.js.org/)</span> :
+<StepItem title="تثبيت الاعتمادات (Dependencies)">
+أولًا، لبدء إنشاء المخططات في تطبيقك المبني بـ Next.js تحتاج إلى تثبيت مكتبة تُسمى <span className="underline text-gray-950">[Mermaid](https://mermaid.js.org/)</span>:
 <Pre className="language-bash">
-{`npm i install clsx tailwind-merge mermaid`}
+{`npm install clsx tailwind-merge mermaid`}
 </Pre>
 </StepItem>
-  <StepItem title="Create utils.ts"> 
+  <StepItem title="إنشاء ملف utils.ts"> 
   <ComponentUtilsText/>
   <ComponentUtils/>
   </StepItem>
-<StepItem title="Here you go, you can start creating diagrams like a designer"/>
-
+<StepItem title="ها أنت جاهز الآن! يمكنك البدء في إنشاء المخططات بسهولة كما يفعل المصمّم."/>
 </Step>
 </div>
-## Usage
+
+## الاستخدام
+
 <div className="not-prose space-y-6">
 <Pre>{`import Mermaid from "@/components/ui/mermaid"`}</Pre>
 <Pre>{`const DiagramsDemo = () => {
@@ -39,22 +40,25 @@ First, To Start Creating Diagrams in your next.js app you need to install a libr
 
 export default DiagramsDemo`}</Pre>
 </div>
-## Example
 
-### Flowchart
+## الأمثلة
+
+### مخطط التدفق (Flowchart)
 
 <ComponentPreview name="diagram-demo" />
 
-### Decision Tree
+### شجرة القرارات (Decision Tree)
 
-Decision trees illustrate choices and possible outcomes, making them ideal for decision-making workflows or processes involving multiple paths.
+أشجار القرارات توضّح الاختيارات والنتائج المحتملة، مما يجعلها مثالية لسير العمل في اتخاذ القرارات أو العمليات التي تتضمن مسارات متعددة.  
 
 <ComponentPreview name="diagram-demo" variant="decision-tree" />
 
-### Entity-Relationship Diagram
+### مخطط الكيانات والعلاقات (Entity-Relationship Diagram)
 
-Entity-relationship diagrams (ERDs) are used to model relationships between entities in a system. They are widely used in database design and system architecture planning.
+مخططات الكيانات والعلاقات (ERDs) تُستخدم لنمذجة العلاقات بين الكيانات داخل النظام. وهي تُستخدم على نطاق واسع في تصميم قواعد البيانات والتخطيط المعماري للأنظمة.  
 
 <ComponentPreview name="diagram-demo" variant="entity-relationship" />
 
-Each of these diagrams serves a specific purpose and Mermaid makes it easy to generate them dynamically. Feel free to experiment with the provided code snippets and adapt them to your needs.
+---
+
+كل نوع من هذه المخططات يخدم غرضًا محددًا، وتسهّل مكتبة Mermaid إنشاءها ديناميكيًا. لا تتردّد في تجربة أمثلة الأكواد المرفقة وتكييفها لتلبية احتياجاتك.

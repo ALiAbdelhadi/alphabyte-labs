@@ -1,35 +1,36 @@
 ---
-title: Steps
-description: This section provides an overview of Introduction.
+title: خطوات (Steps)
+description: يوضح هذا القسم نظرة عامة على مكوّن الخطوات (Steps).
 ---
 
-<ComponentPreview name="steps-demo" />
+<ComponentPreview name="step-demo" />
 
-## Installation
+## التثبيت
 
 <div className="not-prose px-4 md:px-0">
   <Step>
-    <StepItem title="Install Dependencies">
-      First , you need to install dependencies:
+    <StepItem title="تثبيت التبعيات">
+      أولاً، تحتاج إلى تثبيت التبعيات:
       <Pre className="language-bash">{`npm i clsx tailwind-merge`}</Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
-    <StepItem title="Create Step component">
+    <StepItem title="إنشاء مكوّن Step">
       <ComponentSource name="step" />
     </StepItem>
-    <StepItem title="Be comfortable to use it and make it yours" />
+    <StepItem title="الآن يمكنك استخدامه بحرية وتخصيصه كما تشاء" />
   </Step>
 </div>
-## Usage
+
+## الاستخدام
 <div className="not-prose space-y-4">
   <Pre>{`import { Step, StepItem } from "@/components/ui/step"`}</Pre>
   <Pre>
     {`<Step>
-        <StepItem title="development">localhost:3000</StepItem>
-        <StepItem title="production">localhost:3000</StepItem>
+        <StepItem title="بيئة التطوير">localhost:3000</StepItem>
+        <StepItem title="بيئة الإنتاج">localhost:3000</StepItem>
     </Step>`}
   </Pre>
 </div>

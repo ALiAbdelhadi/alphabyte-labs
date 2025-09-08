@@ -3,6 +3,7 @@
 import Container from "@/components/Container"
 import Logo from "@/components/Logo"
 import Search from "@/components/navigation/search"
+import type { DocsConfig } from "@/settings/docs-routing"
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -16,20 +17,21 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { navItems } from "@/constant"
+import { Link } from "@/i18n/navigation"
 import { cn } from "@/lib/utils"
 import { GitHubLink } from "@/settings/settings"
 import { AnimatePresence, motion } from "framer-motion"
 import { X } from "lucide-react"
-import { Link } from "@/i18n/navigation"
+import { useLocale, useTranslations } from "next-intl"
 import { usePathname } from "next/navigation"
 import { useRef, useState } from "react"
 import ChangeTheme from "../ChangeTheme"
 import { Button } from "../ui/button"
 import { LanguageSwitcher } from "../ui/lang-switcher"
 import { Separator } from "../ui/separator"
-import { useLocale } from "next-intl"
 
-export function Header() {
+export function Header({ docsConfig }: { docsConfig?: DocsConfig }) {
+  const t = useTranslations("nav")
   const [isOpen, setIsOpen] = useState(false)
   const routeName = usePathname()
   const isDocsRoute = routeName.includes("/docs")
@@ -51,7 +53,6 @@ export function Header() {
       y: 0,
       transition: {
         duration: 0.3,
-        ease: "easeOut",
       },
     },
   }
@@ -76,31 +77,104 @@ export function Header() {
           <Logo showLogoText={true} className="flex-shrink-0" />
           <nav className="hidden md:flex items-center">
             <NavigationMenu>
-              <NavigationMenuList className="md:space-x-2">
-                {navItems.map((item) => (
-                  <NavigationMenuItem key={item.title}>
-                    <Link
-                      href={item.href}
-                      passHref
-                      className={cn(
-                        "group inline-flex h-10 w-max items-center justify-center",
-                        "rounded-md bg-transparent p-2 text-sm",
-                        "transition-colors -tracking-[.01em]",
-                        "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
-                        "hover:text-[#000000] dark:hover:text-white"
-                      )}
-                    >
-                      {item.title}
-                    </Link>
-                  </NavigationMenuItem>
-                ))}
+              <NavigationMenuList className="md:space-x-2 rtl:space-x-reverse rtl:flex-row-reverse">
+                <NavigationMenuItem>
+                  <Link
+                    href={"/docs/introduction"}
+                    passHref
+                    className={cn(
+                      "group inline-flex h-10 w-max items-center justify-center",
+                      "rounded-md bg-transparent p-2 text-sm",
+                      "transition-colors -tracking-[.01em]",
+                      "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
+                      "hover:text-[#000000] dark:hover:text-white"
+                    )}
+                  >
+                    {t("docs")}
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link
+                    href="/docs/components"
+                    passHref
+                    className={cn(
+                      "group inline-flex h-10 w-max items-center justify-center",
+                      "rounded-md bg-transparent p-2 text-sm",
+                      "transition-colors -tracking-[.01em]",
+                      "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
+                      "hover:text-[#000000] dark:hover:text-white"
+                    )}
+                  >
+                    {t("components")}
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link
+                    href="/ui-blocks"
+                    passHref
+                    className={cn(
+                      "group inline-flex h-10 w-max items-center justify-center",
+                      "rounded-md bg-transparent p-2 text-sm",
+                      "transition-colors -tracking-[.01em]",
+                      "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
+                      "hover:text-[#000000] dark:hover:text-white"
+                    )}
+                  >
+                    {t("blocks")}
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link
+                    href="/themes"
+                    passHref
+                    className={cn(
+                      "group inline-flex h-10 w-max items-center justify-center",
+                      "rounded-md bg-transparent p-2 text-sm",
+                      "transition-colors -tracking-[.01em]",
+                      "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
+                      "hover:text-[#000000] dark:hover:text-white"
+                    )}
+                  >
+                    {t("themes")}
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link
+                    href="/colors"
+                    passHref
+                    className={cn(
+                      "group inline-flex h-10 w-max items-center justify-center",
+                      "rounded-md bg-transparent p-2 text-sm",
+                      "transition-colors -tracking-[.01em]",
+                      "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
+                      "hover:text-[#000000] dark:hover:text-white"
+                    )}
+                  >
+                    {t("colors")}
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link
+                    href="/community"
+                    passHref
+                    className={cn(
+                      "group inline-flex h-10 w-max items-center justify-center",
+                      "rounded-md bg-transparent p-2 text-sm",
+                      "transition-colors -tracking-[.01em]",
+                      "text-[rgba(0,0,0,0.8)] dark:text-[rgba(255,255,255,.80)]",
+                      "hover:text-[#000000] dark:hover:text-white"
+                    )}
+                  >
+                    {t("community")}
+                  </Link>
+                </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
           </nav>
         </div>
         <div className="flex items-center gap-3">
           <div className="hidden md:block">
-            <Search />
+            <Search docsConfig={docsConfig} />
           </div>
           <div className="hidden md:flex items-center gap-3">
             <LanguageSwitcher currentLocale={locale} />
@@ -127,7 +201,7 @@ export function Header() {
             <ChangeTheme />
           </div>
           <div className="flex items-center gap-2 md:hidden w-full">
-            <Search />
+            <Search docsConfig={docsConfig} />
             <ChangeTheme />
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>

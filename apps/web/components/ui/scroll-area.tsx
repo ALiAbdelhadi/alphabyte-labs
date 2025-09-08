@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area"
+import { useLocale } from "next-intl"
 import * as React from "react"
 
 interface ScrollAreaProps extends React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root> {
@@ -46,7 +47,7 @@ const ScrollArea = React.forwardRef<React.ElementRef<typeof ScrollAreaPrimitive.
     ref,
   ) => (
     <ScrollAreaPrimitive.Root ref={ref} className={cn("relative overflow-hidden", className)} {...props}>
-      <ScrollAreaPrimitive.Viewport className="h-full w-full rounded-[inherit]" style={{ height: viewportHeight }}>
+      <ScrollAreaPrimitive.Viewport className="h-full w-full rounded-[inherit] pr-2 rtl:pr-0 rtl:pl-2" style={{ height: viewportHeight }}>
         {children}
       </ScrollAreaPrimitive.Viewport>
       <ScrollBar
@@ -80,20 +81,22 @@ const ScrollBar = React.forwardRef<React.ElementRef<typeof ScrollAreaPrimitive.S
   ({ className, orientation = "vertical", autoHide = true, size = 10, color, radius = "9999px", ...props }, ref) => {
     const isVertical = orientation === "vertical"
     const thumbColor = color || "rgba(155, 155, 155, 0.5)"
-
+    const locale = useLocale()
+    const isRTL = locale == "ar"
     return (
       <ScrollAreaPrimitive.ScrollAreaScrollbar
         ref={ref}
         orientation={orientation}
         data-auto-hide={autoHide ? "true" : "false"}
         className={cn(
-          "flex touch-none select-none transition-all duration-150 ease-out",
+          "absolute flex touch-none select-none transition-all duration-150 ease-out right-0 rtl:left-0 rtl:right-auto",
           autoHide && "opacity-0 hover:opacity-100 data-[state=visible]:opacity-100",
           isVertical
             ? "h-full w-2.5 border-l border-l-transparent p-[1px] hover:w-3"
             : "w-full h-2.5 border-t border-t-transparent p-[1px] hover:h-3",
           className,
         )}
+        dir={locale === "ar" ? "rtl" : "ltr"}
         {...props}
       >
         <ScrollAreaPrimitive.ScrollAreaThumb

@@ -1,155 +1,160 @@
-import { MainNavItem, SidebarItem } from "@/types"
+import type { MainNavItem, SidebarItem } from "@/types"
+import { getTranslations } from "next-intl/server"
 
 export interface DocsConfig {
   sidebarItems: SidebarItem[]
   mainNav: MainNavItem[]
 }
-export const DocsRouting: DocsConfig = {
-  mainNav: [
-    { title: "Docs", href: "/docs/introduction" },
-    { title: "Components", href: "/docs/components" },
-    { title: "Blocks", href: "/ui-blocks" },
-    { title: "Themes", href: "/themes" },
-    { title: "Colors", href: "/colors" },
-    { title: "Community", href: "/community" },
-  ],
-  sidebarItems: [
-    {
-      title: "Getting Started",
-      id: "getting-started",
-      items: [
-        {
-          href: "/introduction",
-          title: "Introduction",
-        },
-        {
-          href: "/installation",
-          title: "Installation",
-        },
-        {
-          href: "/rtl",
-          title: "RTL Direction",
-        },
-        {
-          href: "/themes",
-          title: "Themes",
-        },
-      ],
-    },
-    {
-      title: "Components",
-      id: "components",
-      href: "/components",
-      items: [
-        {
-          title: "Accordion",
-          href: "/accordion",
-        },
-        {
-          title: "Alert Dialog",
-          href: "/alert-dialog",
-        },
-        {
-          title: "Badge",
-          href: "/badge",
-        },
-        {
-          title: "Breadcrumb",
-          href: "/breadcrumb",
-        },
-        {
-          title: "Button",
-          href: "/button",
-        },
-        {
-          title: "Calendar",
-          href: "/calendar",
-        },
-        {
-          title: "Collapsible",
-          href: "/collapsible",
-        },
-        {
-          title: "Date Picker",
-          href: "/data-picker",
-        },
-        {
-          title: "Diagrams",
-          href: "/diagrams",
-        },
-        {
-          title: "Dialog",
-          href: "/dialog",
-        },
-        {
-          title: "Drawer",
-          href: "/drawer",
-        },
-        {
-          title: "Dropdown menu",
-          href: "/dropdown-menu",
-        },
-        {
-          title: "Folder structure",
-          href: "/folder-structure",
-        },
-        {
-          title: "Input",
-          href: "/input",
-        },
-        {
-          title: "Label",
-          href: "/label",
-        },
-        {
-          title: "Notes",
-          href: "/note",
-        },
-        {
-          title: "Popover",
-          href: "/popover",
-        },
-        {
-          title: "Pre (Code Block)",
-          href: "/pre",
-        },
-        {
-          title: "Product Card",
-          href: "/product-card",
-        },
-        {
-          title: "Scroll Area",
-          href: "/scroll-area",
-        },
-        {
-          title: "Separator",
-          href: "/separator",
-        },
-        {
-          title: "Sheet",
-          href: "/sheet",
-        },
-        {
-          title: "Sonner",
-          href: "/sonner",
-        },
-        {
-          title: "Step",
-          href: "/step",
-        },
-        {
-          title: "Switch",
-          href: "/switch",
-        },
-        {
-          title: "Tabs",
-          href: "/tabs",
-        },
-        {
-          title: "Tooltip",
-          href: "/tooltip",
-        },
-      ],
-    },
-  ]
+
+export async function getDocsRouting(): Promise<DocsConfig> {
+  const t = await getTranslations("docs-sidebar")
+  return {
+    mainNav: [
+      { title: t("main.docs"), href: "/docs/introduction" },
+      { title: t("main.components"), href: "/docs/components" },
+      { title: t("main.blocks"), href: "/ui-blocks" },
+      { title: t("main.themes"), href: "/themes" },
+      { title: t("main.colors"), href: "/colors" },
+      { title: t("main.community"), href: "/community" },
+    ],
+    sidebarItems: [
+      {
+        title: t("sidebar.gettingStarted.title"),
+        id: "getting-started",
+        items: [
+          {
+            href: "/introduction",
+            title: t("sidebar.gettingStarted.introduction"),
+          },
+          {
+            href: "/installation",
+            title: t("sidebar.gettingStarted.installation"),
+          },
+          {
+            href: "/rtl",
+            title: t("sidebar.gettingStarted.rtlDirection"),
+          },
+          {
+            href: "/themes",
+            title: t("sidebar.gettingStarted.themes"),
+          },
+        ],
+      },
+      {
+        title: t("sidebar.components.title"),
+        id: "components",
+        href: "/components",
+        items: [
+          {
+            title: t("sidebar.components.accordion"),
+            href: "/accordion",
+          },
+          {
+            title: t("sidebar.components.alertDialog"),
+            href: "/alert-dialog",
+          },
+          {
+            title: t("sidebar.components.badge"),
+            href: "/badge",
+          },
+          {
+            title: t("sidebar.components.breadcrumb"),
+            href: "/breadcrumb",
+          },
+          {
+            title: t("sidebar.components.button"),
+            href: "/button",
+          },
+          {
+            title: t("sidebar.components.calendar"),
+            href: "/calendar",
+          },
+          {
+            title: t("sidebar.components.collapsible"),
+            href: "/collapsible",
+          },
+          {
+            title: t("sidebar.components.datePicker"),
+            href: "/data-picker",
+          },
+          {
+            title: t("sidebar.components.diagrams"),
+            href: "/diagrams",
+          },
+          {
+            title: t("sidebar.components.dialog"),
+            href: "/dialog",
+          },
+          {
+            title: t("sidebar.components.drawer"),
+            href: "/drawer",
+          },
+          {
+            title: t("sidebar.components.dropdownMenu"),
+            href: "/dropdown-menu",
+          },
+          {
+            title: t("sidebar.components.folderStructure"),
+            href: "/folder-structure",
+          },
+          {
+            title: t("sidebar.components.input"),
+            href: "/input",
+          },
+          {
+            title: t("sidebar.components.label"),
+            href: "/label",
+          },
+          {
+            title: t("sidebar.components.notes"),
+            href: "/note",
+          },
+          {
+            title: t("sidebar.components.popover"),
+            href: "/popover",
+          },
+          {
+            title: t("sidebar.components.preCodeBlock"),
+            href: "/pre",
+          },
+          {
+            title: t("sidebar.components.productCard"),
+            href: "/product-card",
+          },
+          {
+            title: t("sidebar.components.scrollArea"),
+            href: "/scroll-area",
+          },
+          {
+            title: t("sidebar.components.separator"),
+            href: "/separator",
+          },
+          {
+            title: t("sidebar.components.sheet"),
+            href: "/sheet",
+          },
+          {
+            title: t("sidebar.components.sonner"),
+            href: "/sonner",
+          },
+          {
+            title: t("sidebar.components.step"),
+            href: "/step",
+          },
+          {
+            title: t("sidebar.components.switch"),
+            href: "/switch",
+          },
+          {
+            title: t("sidebar.components.tabs"),
+            href: "/tabs",
+          },
+          {
+            title: t("sidebar.components.tooltip"),
+            href: "/tooltip",
+          },
+        ],
+      },
+    ],
+  }
 }

@@ -1,26 +1,30 @@
 ---
-title: breadcrumb
-description: breadcrumb
+title: مسار التنقل (Breadcrumb)
+description: مسار التنقل
 ---
 
 <ComponentPreview name="breadcrumb-demo" />
-## Installation
+
+## التثبيت
+
 <div className="not-prose px-4 md:px-0">
   <Step>
-    <StepItem title="Install Dependencies">
-      First , you need to install dependencies:
+    <StepItem title="تثبيت الاعتمادات">
+      أولاً، تحتاج إلى تثبيت الاعتمادات:
       <Pre className="language-bash">{`npm install clsx tailwind-merge `}</Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
-    <StepItem title="Create Breadcrumb Component">
+    <StepItem title="إنشاء مكوّن Breadcrumb">
       <ComponentSource name="breadcrumb-demo" />
     </StepItem>
   </Step>
 </div>
-## Usage
+
+## الاستخدام
+
 <div className="not-prose space-y-6">
   <Pre>{`import {
     Breadcrumb,
@@ -48,15 +52,23 @@ description: breadcrumb
     </BreadcrumbList>
 </Breadcrumb>`}</Pre>
 </div>
-## Examples 
-### Custom Separator
+
+## أمثلة  
+
+### فاصل مخصص (Custom Separator)
 <ComponentPreview name="breadcrumb-demo" variant="custom-separator" />
-### Ellipsis
+
+### الحذف بالعلامة (…) (Ellipsis)
 <ComponentPreview name="breadcrumb-demo" variant="ellipsis" />
-Dropdown You can compose <MdxBadge>\<breadcrumb-item /\></MdxBadge> with a <MdxBadge>\<dropdown-menu /\></MdxBadge> component to create a dropdown in the breadcrumb.
+
+### قائمة منسدلة (Dropdown)  
+يمكنك تركيب <MdxBadge>\<breadcrumb-item /\></MdxBadge> مع مكوّن  
+<MdxBadge>\<dropdown-menu /\></MdxBadge> لإنشاء قائمة منسدلة داخل مسار التنقل.
 
 <ComponentPreview name="breadcrumb-demo" variant="dropdown" />
-### Icons
+
+### أيقونات (Icons)
 <ComponentPreview name="breadcrumb-demo" variant="icons" />
-### Responsive
+
+### متجاوب (Responsive)
 <ComponentPreview name="breadcrumb-demo" variant="responsive" />

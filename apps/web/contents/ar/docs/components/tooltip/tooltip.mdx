@@ -1,58 +1,63 @@
 ---
-title: Tooltip
-description: A tooltip is a small pop-up box that appears when a user hovers over an element, providing additional information about that element.
+title: تلميح (Tooltip)
+description: التلميح هو صندوق منبثق صغير يظهر عندما يحرك المستخدم مؤشر الفأرة فوق عنصر ما، لتقديم معلومات إضافية حول هذا العنصر.
 links:
   doc: https://www.radix-ui.com/docs/primitives/components/tooltip
   api: https://www.radix-ui.com/docs/primitives/components/tooltip#api-reference
 ---
 
 <ComponentPreview name="tooltip-demo" />
-## Installation
+
+## التثبيت
 <div className="not-prose px-4 md:px-0">
   <Step>
-    <StepItem title="Install Dependencies">
-      First , you need to install dependencies:
+    <StepItem title="تثبيت الاعتماديات">
+      أولاً، تحتاج إلى تثبيت الاعتماديات (Dependencies):
       <Pre className="language-bash">
         {`npm install clsx tailwind-merge @radix-ui/react-tooltip`}
       </Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
-    <StepItem title="Create Tooltip Component">
+    <StepItem title="إنشاء مكون التلميح">
       <ComponentSource name="tooltip-demo" />
     </StepItem>
   </Step>
 </div>
-## Usage
+
+## الاستخدام
 <div className="space-y-6">
   <Pre>
     {`import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip"`}
   </Pre>
   <Pre>
     {`<TooltipProvider>
-    <Tooltip>
-        <TooltipTrigger asChild>Hover</TooltipTrigger>
-            <TooltipContent >
-                <p>Default Tooltip</p>
-            </TooltipContent>
-        </Tooltip>
+      <Tooltip>
+        <TooltipTrigger asChild>مرر الفأرة</TooltipTrigger>
+        <TooltipContent>
+          <p>تلميح افتراضي</p>
+        </TooltipContent>
+      </Tooltip>
     </TooltipProvider>
 `}
   </Pre>
 </div>
-## Examples 
-### Top Tooltip
+
+## الأمثلة
+### تلميح علوي
 <ComponentPreview name="tooltip-demo" variant="top" />
-### Right Tooltip
+
+### تلميح أيمن
 <ComponentPreview name="tooltip-demo" variant="right" />
-### Bottom Tooltip
+
+### تلميح سفلي
 <ComponentPreview name="tooltip-demo" variant="bottom" />
-### Left Tooltip
+
+### تلميح أيسر
 <ComponentPreview name="tooltip-demo" variant="left" />
-### Tooltip with delay 
-you can set a delay for the tooltip to appear after
-hovering over the trigger element. This can be useful to prevent the tooltip
-from appearing too quickly when the user hovers over the trigger element.
+
+### تلميح بتأخير
+يمكنك تعيين تأخير لظهور التلميح بعد تمرير مؤشر الفأرة فوق العنصر المحفز. قد يكون هذا مفيدًا لمنع ظهور التلميح بسرعة كبيرة.
 <ComponentPreview name="tooltip-demo" variant="delay" />

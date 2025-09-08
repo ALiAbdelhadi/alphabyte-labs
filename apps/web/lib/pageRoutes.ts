@@ -1,19 +1,22 @@
-import { DocsRouting } from "@/settings/docs-routing"
-import { SidebarItem } from "@/types"
+import { getDocsRouting } from "@/settings/docs-routing"
+import type { SidebarItem } from "@/types"
 
 export type Paths =
   | {
-    title: string
-    href?: string
-    noLink?: true
-    heading?: string
-    items?: Paths[]
-  }
+      title: string
+      href?: string
+      noLink?: true
+      heading?: string
+      items?: Paths[]
+    }
   | {
-    spacer: true
-  }
+      spacer: true
+    }
 
-export const Routes = [...DocsRouting.sidebarItems]
+export async function getRoutes() {
+  const docsConfig = await getDocsRouting()
+  return [...docsConfig.sidebarItems]
+}
 
 type Page = { title: string; href: string }
 
@@ -21,9 +24,7 @@ function hasNoLink(obj: any): obj is { noLink: boolean } {
   return "noLink" in obj && typeof obj.noLink === "boolean"
 }
 
-function isRoute(
-  node: Paths | SidebarItem
-): node is Extract<Paths, { title: string; href?: string }> | SidebarItem {
+function isRoute(node: Paths | SidebarItem): node is Extract<Paths, { title: string; href?: string }> | SidebarItem {
   return "title" in node && typeof node.title === "string"
 }
 
@@ -42,12 +43,12 @@ function getAllLinks(node: Paths | SidebarItem): Page[] {
         if (node.id === "components") {
           pages.push({
             title: subNode.title,
-            href: `/components${subNode.href}`
+            href: `/components${subNode.href}`,
           })
         } else {
           pages.push({
             title: subNode.title,
-            href: subNode.href
+            href: subNode.href,
           })
         }
       }
@@ -57,15 +58,23 @@ function getAllLinks(node: Paths | SidebarItem): Page[] {
   return pages
 }
 
-export const PageRoutes = Routes.map((route) => getAllLinks(route))
-  .flat()
-  .filter((route): route is Page => Boolean(route.href))
+export async function getPageRoutes() {
+  const routes = await getRoutes()
+  return routes.flatMap((route) => getAllLinks(route)).filter((route): route is Page => Boolean(route.href))
+}
 
-// Debug function to check generated routes
-export function debugRoutes() {
-  console.log("Generated PageRoutes:", PageRoutes)
-  PageRoutes.forEach((route, index) => {
+// Create a static export for client components that need route data
+// This should be generated at build time
+export async function generateStaticPageRoutes() {
+  const pageRoutes = await getPageRoutes()
+  return pageRoutes
+}
+
+export async function debugRoutes() {
+  const pageRoutes = await getPageRoutes()
+  console.log("Generated PageRoutes:", pageRoutes)
+  pageRoutes.forEach((route, index) => {
     console.log(`${index}: ${route.title} -> ${route.href}`)
   })
-  return PageRoutes
+  return pageRoutes
 }

@@ -1,9 +1,9 @@
 ---
-title: Note Component
-description: Introducing the Note Component Communicating Effectively in Your UI
+title: Note
+description: A flexible Note component to highlight important information in your UI.
 ---
 
-**Learn how to use the versatile Note component to communicate important information effectively within your user interface.**
+**Use the versatile Note component to effectively communicate important information within your interface.**
 
 <ComponentPreview name="note-demo" />
 
@@ -12,60 +12,55 @@ description: Introducing the Note Component Communicating Effectively in Your UI
 <div className="not-prose md:px-0 px-4"> 
 <Step>
 <StepItem title="Install Dependencies">
-First, you need to install dependencies:
+Install the required dependencies:
 <Pre className="language-bash">
 {`npm install clsx tailwind-merge`}
 </Pre>
 </StepItem>
   <StepItem title="Create utils.ts"> 
-  <ComponentUtilsText/>
-  <ComponentUtils/>
+    <ComponentUtilsText/>
+    <ComponentUtils/>
   </StepItem>
-  <StepItem title="Create Note Component" >
-  <ComponentSource name="note-demo"/>
+  <StepItem title="Create the Note Component">
+    <ComponentSource name="note-demo"/>
   </StepItem>
-  <StepItem title="Here you go, Now you can edit and customize it for your needs and make it yours"/>
+  <StepItem title="Customize">
+    Now you can edit and style it to fit your needs.
+  </StepItem>
 </Step>
-
 </div>
 
 ## Usage
 
 <div className="not-prose space-y-6">
 <Pre className="language-typescript">
-{`import { Note } from "@/components/Note"`}
+{`import { Note } from "@/components/ui/note"`}
 </Pre>
 <Pre className="language-tsx">
-{`import { Note } from "@/components/ui/note"
-
-const NoteDemo = () => {
-return <Note variant="info">This is an informational note.</Note>
+{`const NoteDemo = () => {
+  return <Note variant="info">This is an informational note.</Note>
 }
 
 export default NoteDemo`}
 </Pre>
 </div>
 
-## Example
+## Examples
 
 ### Standard Note
-
 <ComponentPreview name="note-demo" />
 
 ### Success Note
-
 <ComponentPreview name="note-demo" variant="success" />
 
 ### Warning Note
-
 <ComponentPreview name="note-demo" variant="warning" />
 
-### Danger Note
-
+### Error Note
 <ComponentPreview name="note-demo" variant="error" />
 
 ## Closable Notes
 
-To allow users to dismiss the note, set the <MdxBadge>closable</MdxBadge> prop to <MdxBadge>true</MdxBadge>.
+To make a note dismissible, set the <MdxBadge>closable</MdxBadge> prop to <MdxBadge>true</MdxBadge>.
 
 <ComponentPreview name="note-demo" variant="closable" />

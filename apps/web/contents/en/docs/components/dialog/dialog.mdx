@@ -13,24 +13,28 @@ links:
 <div className="not-prose px-4 md:px-0">
   <Step>
     <StepItem title="Install Dependencies">
-      First , you need to install dependencies:
+      First, you need to install the required dependencies:
       <Pre className="language-bash">
-        {`npm install clsx tailwind-merge @radix-ui/react-dialog`}
+        {`npm install @radix-ui/react-dialog clsx tailwind-merge`}
       </Pre>
     </StepItem>
     <StepItem title="Create utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
+      <p className="text-gray-600 mt-2">
+        ⚠️ If you already have a <code>utils.ts</code> file in your project, you can skip this step.
+      </p>
     </StepItem>
     <StepItem title="Create Dialog Component">
       <ComponentSource name="dialog-demo" />
     </StepItem>
   </Step>
 </div>
+
 ## Usage
-<div className="not-prose space-y-6">
-  <Pre>
-    {`import {
+
+<Pre className="language-tsx">
+{`import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -38,34 +42,41 @@ links:
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-`}
-  </Pre>
-  <Pre>
-    {`<Dialog>
-  <DialogTrigger>Open</DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Are you absolutely sure?</DialogTitle>
-      <DialogDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
-      </DialogDescription>
-    </DialogHeader>
-  </DialogContent>
-</Dialog>`}
-  </Pre>
-</div>
+
+export default function Example() {
+  return (
+    <Dialog>
+      <DialogTrigger>Open</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogDescription>
+            This action cannot be undone. This will permanently delete your account
+            and remove your data from our servers.
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  )
+}`}
+</Pre>
+
 ## Examples
 
 ### Destructive
 
 <ComponentPreview name="dialog-demo" variant="destructive" />
-### Adding custom position
 
-#### Top position
+### Custom Position
+
+#### Top
 
 <ComponentPreview name="dialog-demo" variant="top" />
 
-#### Bottom position
+#### Bottom
 
 <ComponentPreview name="dialog-demo" variant="bottom" />
+
+### Form Example
+
+<ComponentPreview name="dialog-demo" variant="form" />

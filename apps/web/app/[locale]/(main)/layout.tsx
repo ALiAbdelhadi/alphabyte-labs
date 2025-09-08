@@ -2,11 +2,13 @@ import { ReactNode } from "react"
 
 import { Footer } from "@/components/navigation/footer"
 import { Header } from "@/components/navigation/Header"
+import { getDocsRouting } from "@/settings/docs-routing"
 
-const MainLayout = ({ children }: { children: ReactNode }) => {
+const MainLayout = async ({ children }: { children: ReactNode }) => {
+  const docsConfig = await getDocsRouting()
   return (
     <div>
-      <Header />
+      <Header docsConfig={docsConfig} />
       <main role="main">{children}</main>
       <Footer />
     </div>

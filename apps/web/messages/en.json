@@ -6,5 +6,155 @@
         "description": "Build stunning interfaces with our accessible, customizable components — crafted by developers, for developers.",
         "getStarted": "Get started",
         "browseBlocks": "Browse Blocks"
+    },
+    "nav": {
+        "docs": "Docs",
+        "components": "Components",
+        "blocks": "Blocks",
+        "themes": "Themes",
+        "colors": "Colors",
+        "community": "Community"
+    },
+    "contributors": {
+        "core": "Core",
+        "contributor": "Contributor",
+        "guest": "Guest"
+    },
+    "search": {
+        "placeholder": "Search documentation...",
+        "search": "Search",
+        "searching": "Searching...",
+        "noResults": "No search results",
+        "noResultsDescription": "Please make sure your search is spelled correctly",
+        "noResultsTryDifferentKeywords": "Try using different keywords",
+        "quickAccess": "Quick Access",
+        "navigate": "Navigate",
+        "select": "Select",
+        "close": "Close",
+        "typeAtLeast": "Please type at least {minLength} characters to search",
+        "noResultsFor": "No results found for \"{query}\"",
+        "tryUsingDifferentKeywords": "Try using different keywords",
+        "esc": "Close",
+        "components": "Components"
+    },
+    "scroll-to-top": {
+        "description": "Scroll To Top"
+    },
+    "toc": {
+        "this-page": "On This page"
+    },
+    "tocCtaCard": {
+        "companyName": "Alphabyte:",
+        "title": "Build your next digital platform with confidence.",
+        "descriptionStart": "Built by the team behind",
+        "siteName": "alphabyte-labs",
+        "descriptionMiddle": "—specialists in high-performance",
+        "descriptionEnd": "solutions.",
+        "teamName": "alphabyte-labs",
+        "technology": "Next.js",
+        "ctaButton": "Schedule a free consultation."
+    },
+    "feedback": {
+        "title": "This Content",
+        "header-1": "Feedback",
+        "header-2": "Edit this page on Github"
+    },
+    "component-page": {
+        "docs-links": {
+            "docs": "Docs",
+            "api-reference": "API Reference"
+        }
+    },
+    "componentUtils": {
+        "text": {
+            "description": "Second, you need to create a new folder called",
+            "libFolder": "lib",
+            "inRootDirectory": "in you root directory and create a new file called",
+            "utilsFile": "utils.ts",
+            "pasteCode": "and paste the following code in it:",
+            "folderPath": "lib/utils.ts"
+        }
+    },
+    "componentSource": {
+        "text": {
+            "description": "Third, you need to create a new folder called",
+            "componentFolder": "component",
+            "inRootDirectory": "in you root directory and create a new file called",
+            "componentFile": "{componentName}"
+        },
+        "loading": {
+            "loadingCode": "Loading code...",
+            "noCodeAvailable": "No code available"
+        },
+        "errors": {
+            "sourceNotFound": "Source code not found for",
+            "loadingError": "Error loading source code map"
+        }
+    },
+    "docs-sidebar": {
+        "main": {
+            "docs": "Docs",
+            "components": "Components",
+            "blocks": "Blocks",
+            "themes": "Themes",
+            "colors": "Colors",
+            "community": "Community"
+        },
+        "sidebar": {
+            "gettingStarted": {
+                "title": "Getting Started",
+                "introduction": "Introduction",
+                "installation": "Installation",
+                "rtlDirection": "RTL Direction",
+                "themes": "Themes"
+            },
+            "components": {
+                "title": "Components",
+                "accordion": "Accordion",
+                "alertDialog": "Alert Dialog",
+                "badge": "Badge",
+                "breadcrumb": "Breadcrumb",
+                "button": "Button",
+                "calendar": "Calendar",
+                "collapsible": "Collapsible",
+                "datePicker": "Date Picker",
+                "diagrams": "Diagrams",
+                "dialog": "Dialog",
+                "drawer": "Drawer",
+                "dropdownMenu": "Dropdown Menu",
+                "folderStructure": "Folder Structure",
+                "input": "Input",
+                "label": "Label",
+                "notes": "Notes",
+                "popover": "Popover",
+                "preCodeBlock": "Pre (Code Block)",
+                "productCard": "Product Card",
+                "scrollArea": "Scroll Area",
+                "separator": "Separator",
+                "sheet": "Sheet",
+                "sonner": "Sonner",
+                "step": "Step",
+                "switch": "Switch",
+                "tabs": "Tabs",
+                "tooltip": "Tooltip"
+            }
+        }
+    },
+    "pagination": {
+        "previous": "Previous",
+        "next": "Next"
+    },
+    "footer": {
+        "builtBy": "Built by the team behind",
+        "sourceCode": "The source code is available on",
+        "alphabyte": "Alphabyte-labs",
+        "github": "Github"
+    },
+    "logo": {
+        "alphabyte": "Alphabyte-labs",
+        "beta": "beta"
+    },
+    "new": {
+        "text": "New"
     }
 }

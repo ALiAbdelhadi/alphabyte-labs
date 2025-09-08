@@ -1,70 +1,68 @@
 ---
-title: Button
-description: A button that displays a list of options when clicked.
+title: الزر (Button)
+description: زر يقوم بعرض قائمة من الخيارات عند النقر عليه.
 ---
 
 <ComponentPreview name="button" />
 
-## Installation
+## التثبيت
 
 <div className="not-prose px-4 md:px-0">
   <Step>
-    <StepItem title="Install Dependencies">
-      First , you need to install dependencies:
+    <StepItem title="تثبيت الاعتمادات (Dependencies)">
+      أولاً، تحتاج إلى تثبيت الاعتمادات:
       <Pre className="language-bash">{`npm install clsx tailwind-merge`}</Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
-    <StepItem title="Create Button Component">
+    <StepItem title="إنشاء مكوّن الزر (Button Component)">
       <ComponentSource name="button" />
     </StepItem>
-    <StepItem title="Here you go, Now you can edit and customize it for your needs and make it yours" />
+    <StepItem title="الآن أصبح المكوّن جاهزًا، ويمكنك تعديله وتخصيصه ليتناسب مع احتياجاتك." />
   </Step>
 </div>
-## Usage
-<div className="not-prose space-y-6">
-  <Pre>{`import { Button } from "@/components/ui/button"`}</Pre>
-  <Pre>
-    {`export default function ButtonDemo() {
-    return <Button variant={"default"}>Getting Started</Button>
-}`}
-  </Pre>
-</div>
-## Examples 
 
-### Primary
+## الاستخدام
+<div className="not-prose space-y-6">
+  <Pre className="language-typescript">{`import { Button } from "@/components/ui/button"`}</Pre>
+  <Pre className="language-typescript">{`export default function ButtonDemo() {
+  return <Button variant={"default"}>البدء</Button>
+}`}</Pre>
+</div>
+
+## أمثلة 
+
+### أساسي (Primary)
 <ComponentPreview name="button" variant="primary" />
 
-### Secondary
-
+### ثانوي (Secondary)
 <ComponentPreview name="button" variant="secondary" />
-### Destructive
 
+### مدمر (Destructive)
 <ComponentPreview name="button" variant="destructive" />
-### Ghost
 
+### شفاف (Ghost)
 <ComponentPreview name="button" variant="ghost" />
-### Link
 
+### رابط (Link)
 <ComponentPreview name="button" variant="link" />
-### Outline
 
+### محدد الإطار (Outline)
 <ComponentPreview name="button" variant="outline" />
-### Neural
 
+### محايد (Neural)
 <ComponentPreview name="button" variant="neural" />
-### Loading
 
+### تحميل (Loading)
 <ComponentPreview name="button" variant="loading" />
-### Icon
 
+### أيقونة (Icon)
 <ComponentPreview name="button" variant="icon" />
 
-### Animation bounce
-
+### حركة Bounce
 <ComponentPreview name="button" variant="bounce" />
-### Animation pulse
 
+### حركة Pulse
 <ComponentPreview name="button" variant="pulse" />

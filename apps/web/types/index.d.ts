@@ -168,3 +168,29 @@ export interface NavItemWithChildren extends NavItem {
 export interface MainNavItem extends NavItem { }
 
 export interface SidebarItem extends NavItemWithChildren { }
+import type React from "react"
+
+export interface StepProps {
+  className?: string
+}
+
+export interface StepItemProps {
+  children: React.ReactNode
+  title?: string
+  className?: string
+}
+
+export interface MainNavItem {
+  title: string
+  href: string
+  disabled?: boolean
+}
+
+export interface SidebarItem {
+  title: string
+  id?: string
+  href?: string
+  disabled?: boolean
+  external?: boolean
+  items?: SidebarItem[]
+}

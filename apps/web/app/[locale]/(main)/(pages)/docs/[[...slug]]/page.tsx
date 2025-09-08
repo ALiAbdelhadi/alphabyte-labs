@@ -11,13 +11,14 @@ import { ContributorsComponents } from "@/constant"
 import { Link } from "@/i18n/navigation"
 import { ErrorBoundary } from "@/lib/debug-wrapper"
 import { getDocument } from "@/lib/markdown"
-import { PageRoutes } from "@/lib/pageRoutes"
+import { getPageRoutes } from "@/lib/pageRoutes"
 import { cn } from "@/lib/utils"
 import fs from "fs/promises"
 import { ExternalLink } from "lucide-react"
 import { notFound } from "next/navigation"
 import path from "path"
 import { routing } from "@/i18n/routing"
+import { getTranslations } from "next-intl/server"
 
 type DocsPageProps = {
   params: Promise<{
@@ -47,23 +48,19 @@ const ComponentsPage = async (props: DocsPageProps) => {
     }
 
     const { docs, content, tocs } = res
-
+    const t = await getTranslations("component-page")
     return (
       <div className="flex items-start gap-14 max-w-7xl transition-all">
         <div className="flex-[3] mt-[4.5rem] md:mt-7">
           <PageBreadcrumb paths={slug} />
           <div className="space-y-2">
-            <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">
-              {docs.title}
-            </h1>
+            <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">{docs.title}</h1>
             {docs.description && (
-              <p className="text-muted-foreground text-base font-normal tracking-wide">
-                {docs.description}
-              </p>
+              <p className="text-muted-foreground text-base font-normal tracking-wide">{docs.description}</p>
             )}
           </div>
           {docs.links ? (
-            <div className="flex items-center space-x-2 pt-4">
+            <div className="flex items-center space-x-2 rtl:space-x-reverse pt-4">
               {docs.links?.doc && (
                 <Link
                   href={docs.links.doc}
@@ -71,7 +68,7 @@ const ComponentsPage = async (props: DocsPageProps) => {
                   rel="noreferrer"
                   className={cn("!rounded-lg", badgeVariants({ variant: "secondary" }), "gap-1")}
                 >
-                  Docs
+                  {t("docs-links.docs")}
                   <ExternalLink className="h-3 w-3" />
                 </Link>
               )}
@@ -82,7 +79,7 @@ const ComponentsPage = async (props: DocsPageProps) => {
                   rel="noreferrer"
                   className={cn("!rounded-lg", badgeVariants({ variant: "secondary" }), "gap-1")}
                 >
-                  API Reference
+                  {t("docs-links.api-reference")}
                   <ExternalLink className="h-3 w-3" />
                 </Link>
               )}
@@ -108,9 +105,7 @@ const ComponentsPage = async (props: DocsPageProps) => {
         {Settings.rightbar && (
           <div className="hidden xl:flex xl:flex-col sticky top-16 gap-3 py-8 lg:min-w-[230px] min-w-[200px] h-[94.5vh] toc transition-all">
             {Settings.toc && <Toc tocs={tocs} />}
-            {Settings.feedback && (
-              <Feedback slug={pathName} title={docs.title} />
-            )}
+            {Settings.feedback && <Feedback slug={pathName} title={docs.title} />}
             {Settings.toTop && (
               <BackToTop className="mt-6 self-start text-sm text-neutral-800 dark:text-neutral-300/85" />
             )}
@@ -127,7 +122,7 @@ const ComponentsPage = async (props: DocsPageProps) => {
           An error occurred while rendering this page. Please check the console for more details.
         </p>
         <pre className="mt-4 p-4 bg-gray-100 rounded text-sm overflow-auto">
-          {error instanceof Error ? error.message : 'Unknown error'}
+          {error instanceof Error ? error.message : "Unknown error"}
         </pre>
       </div>
     )
@@ -163,29 +158,32 @@ export async function generateMetadata(props: DocsPageProps) {
 
 export async function generateStaticParams() {
   console.log("Generating static params with locale support...")
-  console.log("Available PageRoutes:", PageRoutes)
+
+  const pageRoutes = await getPageRoutes()
+  console.log("Available PageRoutes:", pageRoutes)
 
   // For each route and each locale, check localized file first then fallback
   const localizedParams = await Promise.all(
     routing.locales.flatMap((locale) =>
-      PageRoutes.map(async (route) => {
-        const cleanHref = route.href.startsWith('/') ? route.href.slice(1) : route.href
-        const segments = cleanHref.split('/').filter(Boolean)
+      pageRoutes.map(async (route) => {
+        const cleanHref = route.href.startsWith("/") ? route.href.slice(1) : route.href
+        const segments = cleanHref.split("/").filter(Boolean)
 
         // Determine last segment and candidate file paths
-        const lastSegment = segments.length === 0 ? 'introduction' : segments[segments.length - 1]
-        const baseLocalized = path.join(process.cwd(), 'contents', locale, 'docs')
-        const baseDefault = path.join(process.cwd(), 'contents', 'docs')
+        const lastSegment = segments.length === 0 ? "introduction" : segments[segments.length - 1]
+        const baseLocalized = path.join(process.cwd(), "contents", locale, "docs")
+        const baseDefault = path.join(process.cwd(), "contents", "docs")
 
-        const candidates = segments.length === 0
-          ? [
-              path.join(baseLocalized, 'introduction', 'introduction.mdx'),
-              path.join(baseDefault, 'introduction', 'introduction.mdx'),
-            ]
-          : [
-              path.join(baseLocalized, cleanHref, `${lastSegment}.mdx`),
-              path.join(baseDefault, cleanHref, `${lastSegment}.mdx`),
-            ]
+        const candidates =
+          segments.length === 0
+            ? [
+                path.join(baseLocalized, "introduction", "introduction.mdx"),
+                path.join(baseDefault, "introduction", "introduction.mdx"),
+              ]
+            : [
+                path.join(baseLocalized, cleanHref, `${lastSegment}.mdx`),
+                path.join(baseDefault, cleanHref, `${lastSegment}.mdx`),
+              ]
 
         for (const filePath of candidates) {
           try {
@@ -201,14 +199,16 @@ export async function generateStaticParams() {
 
         console.warn(`MDX file not found for route: ${route.href} (locale: ${locale})`)
         return { locale, slug: segments, valid: false }
-      })
-    )
+      }),
+    ),
   )
 
-  const routesForAllLocales = localizedParams.filter((p) => p.valid).map((p) => ({
-    locale: p.locale,
-    slug: p.slug,
-  }))
+  const routesForAllLocales = localizedParams
+    .filter((p) => p.valid)
+    .map((p) => ({
+      locale: p.locale,
+      slug: p.slug,
+    }))
 
   console.log("Valid static params (with locales):", routesForAllLocales)
   return routesForAllLocales

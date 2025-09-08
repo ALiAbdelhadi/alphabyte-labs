@@ -1,7 +1,6 @@
-import { Fragment } from "react"
 import { Link } from "@/i18n/navigation"
-
 import { cn } from "@/lib/utils"
+import { useTranslations } from "next-intl"
 
 interface LogoProps {
   className?: string
@@ -16,15 +15,17 @@ const Logo = ({
   showBeta = true,
   href = "/",
 }: LogoProps) => {
+  const t = useTranslations("logo")
+
   return (
     <Link href={href} className="group relative flex items-center">
       <div className="relative flex items-center space-x-2 md:space-x-3 py-2">
         {showLogoText && (
-          <div className="flex items-center justify-center space-x-1">
-            <span className={cn("font-bold tracking-tight ", className)}>
-              Alphabyte-labs
+          <div className="flex items-center justify-center space-x-1 rtl:space-x-reverse">
+            <span className={cn("font-bold tracking-tight", className)}>
+              {t("alphabyte")}
             </span>
-            <span className="mt-[3.5px]">
+            <span className="mt-[3.5px] rtl:ml-2">
               {showBeta && (
                 <div
                   className={cn(
@@ -38,7 +39,7 @@ const Logo = ({
                     "select-none"
                   )}
                 >
-                  beta
+                  {t("beta")}
                 </div>
               )}
             </span>

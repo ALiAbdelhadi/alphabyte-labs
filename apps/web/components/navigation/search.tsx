@@ -1,14 +1,14 @@
 "use client"
 
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { advanceSearch, cn, debounce } from "@/lib/utils"
-import { DocsRouting } from "@/settings/docs-routing"
-import { ArrowRight, FileText, Search as SearchIcon, X } from "lucide-react"
+import type { DocsConfig } from "@/settings/docs-routing"
+import { ArrowRight, Search as SearchIcon, X } from "lucide-react"
+import { useTranslations } from "next-intl"
 import type React from "react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import Anchor from "./anchor"
 import LoadingIcon from "../icons/loading-icon"
+import Anchor from "./anchor"
 
 const MIN_SEARCH_LENGTH = 2
 const DEBOUNCE_DELAY_MS = 200
@@ -31,9 +31,13 @@ interface SearchResult {
   snippet?: string
 }
 
+interface SearchClientProps {
+  docsConfig?: DocsConfig
+}
+
 const ComponentIcon = () => (
   <div className="flex h-4 w-4 items-center justify-center">
-    <div className="h-4 w-4 rounded-full aspect-square size-4 border border-dashed border-muted-foreground" />
+    <div className="h-4 w-4 rounded-full aspect-square size-[1.1rem] border-[1.5px] border-dashed border-sky-600" />
   </div>
 )
 
@@ -50,13 +54,8 @@ function getAbsoluteDocPath(relativePath: string | undefined): string {
   return `${DOCS_BASE_PATH}/${cleanRelativePath}`.replace(/\/+/g, "/")
 }
 
-const sanitizeHtml = (html: string): string => {
-  return html
-    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
-    .replace(/on\w+="[^"]*"/gi, "")
-}
-
-export default function Search() {
+export default function SearchClient({ docsConfig = { sidebarItems: [], mainNav: [] } }: SearchClientProps) {
+  const t = useTranslations("search")
   const [searchedInput, setSearchedInput] = useState("")
   const [isOpen, setIsOpen] = useState(false)
   const [filteredResults, setFilteredResults] = useState<SearchResult[]>([])
@@ -169,8 +168,6 @@ export default function Search() {
     if (!componentMountedRef.current) return
 
     setIsLoading(true)
-
-    // Simulate search delay for better UX
     setTimeout(() => {
       if (!componentMountedRef.current) return
       const results: SearchResult[] = advanceSearch(input.trim())
@@ -193,8 +190,6 @@ export default function Search() {
       setFilteredResults([])
       setIsLoading(false)
     }
-
-    // Clean up debounced function if it has a cancel method
     return () => {
       if (typeof debouncedSearch === 'function' && 'cancel' in debouncedSearch) {
         (debouncedSearch as any).cancel?.()
@@ -216,8 +211,8 @@ export default function Search() {
         if (doc.items && doc.items.length > 0 && doc.id === "components") {
           const sectionHeader = (
             <div key={`${doc.id}-header`} className="px-3 py-2">
-              <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                {doc.title}
+              <h4 className="text-[13px] font-semibold text-muted-foreground tracking-wider">
+                {t("components")}
               </h4>
             </div>
           )
@@ -241,14 +236,12 @@ export default function Search() {
             </Anchor>
           </DialogClose>
         )
-
         const childItems = doc.items ?
           renderDocumentStructure(doc.items, currentRelativePath, isComponentItem) : []
-
         return [linkElement, ...childItems]
       })
     },
-    [handleOpenChange]
+    [handleOpenChange, t]
   )
 
   const renderSearchResults = useCallback(() => {
@@ -289,7 +282,7 @@ export default function Search() {
         <div className="flex items-center justify-center py-8">
           <div className="flex items-center gap-2">
             <LoadingIcon size={14} />
-            <span className="text-sm text-muted-foreground">Searching...</span>
+            <span className="text-sm text-muted-foreground">{t("searching")}</span>
           </div>
         </div>
       )
@@ -299,7 +292,7 @@ export default function Search() {
       return (
         <div className="flex items-center justify-center py-8">
           <p className="text-sm text-muted-foreground">
-            Type at least {MIN_SEARCH_LENGTH} characters to search
+            {t("typeAtLeast", { minLength: MIN_SEARCH_LENGTH })}
           </p>
         </div>
       )
@@ -311,10 +304,10 @@ export default function Search() {
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <SearchIcon className="h-8 w-8 text-muted-foreground/40 mb-2" />
             <p className="text-sm text-muted-foreground">
-              No results for "<span className="font-medium text-foreground">{trimmedInput}</span>"
+              {t("noResultsFor", { query: trimmedInput })}
             </p>
             <p className="text-xs text-muted-foreground/60 mt-1">
-              Try using different keywords
+              {t("tryUsingDifferentKeywords")}
             </p>
           </div>
         )
@@ -325,14 +318,14 @@ export default function Search() {
     return (
       <div className="space-y-1">
         <div className="px-3 py-2">
-          <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            Quick Access
+          <h4 className="text-[13px] font-semibold text-muted-foreground uppercase tracking-wider">
+            {t("quickAccess")}
           </h4>
         </div>
-        <div className="space-y-0.5">{renderDocumentStructure(DocsRouting.sidebarItems)}</div>
+        <div className="space-y-0.5">{renderDocumentStructure(docsConfig?.sidebarItems || [])}</div>
       </div>
     )
-  }, [isLoading, searchedInput, filteredResults, renderDocumentStructure, renderSearchResults])
+  }, [isLoading, searchedInput, filteredResults, renderDocumentStructure, renderSearchResults, t, docsConfig?.sidebarItems])
 
   return (
     <div className="relative lg:w-full max-w-xl">
@@ -347,11 +340,11 @@ export default function Search() {
             aria-label="Search documentation"
           >
             <SearchIcon className="h-[22px] w-[22px] group-hover:text-foreground flex-shrink-0 lg:hidden flex" />
-            <span className="flex-1 text-left text-muted-foreground group-hover:text-foreground hidden xl:inline-flex text-sm">
-              Search documentation...
+            <span className="flex-1 text-left rtl:text-right text-muted-foreground group-hover:text-foreground hidden xl:inline-flex text-sm">
+              {t("placeholder")}
             </span>
-            <span className="flex-1 text-left text-muted-foreground group-hover:text-foreground hidden lg:inline-flex xl:hidden text-sm">
-              Search...
+            <span className="flex-1 text-left rtl:text-right text-muted-foreground group-hover:text-foreground hidden lg:inline-flex xl:hidden text-sm">
+              {t("search")}
             </span>
             <div className="hidden lg:flex items-center gap-0.5">
               <kbd className="pointer-events-none h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-80 hidden lg:flex">
@@ -366,24 +359,24 @@ export default function Search() {
         <DialogContent className="max-w-xl overflow-hidden rounded-xl !p-0 shadow-xl border-0 gap-1">
           <div className="border-b bg-muted/20">
             <div className="relative flex items-center">
-              <SearchIcon className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+              <SearchIcon className="absolute left-4 rtl:left-auto rtl:right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
               <input
                 ref={inputRef}
                 value={searchedInput}
                 onChange={(e) => setSearchedInput(e.target.value)}
-                placeholder="Search documentation..."
-                className="w-full border-0 bg-transparent py-4 pl-12 pr-16 text-sm outline-none placeholder:text-muted-foreground focus:ring-0"
+                placeholder={t("placeholder")}
+                className="w-full border-0 bg-transparent py-4 pl-12 rtl:pl-16 rtl:pr-12 pr-16 text-sm outline-none placeholder:text-muted-foreground focus:ring-0"
                 aria-label="Search input"
               />
-              <DialogTitle className="sr-only">Search documentation</DialogTitle>
+              <DialogTitle className="sr-only">{t("placeholder")}</DialogTitle>
               <DialogClose asChild>
                 <button
                   type="button"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 bg-muted/60 hover:bg-muted py-1 px-2 text-xs rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+                  className="absolute right-3 rtl:right-auto rtl:left-3 top-1/2 -translate-y-1/2 flex items-center gap-1 bg-muted/60 hover:bg-muted py-1 px-2 text-xs rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
                   aria-label="Close search dialog"
                 >
                   <X className="h-3 w-3" />
-                  <span>ESC</span>
+                  <span>{t("esc")}</span>
                 </button>
               </DialogClose>
             </div>
@@ -409,15 +402,15 @@ export default function Search() {
                 <div className="flex items-center gap-1">
                   <kbd className="h-[1.1rem] px-1 bg-muted rounded text-[10px]">↑</kbd>
                   <kbd className="h-[1.1rem] px-1 bg-muted rounded text-[10px]">↓</kbd>
-                  <span>navigate</span>
+                  <span>{t("navigate")}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <kbd className="h-[1.1rem] px-1 bg-muted rounded text-[10px]">Enter</kbd>
-                  <span>select</span>
+                  <span>{t("select")}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <kbd className="h-[1.1rem] px-1 bg-muted rounded text-[10px]">Esc</kbd>
-                  <span>close</span>
+                  <span>{t("close")}</span>
                 </div>
               </div>
             </div>

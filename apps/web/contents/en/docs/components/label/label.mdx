@@ -1,37 +1,39 @@
 ---
 title: Label
-description: A Label component
+description: Label component for form fields and accessibility.
 links:
   doc: https://www.radix-ui.com/docs/primitives/components/label
   api: https://www.radix-ui.com/docs/primitives/components/label#api-reference
 ---
 
 <ComponentPreview name="label-demo" />
+
 ## Installation
 <div className="not-prose md:px-0 px-4">
 <Step>
 <StepItem title="Install Dependencies">
-First, you need to install dependencies:
+First, install the required dependencies:
 <Pre className="language-bash">
-{`npm i install clsx tailwind-merge`}
+{`npm install clsx tailwind-merge`}
 </Pre>
 </StepItem>
   <StepItem title="Create utils.ts"> 
-  <ComponentUtilsText/>
-  <ComponentUtils/>
+    <ComponentUtilsText/>
+    <ComponentUtils/>
   </StepItem>
-  <StepItem title="Create Label Component" >
-  <ComponentSource name="label-demo"/>
+  <StepItem title="Create Label Component">
+    <ComponentSource name="label-demo"/>
   </StepItem>
 </Step>
 </div>
+
 ## Usage
 <div className="not-prose space-y-6">
 <Pre>
 {`import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
-`}
+import { Label } from "@/components/ui/label"`}
 </Pre>
+
 <Pre>{`
 const LabelDemo = () => {
   return (
@@ -47,7 +49,6 @@ const LabelDemo = () => {
   )
 }
 
-export default LabelDemo`}</Pre>
-</div
-
->
+export default LabelDemo
+`}</Pre>
+</div>

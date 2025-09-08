@@ -1,8 +1,10 @@
-import { DocsRouting } from "@/settings/docs-routing"
 import { Link } from "@/i18n/navigation"
+import { getDocsRouting } from "@/settings/docs-routing"
 
-export function ComponentsList() {
-  const componentsSection = DocsRouting.sidebarItems.find(
+// Server Component
+export async function ComponentsList() {
+  const docsConfig = await getDocsRouting()
+  const componentsSection = docsConfig.sidebarItems.find(
     (item) => item.id === "components"
   )
 

@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import { SidebarItem } from "@/types"
 import { Link } from "@/i18n/navigation"
 import { usePathname } from "next/navigation"
+import { useTranslations } from "next-intl"
 
 interface DocsSidebarItemProps extends SidebarItem {
   level: number
@@ -19,26 +20,26 @@ export default function DocsSidebarItem(props: DocsSidebarItemProps) {
     title,
     href,
     items,
-    id,
     level,
     isSheet = false,
     isNew,
     sectionHref,
   } = props
+
   const pathname = usePathname()
   const fullHref = sectionHref ? `/docs/${sectionHref}${href}` : `/docs${href}`
   const isActive = pathname.endsWith(href || "") || pathname === fullHref
   const isNewComponent = href ? isNew(href) : false
   const itemKey = title?.replace(/^\//, "") || ""
-
+  const t = useTranslations("new")
   const content = (
-    <div className={cn("space-x-3 flex")}>
+    <div className={cn("flex items-center rtl:flex-row-reverse space-x-3 rtl:space-x-reverse ")}> 
       <span className="text-[1rem] md:text-sm text-primary capitalize">
         {itemKey}
       </span>
       {isNewComponent && (
-        <span className="inline-flex items-center gap-1 bg-teal-200 px-1.5 py-0.5 text-xs font-medium text-teal-900 dark:text-teal-950 rounded-lg select-none">
-          New
+        <span className="inline-flex items-center space-x-1 rtl:space-x-reverse bg-teal-200 px-1.5 py-0.5 text-xs font-medium text-teal-900 dark:text-teal-950 rounded-lg select-none">
+          {t("text")}
         </span>
       )}
     </div>
@@ -60,7 +61,7 @@ export default function DocsSidebarItem(props: DocsSidebarItemProps) {
     return (
       <div
         className={cn(
-          "flex flex-col text-[1rem] md:text-sm transition-all text-foreground font-medium h-8 justify-center hover:bg-accent/80  w-full rounded-lg",
+          "flex flex-col text-[1rem] md:text-sm transition-all text-foreground font-medium h-8 justify-center hover:bg-accent/80 w-full rounded-lg rtl:text-right ltr:text-left",
           isActive
             ? "!text-primary bg-accent"
             : "text-foreground hover:text-primary"
@@ -73,11 +74,11 @@ export default function DocsSidebarItem(props: DocsSidebarItemProps) {
   return (
     <div className="flex flex-col w-full gap-1">
       <div>
-        <div className="flex items-center gap-2 text-[1rem] md:text-sm px-2 text-foreground">
+        <div className="flex items-center space-x-2 rtl:space-x-reverse text-[1rem] md:text-sm px-2 text-foreground rtl:text-right ltr:text-left">
           {finalContent}
         </div>
         <div className="mt-3">
-          <ul>
+          <ul className="space-y-1 rtl:space-y-reverse">
             {items.map((childItem, index) => {
               return (
                 <DocsSidebarItem

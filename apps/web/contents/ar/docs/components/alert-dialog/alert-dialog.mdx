@@ -1,6 +1,6 @@
 ---
-title: "Alert Dialog"
-description: "A versatile Alert dialog component for critical user interactions."
+title: "نافذة تنبيه (Alert Dialog)"
+description: "مكوّن مربع حوار تنبيه متعدد الاستخدامات للتفاعلات الحرجة مع المستخدم."
 links:
   doc: https://www.radix-ui.com/docs/primitives/components/alert-dialog
   api: https://www.radix-ui.com/docs/primitives/components/alert-dialog#api-reference
@@ -8,26 +8,27 @@ links:
 
 <ComponentPreview name="alert-dialog-demo" />
 
-## Installation
+## التثبيت
 
 <div className="not-prose px-4 md:px-0">
   <Step>
-    <StepItem title="Install Dependencies">
-      First , you need to install dependencies:
+    <StepItem title="تثبيت الاعتمادات">
+      أولاً، تحتاج إلى تثبيت الاعتمادات:
       <Pre className="language-bash">
         {`npm install clsx tailwind-merge @radix-ui/react-alert-dialog class-variance-authority`}
       </Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
-    <StepItem title="Create Alert dialog Component">
+    <StepItem title="إنشاء مكوّن Alert dialog">
       <ComponentSource name="alert-dialog-demo" />
     </StepItem>
   </Step>
 </div>
-## Usage
+
+## الاستخدام
 <div className="not-prose space-y-6">
   <Pre>
     {`import {
@@ -68,8 +69,9 @@ import { Button } from "@/components/ui/button"`}
 }`}
   </Pre>
 </div>
-## Examples
 
-### Destructive
+## الأمثلة
+
+### الإجراء المدمر
 
 <ComponentPreview name="alert-dialog" variant="destructive" />

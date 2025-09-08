@@ -1,6 +1,6 @@
 ---
-title: Tabs
-description: A tabs component
+title:  علامات التبويب (Tabs)
+description: مكون التبويبات لتنظيم المحتوى في أقسام متعددة.
 links:
   doc: https://www.radix-ui.com/docs/primitives/components/tabs
   api: https://www.radix-ui.com/docs/primitives/components/tabs#api-reference
@@ -8,61 +8,59 @@ links:
 
 <ComponentPreview name="tabs-demo" />
 
-## Installation
+## التثبيت
 
 <div className="not-prose px-4 md:px-0">
   <Step>
-    <StepItem title="Install Dependencies">
-      First , you need to install dependencies:
+    <StepItem title="تثبيت المكتبات المطلوبة">
+      أولاً، قم بتثبيت المكتبات التالية:
       <Pre className="language-bash">
         {`npm install clsx tailwind-merge @radix-ui/react-tabs framer-motion`}
       </Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
-    <StepItem title="Create Tabs component">
+    <StepItem title="إنشاء مكون Tabs">
       <ComponentSource name="tabs-demo" />
     </StepItem>
-    <StepItem title="Here you go, Now you can edit and customize it for your needs and make it yours" />
+    <StepItem title="الآن يمكنك تعديله ليناسب مشروعك" />
   </Step>
 </div>
 
-## Usage
+## الاستخدام
 
 <div className="not-prose space-y-4">
   <p className="text-base">
-    First import the tabs component in your file like this:
+    أولاً، قم باستيراد مكون الـ Tabs في ملفك:
   </p>
   <Pre>
     {`import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/Tab"`}
   </Pre>
-  <p className="text-base">Then you can use the tabs component like this:</p>
+  <p className="text-base">ثم استخدمه بالشكل التالي:</p>
   <Pre>
     {`<Tabs defaultValue="preview" className="mt-4">
          <TabsList className="inline-flex h-9 items-center text-muted-foreground w-full justify-start rounded-none border-b bg-transparent p-0 mb-2">
             <TabsTrigger value="preview" className="active:shadow-none text-base">
-               tab 1
+               تبويب 1
             </TabsTrigger>
             <TabsTrigger value="code" className="active:shadow-none text-base">
-               tab 2
+               تبويب 2
             </TabsTrigger>
          </TabsList>
          <div>
             <TabsContent value="preview" className={cn("border rounded-xl", className)}>
-            <div>
-               Content One
-            </div>
+              <div>المحتوى الأول</div>
             </TabsContent>
             <TabsContent value="code" className="rounded-xl">
-            <div>Content two</div>
+              <div>المحتوى الثاني</div>
             </TabsContent>
          </div>
       </Tabs>`}
   </Pre>
 </div>
 
-## Examples
-### Vertical Tabs
-<ComponentPreview name="tabs-vertical-demo" /> 
+## أمثلة
+### تبويبات عمودية
+<ComponentPreview name="tabs-vertical-demo" />

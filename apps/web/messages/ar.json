@@ -6,5 +6,154 @@
         "description": "أنشئ واجهات مبهرة باستخدام مكوناتنا القابلة للتخصيص وسهلة الاستخدام — مصممة من المطورين وللمطورين.",
         "getStarted": "ابدأ الآن",
         "browseBlocks": "تصفح البلوكات"
+    },
+    "nav": {
+        "docs": "التوثيق",
+        "components": "المكونات",
+        "blocks": "البلوكات",
+        "themes": "الثيمات",
+        "colors": "الألوان",
+        "community": "المجتمع"
+    },
+    "contributors": {
+        "core": "أساسي",
+        "contributor": "مساهم",
+        "guest": "ضيف"
+    },
+    "search": {
+        "placeholder": "البحث في التوثيق...",
+        "search": "البحث..",
+        "searching": "جاري البحث...",
+        "noResults": "لا يوجد نتائج للبحث",
+        "noResultsDescription": "يرجى التأكد من كتابة البحث بشكل صحيح",
+        "noResultsTryDifferentKeywords": "يرجى التأكد من كتابة البحث بشكل صحيح",
+        "quickAccess": "الوصول السريع",
+        "navigate": "التنقل",
+        "select": "التحديد",
+        "close": "أغلاق",
+        "typeAtLeast": "يرجى كتابة {minLength} أحرف على الأقل للبحث",
+        "noResultsFor": "لا يوجد نتائج للبحث لـ {query}",
+        "tryUsingDifferentKeywords": "يرجى التأكد من كتابة البحث بشكل صحيح",
+        "esc": "أغلاق",
+        "components": "المكونات"
+    },
+    "scroll-to-top": {
+        "description": "الي الأعلي"
+    },
+    "toc": {
+        "this-page": "في هذه الصفحة"
+    },
+    "tocCtaCard": {
+        "companyName": "ألفابايت",
+        "title": "ابني منصتك الرقمية القادمة بثقة.",
+        "descriptionStart": "مبني من قبل الفريق وراء",
+        "siteName": "مختبرات الفابايت",
+        "descriptionMiddle": "— متخصصون في حلول",
+        "descriptionEnd": "عالية الأداء.",
+        "technology": "Next.js",
+        "ctaButton": "احجز استشارة مجانية."
+    },
+    "feedback": {
+        "title": "هذا المحتوي",
+        "header-1": "تعليق",
+        "header-2": "قم بتعديل هذه الصفحه علي Github"
+    },
+    "component-page": {
+        "docs-links": {
+            "docs": "توثيق",
+            "api-reference": "توثيق API"
+        }
+    },
+    "componentUtils": {
+        "text": {
+            "description": "ثانياً، تحتاج إلى إنشاء مجلد جديد يُسمى",
+            "libFolder": "lib",
+            "inRootDirectory": "في المجلد الجذر الخاص بك وإنشاء ملف جديد يُسمى",
+            "utilsFile": "utils.ts",
+            "pasteCode": "ولصق الكود التالي فيه:",
+            "folderPath": "lib/utils.ts"
+        }
+    },
+    "componentSource": {
+        "text": {
+            "description": "ثالثاً، تحتاج إلى إنشاء مجلد جديد يُسمى",
+            "componentFolder": "component",
+            "inRootDirectory": "في المجلد الجذر الخاص بك وإنشاء ملف جديد يُسمى",
+            "componentFile": "{componentName}"
+        },
+        "loading": {
+            "loadingCode": "جاري تحميل الكود...",
+            "noCodeAvailable": "لا يوجد كود متاح"
+        },
+        "errors": {
+            "sourceNotFound": "لم يتم العثور على الكود لـ",
+            "loadingError": "خطأ في تحميل خريطة الكود"
+        }
+    },
+    "docs-sidebar": {
+        "main": {
+            "docs": "المستندات",
+            "components": "المكونات (Components)",
+            "blocks": "الكتل (Blocks)",
+            "themes": "السمات",
+            "colors": "الألوان",
+            "community": "المجتمع"
+        },
+        "sidebar": {
+            "gettingStarted": {
+                "title": "البداية",
+                "introduction": "مقدمة",
+                "installation": "التثبيت",
+                "rtlDirection": "اتجاه الصفحات",
+                "themes": "السمات"
+            },
+            "components": {
+                "title": "المكونات",
+                "accordion": "أكورديون",
+                "alertDialog": "نافذة تنبيه",
+                "badge": "شارة",
+                "breadcrumb": "مسار التنقل",
+                "button": "زر",
+                "calendar": "تقويم",
+                "collapsible": "قابل للطي",
+                "datePicker": "مُحدد التاريخ",
+                "diagrams": "رسوم بيانية",
+                "dialog": "نافذة حوار",
+                "drawer": "درج جانبي",
+                "dropdownMenu": "قائمة منسدلة",
+                "folderStructure": "هيكلية المجلدات",
+                "input": "حقل إدخال",
+                "label": "تسمية",
+                "notes": "ملاحظات",
+                "popover": "نافذة منبثقة",
+                "preCodeBlock": "كتلة كود",
+                "productCard": "بطاقة منتج",
+                "scrollArea": "منطقة تمرير",
+                "separator": "فاصل",
+                "sheet": "لوحة",
+                "sonner": "إشعار",
+                "step": "خطوات",
+                "switch": "مفتاح تبديل",
+                "tabs": "علامات التبويب",
+                "tooltip": "تلميح"
+            }
+        }
+    },
+    "pagination": {
+        "previous": "السابق",
+        "next": "التالي"
+    },
+    "footer": {
+        "builtBy": "تم البناء بواسطة الفريق خلف",
+        "sourceCode": "الكود مفتوح المصدر على",
+        "alphabyte": "مختبرات الفابايت",
+        "github": "Github"
+    },
+    "logo": {
+        "alphabyte": "مختبرات الفابايت",
+        "beta": "بيتا"
+    },
+    "new": {
+        "text": "جديد"
     }
 }

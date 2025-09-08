@@ -1,51 +1,52 @@
 ---
-title: Input
-description: A Input component
+title:  حقل إدخال (Input)
+description: مكوّن  حقل إدخال  للنصوص، البريد الإلكتروني، رفع الملفات، والمزيد.
 ---
 
 <ComponentPreview name="input-demo" />
 
-## Installation
+## التثبيت
 
 <div className="not-prose px-4 md:px-0">
   <Step>
-    <StepItem title="Install Dependencies">
-      First, you need to install dependencies:
-      <Pre className="language-bash">{`npm i install clsx tailwind-merge`}</Pre>
+    <StepItem title="تثبيت المتطلبات">
+      أولاً، قم بتثبيت الحزم اللازمة:
+      <Pre className="language-bash">{`npm install clsx tailwind-merge`}</Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
-    <StepItem title="Create Input Component">
+    <StepItem title="إنشاء مكوّن الإدخال">
       <ComponentSource name="input" />
     </StepItem>
   </Step>
 </div>
 
-## Usage
+## الاستخدام
 
 <div className="not-prose space-y-6">
 <Pre>{`import { Input } from "@/components/ui/input"`}</Pre>
 <Pre>{`const InputDemo = () => {
-  return <Input className="w-56" type="email" placeholder="Email" />
+  return <Input className="w-56" type="email" placeholder="البريد الإلكتروني" />
 }
 
 export default InputDemo`}</Pre>
-
 </div>
-## Examples
-### Default
+
+## أمثلة
+
+### افتراضي
 <ComponentPreview name="input-demo" />
 
-### File
-
-upload file
-
+### رفع ملف
 <ComponentPreview name="input" variant="file" />
-### Disabled
+
+### معطّل
 <ComponentPreview name="input" variant="disabled" />
-### With Label
+
+### مع تسمية
 <ComponentPreview name="input" variant="label" />
-### With button
+
+### مع زر
 <ComponentPreview name="input" variant="button" />

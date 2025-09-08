@@ -8,6 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import TocCtaCard from "../toc-cta-card"
 import { ContributorsComponents } from "@/constant"
 import UserAvatar from "../user-avatar"
+import { useTranslations } from "next-intl"
 
 type TocProps = {
   tocs: { href: string; level: number; text: string }[]
@@ -66,19 +67,19 @@ export default function Toc({ tocs }: TocProps) {
   const getLinkClassName = (level: number, isActive: boolean) =>
     clsx("transition-colors duration-200 hover:text-primary", {
       "pl-0": level === 2,
-      "pl-4": level === 3,
-      "pl-8": level === 4,
-      "font-semibold text-primary -ml-[1px]": isActive,
+      "pl-4 rtl:pr-4": level === 3,
+      "pl-8 rtl:pr-8": level === 4,
+      "font-semibold text-primary -ml-[1px] rtl:-mr-[1px]": isActive,
     })
-
+  const t = useTranslations("toc")
   return (
-    <div className="flex flex-col gap-3 w-full pl-2 not-prose transition-all max-w-[230px]">
-      <h3 className="text-sm font-semibold">On this page</h3>
-      <nav className="flex flex-col text-gray-500 dark:text-gray-400 ml-0.5">
+    <div className="flex flex-col gap-3 w-full not-prose transition-all max-w-[230px]">
+      <h3 className="text-sm font-semibold">{t("this-page")}</h3>
+      <nav className="flex flex-col text-gray-500 dark:text-gray-400 ml-0.5 rtl:mr-0.5 text-left rtl:text-right">
         <ScrollArea className="max-h-[12rem]">
           <ul className="space-y-[6px]">
-            {tocs.map(({ href, level, text }) => (
-              <li className="text-sm" key={href}>
+            {tocs.map(({ href, level, text }, index) => (
+              <li className="text-sm" key={index}>
                 <Link
                   href={href}
                   scroll={false}

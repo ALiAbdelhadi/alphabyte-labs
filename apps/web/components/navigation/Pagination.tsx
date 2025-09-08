@@ -1,7 +1,7 @@
-import { getPreviousNext } from "@/lib/markdown";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { cn } from "@/lib/utils"
+import { getPreviousNext } from "@/lib/markdown";
+import { getLocale, getTranslations } from "next-intl/server";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 function formatDocPath(path: string | undefined): string {
   if (!path) return "/docs";
   const cleanPath = path.replace(/^\//, '');
@@ -12,8 +12,10 @@ function formatDocPath(path: string | undefined): string {
   return `/${cleanPath}`.replace(/\/+/g, '/');
 }
 
-const Pagination = ({ pathname }: { pathname: string }) => {
-  const res = getPreviousNext(pathname);
+const Pagination = async ({ pathname }: { pathname: string }) => {
+  const locale = await getLocale();
+  const t = await getTranslations("pagination");
+  const res = await getPreviousNext(pathname, locale);
   return (
     <div>
       <div className="flex flex-col sm:flex-row justify-between my-12 gap-4 ">
@@ -25,10 +27,10 @@ const Pagination = ({ pathname }: { pathname: string }) => {
             >
               <div>
                 <span className="text-muted-foreground text-xs sm:text-[13px] group-hover:text-primary">
-                  Previous
+                  {t("previous")}
                 </span>
                 <span className="flex no-underline items-center justify-center text-gray-900 hover:text-gray-950 dark:text-gray-200 hover:dark:text-gray-100 transition-colors text-base md:text-lg mt-2">
-                  <ChevronLeftIcon className="w-6 h-6 text-muted-foreground mt-[1px] mr-[6px] group-hover:text-primary" />
+                  <ChevronLeftIcon className="w-6 h-6 text-muted-foreground mt-[1px] mr-[6px] group-hover:text-primary rtl:rotate-180" />
                   {res.prev.title}
                 </span>
               </div>
@@ -42,11 +44,11 @@ const Pagination = ({ pathname }: { pathname: string }) => {
               href={formatDocPath(res.next.href)}
             >
               <span className="text-muted-foreground text-xs sm:text-[13px] group-hover:text-primary">
-                Next
+                {t("next")}
               </span>
               <span className="flex no-underline items-center justify-center text-gray-900 hover:text-gray-950 dark:text-gray-200 hover:dark:text-gray-100 transition-colors text-base md:text-lg mt-2">
                 {res.next.title}
-                <ChevronRightIcon className="w-6 h-6 text-muted-foreground mt-[1px] ml-[6px] group-hover:text-primary" />
+                <ChevronRightIcon className=" rtl:rotate-180 w-6 h-6 text-muted-foreground mt-[1px] ml-[6px] group-hover:text-primary" />
               </span>
             </Link>
           )}

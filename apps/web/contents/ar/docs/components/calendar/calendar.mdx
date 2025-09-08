@@ -1,36 +1,37 @@
 ---
-title: Calendar
-description: Calendar component
+title: التقويم (Calendar)
+description: مكوّن التقويم
 links:
   doc: https://react-day-picker.js.org
 ---
 
 <ComponentPreview name="calendar-demo" />
 
-## About The
+## حول المكوّن
 
-<MdxBadge>Calendar</MdxBadge> component is built on top of
-[ReactDayPicker](https://daypicker.dev/). 
-## Installation
+مكوّن <MdxBadge>Calendar</MdxBadge> مبني بالاعتماد على  
+[ReactDayPicker](https://daypicker.dev/).
+
+## التثبيت
 <div className="not-prose px-4 md:px-0">
   <Step>
-    <StepItem title="Install Dependencies">
-      First , you need to install dependencies:
+    <StepItem title="تثبيت الاعتمادات (Dependencies)">
+      أولاً، تحتاج إلى تثبيت الاعتمادات:
       <Pre className="language-bash">
         {`npm install clsx tailwind-merge react-day-picker@8.10.1 date-fns`}
       </Pre>
     </StepItem>
-    <StepItem title="Create utils.ts">
+    <StepItem title="إنشاء ملف utils.ts">
       <ComponentUtilsText />
       <ComponentUtils />
     </StepItem>
-    <StepItem title="Create Calendar Component">
+    <StepItem title="إنشاء مكوّن التقويم (Calendar Component)">
       <ComponentSource name="calendar-demo" />
     </StepItem>
   </Step>
 </div>
 
-## Usage
+## الاستخدام
 
 <div className="not-prose space-y-6">
   <Pre>{`import { Calendar } from "@/components/ui/calendar"`}</Pre>
@@ -45,5 +46,6 @@ return (
   />
 )`}</Pre>
 </div>
-## Examples
+
+## أمثلة
 <ComponentPreview name="date-picker-demo" />
