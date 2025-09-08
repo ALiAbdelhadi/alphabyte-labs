@@ -13,8 +13,7 @@ export default function PageLoader({ className, fullscreen = false, label }: Pag
     return (
         <div
             className={cn(
-                "flex items-center justify-center",
-                fullscreen ? "min-h-[70vh]" : "py-6",
+                "flex min-h-[100dvh] flex-col items-center justify-center bg-background",
                 className
             )}
         >
