@@ -7,6 +7,15 @@
         "getStarted": "ابدأ الآن",
         "browseBlocks": "تصفح البلوكات"
     },
+    "errors": {
+        "title": "عذراً!",
+        "description": "حدث خطأ ما!",
+        "tryAgain": "حاول مرة أخرى"
+    },
+    "notFound": {
+        "description": "الصفحة غير موجودة",
+        "returnHome": "العودة للصفحة الرئيسية"
+    },
     "nav": {
         "docs": "التوثيق",
         "components": "المكونات",
@@ -155,5 +164,8 @@
     },
     "new": {
         "text": "جديد"
+    },
+    "loading": {
+        "loading": "جاري التحميل..."
     }
 }

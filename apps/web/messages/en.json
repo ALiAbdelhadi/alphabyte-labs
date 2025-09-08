@@ -7,6 +7,15 @@
         "getStarted": "Get started",
         "browseBlocks": "Browse Blocks"
     },
+    "errors": {
+        "title": "Oops!",
+        "description": "Something went wrong!",
+        "tryAgain": "Try again"
+    },
+    "notFound": {
+        "description": "Page not found",
+        "returnHome": "Return Home"
+    },
     "nav": {
         "docs": "Docs",
         "components": "Components",
@@ -156,5 +165,8 @@
     },
     "new": {
         "text": "New"
+    },
+    "loading": {
+        "loading": "Loading..."
     }
 }
