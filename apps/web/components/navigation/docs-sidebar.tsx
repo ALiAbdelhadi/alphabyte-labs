@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation"
 import DocsSidebarItem from "./docs-sidebar-item"
 import type { SidebarItem } from "@/types"
 
-const NEW_COMPONENTS = ["diagrams", "steps", "product-card"]
+const NEW_COMPONENTS = ["diagrams", "step", "product-card"]
 
 interface DocsSidebarProps {
   config: SidebarItem[]

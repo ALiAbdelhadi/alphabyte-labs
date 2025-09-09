@@ -115,8 +115,8 @@ export const DocsRouting = [
             href: "/sonner"
          },
          {
-            title: "Steps",
-            href: "/steps"
+            title: "Step",
+            href: "/step"
          },
          {
             title: "Tabs",
