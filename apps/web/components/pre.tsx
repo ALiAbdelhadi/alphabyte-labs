@@ -95,7 +95,7 @@ const CopyButton: React.FC<CopyButtonProps> = ({ content, className }) => {
     <button
       onClick={handleCopy}
       className={cn(
-        "flex items-center justify-center w-8 h-8 rounded-sm hover:bg-muted/50 transition-all duration-200 m-0 p-0",
+        "flex items-center justify-center w-8 h-8 rounded-sm hover:bg-muted/50 transition-all duration-200",
         className,
       )}
       title={currentConfig.title}
@@ -166,15 +166,15 @@ const CodeHeader: React.FC<{
 }) => (
     <div className="code-block-header code-block-toolbar overflow-x-auto hide-scrollbar flex items-center justify-between h-[35px] px-4 bg-muted/30 border-b border-border">
       <div className="flex items-center justify-between space-x-4 rtl:space-x-reverse">
-        <div className="flex space-x-2 rtl:space-x-reverse items-center" role="presentation" aria-label="Window controls">
+        <div className="flex space-x-1.5 rtl:space-x-reverse items-center" role="presentation" aria-label="Window controls">
           <div className="w-3 h-3 rounded-full bg-red-500/30 border border-red-500/40" />
           <div className="w-3 h-3 rounded-full bg-yellow-500/30 border border-yellow-500/40" />
           <div className="w-3 h-3 rounded-full bg-green-500/30 border border-green-500/40" />
         </div>
         {title ? (
-          <div>
+          <div className="flex items-center justify-center space-x-4 rtl:space-x-reverse">
             <span className="font-medium text-foreground text-sm text-nowrap">{title}</span>
-            {description && <p className="text-xs mt-1 text-muted-foreground">{description}</p>}
+            {description && <p className="text-xs  text-muted-foreground">{description}</p>}
           </div>
         ) : folderPath ? (
           <span dir="ltr" className="code-block-folder-path font-medium text-muted-foreground text-sm text-nowrap max-w-md">

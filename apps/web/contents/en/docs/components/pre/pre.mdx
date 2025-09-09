@@ -865,3 +865,210 @@ const CodeBlockDemo = ({ className }: { className: string }) => {
 export default CodeBlockDemo`}
 </Pre>
 </div>
+
+## Examples
+
+### TypeScript/React Component
+
+<Pre className="language-tsx" title="MyComponent.tsx" description="A reusable React component with TypeScript" highlightLines={[4, 8, 12]} showLineNumbers={true} enableSearch={true} maxHeight={400}>
+{`// React Component Example
+import React from 'react'
+import { Button } from '@/components/ui/button'
+
+interface Props {
+  title: string
+  description?: string
+  onAction?: () => void
+}
+
+export function MyComponent({ title, description, onAction }: Props) {
+  return (
+    <div className="p-6 bg-background border rounded-lg">
+      <h2 className="text-2xl font-bold mb-2">{title}</h2>
+      {description && (
+        <p className="text-muted-foreground mb-4">{description}</p>
+      )}
+      <Button onClick={onAction} className="w-full">
+        Click me
+      </Button>
+    </div>
+  )
+}`}
+</Pre>
+
+### CSS Styles
+
+<Pre className="language-css" title="styles.css" description="Tailwind CSS custom styles" highlightLines={[2, 6, 10]} showLineNumbers={true} enableSearch={true} maxHeight={300}>
+{`/* Custom Styles */
+.my-component {
+  @apply p-6 bg-background border rounded-lg;
+}
+
+.my-component h2 {
+  @apply text-2xl font-bold mb-2;
+}
+
+.my-component p {
+  @apply text-muted-foreground mb-4;
+}
+
+.my-component button {
+  @apply w-full;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .my-component {
+    @apply p-4;
+  }
+}`}
+</Pre>
+
+### JSON Configuration
+
+<Pre className="language-json" title="package.json" description="Project dependencies and scripts" highlightLines={[1, 5, 9]} showLineNumbers={true} enableSearch={true} maxHeight={250}>
+{`{
+  "name": "my-component",
+  "version": "1.0.0",
+  "description": "A reusable React component",
+  "main": "index.tsx",
+  "scripts": {
+    "build": "tsc",
+    "dev": "next dev",
+    "lint": "eslint . --ext .ts,.tsx",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "next": "^14.0.0",
+    "@types/react": "^18.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "tailwindcss": "^3.0.0"
+  }
+}`}
+</Pre>
+
+### JavaScript/Node.js
+
+<Pre className="language-javascript" title="server.js" description="Express.js server example" highlightLines={[3, 7, 15]} showLineNumbers={true} enableSearch={true} maxHeight={350}>
+{`// Express.js Server Example
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(helmet());
+app.use(cors());
+app.use(express.json());
+
+// Routes
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+app.post('/api/users', async (req, res) => {
+  try {
+    const { name, email } = req.body;
+    // User creation logic here
+    res.status(201).json({ message: 'User created successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(\`Server running on port \${PORT}\`);
+});`}
+</Pre>
+
+### Bash/Shell Commands
+
+<Pre className="language-bash" title="install.sh" description="Installation and setup commands" showLineNumbers={false} enableSearch={false} maxHeight={200}>
+{`#!/bin/bash
+# Installation and setup script
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Run tests
+npm test
+
+# Lint code
+npm run lint`}
+</Pre>
+
+### Python Code
+
+<Pre className="language-python" title="app.py" description="Python Flask API example" highlightLines={[1, 5, 9]} showLineNumbers={true} enableSearch={true} maxHeight={300}>
+{`# Python Flask API Example
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import os
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    return jsonify({
+        'status': 'OK',
+        'timestamp': datetime.now().isoformat()
+    })
+
+@app.route('/api/users', methods=['POST'])
+def create_user():
+    try:
+        data = request.get_json()
+        name = data.get('name')
+        email = data.get('email')
+        
+        # User creation logic here
+        return jsonify({
+            'message': 'User created successfully',
+            'user_id': 123
+        }), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)`}
+</Pre>
+
+### SQL Queries
+
+<Pre className="language-sql" title="database.sql" description="Database schema and queries" highlightLines={[1, 5, 9, 13]} showLineNumbers={true} enableSearch={true} maxHeight={300}>
+{`-- Database Schema and Queries
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert user
+INSERT INTO users (name, email) 
+VALUES ('John Doe', 'john@example.com');
+
+-- Select users with pagination
+SELECT id, name, email, created_at 
+FROM users 
+ORDER BY created_at DESC 
+LIMIT 10 OFFSET 0;
+
+-- Update user
+UPDATE users 
+SET name = 'Jane Doe', updated_at = CURRENT_TIMESTAMP 
+WHERE id = 1;`}
+</Pre>

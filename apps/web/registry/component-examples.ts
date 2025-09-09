@@ -308,6 +308,15 @@ export const componentExamples = { items: [
     language: "tsx"
   },
   {
+    name: "code-block-demo",
+    baseComponent: "code",
+    variant: "block",
+    componentPath: "@/components/ui/code",
+    componentDemoPath: "@/registry/examples/code-block-demo",
+    component: React.lazy(() => import("@/registry/examples/code-block-demo")),
+    language: "tsx"
+  },
+  {
     name: "collapsible-demo",
     baseComponent: "collapsible",
     variant: null,

@@ -65,10 +65,7 @@ export function LanguageSwitcher({ currentLocale }: LanguageSwitcherProps) {
                     className="h-9 px-3 gap-2 hover:bg-accent/50 transition-colors font-medium"
                     disabled={isPending}
                 >
-                    <div className="flex items-center gap-2">
-                        <span className="hidden sm:inline text-sm">
-                            {currentLanguage.nativeName}
-                        </span>
+                    <div className="flex items-center justify-center gap-2">
                         <span className="text-base leading-none">{currentLanguage.flag}</span>
                     </div>
                     <ChevronDown className="h-3 w-3 opacity-70" />

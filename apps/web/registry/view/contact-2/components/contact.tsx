@@ -124,10 +124,10 @@ const Contact: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div className='py-3'>
                             <button
                                 onClick={handleGetDirections}
-                                className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg transform hover:scale-105"
+                                className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg"
                             >
                                 <Navigation className="w-5 h-5" />
                                 <span>Get Directions</span>
@@ -231,7 +231,7 @@ const Contact: React.FC = () => {
                                         <button
                                             onClick={handleSubmit}
                                             disabled={isSubmitting || !formData.fullName || !formData.jobPosition || !formData.email || !formData.phoneNumber}
-                                            className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg disabled:cursor-not-allowed transform hover:scale-105 disabled:transform-none"
+                                            className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg disabled:cursor-not-allowed"
                                         >
                                             {isSubmitting ? (
                                                 <>
