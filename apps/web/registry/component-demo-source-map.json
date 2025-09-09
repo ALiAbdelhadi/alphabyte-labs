@@ -332,7 +332,7 @@
     "language": "tsx"
   },
   "@/registry/examples/step-demo": {
-    "content": "import { Link } from \"@/i18n/navigation\"\r\nimport { Step, StepItem } from \"@/components/ui/step\"\r\n\r\nexport default function StepDemo() {\r\n  return (\r\n    <Step>\r\n      <StepItem title=\"Step one\">\r\n        Make sure you have Node.js installed on your machine.{\" \"}\r\n        <Link href={\"https://nodejs.org\"} className=\"!underline\">\r\n          You can download it from here\r\n        </Link>\r\n        .\r\n      </StepItem>\r\n      <StepItem title=\"Step two\">\r\n        After cloning the repository, navigate to the project directory and\r\n        install the necessary dependencies:\r\n      </StepItem>\r\n      <StepItem title=\"step three\">Start the development server:</StepItem>\r\n    </Step>\r\n  )\r\n}",
+    "content": "import { Step, StepItem } from \"@/components/ui/step\"\r\nimport Link from \"next/link\"\r\n\r\nconst StepDemo = () => {\r\n  return (\r\n    <Step>\r\n      <StepItem title=\"Step one\">\r\n        Make sure you have Node.js installed on your machine.{\" \"}\r\n        <Link href={\"https://nodejs.org\"} className=\"!underline\">\r\n          You can download it from here\r\n        </Link>\r\n        .\r\n      </StepItem>\r\n      <StepItem title=\"Step two\">\r\n        After cloning the repository, navigate to the project directory and\r\n        install the necessary dependencies:\r\n      </StepItem>\r\n      <StepItem title=\"step three\">Start the development server:</StepItem>\r\n    </Step>\r\n  )\r\n}\r\n\r\nexport default StepDemo",
     "language": "tsx"
   },
   "@/registry/examples/switch-demo/switch-demo": {

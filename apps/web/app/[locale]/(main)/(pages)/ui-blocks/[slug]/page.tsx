@@ -1,3 +1,5 @@
+export const dynamic = 'force-static'
+
 import { notFound } from "next/navigation"
 
 import { getAllBlocks, getBlocksForSlug } from "@/lib/markdown"
