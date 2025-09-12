@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/custom
 import { cn } from "@/lib/utils"
 import { REGISTRY } from "@/registry"
 import React, { useEffect, useState } from "react"
-import LoadingIcon from "../icons/loading-icon"
+import {LoadingIcon }from "@/components/icons/loading-icon"
 
 export interface ComponentPreviewProps {
   code?: string

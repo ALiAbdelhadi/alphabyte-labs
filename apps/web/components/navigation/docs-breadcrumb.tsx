@@ -10,7 +10,7 @@ import { Fragment } from "react"
 
 export default function PageBreadcrumb({ paths }: { paths: string[] }) {
   return (
-    <div className="mb-4 not-prose">
+    <div className="mb-4 not-prose rtl:hidden">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

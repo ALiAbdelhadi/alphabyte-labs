@@ -11,7 +11,7 @@ interface DocsSidebarProps {
   isSheet?: boolean
 }
 
-export function DocsSidebar({ config, isSheet = false }: DocsSidebarProps) {
+export function DocsSidebar({ config = [], isSheet = false }: DocsSidebarProps) {
   const pathname = usePathname()
   if (!pathname.includes("/docs")) return null
 
@@ -23,7 +23,7 @@ export function DocsSidebar({ config, isSheet = false }: DocsSidebarProps) {
   return (
     <div className="flex flex-col gap-2.5 md:mt-0 my-6 md:mb-0 transition-all">
       <div>
-        {config.map((section, sectionIndex) => {
+        {Array.isArray(config) && config.map((section, sectionIndex) => {
           if ("spacer" in section) {
             return (
               <div

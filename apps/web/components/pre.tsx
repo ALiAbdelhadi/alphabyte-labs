@@ -59,7 +59,6 @@ const processContent = (children?: React.ReactNode, raw?: string): string => {
   return ""
 }
 
-// Sub-components
 const CopyButton: React.FC<CopyButtonProps> = ({ content, className }) => {
   const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle")
 
@@ -95,7 +94,7 @@ const CopyButton: React.FC<CopyButtonProps> = ({ content, className }) => {
     <button
       onClick={handleCopy}
       className={cn(
-        "flex items-center justify-center w-8 h-8 rounded-sm hover:bg-muted/50 transition-all duration-200",
+        "flex items-center justify-center w-8 h-8 rounded-sm hover:bg-muted/50 transition-all duration-200 !ml-0",
         className,
       )}
       title={currentConfig.title}
@@ -167,9 +166,9 @@ const CodeHeader: React.FC<{
     <div className="code-block-header code-block-toolbar overflow-x-auto hide-scrollbar flex items-center justify-between h-[35px] px-4 bg-muted/30 border-b border-border">
       <div className="flex items-center justify-between space-x-4 rtl:space-x-reverse">
         <div className="flex space-x-1.5 rtl:space-x-reverse items-center" role="presentation" aria-label="Window controls">
-          <div className="w-3 h-3 rounded-full bg-red-500/30 border border-red-500/40" />
-          <div className="w-3 h-3 rounded-full bg-yellow-500/30 border border-yellow-500/40" />
-          <div className="w-3 h-3 rounded-full bg-green-500/30 border border-green-500/40" />
+          <div className="w-3 h-3 rounded-full bg-[#fc5f57] border border-red-500/40" />
+          <div className="w-3 h-3 rounded-full bg-[#fdbc2e] border border-yellow-500/40" />
+          <div className="w-3 h-3 rounded-full bg-[#28c83f] border border-green-500/40" />
         </div>
         {title ? (
           <div className="flex items-center justify-center space-x-4 rtl:space-x-reverse">

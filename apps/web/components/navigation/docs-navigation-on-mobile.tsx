@@ -10,20 +10,21 @@ import {
 import { cn } from "@/lib/utils"
 import { ChevronRight, X } from "lucide-react"
 import { useState } from "react"
-
 import { Button } from "../ui/button"
 import { ScrollArea } from "../ui/scroll-area"
 import { Separator } from "../ui/separator"
 import DocsMenu from "./docs-sidebar"
+import { useTranslations } from "next-intl"
+import type { SidebarItem } from "@/types"
 
-export function DocsNavigationOnMobile() {
+export function DocsNavigationOnMobile({ config = [] }: { config?: SidebarItem[] }) {
   const [open, setOpen] = useState(false)
-
+  const t = useTranslations("docs-navigation-on-mobile")
   return (
     <>
       <div
         className={cn(
-          "md:hidden z-50 h-14 fixed top-[56px] border-b border-t border-gray-300 left-0 right-0 bg-[rgba(250,250,252,0.4)] dark:bg-[#e2e8f003] backdrop-blur-lg backdrop-filter backdrop-saturate-[200%] transition-all duration-300"
+          "md:hidden sticky top-14 left-0 z-[60] h-14 border-b border-t border-border bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-center">
@@ -33,26 +34,26 @@ export function DocsNavigationOnMobile() {
             onOpenChange={setOpen}
           >
             <DrawerTrigger asChild>
-              <div className="cursor-pointer w-full flex items-center  mb-0.5">
-                <ChevronRight className="md:w-6 md:h-6 w-5 h-5 " />
-                <DrawerTitle className="font-semibold text-base md:text-lg">
-                  Menu
+              <button className="cursor-pointer w-full flex items-center gap-2.5 py-2">
+                <ChevronRight className="w-5 h-5 rtl:rotate-180 text-muted-foreground" />
+                <DrawerTitle className="font-medium text-sm text-foreground/90">
+                  {t("menu")}
                 </DrawerTitle>
-              </div>
+              </button>
             </DrawerTrigger>
-            <DrawerContent className="h-[70svh] px-4 rounded-t-3xl ">
+            <DrawerContent className="h-[70svh] px-4 rounded-t-3xl">
               <div>
                 <div className="flex justify-between items-center py-4">
-                  <span className="font-semibold text-lg">Menu</span>
+                  <span className="font-semibold text-base">{t("menu")}</span>
                   <DrawerClose asChild>
-                    <Button variant="ghost" size="icon">
-                      <X className="!h-5 !w-5" />
+                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                      <X className="h-4 w-4" />
                     </Button>
                   </DrawerClose>
                 </div>
                 <Separator />
-                <ScrollArea className="h-[25rem] hide-scrollbar">
-                  <DocsMenu isSheet />
+                <ScrollArea className="h-[25rem] hide-scrollbar py-2">
+                  <DocsMenu isSheet config={config} />
                 </ScrollArea>
               </div>
             </DrawerContent>

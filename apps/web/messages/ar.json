@@ -167,5 +167,8 @@
     },
     "loading": {
         "loading": "جاري التحميل..."
+    },
+    "docs-navigation-on-mobile": {
+        "menu": "القائمة"
     }
 }

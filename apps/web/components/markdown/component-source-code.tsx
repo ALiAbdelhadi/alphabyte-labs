@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { CodeBlockWrapper } from "../code-block-wrapper"
-import LoadingIcon from "../icons/loading-icon" 
+import {LoadingIcon} from "@/components/icons/loading-icon" 
 import MdxBadge from "../markdown/mdx-badge"
 
 export interface ComponentSourceProps {

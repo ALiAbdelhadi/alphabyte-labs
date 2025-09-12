@@ -19,7 +19,7 @@ import { motion } from "framer-motion"
 import { ChevronDown, File, Folder, PanelLeft, PanelRight } from "lucide-react"
 import { useTheme } from "next-themes"
 import { type CSSProperties, memo, useCallback, useEffect, useRef, useState } from "react"
-import LoadingIcon from "./icons/loading-icon"
+import { LoadingIcon } from "@/components/icons/loading-icon"
 
 const MIN_SIDEBAR_WIDTH = 220
 const MAX_SIDEBAR_WIDTH = 400

@@ -4,10 +4,10 @@ import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "
 import { advanceSearch, cn, debounce } from "@/lib/utils"
 import type { DocsConfig } from "@/settings/docs-routing"
 import { ArrowRight, Search as SearchIcon, X } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 import type React from "react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import LoadingIcon from "../icons/loading-icon"
+import { LoadingIcon } from "../icons/loading-icon"
 import Anchor from "./anchor"
 
 const MIN_SEARCH_LENGTH = 2
@@ -56,6 +56,7 @@ function getAbsoluteDocPath(relativePath: string | undefined): string {
 
 export default function SearchClient({ docsConfig = { sidebarItems: [], mainNav: [] } }: SearchClientProps) {
   const t = useTranslations("search")
+  const locale = useLocale()
   const [searchedInput, setSearchedInput] = useState("")
   const [isOpen, setIsOpen] = useState(false)
   const [filteredResults, setFilteredResults] = useState<SearchResult[]>([])
@@ -170,12 +171,12 @@ export default function SearchClient({ docsConfig = { sidebarItems: [], mainNav:
     setIsLoading(true)
     setTimeout(() => {
       if (!componentMountedRef.current) return
-      const results: SearchResult[] = advanceSearch(input.trim())
+      const results: SearchResult[] = advanceSearch(input.trim(), locale)
       setFilteredResults(results)
       setSelectedIndex(0)
       setIsLoading(false)
     }, 100)
-  }, [])
+  }, [locale])
 
   const debouncedSearch = useMemo(() =>
     debounce(performSearch, DEBOUNCE_DELAY_MS),

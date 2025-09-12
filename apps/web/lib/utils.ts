@@ -4,6 +4,7 @@ import sanitizeHtml from "sanitize-html"
 import { twMerge } from "tailwind-merge"
 
 import { Paths } from "@/lib/pageRoutes"
+import { createBilingualSearchTerms } from "@/lib/arabic-search-mapping"
 
 export type search = {
   title: string
@@ -62,23 +63,40 @@ export function helperSearch(
   const lowerQuery = query.toLowerCase()
 
   if (isRoute(node)) {
-    const nextLink = `${prefix}${node.href}`
+    const route = node as unknown as {
+      href: string
+      title: string
+      items?: Paths[]
+      id?: string
+      noLink?: boolean
+    }
+    const nextLink = `${prefix}${route.href}`
 
-    const titleMatch = node.title.toLowerCase().includes(lowerQuery)
-    const titleDistance = memoizedSearchMatch(
-      lowerQuery,
-      node.title.toLowerCase()
+    // إنشاء مصطلحات البحث باللغتين
+    const bilingualSearchTerms = createBilingualSearchTerms(query)
+    const searchTerms = bilingualSearchTerms.map(term => term.toLowerCase())
+
+    // البحث في العنوان باستخدام المصطلحات متعددة اللغات
+    const titleMatch = searchTerms.some(term =>
+      route.title.toLowerCase().includes(term)
+    )
+    
+    const titleDistance = Math.min(
+      ...searchTerms.map(term =>
+        memoizedSearchMatch(term, route.title.toLowerCase())
+      )
     )
 
     if (titleMatch || titleDistance <= 2) {
-      res.push({ ...node, items: undefined, href: nextLink })
+      const pushed: Paths = { title: route.title, href: nextLink } as unknown as Paths
+      res.push(pushed)
       parentHas = true
     }
 
     const goNext = maxLevel ? currentLevel < maxLevel : true
 
-    if (goNext && node.items) {
-      node.items.forEach((item) => {
+    if (goNext && route.items) {
+      route.items.forEach((item: Paths) => {
         const innerRes = helperSearch(
           query,
           item,
@@ -86,8 +104,9 @@ export function helperSearch(
           currentLevel + 1,
           maxLevel
         )
-        if (innerRes.length && !parentHas && !node.noLink) {
-          res.push({ ...node, items: undefined, href: nextLink })
+        if (innerRes.length && !parentHas && !route.noLink) {
+          const pushed: Paths = { title: route.title, href: nextLink } as unknown as Paths
+          res.push(pushed)
           parentHas = true
         }
         res.push(...innerRes)
@@ -284,10 +303,16 @@ function extractSnippet(content: string, query: string): string {
   return snippet
 }
 
-export function advanceSearch(query: string) {
-  const lowerQuery = query.toLowerCase().trim()
+function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+}
 
-  const queryWords = lowerQuery.split(/\s+/).filter((word) => word.length >= 3)
+export function advanceSearch(query: string, locale?: string) {
+  const lowerQuery = query.toLowerCase().trim()
+  const queryWords = (locale === "ar"
+    ? createBilingualSearchTerms(query)
+    : lowerQuery.split(/\s+/)
+  ).filter((word) => word.toLowerCase().trim().length >= 2)
 
   if (queryWords.length === 0) return []
 
@@ -295,21 +320,29 @@ export function advanceSearch(query: string) {
 
   const results = chunks.flatMap((chunk) =>
     chunk
+      // فلترة النتائج حسب اللغة الحالية
+      .filter((doc) => {
+        const isArabicDoc = Boolean((doc as any).isArabic)
+        if (locale === "ar") return isArabicDoc
+        return !isArabicDoc
+      })
       .map((doc) => {
         const title = doc.title || ""
         const content = doc.content || ""
         const cleanedContent = memoizedCleanMdxContent(content)
-
-        let relevanceScore = calculateRelevance(
-          queryWords.join(" "),
-          title,
-          cleanedContent
-        )
-        const proximityScore = calculateProximityScore(
-          queryWords.join(" "),
-          cleanedContent
-        )
-        relevanceScore += proximityScore
+        let relevanceScore = 0
+        for (const searchTerm of queryWords) {
+          const termRelevance = calculateRelevance(
+            searchTerm,
+            title,
+            cleanedContent
+          )
+          const proximityScore = calculateProximityScore(
+            searchTerm,
+            cleanedContent
+          )
+          relevanceScore += termRelevance + proximityScore
+        }
 
         const snippet = extractSnippet(cleanedContent, lowerQuery)
         const highlightedSnippet = highlight(snippet, queryWords.join(" "))
@@ -323,17 +356,11 @@ export function advanceSearch(query: string) {
         }
       })
       .filter((doc) => {
-        const queryWords = lowerQuery.split(/\s+/)
-
+        const searchText = `${doc.title} ${doc.description || ""} ${doc.snippet || ""}`.toLowerCase()
+        
         return (
           doc.relevance > 0 &&
-          queryWords.some(
-            (word) =>
-              doc.title.toLowerCase().includes(word) ||
-              (doc.description &&
-                doc.description.toLowerCase().includes(word)) ||
-              (doc.snippet && doc.snippet.toLowerCase().includes(word))
-          )
+          queryWords.some((word) => searchText.includes(word.toLowerCase()))
         )
       })
       .sort((a, b) => b.relevance - a.relevance)
@@ -389,7 +416,6 @@ export function convertToArabicNumerals(num: number): string {
 }
 
 
-// Export date formatting functions (used elsewhere in the app)
 export function formatDate(dateStr: string): string {
   return formatDateHelper(dateStr, {
     weekday: "long",

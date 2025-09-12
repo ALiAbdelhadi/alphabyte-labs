@@ -5,7 +5,7 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
-import LoadingIcon from "../icons/loading-icon"
+import {LoadingIcon} from "../icons/loading-icon"
 
 const buttonVariants = cva(
   "inline-flex items-center transition-all justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",

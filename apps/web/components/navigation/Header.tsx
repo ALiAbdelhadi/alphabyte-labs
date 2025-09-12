@@ -3,7 +3,6 @@
 import Container from "@/components/Container"
 import Logo from "@/components/Logo"
 import Search from "@/components/navigation/search"
-import type { DocsConfig } from "@/settings/docs-routing"
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -19,6 +18,7 @@ import {
 import { navItems } from "@/constant"
 import { Link } from "@/i18n/navigation"
 import { cn } from "@/lib/utils"
+import type { DocsConfig } from "@/settings/docs-routing"
 import { GitHubLink } from "@/settings/settings"
 import { AnimatePresence, motion } from "framer-motion"
 import { X } from "lucide-react"
@@ -172,12 +172,13 @@ export function Header({ docsConfig }: { docsConfig?: DocsConfig }) {
             </NavigationMenu>
           </nav>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <div className="hidden md:block">
             <Search docsConfig={docsConfig} />
           </div>
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2">
             <LanguageSwitcher currentLocale={locale} />
+            <Separator className="h-6 w-px" />
             <Button
               asChild
               variant="ghost"
@@ -198,6 +199,7 @@ export function Header({ docsConfig }: { docsConfig?: DocsConfig }) {
                 <span className="sr-only">GitHub</span>
               </Link>
             </Button>
+            <Separator className="h-6 w-px" />
             <ChangeTheme />
           </div>
           <div className="flex items-center gap-2 md:hidden w-full">

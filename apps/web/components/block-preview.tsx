@@ -13,7 +13,7 @@ import {
 } from "@/registry/block"
 import type React from "react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import LoadingIcon from "./icons/loading-icon"
+import {LoadingIcon} from "@/components/icons/loading-icon"
 
 interface BlockPreview {
   children?: React.ReactNode

@@ -9,16 +9,16 @@ import { badgeVariants } from "@/components/ui/badge"
 import { Settings } from "@/config/meta"
 import { ContributorsComponents } from "@/constant"
 import { Link } from "@/i18n/navigation"
+import { routing } from "@/i18n/routing"
 import { ErrorBoundary } from "@/lib/debug-wrapper"
 import { getDocument } from "@/lib/markdown"
 import { getPageRoutes } from "@/lib/pageRoutes"
 import { cn } from "@/lib/utils"
 import fs from "fs/promises"
 import { ExternalLink } from "lucide-react"
+import { getTranslations } from "next-intl/server"
 import { notFound } from "next/navigation"
 import path from "path"
-import { routing } from "@/i18n/routing"
-import { getTranslations } from "next-intl/server"
 
 type DocsPageProps = {
   params: Promise<{
@@ -38,7 +38,6 @@ const ComponentsPage = async (props: DocsPageProps) => {
     console.log("PathName:", pathName)
     console.log("Looking for document at:", pathName)
 
-    // Handle empty slug case (docs root)
     const documentPath = pathName || "introduction"
 
     const res = await getDocument(documentPath, locale)
@@ -51,7 +50,7 @@ const ComponentsPage = async (props: DocsPageProps) => {
     const t = await getTranslations("component-page")
     return (
       <div className="flex items-start gap-14 max-w-7xl transition-all">
-        <div className="flex-[3] mt-[4.5rem] md:mt-7">
+        <div className="flex-[3] mt-5 md:mt-7">
           <PageBreadcrumb paths={slug} />
           <div className="space-y-2">
             <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">{docs.title}</h1>

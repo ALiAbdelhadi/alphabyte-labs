@@ -168,5 +168,8 @@
     },
     "loading": {
         "loading": "Loading..."
+    },
+    "docs-navigation-on-mobile": {
+        "menu": "Menu"
     }
 }

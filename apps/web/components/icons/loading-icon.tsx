@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-const LoadingIcon = ({
+export const LoadingIcon = ({
   size = 20,
   color = "currentColor",
   className,
@@ -44,5 +44,3 @@ const LoadingIcon = ({
     </span>
   )
 }
-
-export default LoadingIcon

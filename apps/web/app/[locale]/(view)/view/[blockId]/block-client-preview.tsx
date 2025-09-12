@@ -1,6 +1,6 @@
 "use client"
 
-import LoadingIcon from "@/components/icons/loading-icon"
+import { LoadingIcon } from "@/components/icons/loading-icon"
 import { blockExamples } from "@/registry/blocks-examples"
 import dynamic from "next/dynamic"
 

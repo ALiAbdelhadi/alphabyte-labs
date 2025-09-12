@@ -172,5 +172,281 @@
     "title": "Introduction",
     "description": "A set of beautifully-designed, accessible, and customizable components to help you build your component library. Open Source.",
     "content": "**This is not a component library. It is how you build your component library.**\n\nYou know how most traditional component libraries work: you install a package from NPM, import the components, and use them in your app.\n\nRoach works well until you need to customize a component to fit your design system or require one that isn’t included in the library. Often, you end up wrapping library components, writing workarounds to override styles, or mixing components from different libraries with incompatible APIs.\n\nThis is what **alphabyte-labs** aims to solve. It is built around the following principles:\n\n* **Open code** – The leading React framework for production-grade applications.\n* **Composition** – Combine Markdown and JSX for dynamic, interactive content.\n* **Distribution** – The go-to library for building seamless user interfaces.\n* **Beautiful Defaults** – Ensure reliability and scalability with this powerful JavaScript superset.\n\n## Welcome to Alphabyte-labs\n\nAt alphabyte, we believe that knowledge is the foundation of innovation. Our documentation hub is your ultimate resource for mastering software development, offering guides, tutorials, and insights designed to equip you with the tools to build impactful solutions.\n\n### What You’ll Discover\n\nWe Will Discover A Collection of components that real world components you can use it in you next.js application or any react.js application\n"
+  },
+  {
+    "slug": "components/accordion",
+    "title": "الأكورديون (Accordion)",
+    "description": "مكوّن الأكورديون هو حاوية يمكن أن تحتوي على عناصر متعددة، كل واحد منها يمكن توسيعه أو طيه لإظهار أو إخفاء المحتوى الخاص به.",
+    "content": "التثبيت\r \r \r   \r     \r       أولاً، تحتاج إلى تثبيت الاعتمادات:\r       \r         \r       \r     \r     \r       \r       \r     \r     \r       \r     \r   \r \r \r الاستخدام\r \r   \r      from \"@/components/ui/accordion\"`}",
+    "keywords": [
+      "أكورديون",
+      "مكون",
+      "قابل للطي",
+      "قابل للتوسيع"
+    ],
+    "isArabic": true
+  },
+  {
+    "slug": "components/alert-dialog",
+    "title": "\"نافذة تنبيه (Alert Dialog)\"",
+    "description": "\"مكوّن مربع حوار تنبيه متعدد الاستخدامات للتفاعلات الحرجة مع المستخدم.\"",
+    "content": "التثبيت\r \r \r   \r     \r       أولاً، تحتاج إلى تثبيت الاعتمادات:\r       \r         \r       \r     \r     \r       \r       \r     \r     \r       \r     \r   \r \r \r الاستخدام\r \r   \r      from \"@/components/ui/alert-dialog\"\r import  from \"@/components/ui/button\"}\r   \r   \r     }\r   \r \r \r الأمثلة\r \r الإجراء المدمر",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/badge",
+    "title": "الشارة (Badge)",
+    "description": "الشارة هي عنصر بصري صغير، غالبًا دائري، يوفّر معلومات أو سياق حول عنصر ما. يمكن استخدامها للإشارة إلى الحالة، الإشعارات، أو تفاصيل أخرى ذات صلة.",
+    "content": "التثبيت\r \r \r   \r     \r       أولاً، تحتاج إلى تثبيت الاعتمادات:\r       \r     \r     \r       \r       \r     \r     \r       \r     \r   \r \r \r الاستخدام\r \r \r    from '@/components/ui/badge'}\r   \r \r \r نصائح  \r \r 💡 يمكنك استخدام badgeVariants لإنشاء مكوّن شارة خاص بك بأنماط مختلفة.  \r \r \r    from '@/components/ui/badge'}\r   \r \r \r أمثلة  \r \r افتراضي\r \r \r مخطط (Outline)\r \r \r مدمر (Destructive)\r \r \r نجاح (Success)\r \r \r تحذير (Warning)\r \r \r معلومة (Info)\r \r \r قابل للإزالة (Removable)\r \r \r مع أيقونة (With icon)",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/breadcrumb",
+    "title": "مسار التنقل (Breadcrumb)",
+    "description": "مسار التنقل",
+    "content": "التثبيت\r \r \r   \r     \r       أولاً، تحتاج إلى تثبيت الاعتمادات:\r       \r     \r     \r       \r       \r     \r     \r       \r     \r   \r \r \r الاستخدام\r \r \r    from \"@/components/ui/breadcrumb\"`}\r   \r \r \r أمثلة  \r \r فاصل مخصص (Custom Separator)\r \r \r الحذف بالعلامة (…) (Ellipsis)\r \r \r قائمة منسدلة (Dropdown)  \r يمكنك تركيب \\ مع مكوّن  \r \\ لإنشاء قائمة منسدلة داخل مسار التنقل.\r \r \r \r أيقونات (Icons)\r \r \r متجاوب (Responsive)",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/button",
+    "title": "الزر (Button)",
+    "description": "زر يقوم بعرض قائمة من الخيارات عند النقر عليه.",
+    "content": "التثبيت\r \r \r   \r     \r       أولاً، تحتاج إلى تثبيت الاعتمادات:\r       \r     \r     \r       \r       \r     \r     \r       \r     \r     \r   \r \r \r الاستخدام\r \r    from \"@/components/ui/button\"}\r   }\r \r \r أمثلة \r \r أساسي (Primary)\r \r \r ثانوي (Secondary)\r \r \r مدمر (Destructive)\r \r \r شفاف (Ghost)\r \r \r رابط (Link)\r \r \r محدد الإطار (Outline)\r \r \r محايد (Neural)\r \r \r تحميل (Loading)\r \r \r أيقونة (Icon)\r \r \r حركة Bounce\r \r \r حركة Pulse",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/calendar",
+    "title": "التقويم (Calendar)",
+    "description": "مكوّن التقويم",
+    "content": "حول المكوّن\r \r مكوّن Calendar مبني بالاعتماد على  \r ReactDayPicker.\r \r التثبيت\r \r   \r     \r       أولاً، تحتاج إلى تثبيت الاعتمادات:\r       \r         \r       \r     \r     \r       \r       \r     \r     \r       \r     \r   \r \r \r الاستخدام\r \r \r    from \"@/components/ui/calendar\"`}\r   \r \r \r أمثلة",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/collapsible",
+    "title": "القابل للطي (Collapsible)",
+    "description": "مكوّن لإخفاء وإظهار المحتوى.",
+    "content": "التثبيت\r \r \r   \r     \r       أولاً، تحتاج إلى تثبيت الاعتمادات:\r       \r         \r       \r     \r     \r       \r       \r     \r     \r       \r     \r   \r \r \r الاستخدام\r \r \r \r  from \"@/components/ui/collapsible\"`}",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components",
+    "title": "\"المكونات\"",
+    "description": "\"المكونات هي أجزاء قابلة لإعادة الاستخدام من واجهة المستخدم يمكن استعمالها عبر مختلف أجزاء التطبيق.\"",
+    "content": "",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/data-picker",
+    "title": "مُحدد التاريخ (Date Picker)",
+    "description": "توثيق مكوّن مُحدد التاريخ.",
+    "content": "التثبيت\r \r مكوّن Date Picker مبني باستخدام دمج بين  \r \\ و  \r \\.\r \r راجع تعليمات التثبيت الخاصة بـ Popover  \r و Calendar لعملية التثبيت السريعة.\r \r \r   \r     \r       \r         \r       \r     \r     \r       \r       \r     \r   \r \r \r الاستخدام\r \r \r  from \"date-fns\"\r import  from \"lucide-react\"\r \r import  from \"@/lib/utils\"\r import  from \"@/components/ui/button\"\r import  from \"@/components/ui/calendar\"\r import  from \"@/components/ui/popover\"\r \r export default function DatePickerDemo() \r         \r       \r       \r         \r       \r     \r   )\r }`}\r \r \r \r الأمثلة\r \r نطاق التواريخ (Date Picker Range)",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/diagrams",
+    "title": "رسوم بيانية (Diagrams)",
+    "description": "أضف أنواعًا مختلفة من المخططات، بما في ذلك مخططات التدفق، أشجار القرارات، ومخططات الكيانات والعلاقات.",
+    "content": "التثبيت\r \r \r \r \r أولًا، لبدء إنشاء المخططات في تطبيقك المبني بـ Next.js تحتاج إلى تثبيت مكتبة تُسمى Mermaid:\r \r \r \r \r    \r   \r   \r   \r \r \r \r \r الاستخدام\r \r \r \r \r     />\r   )\r }\r \r export default DiagramsDemo`}\r \r \r الأمثلة\r \r مخطط التدفق (Flowchart)\r \r \r \r شجرة القرارات (Decision Tree)\r \r أشجار القرارات توضّح الاختيارات والنتائج المحتملة، مما يجعلها مثالية لسير العمل في اتخاذ القرارات أو العمليات التي تتضمن مسارات متعددة.  \r \r \r \r مخطط الكيانات والعلاقات (Entity-Relationship Diagram)\r \r مخططات الكيانات والعلاقات (ERDs) تُستخدم لنمذجة العلاقات بين الكيانات داخل النظام. وهي تُستخدم على نطاق واسع في تصميم قواعد البيانات والتخطيط المعماري للأنظمة.  \r \r \r \r ---\r \r كل نوع من هذه المخططات يخدم غرضًا محددًا، وتسهّل مكتبة Mermaid إنشاءها ديناميكيًا. لا تتردّد في تجربة أمثلة الأكواد المرفقة وتكييفها لتلبية احتياجاتك.",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/dialog",
+    "title": "نافذة حوار\"",
+    "description": "\"مكون لعرض نوافذ الحوار (Dialog)\"",
+    "content": "التثبيت\r \r \r   \r     \r       أولاً، تحتاج إلى تثبيت الحزم التالية:\r       \r         \r       \r     \r     \r       \r       \r       \r         إذا كان لديك ملف utils.ts بالفعل في مشروعك، يمكنك تجاوز هذه الخطوة.\r       \r     \r     \r       \r     \r   \r \r \r الاستخدام\r \r \r  from \"@/components/ui/dialog\"\r \r export default function Example() `}\r \r \r أمثلة\r \r حوار مدمر (Destructive)\r \r \r \r تحديد موقع مخصص\r \r أعلى الصفحة\r \r \r \r أسفل الصفحة\r \r \r \r مثال مع نموذج (Form)",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/drawer",
+    "title": "درج جانبي (Drawer)\"",
+    "description": "\"مكون الدرج لعرض محتوى جانبي\"",
+    "content": "حول المكون\r \r الدرج (Drawer) مبني على مكتبة  \r Vaul من تطوير  \r emilkowalski_.\r \r التثبيت\r \r \r   \r     \r       أولاً، تحتاج إلى تثبيت الحزم التالية:\r       \r     \r \r     \r       \r       \r     \r \r     \r       \r     \r \r     \r       في ملف layout.tsx الرئيسي، أضف  \r       vaul-drawer-wrapper لدعم خاصية تحريك/تكبير الخلفية:\r       \r       \r          \r             \r          \r       \r    \r }\r     \r   \r \r \r الاستخدام\r \r \r   \r      from \"@/components/ui/drawer\"\r }\r   \r \r   \r     \r   \r \r \r أمثلة \r \r درج متداخل (Nested Drawer)",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/dropdown-menu",
+    "title": "\"قائمة منسدلة (Dropdown Menu)\"",
+    "description": "\"مكون القائمة المنسدلة لعرض قائمة من العناصر.\"",
+    "content": "التثبيت\r \r \r   \r     \r       \r         \r       \r     \r \r     \r       \r       \r     \r \r     \r       \r     \r   \r \r \r الاستخدام\r \r \r    from '@/components/ui/dropdown-menu'`}\r \r   \r \r \r أمثلة\r \r صندوق اختيار (Checkbox)\r \r \r أزرار اختيار (Radio)\r \r \r قائمة متداخلة (Nested)",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/folder-structure",
+    "title": "\"هيكلية المجلدات (Folder Structure)\"",
+    "description": "\"هذا القسم يوضح هيكل الملفات وكيفية تنفيذه باستخدام مكون FileTree.\"",
+    "content": "حول المكون\r هيكل المجلدات مبني باستخدام مكون Sidebar من shadcn/ui\r \r التثبيت\r \r \r \r \r أولاً، تحتاج إلى تثبيت الحزم التالية:\r \r \r \r \r \r \r \r \r \r \r \r \r \r \r قم بإنشاء مجلد جديد باسم hooks داخل مشروعك، ثم أنشئ ملف باسم use-submenu-state.ts وأضف الكود التالي:\r \r  from \"react\"\r \r export function useSubmenuState(initialState: Record = {}) ))\r    }, [])\r \r    return \r }\r }\r \r \r \r \r \r \r \r \r أنشئ ملف جديد داخل مجلد components باسم FolderTreeMenu.tsx وأضف الكود التالي:\r \r \r  from \"lucide-react\"\r import  from \"@/lib/utils\"\r import  from \"@/hooks/use-submenu-state\"\r import  from \"@/components/ui/sidebar\"\r \r interface MenuItem \r \r interface FolderTreeMenuProps \r \r export function FolderTreeMenu(: FolderTreeMenuProps)  = useSubmenuState()\r \r   const renderMenuItem = (item: MenuItem) => \r           className=\r         >\r           \r           \r             \r           )}\r         \r         \r                 \r               ))}\r           \r         )}\r       \r     )\r   }\r \r   return (\r     \r       \r         القائمة\r       \r       \r         \r       \r     \r   )\r }}\r \r \r \r \r \r أنشئ ملف جديد باسم FolderExample.tsx داخل مجلد components وأضف الكود التالي:\r \r \r  from \"./FolderTree\"\r \r type FileItem = \r \r const fileStructure: FileItem[] = [\r   ,\r       ,\r             ],\r           },\r         ],\r       },\r     ],\r   },\r ]\r \r export default function FolderTreeExample() \r }\r \r \r \r \r \r \r \r \r الاستخدام\r \r \r \r يمكنك البدء بإنشاء كائن يحتوي على الخصائص التالية:\r \r \r \r \r \r const fileStructure: FileItem[] = [\r   ,\r       ,\r         ],\r       },\r     ],\r   },\r ]\r }\r \r \r \r ثم قم بإنشاء وسم div واستورد الكائن فيه:\r \r \r \r  from \"./FolderTree\"\r \r export default function FolderTreeExample() \r `}",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/input",
+    "title": "حقل إدخال (Input)",
+    "description": "مكوّن  حقل إدخال  للنصوص، البريد الإلكتروني، رفع الملفات، والمزيد.",
+    "content": "التثبيت\r \r \r   \r     \r       أولاً، قم بتثبيت الحزم اللازمة:\r       \r     \r     \r       \r       \r     \r     \r       \r     \r   \r \r \r الاستخدام\r \r \r  from \"@/components/ui/input\"}\r \r \r export default InputDemo}\r \r \r أمثلة\r \r افتراضي\r \r \r رفع ملف\r \r \r معطّل\r \r \r مع تسمية\r \r \r مع زر",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/label",
+    "title": "التسمية (Label)",
+    "description": "مكوّن التسمية لاستخدامه مع الحقول وتحسين الوصولية (Accessibility).",
+    "content": "التثبيت\r \r \r \r قم أولاً بتثبيت الحزم المطلوبة:\r \r \r \r \r    \r     \r     \r   \r   \r     \r   \r \r \r \r الاستخدام\r \r \r  from \"@/components/ui/checkbox\"\r import  from \"@/components/ui/label\"}\r \r \r \r \r export default LabelDemo\r }",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/note",
+    "title": "ملاحظات (Notes)",
+    "description": "مكوّن مرن لإبراز المعلومات المهمة داخل واجهة المستخدم.",
+    "content": "استخدم مكوّن الملاحظة للتواصل الفعّال وعرض المعلومات المهمة بشكل واضح داخل واجهتك.\r \r \r \r التثبيت\r \r  \r \r \r قم بتثبيت الحزم المطلوبة:\r \r \r \r \r    \r     \r     \r   \r   \r     \r   \r   \r     يمكنك الآن تعديله وتخصيص تصميمه حسب احتياجاتك.\r   \r \r \r \r الاستخدام\r \r \r \r  from \"@/components/ui/note\"}\r \r \r \r \r export default NoteDemo}\r \r \r \r أمثلة\r \r ملاحظة قياسية\r \r \r ملاحظة نجاح\r \r \r ملاحظة تحذير\r \r \r ملاحظة خطأ\r \r \r ملاحظات قابلة للإغلاق\r \r لجعل الملاحظة قابلة للإغلاق من قِبل المستخدم، أضف الخاصية closable بالقيمة true.",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/popover",
+    "title": "نافذة منبثقة (Popover)",
+    "description": "لوحة عائمة تظهر عند تفاعل المستخدم مع عنصر معين.",
+    "content": "التثبيت\r \r   \r     \r       أولاً، قم بتثبيت الحزم المطلوبة:\r       \r         \r       \r     \r     \r       \r       \r     \r     \r       \r     \r   \r \r \r طريقة الاستخدام\r \r \r  from \"@/components/ui/button\"\r import  from \"@/components/ui/popover\"\r \r const PopoverDemo = () => \r \r export default PopoverDemo`}",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/pre",
+    "title": "Pre (كتلة كود)",
+    "description": "اعرض مقتطفات كود جميلة وقابلة للتخصيص مع ميزات متقدمة مثل تمييز الصياغة، ترقيم الأسطر، وتظليل الأسطر.",
+    "content": "التثبيت\r \r \r \r   \r     أولاً، قم بتثبيت Prism.js والحزم المطلوبة:\r     \r       \r     \r   \r   \r     \r     \r   \r   \r     \r   \r   \r     أنشئ ملف باسم prism-theme.css في مجلد التطبيق لديك، وضع به تنسيقات Prism.js الخاصة بك.\r     \r     \r \r @media (prefers-color-scheme: light) \r }\r \r .code-block-container \r \r .code-block-header \r \r pre[class=\"language-\"],\r code[class=\"language-\"] \r \r pre[class=\"language-\"] \r \r :not(pre) > code[class=\"language-\"] \r \r @media (prefers-color-scheme: light) \r }\r \r pre[class=\"language-\"]::selection,\r code[class=\"language-\"]::selection,\r pre[class=\"language-\"] ::selection,\r code[class=\"language-\"] ::selection \r \r .line-numbers .line-numbers-rows \r \r .line-numbers-rows > span \r \r .line-numbers-rows > span:hover \r \r @media print \r }\r \r / Sidebar/File Tree Styles /\r .sidebar-container \r \r .sidebar-header \r \r .sidebar-text \r \r .sidebar-text-muted \r \r .sidebar-item-hover:hover \r \r .sidebar-item-active \r \r .sidebar-loading \r \r .sidebar-resize-handle \r \r .sidebar-open-button \r \r .sidebar-open-button:hover \r \r / Token styling continues as before... /\r .token.comment,\r .token.prolog \r \r @media (prefers-color-scheme: light) \r }\r \r .token.doctype .token.doctype-tag \r \r @media (prefers-color-scheme: light) \r }\r \r .token.doctype .token.name \r \r @media (prefers-color-scheme: light) \r }\r \r .token.cdata \r \r @media (prefers-color-scheme: light) \r }\r \r .token.punctuation,\r .language-html .language-css .token.punctuation,\r .language-html .language-javascript .token.punctuation \r \r @media (prefers-color-scheme: light) \r }\r \r .token.operator,\r .token.entity \r \r @media (prefers-color-scheme: light) \r }\r \r .token.operator.arrow \r \r @media (prefers-color-scheme: light) \r }\r \r .token.keyword \r \r @media (prefers-color-scheme: light) \r }\r \r .token.keyword.module,\r .token.keyword.control-flow \r \r @media (prefers-color-scheme: light) \r }\r \r .token.property,\r .token.tag,\r .token.boolean,\r .token.number,\r .token.constant,\r .token.symbol,\r .token.inserted,\r .token.unit \r \r @media (prefers-color-scheme: light) \r }\r \r .token.boolean \r \r @media (prefers-color-scheme: light) \r }\r \r .token.constant \r \r @media (prefers-color-scheme: light) \r }\r \r .token.selector,\r .token.attr-name,\r .token.string,\r .token.char,\r .token.builtin,\r .token.deleted \r \r @media (prefers-color-scheme: light) \r }\r \r .token.escape \r \r @media (prefers-color-scheme: light) \r }\r \r .token.function,\r .token.function .token.maybe-class-name \r \r @media (prefers-color-scheme: light) \r }\r \r .token.class-name,\r .token.maybe-class-name \r \r @media (prefers-color-scheme: light) \r }\r \r .token.property,\r .token.variable,\r .token.imports .token.maybe-class-name,\r .token.exports .token.maybe-class-name \r \r @media (prefers-color-scheme: light) \r }\r \r .token.parameter \r \r @media (prefers-color-scheme: light) \r }\r \r .token.console \r \r @media (prefers-color-scheme: light) \r }\r \r .token.interpolation \r \r @media (prefers-color-scheme: light) \r }\r \r .token.punctuation.interpolation-punctuation \r \r @media (prefers-color-scheme: light) \r }\r \r .language-css .token.string.url \r \r .token.atrule \r \r @media (prefers-color-scheme: light) \r }\r \r .token.atrule .token.rule \r \r @media (prefers-color-scheme: light) \r }\r \r .token.atrule .token.url \r \r @media (prefers-color-scheme: light) \r }\r \r .token.atrule .token.url .token.function \r \r @media (prefers-color-scheme: light) \r }\r \r .token.atrule .token.url .token.punctuation \r \r @media (prefers-color-scheme: light) \r }\r \r .token.selector \r \r @media (prefers-color-scheme: light) \r }\r \r .token.tag \r \r @media (prefers-color-scheme: light) \r }\r \r .token.tag .token.punctuation \r \r @media (prefers-color-scheme: light) \r }\r \r .token.attr-name \r \r @media (prefers-color-scheme: light) \r }\r \r .token.attr-value,\r .token.attr-value .token.punctuation \r \r @media (prefers-color-scheme: light) \r }\r \r .token.attr-value .token.punctuation.attr-equals \r \r @media (prefers-color-scheme: light) \r }\r \r .language-html .token.punctuation \r \r @media (prefers-color-scheme: light) \r }\r \r pre[class=\"language-javascript\"],\r code[class=\"language-javascript\"],\r pre[class=\"language-jsx\"],\r code[class=\"language-jsx\"],\r code[class=\"language-json\"],\r pre[class=\"language-typescript\"],\r code[class=\"language-typescript\"],\r pre[class=\"language-tsx\"],\r code[class=\"language-tsx\"] \r \r @media (prefers-color-scheme: light) \r }\r \r pre[class=\"language-css\"],\r code[class=\"language-css\"] \r \r @media (prefers-color-scheme: light) \r }\r \r pre[class=\"language-html\"],\r code[class=\"language-html\"] \r \r .token.regex \r \r @media (prefers-color-scheme: light) \r }\r \r .language-regex .token.anchor \r \r @media (prefers-color-scheme: light) \r }\r \r .namespace \r \r .token.namespace \r \r @media (prefers-color-scheme: light) \r }\r \r .token.important \r \r @media (prefers-color-scheme: light) \r }\r \r .token.italic \r \r .plain-text \r \r pre[class=\"language-\"] > code[class=\"language-\"] \r \r pre[class=\"language-\"]:focus-visible \r \r @media (prefers-color-scheme: dark) \r }\r \r .token.keyword,\r .token.function \r \r .token.comment .token.keyword \r \r     }\r     \r     \r       يمكنك تخصيص التنسيق ليشبه مظهر Visual Studio Code (الوضع الداكن) أو أي مظهر آخر.\r     \r   \r   \r     هذه الخطوة اختيارية.  \r     يمكنك عرض لغة الكود (JS, TS, HTML …إلخ).  \r     يمكن تمرير صور أو أيقونات.  \r     إذا اخترت أيقونات فتأكد أن المكتبة تدعم تغيير ألوانها.  \r     مثال: أنشئ ملف language-icon.ts يحتوي على أيقونات js, ts, html، إلخ.\r         \r      from \"@/components/custome-image\"\r import  from \"lucide-react\"\r import type  from \"react\"\r \r export const languageIcons: Record = \r     }\r     \r   \r   \r \r \r \r طريقة الاستخدام\r \r \r \r \r \r \r  from \"@/lib/utils\"\r \r const CodeBlockDemo = (: ) => !\r         هذا مثال على مكون React.\r       \r     )\r   };\\\r \r   return (\r     \r       \r     \r   )\r }\r \r export default CodeBlockDemo}",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/product-card",
+    "title": "بطاقة منتج (Product Card)",
+    "description": "مكوّن بطاقة منتج قابل للتخصيص لعرض معلومات المنتج مثل الصورة، العنوان، الوصف، السعر، وأزرار الإجراءات.",
+    "content": "التثبيت\r \r   \r     \r       أولاً، قم بتثبيت الحزم المطلوبة:\r       \r     \r     \r       \r       \r     \r     \r       \r     \r   \r \r \r الاستخدام\r \r \r \r  from \"@/components/ui/product-card\"\r \r const ProductCardDemo = () => \r     />\r   )\r }\r \r export default ProductCardDemo`}",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/scroll-area",
+    "title": "منطقة التمرير (Scroll Area)",
+    "description": "مكوّن مساحة التمرير",
+    "content": "التثبيت\r \r \r \r أولاً، ستحتاج إلى تثبيت التبعيات اللازمة للتنسيق ووظائف الأدوات. تتضمن هذه الحزم clsx لإدارة أسماء الأصناف الشرطية وtailwind-merge لمعالجة تعارضات أصناف Tailwind CSS بكفاءة.\r \r \r   \r \r \r \r    \r   \r   \r   \r \r   \r   \r \r \r \r الاستخدام\r \r  from \"@/components/ui/scroll-area\"`}\r \r \r \r أمثلة\r أفقي",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/separator",
+    "title": "الفاصل (Separator)",
+    "description": "مكوّن الفاصل",
+    "content": "التثبيت\r \r   \r     \r       أولاً، تحتاج إلى تثبيت التبعيات التالية:\r       \r     \r     \r       \r       \r     \r     \r       \r     \r   \r \r \r الاستخدام\r \r    from \"@/components/ui/separator\"`}\r   \r \r \r أمثلة\r عمودي\r \r \r الوزن\r فائق الخفة\r \r \r خفيف\r \r \r عادي",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/sheet",
+    "title": "لوحة (Sheet)",
+    "description": "اللوحة هي مكوّن ينزلق من أسفل الشاشة، ويُستخدم عادةً لعرض محتوى إضافي أو خيارات بدون مغادرة الشاشة الحالية.",
+    "content": "أولاً، تحتاج إلى تثبيت التبعيات التالية:\r       \r     \r     \r       \r       \r     \r     \r       \r     \r   \r \r \r الاستخدام\r \r \r    from '@/components/ui/sheet';`}\r   \r \r \r أمثلة\r \r التحكم في الاتجاه\r \r الأعلى\r \r \r اليمين\r \r \r الأسفل\r \r \r اليسار",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/sonner",
+    "title": "إشعار (Sonner)",
+    "description": "مكوّن Toast جاهز للرأي (Opinionated) مخصص لتطبيقات React.",
+    "content": "حول المكوّن\r سونر مبني على مكتبة\r Sonner بواسطة\r emilkowalski_.\r \r التثبيت\r \r   \r     \r       أولاً، قم بتثبيت التبعيات:\r       \r     \r     \r       \r       \r     \r     \r       \r     \r     \r       في ملف layout.tsx الرئيسي لديك، أضف \r       \\ لعرض التنبيهات (toasts):\r        from \"@/components/ui/sonner\"\r  \r export default function RootLayout() \r         \r       \r     \r    )\r }}\r     \r   \r \r \r الاستخدام\r \r    from \"sonner\"}\r   \r \r \r الأنواع\r \r نجاح\r \r \r معلومات\r \r \r تحذير\r \r \r خطأ\r \r \r تحميل\r \r \r مخصص",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/step",
+    "title": "خطوات (Steps)",
+    "description": "يوضح هذا القسم نظرة عامة على مكوّن الخطوات (Steps).",
+    "content": "التثبيت\r \r \r   \r     \r       أولاً، تحتاج إلى تثبيت التبعيات:\r       \r     \r     \r       \r       \r     \r     \r       \r     \r     \r   \r \r \r الاستخدام\r \r    from \"@/components/ui/step\"`}",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/switch",
+    "title": "مفتاح تبديل (Switch)",
+    "description": "مكون يسمح للمستخدمين بالتبديل بين حالتين (تشغيل / إيقاف).",
+    "content": "أولاً، قم بتثبيت المكتبات اللازمة:\r       \r     \r     \r       \r       \r     \r     \r       \r     \r     \r   \r \r \r الاستخدام\r \r    from \"@/components/ui/switch\"`}",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/tabs",
+    "title": "علامات التبويب (Tabs)",
+    "description": "مكون التبويبات لتنظيم المحتوى في أقسام متعددة.",
+    "content": "التثبيت\r \r \r   \r     \r       أولاً، قم بتثبيت المكتبات التالية:\r       \r         \r       \r     \r     \r       \r       \r     \r     \r       \r     \r     \r   \r \r \r الاستخدام\r \r \r   \r     أولاً، قم باستيراد مكون الـ Tabs في ملفك:\r   \r   \r      from \"@/components/Tab\"`}\r   \r   ثم استخدمه بالشكل التالي:\r   \r     \r   \r \r \r أمثلة\r تبويبات عمودية",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "components/tooltip",
+    "title": "تلميح (Tooltip)",
+    "description": "التلميح هو صندوق منبثق صغير يظهر عندما يحرك المستخدم مؤشر الفأرة فوق عنصر ما، لتقديم معلومات إضافية حول هذا العنصر.",
+    "content": "التثبيت\r \r   \r     \r       أولاً، تحتاج إلى تثبيت الاعتماديات (Dependencies):\r       \r         \r       \r     \r     \r       \r       \r     \r     \r       \r     \r   \r \r \r الاستخدام\r \r   \r      from \"@/components/ui/tooltip\"`}\r   \r   \r     \r   \r \r \r الأمثلة\r تلميح علوي\r \r \r تلميح أيمن\r \r \r تلميح سفلي\r \r \r تلميح أيسر\r \r \r تلميح بتأخير\r يمكنك تعيين تأخير لظهور التلميح بعد تمرير مؤشر الفأرة فوق العنصر المحفز. قد يكون هذا مفيدًا لمنع ظهور التلميح بسرعة كبيرة.",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "installation",
+    "title": "التثبيت",
+    "description": "بوابتك لإتقان تطوير البرمجيات الحديثة.",
+    "content": "لاستخدام مكوّناتنا يجب أن تعمل مع next.js\r \r متطلبات النظام\r \r - Node.js 18.18 أو أحدث.  \r - macOS، وWindows (بما في ذلك WSL)، وLinux مدعومة.\r \r \r إذا كنت تستخدم Windows فمن الموصى أن تستخدم WSL للاستفادة من كل ميزات Linux  ولكن إذا لم يكن لديك، لا تقلق، Windows أيضًا خيار رائع\r \r \r \r ابدأ بتشغيل الأمر التالي في الطرفية لإنشاء مشروع Next.js جديد:  \r للتأكد من التثبيت، شغّل:\r \r \r \r \r \r   أثناء التثبيت، سيتم سؤالك لتكوين إعدادات مشروعك. أدناه مثال على الإعدادات الافتراضية والخيارات التي ستواجهها:\r \r \r   \r \r \r       \r          التكوينات أعلاه قابلة للتخصيص بالكامل. إذا اخترت تفعيل TypeScript، أو ESLint، أو Tailwind CSS، أو مجلد src، أو App Router، سيتم إضافة الملفات والإعدادات اللازمة تلقائيًا لمشروعك.\r       \r \r \r \r       إذا كنت تستخدم React 19 و Next.js 15، قد تواجه خيار تكوين إضافي يخص Turbopack:\r \r \r   \r \r \r       \r          Turbopack هو أداة ربط وتشغيل عالية الأداء مخصّصة لـ Next.js. تفعيل هذا الخيار يضمن سرعات بناء أعلى وتجربة تطوير أفضل.\r       \r \r \r \r \r الخطوات التالية\r \r بعد إنشاء مشروعك، أنت جاهز الآن لاستكشاف ودمج مكوّنات وأدوات Alpha الحديثة لتحويل رؤيتك إلى واقع. ابدأ في بناء تطبيقك الجيل القادم اليوم مع Alpha! 🚀",
+    "keywords": [
+      "التثبيت",
+      "github",
+      "node",
+      "دليل",
+      "nextjs",
+      "المستندات"
+    ],
+    "isArabic": true
+  },
+  {
+    "slug": "introduction",
+    "title": "المقدمة",
+    "description": "مجموعة من المكونات المصممة بشكل جميل، قابلة للوصول، وقابلة للتخصيص لمساعدتك في بناء مكتبتك الخاصة. مفتوحة المصدر.",
+    "content": "هذه ليست مكتبة مكونات. هذه هي الطريقة التي تبني بها مكتبتك الخاصة.\r \r أنت تعرف كيف تعمل معظم مكتبات المكونات التقليدية: تقوم بتثبيت الحزمة من NPM، ثم تستورد المكونات وتستخدمها داخل تطبيقك.\r \r يعمل Roach بشكل جيد حتى تحتاج إلى تخصيص مكوّن ليتناسب مع نظام التصميم الخاص بك أو تحتاج إلى مكوّن غير موجود داخل المكتبة. غالبًا ما ينتهي بك الأمر بلفّ مكونات المكتبة، أو كتابة حلول بديلة لتجاوز الأنماط، أو خلط مكونات من مكتبات مختلفة مع واجهات برمجة تطبيقات غير متوافقة.\r \r هذا ما تسعى alphabyte-labs لحلّه. تم بناؤها على المبادئ التالية:\r \r - الكود المفتوح – الإطار الرائد لـ React للتطبيقات المخصّصة للإنتاج.\r - التركيب – دمج Markdown و JSX لإنشاء محتوى تفاعلي ديناميكي.\r - التوزيع – المكتبة الأساسية لبناء واجهات مستخدم سلسة.\r - الافتراضيات الجميلة – ضمان الموثوقية وقابلية التوسع باستخدام هذه اللغة القوية (JavaScript superset).\r \r مرحبًا بك في Alphabyte-labs\r \r في alphabyte، نؤمن أن المعرفة هي أساس الابتكار. مركز التوثيق الخاص بنا هو مصدر متكامل لإتقان تطوير البرمجيات، حيث يقدّم أدلة، وشروحات، ورؤى مصممة لتزويدك بالأدوات اللازمة لبناء حلول مؤثرة.\r \r ماذا ستكتشف\r \r سوف تكتشف مجموعة من المكونات الحقيقية التي يمكنك استخدامها مباشرة في تطبيقك المبني بـ Next.js أو أي تطبيق React.js.",
+    "keywords": [],
+    "isArabic": true
+  },
+  {
+    "slug": "rtl",
+    "title": "الاتجاه من اليمين لليسار",
+    "description": "الاتجاه من اليمين لليسار",
+    "content": "",
+    "keywords": [
+      "rtl",
+      "من اليمين إلى اليسار",
+      "العربية",
+      "العبرية",
+      "الفارسية",
+      "الأردية",
+      "الفارسية"
+    ],
+    "isArabic": true
+  },
+  {
+    "slug": "themes",
+    "title": "السمات",
+    "description": "اختر لونًا أساسيًا واحدًا وسيتم إنشاء لوحة ألوان مخصّصة لك",
+    "content": "",
+    "keywords": [],
+    "isArabic": true
   }
 ]

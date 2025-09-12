@@ -1,6 +1,6 @@
 "use client"
 
-import LoadingIcon from "@/components/icons/loading-icon"
+import { LoadingIcon } from "@/components/icons/loading-icon"
 import { cn } from "@/lib/utils"
 
 type PageLoaderProps = {
