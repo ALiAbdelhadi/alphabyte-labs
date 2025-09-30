@@ -2,11 +2,10 @@
 
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { Link } from "@/i18n/navigation"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { DASHBOARDS } from "../constant/index"

@@ -1,21 +1,12 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { cn } from "@/lib/utils"
 import { languageIcons } from "@/settings/LanguageIcon"
 import { Check, Clipboard, FileCode, RotateCcw, Search, X } from "lucide-react"
 import Prism from "prismjs"
-import "prismjs/components/prism-bash"
-import "prismjs/components/prism-css"
-import "prismjs/components/prism-javascript"
-import "prismjs/components/prism-json"
-import "prismjs/components/prism-jsx"
-import "prismjs/components/prism-markdown"
-import "prismjs/components/prism-tsx"
-import "prismjs/components/prism-typescript"
-import "prismjs/plugins/line-highlight/prism-line-highlight"
-import "prismjs/plugins/line-highlight/prism-line-highlight.css"
-import "prismjs/plugins/line-numbers/prism-line-numbers"
-import "prismjs/plugins/line-numbers/prism-line-numbers.css"
 import type React from "react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
@@ -33,6 +24,8 @@ interface PreProps {
   showHeader?: boolean
   enableSearch?: boolean
   wordWrap?: boolean
+  showBorder?: boolean
+  showShadow?: boolean
   autoFormat?: boolean
   onContentChange?: (content: string) => void
   customActions?: React.ReactNode
@@ -60,50 +53,80 @@ const processContent = (children?: React.ReactNode, raw?: string): string => {
 }
 
 const CopyButton: React.FC<CopyButtonProps> = ({ content, className }) => {
-  const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle")
-
-  const handleCopy = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(content)
-      setCopyState("copied")
-      setTimeout(() => setCopyState("idle"), COPY_FEEDBACK_DURATION)
-    } catch {
-      setCopyState("error")
-      setTimeout(() => setCopyState("idle"), COPY_FEEDBACK_DURATION)
+  const [state, setState] = useState<"idle" | "copied" | "error">("idle")
+  const [hasCopied, setHasCopied] = useState(false)
+  const { isCopied, copyToClipboard } = useCopyToClipboard({
+    timeout: 2000,
+    onCopy: () => setState("copied"),
+  })
+  useEffect(() => {
+    if (hasCopied) {
+      const timer = setTimeout(() => setHasCopied(false), 2000)
+      return () => clearTimeout(timer)
     }
-  }, [content])
+  }, [hasCopied])
+
+  useEffect(() => {
+    if (isCopied) {
+      setState("copied")
+    } else {
+      setState("idle")
+    }
+  }, [isCopied])
+
+  const handleCopy = () => {
+    try {
+      copyToClipboard(content)
+    } catch {
+      setState("error")
+    }
+  }
 
   const buttonConfig = {
     idle: {
-      icon: <Clipboard className="w-[18px] h-[18px] text-muted-foreground hover:text-foreground transition-colors" />,
+      icon: (
+        <Clipboard className="w-4 h-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100/80 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800/80 transition-colors" />
+      ),
       title: "Copy to clipboard",
     },
     copied: {
-      icon: <Check className="w-[18px] h-[18px] text-green-500" />,
+      icon: <Check className="w-4 h-4 text-green-600" />,
       title: "Copied!",
     },
     error: {
-      icon: <RotateCcw className="w-[18px] h-[18px] text-red-500" />,
+      icon: <RotateCcw className="w-4 h-4 text-red-600" />,
       title: "Failed to copy",
     },
   }
 
-  const currentConfig = buttonConfig[copyState]
+  const currentConfig = buttonConfig[state]
 
   return (
-    <button
-      onClick={handleCopy}
-      className={cn(
-        "flex items-center justify-center w-8 h-8 rounded-sm hover:bg-muted/50 transition-all duration-200 !ml-0",
-        className,
-      )}
-      title={currentConfig.title}
-      aria-label={currentConfig.title}
-    >
-      {currentConfig.icon}
-    </button>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            onClick={handleCopy}
+            variant="ghost"
+            size="icon"
+            className={cn(
+              "flex items-center justify-center w-6 h-6 rounded-sm hover:bg-muted/50 transition-all duration-200 !ml-0",
+              className
+            )}
+            title={currentConfig.title}
+            aria-label={currentConfig.title}
+          >
+            {currentConfig.icon}
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          {hasCopied ? "Copied" : "Copy command"}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }
+
 
 const SearchInput: React.FC<{
   searchQuery: string
@@ -163,7 +186,7 @@ const CodeHeader: React.FC<{
   content,
   customActions,
 }) => (
-    <div className="code-block-header code-block-toolbar overflow-x-auto hide-scrollbar flex items-center justify-between h-[35px] px-4 bg-muted/30 border-b border-border">
+    <div className="overflow-x-auto hide-scrollbar flex items-center justify-between h-[35px] px-4 bg-muted/50">
       <div className="flex items-center justify-between space-x-4 rtl:space-x-reverse">
         <div className="flex space-x-1.5 rtl:space-x-reverse items-center" role="presentation" aria-label="Window controls">
           <div className="w-3 h-3 rounded-full bg-[#fc5f57] border border-red-500/40" />
@@ -172,7 +195,7 @@ const CodeHeader: React.FC<{
         </div>
         {title ? (
           <div className="flex items-center justify-center space-x-4 rtl:space-x-reverse">
-            <span className="font-medium text-foreground text-sm text-nowrap">{title}</span>
+            <span className="font-medium text-muted-foreground text-[13px] text-nowrap">{title}</span>
             {description && <p className="text-xs  text-muted-foreground">{description}</p>}
           </div>
         ) : folderPath ? (
@@ -181,7 +204,7 @@ const CodeHeader: React.FC<{
           </span>
         ) : null}
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 rtl:space-x-reverse">
         {enableSearch && (
           <button
             onClick={onToggleSearch}
@@ -192,12 +215,12 @@ const CodeHeader: React.FC<{
             title="Search in code"
             aria-label="Toggle search"
           >
-            <Search className="w-[18px] h-[18px] text-muted-foreground hover:text-foreground transition-colors" />
+            <Search className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors" />
           </button>
         )}
         <CopyButton content={content} />
-        <div className="w-[18px] h-[18px] rounded-sm" title={`Language: ${language}`}>
-          {languageIcons[language] || <FileCode className="w-[18px] h-[18px] text-muted-foreground" />}
+        <div className="w-4 h-4 rounded-sm flex items-center justify-center" title={`Language: ${language}`}>
+          {languageIcons[language] || <FileCode className="w-4 h-4 text-muted-foreground" />}
         </div>
         {customActions}
       </div>
@@ -219,7 +242,9 @@ const Pre: React.FC<PreProps> = ({
   enableSearch = true,
   wordWrap = false,
   autoFormat = true,
+  showBorder = true,
   onContentChange,
+  showShadow = true,
   customActions,
 }) => {
   const [isClient, setIsClient] = useState(false)
@@ -248,7 +273,6 @@ const Pre: React.FC<PreProps> = ({
   }, [content, searchQuery])
 
   const displayContent = searchQuery.trim() ? filteredContent : content
-
   // Effects
   useEffect(() => {
     setIsClient(true)
@@ -295,7 +319,7 @@ const Pre: React.FC<PreProps> = ({
 
   return (
     <div
-      className="code-block-container relative group rounded-[6px] w-full border border-border bg-background shadow-sm"
+      className={cn("code-block-container relative group rounded-[6px] w-full", showBorder && " border border-border")}
       role="region"
       aria-label="Code block"
     >
@@ -324,16 +348,20 @@ const Pre: React.FC<PreProps> = ({
           "border-none",
           "font-mono",
           "font-medium",
-          "bg-background",
           lineNumbersClass,
           wordWrap && "whitespace-pre-wrap",
         )}
         style={{ maxHeight: `${maxHeight}px` }}
         data-line={highlightLines.length > 0 ? highlightLines.join(",") : undefined}
       >
-        <code ref={codeRef} className={`language-${language} text-foreground`} data-language={language}>
+        <code ref={codeRef} className={`language-${language} text-foreground not-prose`} data-language={language}>
           {displayContent}
         </code>
+        {/* {
+          showShadow && (
+            <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-background/90 via-background/40 to-transparent pointer-events-none z-10" />
+          )
+        } */}
       </pre>
     </div>
   )

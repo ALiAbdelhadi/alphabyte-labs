@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import type React from "react"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 import { Eye, EyeOff } from "lucide-react"
 import { FcGoogle } from "react-icons/fc"
 

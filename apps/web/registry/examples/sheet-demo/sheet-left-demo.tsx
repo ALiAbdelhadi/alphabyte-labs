@@ -7,7 +7,7 @@ import {
   SheetTrigger,
 } from "@/registry/ui/sheet"
 import { Heart, Menu, Settings, ShoppingCart, User } from "lucide-react"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 
 export default function SheetLeftDemo() {
   return (

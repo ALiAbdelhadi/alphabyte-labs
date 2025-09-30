@@ -1,0 +1,60 @@
+لاستخدام مكوّناتنا يجب أن تعمل مع [next.js](https://nextjs.org/)
+
+## متطلبات النظام
+
+* [Node.js 18.18](https://nodejs.org/) أو أحدث.
+* macOS، وWindows (بما في ذلك WSL)، وLinux مدعومة.
+
+<div className="not-prose px-4">
+  <Note>إذا كنت تستخدم Windows فمن الموصى أن تستخدم WSL للاستفادة من كل ميزات Linux <br /> ولكن إذا لم يكن لديك، لا تقلق، Windows أيضًا خيار رائع</Note>
+
+  <Step className="mt-6">
+    <StepItem title="الخطوة 1: إنشاء مشروع Next.js جديد">
+      ابدأ بتشغيل الأمر التالي في الطرفية لإنشاء مشروع Next.js جديد:\
+      للتأكد من التثبيت، شغّل:
+
+      <Pre>
+        {`npx create-next-app@latest`}
+      </Pre>
+    </StepItem>
+
+    <StepItem title="الخطوة 2: إعداد مشروعك">
+      أثناء التثبيت، سيتم سؤالك لتكوين إعدادات مشروعك. أدناه مثال على الإعدادات الافتراضية والخيارات التي ستواجهها:
+
+      <Pre>
+        {`What is your project named? \`put your project name here\`  
+          Would you like to use TypeScript? No / Yes  
+          Would you like to use ESLint? No / Yes  
+          Would you like to use Tailwind CSS? No / Yes  
+          Would you like your code inside a \`src/\` directory? No / Yes  
+          Would you like to use App Router? (recommended) No / Yes `}
+      </Pre>
+
+      <Note type="note" title="ملاحظة مهمة">
+        التكوينات أعلاه قابلة للتخصيص بالكامل. إذا اخترت تفعيل **TypeScript**، أو **ESLint**، أو **Tailwind CSS**، أو مجلد **src**، أو **App Router**، سيتم إضافة الملفات والإعدادات اللازمة تلقائيًا لمشروعك.
+      </Note>
+    </StepItem>
+
+    <StepItem title="الخطوة 3: إعدادات React 19 و Next.js 15 (اختياري)">
+      إذا كنت تستخدم **React 19** و **Next.js 15**، قد تواجه خيار تكوين إضافي يخص Turbopack:
+
+      <Pre>
+        {`What is your project named? \`put your project name here\`  
+          Would you like to use TypeScript? No / Yes  
+          Would you like to use ESLint? No / Yes  
+          Would you like to use Tailwind CSS? No / Yes  
+          Would you like your code inside a \`src/\` directory? No / Yes  
+          Would you like to use App Router? (recommended) No / Yes  
+          Would you like to use Turbopack for \`next dev\`? » No / Yes`}
+      </Pre>
+
+      <Note variant="info">
+        **Turbopack** هو أداة ربط وتشغيل عالية الأداء مخصّصة لـ Next.js. تفعيل هذا الخيار يضمن سرعات بناء أعلى وتجربة تطوير أفضل.
+      </Note>
+    </StepItem>
+  </Step>
+</div>
+
+## الخطوات التالية
+
+بعد إنشاء مشروعك، أنت جاهز الآن لاستكشاف ودمج مكوّنات وأدوات Alpha الحديثة لتحويل رؤيتك إلى واقع. ابدأ في بناء تطبيقك الجيل القادم اليوم مع Alpha! 🚀

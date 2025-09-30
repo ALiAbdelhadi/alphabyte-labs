@@ -8,14 +8,14 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { cn } from "@/lib/utils"
+import type { SidebarItem } from "@/types"
 import { ChevronRight, X } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { useState } from "react"
 import { Button } from "../ui/button"
 import { ScrollArea } from "../ui/scroll-area"
 import { Separator } from "../ui/separator"
 import DocsMenu from "./docs-sidebar"
-import { useTranslations } from "next-intl"
-import type { SidebarItem } from "@/types"
 
 export function DocsNavigationOnMobile({ config = [] }: { config?: SidebarItem[] }) {
   const [open, setOpen] = useState(false)
@@ -24,7 +24,7 @@ export function DocsNavigationOnMobile({ config = [] }: { config?: SidebarItem[]
     <>
       <div
         className={cn(
-          "md:hidden sticky top-14 left-0 z-[60] h-14 border-b border-t border-border bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+          "md:hidden sticky top-14 left-0 z-10 h-14 border-b border-t border-border bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-center">

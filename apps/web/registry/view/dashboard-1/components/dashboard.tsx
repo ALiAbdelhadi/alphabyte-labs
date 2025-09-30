@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { cn } from "@/lib/utils"
 import {
     Bell,
     DollarSign,
@@ -20,10 +21,9 @@ import {
     Users,
 } from "lucide-react"
 import { useMemo, useState } from "react"
+import { useResponsiveOrientation } from "../hooks/use-responsive-orientation"
 import { formatDate, formatPrice } from "../lib/utils"
 import { Sidebar } from "./sidebar"
-import { useResponsiveOrientation } from "../hooks/use-responsive-orientation"
-import { cn } from "@/lib/utils"
 
 type OrderStatus = "awaiting_shipment" | "processing" | "fulfilled" | "cancelled"
 

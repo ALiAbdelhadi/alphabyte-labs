@@ -1,5 +1,5 @@
 import { Paths } from "@/lib/pageRoutes"
-import { useDocsRouting } from "@/settings/docs-routing"
+import { getDocsRouting } from "@/settings/docs-routing"
 import { promises as fs } from "fs"
 import grayMatter from "gray-matter"
 import path from "path"
@@ -10,8 +10,13 @@ import { unified } from "unified"
 import { Node, Parent } from "unist"
 import { visit } from "unist-util-visit"
 
-const docsDir = path.join(process.cwd(), "contents/docs")
-const outputDir = path.join(process.cwd(), "public", "search-data")
+const docsRoots = [
+  path.join(process.cwd(), "contents", "en", "docs"),
+  path.join(process.cwd(), "contents", "ar", "docs"),
+  path.join(process.cwd(), "contents", "docs"),
+]
+const outputDir = path.join(process.cwd(), "apps/web/public", "search-data")
+const markdownOutDir = path.join(outputDir, "markdown")
 
 interface MdxJsxFlowElement extends Node {
   name: string
@@ -43,7 +48,7 @@ function createSlug(filePath: string): string {
 }
 
 function findDocumentBySlug(slug: string): Paths | null {
-  const docsConfig = useDocsRouting()
+  const docsConfig = getDocsRouting()
   function searchDocs(docs: Paths[], currentPath = ""): Paths | null {
     for (const doc of docs) {
       if (isRoute(doc)) {
@@ -111,6 +116,11 @@ async function processMdxFile(filePath: string) {
     const slug = createSlug(filePath)
     const matchedDoc = findDocumentBySlug(slug)
 
+    // write markdown file for "View as Markdown"
+    const markdownPath = path.join(markdownOutDir, `${slug}.md`)
+    await ensureDirectoryExists(path.dirname(markdownPath))
+    await fs.writeFile(markdownPath, String(plainContent.value), "utf-8")
+
     return {
       slug,
       title:
@@ -118,6 +128,7 @@ async function processMdxFile(filePath: string) {
         (matchedDoc && isRoute(matchedDoc) ? matchedDoc.title : "Untitled"),
       description: frontmatter.description || "",
       content: String(plainContent.value),
+      raw: rawMdx,
     }
   } catch (error) {
     console.error(`Error processing MDX file ${filePath}:`, error)
@@ -129,7 +140,6 @@ async function getMdxFiles(dir: string): Promise<string[]> {
   let files: string[] = []
   try {
     const items = await fs.readdir(dir, { withFileTypes: true })
-
     for (const item of items) {
       const fullPath = path.join(dir, item.name)
       if (item.isDirectory()) {
@@ -140,17 +150,19 @@ async function getMdxFiles(dir: string): Promise<string[]> {
       }
     }
   } catch (error) {
-    console.error(`Error reading directory ${dir}:`, error)
+    // skip missing locale folders silently
+    return []
   }
-
   return files
 }
 
 export async function convertMdxToJson() {
   try {
     await ensureDirectoryExists(outputDir)
+    await ensureDirectoryExists(markdownOutDir)
 
-    const mdxFiles = await getMdxFiles(docsDir)
+    const mdxFilesArrays = await Promise.all(docsRoots.map(getMdxFiles))
+    const mdxFiles = mdxFilesArrays.flat()
     const combinedData = []
 
     for (const file of mdxFiles) {

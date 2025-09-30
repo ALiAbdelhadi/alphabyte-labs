@@ -27,7 +27,7 @@ import {
     SettingsIcon,
     UsersIcon,
 } from "lucide-react"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 import * as React from "react"
 import { NavMain } from "../../dashboard-2/components/nav-main"
 import { NavDocuments } from "./nav-documents"

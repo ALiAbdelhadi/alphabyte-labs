@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 import { Eye, EyeOff, GalleryVerticalEnd } from "lucide-react"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 import { useState } from "react"
 
 export function LoginForm({

@@ -394,11 +394,11 @@ export default function SearchClient({ docsConfig = { sidebarItems: [], mainNav:
               <div className="px-3 py-1">{getScrollAreaContent()}</div>
             </div>
             {canScrollMore && (
-              <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-background via-background/40 to-transparent pointer-events-none z-10" />
+              <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-background/90 via-background/40 to-transparent pointer-events-none z-10" />
             )}
           </div>
           {filteredResults.length > 0 && (
-            <div className="text-muted-foreground relative z-20 flex h-8 items-center gap-2 rounded-b-xl border-t border-t-neutral-100 bg-neutral-50 px-4 text-xs font-medium dark:border-t-neutral-700 dark:bg-neutral-800 text-sm shadow-lg">
+            <div className="text-muted-foreground relative z-20 flex h-8 items-center gap-2 rounded-b-xl border-t border-t-neutral-100 bg-neutral-50 px-4 text-xs font-medium dark:border-t-neutral-700 dark:bg-neutral-800 shadow-lg">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1">
                   <kbd className="h-[1.1rem] px-1 bg-muted rounded text-[10px]">↑</kbd>

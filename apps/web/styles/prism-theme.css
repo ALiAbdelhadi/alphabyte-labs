@@ -43,7 +43,6 @@
 }
 
 .code-block-container {
-  background-color: var(--code-background);
   border-radius: 12px;
   width: 100%;
   position: relative;
@@ -52,13 +51,6 @@
     "Courier New", monospace;
   overflow: hidden;
 }
-
-.code-block-header {
-  background-color: var(--code-toolbar-background);
-  border-bottom: 1px solid var(--code-border-color);
-  border-radius: 6px 6px 0 0;
-}
-
 pre[class*="language-"],
 code[class*="language-"] {
   color: var(--code-text-color);
@@ -91,7 +83,6 @@ pre[class*="language-"] {
   padding: 0.3em;
   border-radius: 0.3em;
   color: #e63946;
-  background: var(--code-background);
 }
 
 @media (prefers-color-scheme: light) {
@@ -105,7 +96,6 @@ code[class*="language-"]::selection,
 pre[class*="language-"] *::selection,
 code[class*="language-"] *::selection {
   text-shadow: none;
-  background: var(--code-selection-background);
 }
 
 .line-numbers .line-numbers-rows {

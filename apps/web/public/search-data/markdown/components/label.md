@@ -1,0 +1,54 @@
+<ComponentPreview name="label-demo" />
+
+## التثبيت
+
+<div className="not-prose md:px-0 px-4">
+  <Step>
+    <StepItem title="تثبيت المتطلبات">
+      قم أولاً بتثبيت الحزم المطلوبة:
+
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge`}
+      </Pre>
+    </StepItem>
+
+    <StepItem title="إنشاء ملف utils.ts">
+      <ComponentUtilsText />
+
+      <ComponentUtils />
+    </StepItem>
+
+    <StepItem title="إنشاء مكوّن التسمية">
+      <ComponentSource name="label-demo" />
+    </StepItem>
+  </Step>
+</div>
+
+## الاستخدام
+
+<div className="not-prose space-y-6">
+  <Pre>
+    {`import { Checkbox } from "@/components/ui/checkbox"
+      import { Label } from "@/components/ui/label"`}
+  </Pre>
+
+  <Pre>
+    {`
+      const LabelDemo = () => {
+      return (
+        <div className="flex items-center space-x-2">
+          <Checkbox id="terms" />
+          <Label
+            htmlFor="terms"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            أوافق على الشروط والأحكام
+          </Label>
+        </div>
+      )
+      }
+
+      export default LabelDemo
+      `}
+  </Pre>
+</div>

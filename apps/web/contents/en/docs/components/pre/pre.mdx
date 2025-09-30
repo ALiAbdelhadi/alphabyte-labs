@@ -6,7 +6,37 @@ description: Showcase beautifully styled and customizable code snippets with adv
 <ComponentPreview name="code-block-demo" />
 
 ## Installation
+<CliCodeTabs>
 
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+<CliCodeTabs>
+  {(() => {
+    const cmd = {
+      pnpm: `pnpm dlx alphabyte-cli@latest add pre`,
+      npm: `npx alphabyte-cli@latest add pre`,
+      yarn: `yarn dlx alphabyte-cli@latest add pre`,
+      bun: `bunx alphabyte-cli@latest add pre`,
+      deno: `deno run -A npm:alphabyte-cli add pre`,
+    }
+    return (
+      <CodeCommands
+        __pnpm__={cmd.pnpm}
+        __npm__={cmd.npm}
+        __yarn__={cmd.yarn}
+        __bun__={cmd.bun}
+        __deno__={cmd.deno}
+      />
+    )
+  })()}
+</CliCodeTabs>
+</TabsContent>
+
+<TabsContent value="manual">
 <div className="not-prose md:px-0 px-4">
 <Step>
   <StepItem title="Install Dependencies">
@@ -834,6 +864,8 @@ export const languageIcons: Record<string, JSX.Element> = {
   <StepItem title="Now, feel free to use it and customize it" />
 </Step>
 </div>
+</TabsContent>
+</CliCodeTabs>
 
 ## Usage
 

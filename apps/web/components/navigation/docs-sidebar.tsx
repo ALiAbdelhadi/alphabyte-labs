@@ -60,6 +60,7 @@ export function DocsSidebar({ config = [], isSheet = false }: DocsSidebarProps) 
           )
         })}
       </div>
+      <div className="left-0 bottom-0 fixed transition-all delay-300 w-full h-[100px] z-10 pointer-events-none" />
     </div>
   )
 }

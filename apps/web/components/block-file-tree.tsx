@@ -249,9 +249,9 @@ export function BlockFileTree({ fileTree, activeFile, setActiveFile, isLoadingFi
                             )}
                         >
                             <div className="flex space-x-2 items-center">
-                                <div className="w-3 h-3 rounded-full bg-red-500/30 border border-red-500/40" />
-                                <div className="w-3 h-3 rounded-full bg-yellow-500/30 border border-yellow-500/40" />
-                                <div className="w-3 h-3 rounded-full bg-green-500/30 border border-green-500/40" />
+                                <div className="w-3 h-3 rounded-full bg-[#fc5f57] border border-red-500/40" />
+                                <div className="w-3 h-3 rounded-full bg-[#fdbc2e] border border-yellow-500/40" />
+                                <div className="w-3 h-3 rounded-full bg-[#28c83f] border border-green-500/40" />
                             </div>
                             <h3 className="text-sm font-medium sidebar-text">EXPLORER</h3>
                             {sidebarIsOpen && (

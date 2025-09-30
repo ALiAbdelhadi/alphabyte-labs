@@ -11,7 +11,7 @@ import {
 } from "@/registry/ui/card"
 import { Input } from "@/registry/ui/input"
 import { Label } from "@/registry/ui/label"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 import type React from "react"
 import { useState } from "react"
 import { FcGoogle } from "react-icons/fc"

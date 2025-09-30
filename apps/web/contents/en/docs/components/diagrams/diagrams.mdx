@@ -6,7 +6,35 @@ description: Add various diagram types, including flowcharts, decision trees and
 <ComponentPreview name="diagram-demo" />
 
 ## Installation
+<CliCodeTabs>
 
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+<CliCodeTabs>
+  {(() => {
+    const cmd = {
+      pnpm: `pnpm dlx alphabyte-cli@latest add diagrams`,
+      npm: `npx alphabyte-cli@latest add diagrams`,
+      yarn: `yarn dlx alphabyte-cli@latest add diagrams`,
+      bun: `bunx alphabyte-cli@latest add diagrams`,
+      deno: `deno run -A npm:alphabyte-cli add diagrams`,
+    }
+    return (
+      <CodeCommands
+        __pnpm__={cmd.pnpm}
+        __npm__={cmd.npm}
+        __yarn__={cmd.yarn}
+        __bun__={cmd.bun}
+        __deno__={cmd.deno}
+      />
+    )
+  })()}
+</CliCodeTabs>
+</TabsContent>
+<TabsContent value="manual">
 <div className="not-prose md:px-0 px-4">
 <Step>
 <StepItem title="install dependencies">
@@ -20,9 +48,10 @@ First, To Start Creating Diagrams in your next.js app you need to install a libr
   <ComponentUtils/>
   </StepItem>
 <StepItem title="Here you go, you can start creating diagrams like a designer"/>
-
 </Step>
 </div>
+</TabsContent>
+</CliCodeTabs>
 ## Usage
 <div className="not-prose space-y-6">
 <Pre>{`import Mermaid from "@/components/ui/mermaid"`}</Pre>

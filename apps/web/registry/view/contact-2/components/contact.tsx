@@ -1,6 +1,5 @@
+import { Clock, Globe, Mail, MapPin, Navigation, Phone, Send } from 'lucide-react';
 import React from 'react';
-import { MapPin, Navigation, Phone, Send, Mail, Clock, Globe } from 'lucide-react';
-import Container from '@/components/Container';
 
 interface FormData {
     fullName: string;

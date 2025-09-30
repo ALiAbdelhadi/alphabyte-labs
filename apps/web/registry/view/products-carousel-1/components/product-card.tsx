@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import Image from "next/image"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 import { Truck } from "lucide-react"
 import { Carousel } from "react-responsive-carousel"
 

@@ -6,7 +6,7 @@ export const languageIcons: Record<string, JSX.Element> = {
   javascript: (
     <CustomImage
       src="/icons/javascript.svg"
-      className="w-[18px] h-[18px]"
+      className="w-4 h-4"
       alt="javascript"
       width={10}
       height={10}
@@ -16,7 +16,7 @@ export const languageIcons: Record<string, JSX.Element> = {
   js: (
     <CustomImage
       src="/icons/javascript.svg"
-      className="w-[18px] h-[18px]"
+      className="w-4 h-4"
       alt="javascript"
       width={10}
       height={10}
@@ -26,7 +26,7 @@ export const languageIcons: Record<string, JSX.Element> = {
   jsx: (
     <CustomImage
       src="/icons/javascript.svg"
-      className="w-[18px] h-[18px]"
+      className="w-4 h-4"
       alt="jsx"
       width={10}
       height={10}
@@ -36,7 +36,7 @@ export const languageIcons: Record<string, JSX.Element> = {
   typescript: (
     <CustomImage
       src="/icons/typescript.svg"
-      className="w-[18px] h-[18px]"
+      className="w-4 h-4"
       alt="typescript"
       width={10}
       height={10}
@@ -46,7 +46,7 @@ export const languageIcons: Record<string, JSX.Element> = {
   ts: (
     <CustomImage
       src="/icons/typescript.svg"
-      className="w-[18px] h-[18px]"
+      className="w-4 h-4"
       alt="typescript"
       width={10}
       height={10}
@@ -56,7 +56,7 @@ export const languageIcons: Record<string, JSX.Element> = {
   tsx: (
     <CustomImage
       src="/icons/typescript.svg"
-      className="w-[18px] h-[18px]"
+      className="w-4 h-4"
       alt="typescript"
       width={10}
       height={10}
@@ -67,7 +67,7 @@ export const languageIcons: Record<string, JSX.Element> = {
     <CustomImage
       src="/icons/html.svg"
       alt="html"
-      className="w-[18px] h-[18px]"
+      className="w-4 h-4"
       width={10}
       height={10}
       quality={100}
@@ -77,12 +77,12 @@ export const languageIcons: Record<string, JSX.Element> = {
     <CustomImage
       src="/icons/css.svg"
       alt="css"
-      className="w-[18px] h-[18px]"
+      className="w-4 h-4"
       width={10}
       height={10}
       quality={100}
     />
   ),
-  bash: <Terminal className="w-[18px] h-[18px] dark:text-gray-100 text-gray-950 rounded-lg" />,
-  json: <FileJson2 className="w-[18px] h-[18px] text-yellow-500 rounded-lg" />
+  bash: <Terminal className="w-4 h-4 dark:text-gray-100 text-gray-950 rounded-lg" />,
+  json: <FileJson2 className="w-4 h-4 text-yellow-500 rounded-lg" />
 }

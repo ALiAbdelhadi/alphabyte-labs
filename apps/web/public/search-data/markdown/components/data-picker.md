@@ -1,0 +1,84 @@
+<ComponentPreview name="date-picker-demo" />
+
+## التثبيت
+
+مكوّن <MdxBadge>Date Picker</MdxBadge> مبني باستخدام دمج بين\
+<MdxBadge>\<Popover /></MdxBadge> و\
+<MdxBadge>\<Calendar /></MdxBadge>.
+
+راجع تعليمات التثبيت الخاصة بـ [Popover](https://alphabyte-labs.vercel.app/docs/components/popover)\
+و [Calendar](https://alphabyte-labs.vercel.app/docs/components/calendar/) لعملية التثبيت السريعة.
+
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="تثبيت الاعتمادات (Dependencies)">
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge @radix-ui/react-popover react-day-picker@8.10.1 date-fns `}
+      </Pre>
+    </StepItem>
+
+    <StepItem title="إنشاء ملف utils.ts">
+      <ComponentUtilsText />
+
+      <ComponentUtils />
+    </StepItem>
+  </Step>
+</div>
+
+## الاستخدام
+
+<div className="not-prose">
+  <Pre>
+    {`"use client"
+
+      import * as React from "react"
+      import { format } from "date-fns"
+      import { CalendarIcon } from "lucide-react"
+
+      import { cn } from "@/lib/utils"
+      import { Button } from "@/components/ui/button"
+      import { Calendar } from "@/components/ui/calendar"
+      import {
+      Popover,
+      PopoverContent,
+      PopoverTrigger,
+      } from "@/components/ui/popover"
+
+      export default function DatePickerDemo() {
+      const [date, setDate] = React.useState<Date>()
+
+      return (
+
+        <Popover>
+          <PopoverTrigger asChild >
+            <Button
+              variant={"outline"}
+              className={
+                cn(
+                  "w-[240px] justify-start text-left font-normal",
+                  !date && "text-muted-foreground"
+                )
+              } >
+              <CalendarIcon />
+              {date ? format(date, "PPP") : <span>اختر تاريخًا</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start" >
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={setDate}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+      )
+      }`}
+  </Pre>
+</div>
+
+## الأمثلة
+
+### نطاق التواريخ (Date Picker Range)
+
+<ComponentPreview name="date-picker-demo" variant="range" />

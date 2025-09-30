@@ -80,7 +80,7 @@ export function helperSearch(
     const titleMatch = searchTerms.some(term =>
       route.title.toLowerCase().includes(term)
     )
-    
+
     const titleDistance = Math.min(
       ...searchTerms.map(term =>
         memoizedSearchMatch(term, route.title.toLowerCase())
@@ -357,7 +357,7 @@ export function advanceSearch(query: string, locale?: string) {
       })
       .filter((doc) => {
         const searchText = `${doc.title} ${doc.description || ""} ${doc.snippet || ""}`.toLowerCase()
-        
+
         return (
           doc.relevance > 0 &&
           queryWords.some((word) => searchText.includes(word.toLowerCase()))
@@ -399,7 +399,7 @@ export function highlight(snippet: string, searchTerms: string): string {
 }
 export function formatStepIndex(n: number, dir: "ltr" | "rtl"): string {
   if (dir === "rtl") {
-    const arabicDigits = ["٠","١","٢","٣","٤","٥","٦","٧","٨","٩"]
+    const arabicDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"]
     return String(n).replace(/\d/g, d => arabicDigits[Number(d)])
   }
   return String(n)
@@ -487,4 +487,9 @@ export function debounce<T extends (...args: any[]) => any>(
     }, wait)
     if (callNow) func(...args)
   }
+}
+
+
+export function absoluteUrl(path: string) {
+  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`
 }

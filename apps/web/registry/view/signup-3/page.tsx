@@ -1,4 +1,4 @@
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 import { GalleryVerticalEnd } from "lucide-react"
 
 import { SignupForm } from "./components/signup-form"

@@ -22,7 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 
 export function NavDocuments({
   items,

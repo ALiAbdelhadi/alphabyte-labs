@@ -15,7 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { ArrowUpDown, Download, Eye, Filter, MoreHorizontal, Search, Trash2 } from "lucide-react"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 import { useState } from "react"
 import DashboardSidebar from "../dashboard-2/components/dashboard-sidebar"
 import { OrdersHeader } from "./components/orders-header"

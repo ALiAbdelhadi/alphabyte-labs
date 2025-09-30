@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 import { useState } from "react"
 
 interface Banner1Props {

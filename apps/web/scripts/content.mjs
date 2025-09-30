@@ -1,4 +1,5 @@
 import { promises as fs } from "fs";
+import { DocsRouting } from "./settings/DocsRouting.mjs";
 import grayMatter from "gray-matter";
 import path from "path";
 import remarkMdx from "remark-mdx";
@@ -6,23 +7,36 @@ import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
-import { DocsRouting } from "../dist/scripts/settings/DocsRouting.mjs";
-const docsDir = path.join(process.cwd(), "apps/www/contents/docs");
-const outputDir = path.join(process.cwd(),"apps/www/" , "public", "search-data");
+const docsRoots = [
+    path.join(process.cwd(), "apps", "web", "contents", "en", "docs"),
+    path.join(process.cwd(), "apps", "web", "contents", "ar", "docs"),
+    path.join(process.cwd(), "apps", "web", "contents", "docs"),
+];
+const outputDir = path.join(process.cwd(), "apps/web", "public", "search-data");
+const markdownOutDir = path.join(outputDir, "markdown");
 function isMdxJsxFlowElement(node) {
     return node.type === "mdxJsxFlowElement" && "name" in node;
 }
 function isRoute(node) {
     return "href" in node && "title" in node;
 }
+function findDocsRootFor(filePath) {
+    const normalized = path.normalize(filePath);
+    for (const root of docsRoots) {
+        if (normalized.startsWith(path.normalize(root + path.sep))) return root;
+    }
+    return path.dirname(path.dirname(normalized));
+}
+
 function createSlug(filePath) {
-    const relativePath = path.relative(docsDir, filePath);
+    const base = findDocsRootFor(filePath);
+    const relativePath = path.relative(base, filePath);
     const parsed = path.parse(relativePath);
     let slugPath = parsed.dir ? `${parsed.dir}/${parsed.name}` : parsed.name;
-    slugPath = slugPath.replace(/\\/g, "/"); 
+    slugPath = slugPath.replace(/\\/g, "/");
     const dirParts = parsed.dir.split(path.sep).map(p => p.toLowerCase());
     if (dirParts.length > 0 && dirParts[dirParts.length - 1] === parsed.name.toLowerCase()) {
-        slugPath = parsed.dir.replace(/\\/g, "/"); 
+        slugPath = parsed.dir.replace(/\\/g, "/");
     }
     return parsed.name === "index" ? `/${parsed.dir.replace(/\\/g, "/")}` || "/" : `/${slugPath}`;
 }
@@ -83,37 +97,47 @@ async function processMdxFile(filePath) {
         .process(content);
     const slug = createSlug(filePath);
     const matchedDoc = findDocumentBySlug(slug);
+    const markdownPath = path.join(markdownOutDir, `${slug}.md`);
+    await ensureDirectoryExists(path.dirname(markdownPath));
+    await fs.writeFile(markdownPath, String(plainContent.value), "utf-8");
     return {
         slug,
         title: frontmatter.title ||
             (matchedDoc && isRoute(matchedDoc) ? matchedDoc.title : "Untitled"),
         description: frontmatter.description || "",
         content: String(plainContent.value),
+        raw: rawMdx,
     };
 }
 async function getMdxFiles(dir) {
     let files = [];
-    const items = await fs.readdir(dir, { withFileTypes: true });
-    for (const item of items) {
-        const fullPath = path.join(dir, item.name);
-        if (item.isDirectory()) {
-            const subFiles = await getMdxFiles(fullPath);
-            files = files.concat(subFiles);
+    try {
+        const items = await fs.readdir(dir, { withFileTypes: true });
+        for (const item of items) {
+            const fullPath = path.join(dir, item.name);
+            if (item.isDirectory()) {
+                const subFiles = await getMdxFiles(fullPath);
+                files = files.concat(subFiles);
+            }
+            else if (item.name.endsWith(".mdx")) {
+                files.push(fullPath);
+            }
         }
-        else if (item.name.endsWith(".mdx")) {
-            files.push(fullPath);
-        }
+    } catch {
+        return [];
     }
     return files;
 }
 async function convertMdxToJson() {
     try {
         await ensureDirectoryExists(outputDir);
-        const mdxFiles = await getMdxFiles(docsDir);
+        await ensureDirectoryExists(markdownOutDir);
+        const mdxFilesLists = await Promise.all(docsRoots.map(getMdxFiles));
+        const mdxFiles = mdxFilesLists.flat();
         const combinedData = [];
         for (const file of mdxFiles) {
             const jsonData = await processMdxFile(file);
-            combinedData.push(jsonData);
+            if (jsonData) combinedData.push(jsonData);
         }
         const combinedOutputPath = path.join(outputDir, "documents.json");
         await fs.writeFile(combinedOutputPath, JSON.stringify(combinedData, null, 2));

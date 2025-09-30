@@ -1,0 +1,79 @@
+{
+  "name": "alphabyte-cli",
+  "version": "0.3.1",
+  "description": "CLI for Alphabyte UI components & blocks",
+  "bin": {
+    "alphabyte": "dist/index.js",
+    "alphabyte-cli": "dist/index.js"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "tsup --watch",
+    "build": "tsup && node -e \"const fs=require('fs');const path=require('path');const src=path.join('..','..','apps','web','registry');const dest=path.join('dist','registry');if(fs.existsSync(src)){fs.cpSync(src,dest,{recursive:true});console.log('Copied registry to dist/registry');}else{console.log('Registry not found at',src)}\"",
+    "typecheck": "tsc --noEmit",
+    "start": "node dist/index.js",
+    "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
+    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
+  },
+  "keywords": [
+    "cli",
+    "ui",
+    "components",
+    "alphabyte"
+  ],
+  "author": "Ali Abdelhadi",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "fuzzysort": "^3.1.0",
+    "https-proxy-agent": "^7.0.6",
+    "node-fetch": "^3.3.2",
+    "@antfu/ni": "^25.0.0",
+    "@babel/core": "^7.28.0",
+    "@babel/parser": "^7.28.0",
+    "@babel/plugin-transform-typescript": "^7.28.0",
+    "commander": "^14.0.0",
+    "cosmiconfig": "^9.0.0",
+    "dedent": "^1.6.0",
+    "deepmerge": "^4.3.1",
+    "execa": "^9.6.0",
+    "fast-glob": "^3.3.3",
+    "fs-extra": "^11.3.1",
+    "kleur": "^4.1.5",
+    "ora": "^8.2.0",
+    "postcss": "^8.5.6",
+    "prompts": "^2.4.2",
+    "recast": "^0.23.11",
+    "stringify-object": "^5.0.0",
+    "ts-morph": "^26.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/babel__core": "^7.20.5",
+    "@types/fs-extra": "^11.0.4",
+    "@types/prompts": "^2.4.9",
+    "@types/stringify-object": "^4.0.5",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "vitest": "^2.1.9"
+  }
+}

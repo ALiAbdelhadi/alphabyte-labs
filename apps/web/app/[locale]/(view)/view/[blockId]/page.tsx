@@ -1,4 +1,4 @@
-import LoadingIcon from "@/components/icons/loading-icon"
+import { LoadingIcon } from "@/components/icons/loading-icon"
 import { blockExamples } from "@/registry/blocks-examples"
 import { notFound } from "next/navigation"
 import React from "react"

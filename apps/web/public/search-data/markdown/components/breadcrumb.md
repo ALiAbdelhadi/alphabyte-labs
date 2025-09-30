@@ -1,0 +1,85 @@
+<ComponentPreview name="breadcrumb-demo" />
+
+## التثبيت
+
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="تثبيت الاعتمادات">
+      أولاً، تحتاج إلى تثبيت الاعتمادات:
+
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge `}
+      </Pre>
+    </StepItem>
+
+    <StepItem title="إنشاء ملف utils.ts">
+      <ComponentUtilsText />
+
+      <ComponentUtils />
+    </StepItem>
+
+    <StepItem title="إنشاء مكوّن Breadcrumb">
+      <ComponentSource name="breadcrumb-demo" />
+    </StepItem>
+  </Step>
+</div>
+
+## الاستخدام
+
+<div className="not-prose space-y-6">
+  <Pre>
+    {`import {
+        Breadcrumb,
+        BreadcrumbItem,
+        BreadcrumbLink,
+        BreadcrumbList,
+        BreadcrumbPage,
+        BreadcrumbSeparator,
+      } from "@/components/ui/breadcrumb"`}
+  </Pre>
+
+  <Pre>
+    {`<Breadcrumb>
+        <BreadcrumbList>
+            <BreadcrumbItem>
+                <BreadcrumbLink href="#">
+                    <HiHome className="h-4 w-4" />
+                </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+                <BreadcrumbLink href="#">Documents</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+                <BreadcrumbPage>Current Page</BreadcrumbPage>
+            </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>`}
+  </Pre>
+</div>
+
+## أمثلة
+
+### فاصل مخصص (Custom Separator)
+
+<ComponentPreview name="breadcrumb-demo" variant="custom-separator" />
+
+### الحذف بالعلامة (…) (Ellipsis)
+
+<ComponentPreview name="breadcrumb-demo" variant="ellipsis" />
+
+### قائمة منسدلة (Dropdown)
+
+يمكنك تركيب <MdxBadge>\<breadcrumb-item /></MdxBadge> مع مكوّن\
+<MdxBadge>\<dropdown-menu /></MdxBadge> لإنشاء قائمة منسدلة داخل مسار التنقل.
+
+<ComponentPreview name="breadcrumb-demo" variant="dropdown" />
+
+### أيقونات (Icons)
+
+<ComponentPreview name="breadcrumb-demo" variant="icons" />
+
+### متجاوب (Responsive)
+
+<ComponentPreview name="breadcrumb-demo" variant="responsive" />

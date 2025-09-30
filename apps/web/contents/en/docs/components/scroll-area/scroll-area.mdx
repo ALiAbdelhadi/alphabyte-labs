@@ -8,6 +8,37 @@ links:
 
 <ComponentPreview name="scroll-area-demo" />
 ## Installation
+<CliCodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+<CliCodeTabs>
+  {(() => {
+    const cmd = {
+      pnpm: `pnpm dlx alphabyte-cli@latest add scroll-area`,
+      npm: `npx alphabyte-cli@latest add scroll-area`,
+      yarn: `yarn dlx alphabyte-cli@latest add scroll-area`,
+      bun: `bunx alphabyte-cli@latest add scroll-area`,
+      deno: `deno run -A npm:alphabyte-cli add scroll-area`,
+    }
+    return (
+      <CodeCommands
+        __pnpm__={cmd.pnpm}
+        __npm__={cmd.npm}
+        __yarn__={cmd.yarn}
+        __bun__={cmd.bun}
+        __deno__={cmd.deno}
+      />
+    )
+  })()}
+</CliCodeTabs>
+</TabsContent>
+
+<TabsContent value="manual">
 <div className="not-prose md:px-0 px-4">
 <Step>
 <StepItem title="Install Dependencies">
@@ -27,6 +58,9 @@ First, you'll need to install the necessary dependencies for styling and utility
   </StepItem>
 </Step>
 </div>
+</TabsContent>
+</CliCodeTabs>
+
 ## Usage
 <div className="not-prose space-y-6">
 <Pre>{`import { ScrollArea } from "@/components/ui/scroll-area"`}</Pre>

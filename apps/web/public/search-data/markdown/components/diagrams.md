@@ -1,0 +1,68 @@
+<ComponentPreview name="diagram-demo" />
+
+## التثبيت
+
+<div className="not-prose md:px-0 px-4">
+  <Step>
+    <StepItem title="تثبيت الاعتمادات (Dependencies)">
+      أولًا، لبدء إنشاء المخططات في تطبيقك المبني بـ Next.js تحتاج إلى تثبيت مكتبة تُسمى <span className="underline text-gray-950">[Mermaid](https://mermaid.js.org/)</span>:
+
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge mermaid`}
+      </Pre>
+    </StepItem>
+
+    <StepItem title="إنشاء ملف utils.ts">
+      <ComponentUtilsText />
+
+      <ComponentUtils />
+    </StepItem>
+
+    <StepItem title="ها أنت جاهز الآن! يمكنك البدء في إنشاء المخططات بسهولة كما يفعل المصمّم." />
+  </Step>
+</div>
+
+## الاستخدام
+
+<div className="not-prose space-y-6">
+  <Pre>
+    {`import Mermaid from "@/components/ui/mermaid"`}
+  </Pre>
+
+  <Pre>
+    {`const DiagramsDemo = () => {
+      return (
+        <Mermaid
+          chart={\`graph TD;
+        Start --> Task1;
+        Task1 --> Task2;
+        Task2 --> End;\`}
+        />
+      )
+      }
+
+      export default DiagramsDemo`}
+  </Pre>
+</div>
+
+## الأمثلة
+
+### مخطط التدفق (Flowchart)
+
+<ComponentPreview name="diagram-demo" />
+
+### شجرة القرارات (Decision Tree)
+
+أشجار القرارات توضّح الاختيارات والنتائج المحتملة، مما يجعلها مثالية لسير العمل في اتخاذ القرارات أو العمليات التي تتضمن مسارات متعددة.
+
+<ComponentPreview name="diagram-demo" variant="decision-tree" />
+
+### مخطط الكيانات والعلاقات (Entity-Relationship Diagram)
+
+مخططات الكيانات والعلاقات (ERDs) تُستخدم لنمذجة العلاقات بين الكيانات داخل النظام. وهي تُستخدم على نطاق واسع في تصميم قواعد البيانات والتخطيط المعماري للأنظمة.
+
+<ComponentPreview name="diagram-demo" variant="entity-relationship" />
+
+***
+
+كل نوع من هذه المخططات يخدم غرضًا محددًا، وتسهّل مكتبة Mermaid إنشاءها ديناميكيًا. لا تتردّد في تجربة أمثلة الأكواد المرفقة وتكييفها لتلبية احتياجاتك.

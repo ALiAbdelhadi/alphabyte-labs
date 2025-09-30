@@ -5,8 +5,8 @@ import ColorPalettes from "@/components/color-palettes"
 import Container from "@/components/Container"
 import { Button } from "@/components/ui/button"
 import { colorsData } from "@/constant/colors/color"
-import { ColorFormat } from "@/types"
 import { Link } from "@/i18n/navigation"
+import { ColorFormat } from "@/types"
 import { useState } from "react"
 
 const ColorsPage = () => {

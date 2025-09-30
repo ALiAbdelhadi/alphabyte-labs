@@ -10,7 +10,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { AlertTriangle, BarChart3, Home, Package, ShoppingCart, Users } from "lucide-react"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 import { usePathname } from "next/navigation"
 import type React from "react"
 import { NavMain } from "./nav-main"

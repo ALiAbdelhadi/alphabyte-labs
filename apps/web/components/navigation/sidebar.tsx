@@ -2,7 +2,6 @@ import { getDocsRouting } from "@/settings/docs-routing"
 import { ScrollArea } from "../ui/scroll-area"
 import DocsSidebar from "./docs-sidebar"
 
-// Server Component
 const Sidebar = async () => {
   const docsConfig = await getDocsRouting()
 

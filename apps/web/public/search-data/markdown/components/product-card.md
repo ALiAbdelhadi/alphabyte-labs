@@ -1,0 +1,48 @@
+<ComponentPreview name="product-card-demo" />
+
+## التثبيت
+
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="تثبيت الحزم">
+      أولاً، قم بتثبيت الحزم المطلوبة:
+
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge`}
+      </Pre>
+    </StepItem>
+
+    <StepItem title="إنشاء ملف utils.ts">
+      <ComponentUtilsText />
+
+      <ComponentUtils />
+    </StepItem>
+
+    <StepItem title="إنشاء مكوّن بطاقة المنتج">
+      <ComponentSource name="product-card-demo" />
+    </StepItem>
+  </Step>
+</div>
+
+## الاستخدام
+
+<div className="not-prose space-y-6">
+  <Pre>
+    {`import { ProductCard } from "@/components/ui/product-card"
+
+      const ProductCardDemo = () => {
+      return (
+        <ProductCard
+          image="/images/sample-product.jpg"
+          title="سماعات لاسلكية"
+          description="سماعات عالية الجودة مع خاصية إلغاء الضوضاء."
+          price="199$"
+          ctaLabel="أضف إلى السلة"
+          onCtaClick={() => alert("تمت الإضافة إلى السلة!")}
+        />
+      )
+      }
+
+      export default ProductCardDemo`}
+  </Pre>
+</div>

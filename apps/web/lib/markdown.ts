@@ -170,10 +170,12 @@ export async function getDocument(slug: string, locale?: string) {
 
     console.log(`[getDocument] Successfully loaded content for slug: ${slug}`)
     const parsedMdx = await parseMdx<BaseMdxFrontmatter>(rawMdx)
+    // Attach raw MDX to docs so clients (e.g., copy page) can access original source
+    const docsWithRaw = { ...(parsedMdx.frontmatter as any), raw: rawMdx }
     const tocs = await getTableOfContents(slug, locale)
 
     return {
-      docs: parsedMdx.frontmatter,
+      docs: docsWithRaw,
       content: parsedMdx.content,
       tocs,
       lastUpdated,

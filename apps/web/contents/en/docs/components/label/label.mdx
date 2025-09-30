@@ -9,6 +9,36 @@ links:
 <ComponentPreview name="label-demo" />
 
 ## Installation
+<CliCodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+<CliCodeTabs>
+  {(() => {
+    const cmd = {
+      pnpm: `pnpm dlx alphabyte-cli@latest add label`,
+      npm: `npx alphabyte-cli@latest add label`,
+      yarn: `yarn dlx alphabyte-cli@latest add label`,
+      bun: `bunx alphabyte-cli@latest add label`,
+      deno: `deno run -A npm:alphabyte-cli add label`,
+    }
+    return (
+      <CodeCommands
+        __pnpm__={cmd.pnpm}
+        __npm__={cmd.npm}
+        __yarn__={cmd.yarn}
+        __bun__={cmd.bun}
+        __deno__={cmd.deno}
+      />
+    )
+  })()}
+</CliCodeTabs>
+</TabsContent>
+<TabsContent value="manual">
 <div className="not-prose md:px-0 px-4">
 <Step>
 <StepItem title="Install Dependencies">
@@ -26,8 +56,11 @@ First, install the required dependencies:
   </StepItem>
 </Step>
 </div>
+</TabsContent>
+</CliCodeTabs>
 
 ## Usage
+
 <div className="not-prose space-y-6">
 <Pre>
 {`import { Checkbox } from "@/components/ui/checkbox"

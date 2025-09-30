@@ -1,4 +1,4 @@
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 
 import { CarouselBigDataForBlock } from "../constant/index"
 import { Card, Carousel } from "./carousel"

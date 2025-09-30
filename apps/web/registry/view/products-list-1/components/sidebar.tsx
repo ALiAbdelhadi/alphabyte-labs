@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useCallback, useRef, useState } from "react"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 import { motion } from "framer-motion"
 import {
   Armchair,

@@ -14,7 +14,7 @@ import {
     Mail,
     MessageCircle,
 } from "lucide-react"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 import type React from "react"
 import { useState } from "react"
 

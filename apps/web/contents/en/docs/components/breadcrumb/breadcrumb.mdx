@@ -5,6 +5,37 @@ description: breadcrumb
 
 <ComponentPreview name="breadcrumb-demo" />
 ## Installation
+
+<CliCodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+<CliCodeTabs>
+  {(() => {
+    const cmd = {
+      pnpm: `pnpm dlx alphabyte-cli@latest add breadcrumb`,
+      npm: `npx alphabyte-cli@latest add breadcrumb`,
+      yarn: `yarn dlx alphabyte-cli@latest add breadcrumb`,
+      bun: `bunx alphabyte-cli@latest add breadcrumb`,
+      deno: `deno run -A npm:alphabyte-cli add breadcrumb`,
+    }
+    return (
+      <CodeCommands
+        __pnpm__={cmd.pnpm}
+        __npm__={cmd.npm}
+        __yarn__={cmd.yarn}
+        __bun__={cmd.bun}
+        __deno__={cmd.deno}
+      />
+    )
+  })()}
+</CliCodeTabs>
+</TabsContent>
+
+<TabsContent value="manual">
 <div className="not-prose px-4 md:px-0">
   <Step>
     <StepItem title="Install Dependencies">
@@ -20,6 +51,9 @@ description: breadcrumb
     </StepItem>
   </Step>
 </div>
+</TabsContent>
+</CliCodeTabs>
+
 ## Usage
 <div className="not-prose space-y-6">
   <Pre>{`import {

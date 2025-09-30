@@ -1,4 +1,5 @@
 import ContributorsList from "@/components/contributors-list"
+import { DocsCopyPage } from "@/components/docs-copy-page"
 import { BackToTop } from "@/components/navigation/back-to-top"
 import PageBreadcrumb from "@/components/navigation/docs-breadcrumb"
 import Feedback from "@/components/navigation/feedback"
@@ -13,7 +14,7 @@ import { routing } from "@/i18n/routing"
 import { ErrorBoundary } from "@/lib/debug-wrapper"
 import { getDocument } from "@/lib/markdown"
 import { getPageRoutes } from "@/lib/pageRoutes"
-import { cn } from "@/lib/utils"
+import { absoluteUrl, cn } from "@/lib/utils"
 import fs from "fs/promises"
 import { ExternalLink } from "lucide-react"
 import { getTranslations } from "next-intl/server"
@@ -48,12 +49,20 @@ const ComponentsPage = async (props: DocsPageProps) => {
 
     const { docs, content, tocs } = res
     const t = await getTranslations("component-page")
+
     return (
-      <div className="flex items-start gap-14 max-w-7xl transition-all">
-        <div className="flex-[3] mt-5 md:mt-7">
+      <div className="flex items-start gap-14 max-w-7xl w-full transition-all">
+        <div className="w-full max-w-none flex-1 mt-5 md:mt-7 min-w-0">
           <PageBreadcrumb paths={slug} />
-          <div className="space-y-2">
-            <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">{docs.title}</h1>
+          <div className="space-y-2 flex flex-col">
+            <div className="flex justify-between space-y-2">
+              <h1 className="scroll-m-20 text-3xl font-bold tracking-tight">{docs.title}</h1>
+              <DocsCopyPage
+                page={docs.raw ?? docs.content}
+                url={absoluteUrl(`/docs/${pathName || "introduction"}`)}
+                markdownUrl={`/search-data/markdown${pathName ? `/${pathName}` : "/introduction"}.md`}
+              />
+            </div>
             {docs.description && (
               <p className="text-muted-foreground text-base font-normal tracking-wide">{docs.description}</p>
             )}
@@ -84,25 +93,27 @@ const ComponentsPage = async (props: DocsPageProps) => {
               )}
             </div>
           ) : null}
-          <Typography>
-            <ErrorBoundary>{content}</ErrorBoundary>
-            <Pagination pathname={pathName} />
-            <div className="my-6 pb-10 border-t not-prose pt-3">
-              <h3 className="text-lg font-semibold text-primary mb-2">Contributors</h3>
-              <div className="bg-muted p-6 rounded-2xl">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-medium text-foreground">Button Component</h3>
-                    <p className="text-sm text-muted-foreground mt-1">Last updated 2 days ago</p>
+          <div className="w-full">
+            <Typography>
+              <ErrorBoundary>{content}</ErrorBoundary>
+              <Pagination pathname={pathName} />
+              <div className="my-6 pb-10 border-t not-prose pt-3">
+                <h3 className="text-lg font-semibold text-primary mb-2">Contributors</h3>
+                <div className="bg-muted p-6 rounded-2xl">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-medium text-foreground">Button Component</h3>
+                      <p className="text-sm text-muted-foreground mt-1">Last updated 2 days ago</p>
+                    </div>
+                    <ContributorsList contributors={ContributorsComponents} maxDisplay={3} size={32} />
                   </div>
-                  <ContributorsList contributors={ContributorsComponents} maxDisplay={3} size={32} />
                 </div>
               </div>
-            </div>
-          </Typography>
+            </Typography>
+          </div>
         </div>
         {Settings.rightbar && (
-          <div className="hidden xl:flex xl:flex-col sticky top-16 gap-3 py-8 lg:min-w-[230px] min-w-[200px] h-[94.5vh] toc transition-all">
+          <div className="hidden xl:flex xl:flex-col flex-shrink-0 sticky top-16 gap-3 py-8 lg:min-w-[230px] min-w-[200px] h-[94.5vh] toc transition-all">
             {Settings.toc && <Toc tocs={tocs} />}
             {Settings.feedback && <Feedback slug={pathName} title={docs.title} />}
             {Settings.toTop && (
@@ -161,14 +172,12 @@ export async function generateStaticParams() {
   const pageRoutes = await getPageRoutes()
   console.log("Available PageRoutes:", pageRoutes)
 
-  // For each route and each locale, check localized file first then fallback
   const localizedParams = await Promise.all(
     routing.locales.flatMap((locale) =>
       pageRoutes.map(async (route) => {
         const cleanHref = route.href.startsWith("/") ? route.href.slice(1) : route.href
         const segments = cleanHref.split("/").filter(Boolean)
 
-        // Determine last segment and candidate file paths
         const lastSegment = segments.length === 0 ? "introduction" : segments[segments.length - 1]
         const baseLocalized = path.join(process.cwd(), "contents", locale, "docs")
         const baseDefault = path.join(process.cwd(), "contents", "docs")
@@ -176,13 +185,13 @@ export async function generateStaticParams() {
         const candidates =
           segments.length === 0
             ? [
-                path.join(baseLocalized, "introduction", "introduction.mdx"),
-                path.join(baseDefault, "introduction", "introduction.mdx"),
-              ]
+              path.join(baseLocalized, "introduction", "introduction.mdx"),
+              path.join(baseDefault, "introduction", "introduction.mdx"),
+            ]
             : [
-                path.join(baseLocalized, cleanHref, `${lastSegment}.mdx`),
-                path.join(baseDefault, cleanHref, `${lastSegment}.mdx`),
-              ]
+              path.join(baseLocalized, cleanHref, `${lastSegment}.mdx`),
+              path.join(baseDefault, cleanHref, `${lastSegment}.mdx`),
+            ]
 
         for (const filePath of candidates) {
           try {
@@ -193,7 +202,7 @@ export async function generateStaticParams() {
               slug: segments.length === 0 ? [] : segments,
               valid: true,
             }
-          } catch {}
+          } catch { }
         }
 
         console.warn(`MDX file not found for route: ${route.href} (locale: ${locale})`)

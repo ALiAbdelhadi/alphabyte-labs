@@ -1,25 +1,16 @@
 "use client"
 
-import { useState } from "react"
 import { Check, Clipboard } from "lucide-react"
-
 import { cn } from "@/lib/utils"
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 
 export const CopyButton = ({ content }: { content: string }) => {
-  const [isCopied, setIsCopied] = useState(false)
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(content)
-      setIsCopied(true)
-      setTimeout(() => setIsCopied(false), 2000)
-    } catch (error) {
-      console.error("Failed to copy:", error)
-    }
-  }
+  const { isCopied, copyToClipboard } = useCopyToClipboard({ timeout: 2000 })
+
   return (
     <button
       className="flex items-center bg-muted hover:bg-gray-200/60 dark:hover:bg-muted-foreground/10 shadow-sm py-3 md:py-2.5 px-3 rounded-[7px] space-x-1 transition-colors"
-      onClick={copyToClipboard}
+      onClick={() => copyToClipboard(content)}
     >
       <span className="inline-block transition-transform duration-200 ease-in-out">
         {isCopied ? (
@@ -33,12 +24,16 @@ export const CopyButton = ({ content }: { content: string }) => {
           Cop
           <span className="relative">
             <span
-              className={`inline-block transition-opacity duration-300 ${isCopied ? "opacity-0" : "opacity-100"}`}
+              className={`inline-block transition-opacity duration-300 ${
+                isCopied ? "opacity-0" : "opacity-100"
+              }`}
             >
               y
             </span>
             <span
-              className={`absolute left-0 transition-all duration-300 ${isCopied ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"}`}
+              className={`absolute left-0 transition-all duration-300 ${
+                isCopied ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"
+              }`}
             >
               ied{" "}
             </span>

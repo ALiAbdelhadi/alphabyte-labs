@@ -1,0 +1,42 @@
+<ComponentPreview name="step-demo" />
+
+## التثبيت
+
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="تثبيت التبعيات">
+      أولاً، تحتاج إلى تثبيت التبعيات:
+
+      <Pre className="language-bash">
+        {`npm i clsx tailwind-merge`}
+      </Pre>
+    </StepItem>
+
+    <StepItem title="إنشاء ملف utils.ts">
+      <ComponentUtilsText />
+
+      <ComponentUtils />
+    </StepItem>
+
+    <StepItem title="إنشاء مكوّن Step">
+      <ComponentSource name="step-demo" />
+    </StepItem>
+
+    <StepItem title="الآن يمكنك استخدامه بحرية وتخصيصه كما تشاء" />
+  </Step>
+</div>
+
+## الاستخدام
+
+<div className="not-prose space-y-4">
+  <Pre>
+    {`import { Step, StepItem } from "@/components/ui/step"`}
+  </Pre>
+
+  <Pre>
+    {`<Step>
+            <StepItem title="بيئة التطوير">localhost:3000</StepItem>
+            <StepItem title="بيئة الإنتاج">localhost:3000</StepItem>
+        </Step>`}
+  </Pre>
+</div>

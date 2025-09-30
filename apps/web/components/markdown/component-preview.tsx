@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/custom
 import { cn } from "@/lib/utils"
 import { REGISTRY } from "@/registry"
 import React, { useEffect, useState } from "react"
-import {LoadingIcon }from "@/components/icons/loading-icon"
+import { LoadingIcon } from "@/components/icons/loading-icon"
 
 export interface ComponentPreviewProps {
   code?: string
@@ -78,10 +78,10 @@ export default function ComponentPreview({
   return (
     <Tabs defaultValue="preview" className="mt-4">
       <TabsList className="inline-flex h-9 items-center text-muted-foreground w-full justify-start rounded-none border-b bg-transparent p-0 mb-2">
-        <TabsTrigger value="preview" className="active:shadow-none text-base">
+        <TabsTrigger value="preview" className="active:shadow-none text-sm">
           Preview
         </TabsTrigger>
-        <TabsTrigger value="code" className="active:shadow-none text-base">
+        <TabsTrigger value="code" className="active:shadow-none text-sm">
           Code
         </TabsTrigger>
       </TabsList>
@@ -92,7 +92,7 @@ export default function ComponentPreview({
             <React.Suspense
               fallback={
                 <div className="flex w-full min-h-[350px] items-center justify-center text-sm text-muted-foreground gap-2">
-                  <LoadingIcon size={16} />
+                  <LoadingIcon size={14} />
                   Loading component...
                 </div>
               }

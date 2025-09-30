@@ -9,7 +9,34 @@ links:
 <ComponentPreview name="dropdown-menu-demo" />
 
 ## Installation
-
+<CliCodeTabs>
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+<CliCodeTabs>
+  {(() => {
+    const cmd = {
+      pnpm: `pnpm dlx alphabyte-cli@latest add dropdown-menu`,
+      npm: `npx alphabyte-cli@latest add dropdown-menu`,
+      yarn: `yarn dlx alphabyte-cli@latest add dropdown-menu`,
+      bun: `bunx alphabyte-cli@latest add dropdown-menu`,
+      deno: `deno run -A npm:alphabyte-cli add dropdown-menu`,
+    }
+    return (
+      <CodeCommands
+        __pnpm__={cmd.pnpm}
+        __npm__={cmd.npm}
+        __yarn__={cmd.yarn}
+        __bun__={cmd.bun}
+        __deno__={cmd.deno}
+      />
+    )
+  })()}
+</CliCodeTabs>
+</TabsContent>
+<TabsContent value="manual">
 <div className="not-prose px-4">
   <Step>
     <StepItem title="Install Dependencies">
@@ -26,7 +53,8 @@ links:
     </StepItem>
   </Step>
 </div>
-
+</TabsContent>
+</CliCodeTabs>
 ## Usage
 
 <div className="not-prose space-y-6">

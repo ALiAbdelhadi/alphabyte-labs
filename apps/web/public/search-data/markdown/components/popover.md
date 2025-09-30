@@ -1,0 +1,53 @@
+<ComponentPreview name="popover-demo" />
+
+## التثبيت
+
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="تثبيت الحزم">
+      أولاً، قم بتثبيت الحزم المطلوبة:
+
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge @radix-ui/react-popover`}
+      </Pre>
+    </StepItem>
+
+    <StepItem title="إنشاء ملف utils.ts">
+      <ComponentUtilsText />
+
+      <ComponentUtils />
+    </StepItem>
+
+    <StepItem title="إنشاء مكون Popover">
+      <ComponentSource name="popover-demo" />
+    </StepItem>
+  </Step>
+</div>
+
+## طريقة الاستخدام
+
+<div className="not-prose space-y-6">
+  <Pre>
+    {`import { Button } from "@/components/ui/button"
+      import {
+      Popover,
+      PopoverContent,
+      PopoverTrigger,
+      } from "@/components/ui/popover"
+
+      const PopoverDemo = () => {
+      return (
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button>اضغط هنا</Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <p>ضع المحتوى هنا</p>
+          </PopoverContent>
+        </Popover>
+      )
+      }
+
+      export default PopoverDemo`}
+  </Pre>
+</div>

@@ -1,0 +1,63 @@
+<ComponentPreview name="input-demo" />
+
+## التثبيت
+
+<div className="not-prose px-4 md:px-0">
+  <Step>
+    <StepItem title="تثبيت المتطلبات">
+      أولاً، قم بتثبيت الحزم اللازمة:
+
+      <Pre className="language-bash">
+        {`npm install clsx tailwind-merge`}
+      </Pre>
+    </StepItem>
+
+    <StepItem title="إنشاء ملف utils.ts">
+      <ComponentUtilsText />
+
+      <ComponentUtils />
+    </StepItem>
+
+    <StepItem title="إنشاء مكوّن الإدخال">
+      <ComponentSource name="input" />
+    </StepItem>
+  </Step>
+</div>
+
+## الاستخدام
+
+<div className="not-prose space-y-6">
+  <Pre>
+    {`import { Input } from "@/components/ui/input"`}
+  </Pre>
+
+  <Pre>
+    {`const InputDemo = () => {
+      return <Input className="w-56" type="email" placeholder="البريد الإلكتروني" />
+      }
+
+      export default InputDemo`}
+  </Pre>
+</div>
+
+## أمثلة
+
+### افتراضي
+
+<ComponentPreview name="input-demo" />
+
+### رفع ملف
+
+<ComponentPreview name="input" variant="file" />
+
+### معطّل
+
+<ComponentPreview name="input" variant="disabled" />
+
+### مع تسمية
+
+<ComponentPreview name="input" variant="label" />
+
+### مع زر
+
+<ComponentPreview name="input" variant="button" />
