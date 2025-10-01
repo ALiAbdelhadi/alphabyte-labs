@@ -18,24 +18,7 @@ links:
 
 <TabsContent value="cli">
 <CliCodeTabs>
-  {(() => {
-    const cmd = {
-      pnpm: `pnpm dlx alphabyte-cli@latest add tabs`,
-      npm: `npx alphabyte-cli@latest add tabs`,
-      yarn: `yarn dlx alphabyte-cli@latest add tabs`,
-      bun: `bunx alphabyte-cli@latest add tabs`,
-      deno: `deno run -A npm:alphabyte-cli add tabs`,
-    }
-    return (
-      <CodeCommands
-        __pnpm__={cmd.pnpm}
-        __npm__={cmd.npm}
-        __yarn__={cmd.yarn}
-        __bun__={cmd.bun}
-        __deno__={cmd.deno}
-      />
-    )
-  })()}
+  <CodeCommands componentName="tabs"/>
 </CliCodeTabs>
 </TabsContent>
 

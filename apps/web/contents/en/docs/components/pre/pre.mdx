@@ -15,24 +15,7 @@ description: Showcase beautifully styled and customizable code snippets with adv
 
 <TabsContent value="cli">
 <CliCodeTabs>
-  {(() => {
-    const cmd = {
-      pnpm: `pnpm dlx alphabyte-cli@latest add pre`,
-      npm: `npx alphabyte-cli@latest add pre`,
-      yarn: `yarn dlx alphabyte-cli@latest add pre`,
-      bun: `bunx alphabyte-cli@latest add pre`,
-      deno: `deno run -A npm:alphabyte-cli add pre`,
-    }
-    return (
-      <CodeCommands
-        __pnpm__={cmd.pnpm}
-        __npm__={cmd.npm}
-        __yarn__={cmd.yarn}
-        __bun__={cmd.bun}
-        __deno__={cmd.deno}
-      />
-    )
-  })()}
+  <CodeCommands componentName="pre"/>
 </CliCodeTabs>
 </TabsContent>
 

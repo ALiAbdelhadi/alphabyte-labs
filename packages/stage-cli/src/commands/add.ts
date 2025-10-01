@@ -1,5 +1,6 @@
 
 import { getRegistry } from "@/registry/get-registry.js"
+import { getRegistryPath } from "@/registry/index.js"
 import { createConfig, getConfig } from "@/utils/config.js"
 import { Command } from "commander"
 import { promises as fs } from "fs"
@@ -220,6 +221,35 @@ export async function addComponent(
 
     // Create additional directories if needed
     await ensureRequiredDirectories(component, config, cwd, { silent })
+
+    // Include ancillary assets for specific components (e.g., CSS for pre)
+    if (component.name === "pre") {
+      const stylesDir = path.resolve(cwd, "styles")
+      const prismCssTarget = path.join(stylesDir, "prism-theme.css")
+      try {
+        await fs.access(prismCssTarget)
+      } catch {
+        try {
+          const registryBase = await getRegistryPath()
+          const assetPath = path.join(registryBase, "assets", "styles", "prism-theme.css")
+          // Fallback minimal theme if asset not bundled
+          let cssContent = `:root{--code-background:#1e1e1e;--code-text-color:#e8e8e8}pre[class*="language-"]{background:var(--code-background);color:var(--code-text-color);padding:0.8rem;border-radius:8px;overflow:auto}`
+          try {
+            const buf = await fs.readFile(assetPath, "utf8")
+            if (buf && buf.length > 0) cssContent = buf
+          } catch {}
+          await fs.mkdir(stylesDir, { recursive: true })
+          await fs.writeFile(prismCssTarget, cssContent, "utf8")
+          if (!silent) {
+            logger.success(`✅ Added CSS asset: styles/prism-theme.css`)
+          }
+        } catch (e) {
+          if (!silent) {
+            logger.warn("⚠️  Failed to add prism-theme.css automatically. Please create styles/prism-theme.css")
+          }
+        }
+      }
+    }
 
     // Install dependencies
     let dependenciesResult = { success: true, installed: [], failed: [] }

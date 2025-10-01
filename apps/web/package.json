@@ -12,6 +12,8 @@
     "format": "npx prettier --write .",
     "format:check": "npx prettier --check .",
     "generate-content-json": "node scripts/content.ts",
+    "gen:registry-components": "node apps/web/scripts/components-manifest.mjs",
+    "gen:registry-blocks": "node apps/web/scripts/blocks-manifest.mjs",
     "prepare": "husky"
   },
   "dependencies": {

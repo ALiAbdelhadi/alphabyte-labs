@@ -14,27 +14,9 @@ links:
   <TabsTrigger value="cli">CLI</TabsTrigger>
   <TabsTrigger value="manual">Manual</TabsTrigger>
 </TabsList>
-
 <TabsContent value="cli">
 <CliCodeTabs>
-  {(() => {
-    const cmd = {
-      pnpm: `pnpm dlx alphabyte-cli@latest add alert-dialog`,
-      npm: `npx alphabyte-cli@latest add alert-dialog`,
-      yarn: `yarn dlx alphabyte-cli@latest add alert-dialog`,
-      bun: `bunx alphabyte-cli@latest add alert-dialog`,
-      deno: `deno run -A npm:alphabyte-cli add alert-dialog`,
-    }
-    return (
-      <CodeCommands
-        __pnpm__={cmd.pnpm}
-        __npm__={cmd.npm}
-        __yarn__={cmd.yarn}
-        __bun__={cmd.bun}
-        __deno__={cmd.deno}
-      />
-    )
-  })()}
+  <CodeCommands componentName="alert-dialog"/>
 </CliCodeTabs>
 </TabsContent>
 

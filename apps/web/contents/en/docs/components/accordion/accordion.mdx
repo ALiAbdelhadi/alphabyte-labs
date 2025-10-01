@@ -17,30 +17,11 @@ links:
   <TabsTrigger value="cli">CLI</TabsTrigger>
   <TabsTrigger value="manual">Manual</TabsTrigger>
 </TabsList>
-
 <TabsContent value="cli">
 <CliCodeTabs>
-  {(() => {
-    const cmd = {
-      pnpm: `pnpm dlx alphabyte-cli@latest add accordion`,
-      npm: `npx alphabyte-cli@latest add accordion`,
-      yarn: `yarn dlx alphabyte-cli@latest add accordion`,
-      bun: `bunx alphabyte-cli@latest add accordion`,
-      deno: `deno run -A npm:alphabyte-cli add accordion`,
-    }
-    return (
-      <CodeCommands
-        __pnpm__={cmd.pnpm}
-        __npm__={cmd.npm}
-        __yarn__={cmd.yarn}
-        __bun__={cmd.bun}
-        __deno__={cmd.deno}
-      />
-    )
-  })()}
+  <CodeCommands componentName="accordion"/>
 </CliCodeTabs>
 </TabsContent>
-
 <TabsContent value="manual">
 <div className="not-prose px-4 md:px-0">
   <Step>

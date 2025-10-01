@@ -10,6 +10,8 @@ import { CheckIcon, ClipboardIcon } from "lucide-react"
 import * as React from "react"
 
 interface CodeCommandsProps extends React.ComponentProps<"div"> {
+    componentName?: string
+    manualDeps?: string[]
     __npm__?: string
     __pnpm__?: string
     __yarn__?: string
@@ -18,6 +20,8 @@ interface CodeCommandsProps extends React.ComponentProps<"div"> {
 }
 
 export function CodeCommands({
+    componentName,
+    manualDeps,
     __npm__,
     __pnpm__,
     __yarn__,
@@ -40,13 +44,21 @@ export function CodeCommands({
 
     const tabs = React.useMemo(() => {
         const availableTabs: Record<string, string> = {}
-        if (__npm__) availableTabs.npm = __npm__
-        if (__pnpm__) availableTabs.pnpm = __pnpm__
-        if (__yarn__) availableTabs.yarn = __yarn__
-        if (__bun__) availableTabs.bun = __bun__
-        if (__deno__) availableTabs.deno = __deno__
+        if (componentName) {
+            availableTabs.npm = `npx alphabyte add ${componentName}`
+            availableTabs.pnpm = `pnpm dlx alphabyte add ${componentName}`
+            availableTabs.yarn = `yarn dlx alphabyte add ${componentName}`
+            availableTabs.bun = `bunx alphabyte add ${componentName}`
+            availableTabs.deno = `deno run -A npm:alphabyte-cli add ${componentName}`
+        } else {
+            if (__npm__) availableTabs.npm = __npm__
+            if (__pnpm__) availableTabs.pnpm = __pnpm__
+            if (__yarn__) availableTabs.yarn = __yarn__
+            if (__bun__) availableTabs.bun = __bun__
+            if (__deno__) availableTabs.deno = __deno__
+        }
         return availableTabs
-    }, [__npm__, __pnpm__, __yarn__, __bun__, __deno__])
+    }, [componentName, __npm__, __pnpm__, __yarn__, __bun__, __deno__])
 
     const activeCommand = tabs[packageManager]
 
@@ -79,6 +91,11 @@ export function CodeCommands({
                         })
                     }}
                 >
+                    {manualDeps && manualDeps.length > 0 && (
+                        <div className="px-4 py-2 text-xs text-muted-foreground border-b bg-muted/30">
+                            Manual installation: {manualDeps.join(" ")}
+                        </div>
+                    )}
                     <div className="flex items-center justify-between px-4 h-9 bg-muted/50">
                         <div className="flex items-center gap-2">
                             <div className="flex space-x-1.5 rtl:space-x-reverse items-center" role="presentation" aria-label="Window controls">

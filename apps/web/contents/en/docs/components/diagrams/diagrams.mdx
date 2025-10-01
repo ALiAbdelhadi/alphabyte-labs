@@ -14,24 +14,7 @@ description: Add various diagram types, including flowcharts, decision trees and
 </TabsList>
 <TabsContent value="cli">
 <CliCodeTabs>
-  {(() => {
-    const cmd = {
-      pnpm: `pnpm dlx alphabyte-cli@latest add diagrams`,
-      npm: `npx alphabyte-cli@latest add diagrams`,
-      yarn: `yarn dlx alphabyte-cli@latest add diagrams`,
-      bun: `bunx alphabyte-cli@latest add diagrams`,
-      deno: `deno run -A npm:alphabyte-cli add diagrams`,
-    }
-    return (
-      <CodeCommands
-        __pnpm__={cmd.pnpm}
-        __npm__={cmd.npm}
-        __yarn__={cmd.yarn}
-        __bun__={cmd.bun}
-        __deno__={cmd.deno}
-      />
-    )
-  })()}
+  <CodeCommands componentName="diagrams"/>
 </CliCodeTabs>
 </TabsContent>
 <TabsContent value="manual">

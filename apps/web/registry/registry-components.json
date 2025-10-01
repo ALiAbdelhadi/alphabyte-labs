@@ -1,0 +1,585 @@
+{
+  "accordion": {
+    "dependencies": [
+      "@radix-ui/react-accordion",
+      "react",
+      "react-icons"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "alert-dialog": {
+    "dependencies": [
+      "@radix-ui/react-alert-dialog",
+      "class-variance-authority",
+      "react"
+    ],
+    "internalImports": [
+      "@/components/ui/button",
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "alert": {
+    "dependencies": [
+      "react",
+      "class-variance-authority"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "aspect-ratio": {
+    "dependencies": [
+      "@radix-ui/react-aspect-ratio"
+    ],
+    "internalImports": [],
+    "ancillary": []
+  },
+  "avatar": {
+    "dependencies": [
+      "@radix-ui/react-avatar",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "badge": {
+    "dependencies": [
+      "class-variance-authority",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "breadcrumb": {
+    "dependencies": [
+      "@radix-ui/react-slot",
+      "next",
+      "react",
+      "react-icons"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "button": {
+    "dependencies": [
+      "@radix-ui/react-slot",
+      "class-variance-authority"
+    ],
+    "internalImports": [
+      "@/components/icons/loading-icon",
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "calendar": {
+    "dependencies": [
+      "lucide-react",
+      "react",
+      "react-day-picker"
+    ],
+    "internalImports": [
+      "@/components/ui/button",
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "card": {
+    "dependencies": [
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "carousel": {
+    "dependencies": [
+      "react",
+      "lucide-react"
+    ],
+    "internalImports": [
+      "@/lib/utils",
+      "@/registry/new-york/ui/button"
+    ],
+    "ancillary": []
+  },
+  "chart": {
+    "dependencies": [
+      "react",
+      "recharts"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "checkbox": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-checkbox",
+      "lucide-react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "collapsible": {
+    "dependencies": [
+      "@radix-ui/react-collapsible"
+    ],
+    "internalImports": [],
+    "ancillary": []
+  },
+  "command": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-dialog",
+      "cmdk",
+      "lucide-react"
+    ],
+    "internalImports": [
+      "@/lib/utils",
+      "@/registry/new-york/ui/dialog"
+    ],
+    "ancillary": []
+  },
+  "context-menu": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-context-menu",
+      "lucide-react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "custom-tabs": {
+    "dependencies": [
+      "@radix-ui/react-tabs",
+      "framer-motion",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "dialog": {
+    "dependencies": [
+      "@radix-ui/react-dialog",
+      "class-variance-authority",
+      "react"
+    ],
+    "internalImports": [
+      "@/components/ui/button",
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "drawer": {
+    "dependencies": [
+      "react",
+      "vaul"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "dropdown-menu": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-dropdown-menu",
+      "lucide-react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "FolderTreeComponent": {
+    "dependencies": [
+      "lucide-react",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "FolderTreeMenu": {
+    "dependencies": [
+      "lucide-react"
+    ],
+    "internalImports": [
+      "@/hooks/use-submenu-state",
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "FolderTreeTest": {
+    "dependencies": [],
+    "internalImports": [],
+    "ancillary": []
+  },
+  "form": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-label",
+      "@radix-ui/react-slot"
+    ],
+    "internalImports": [
+      "@/lib/utils",
+      "@/registry/new-york/ui/label"
+    ],
+    "ancillary": []
+  },
+  "hover-card": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-hover-card"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "input": {
+    "dependencies": [
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "label": {
+    "dependencies": [
+      "@radix-ui/react-label",
+      "class-variance-authority",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "menubar": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-menubar",
+      "lucide-react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "navigation-menu": {
+    "dependencies": [
+      "@radix-ui/react-navigation-menu",
+      "class-variance-authority",
+      "lucide-react",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "note": {
+    "dependencies": [
+      "framer-motion",
+      "lucide-react",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "pagination": {
+    "dependencies": [
+      "lucide-react",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils",
+      "@/registry/ui/button"
+    ],
+    "ancillary": []
+  },
+  "popover": {
+    "dependencies": [
+      "@radix-ui/react-popover",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "pre": {
+    "dependencies": [
+      "lucide-react",
+      "prismjs",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils",
+      "@/settings/LanguageIcon"
+    ],
+    "ancillary": [
+      {
+        "type": "style",
+        "path": "styles/prism-theme.css"
+      }
+    ]
+  },
+  "product-card": {
+    "dependencies": [
+      "lucide-react",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "progress": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-progress"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "radio-group": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-radio-group",
+      "lucide-react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "resizable": {
+    "dependencies": [
+      "lucide-react",
+      "react-resizable-panels"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "scroll-area": {
+    "dependencies": [
+      "@radix-ui/react-scroll-area",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "select": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-select",
+      "lucide-react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "separator": {
+    "dependencies": [
+      "@radix-ui/react-separator",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "sheet": {
+    "dependencies": [
+      "@radix-ui/react-dialog",
+      "class-variance-authority",
+      "lucide-react",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "sidebar": {
+    "dependencies": [
+      "@radix-ui/react-slot",
+      "class-variance-authority",
+      "lucide-react",
+      "react"
+    ],
+    "internalImports": [
+      "@/components/ui/button",
+      "@/components/ui/input",
+      "@/components/ui/separator",
+      "@/components/ui/skeleton",
+      "@/hooks/use-mobile",
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "skeleton": {
+    "dependencies": [],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "slider": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-slider"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "sonner": {
+    "dependencies": [
+      "lucide-react",
+      "next-themes",
+      "react",
+      "sonner"
+    ],
+    "internalImports": [
+      "@/components/icons/success-icon"
+    ],
+    "ancillary": []
+  },
+  "step": {
+    "dependencies": [
+      "next-intl",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils",
+      "@/types/components"
+    ],
+    "ancillary": []
+  },
+  "switch": {
+    "dependencies": [
+      "@radix-ui/react-switch",
+      "react"
+    ],
+    "internalImports": [
+      "@/components/ui/label",
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "table": {
+    "dependencies": [
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "tabs": {
+    "dependencies": [
+      "@radix-ui/react-tabs",
+      "framer-motion",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "textarea": {
+    "dependencies": [
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "toast": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-toast",
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "toaster": {
+    "dependencies": [],
+    "internalImports": [
+      "@/registry/new-york/hooks/use-toast"
+    ],
+    "ancillary": []
+  },
+  "toggle-group": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-toggle-group",
+      "class-variance-authority"
+    ],
+    "internalImports": [
+      "@/lib/utils",
+      "@/registry/new-york/ui/toggle"
+    ],
+    "ancillary": []
+  },
+  "toggle": {
+    "dependencies": [
+      "react",
+      "@radix-ui/react-toggle",
+      "class-variance-authority"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  },
+  "tooltip": {
+    "dependencies": [
+      "@radix-ui/react-tooltip",
+      "react"
+    ],
+    "internalImports": [
+      "@/lib/utils"
+    ],
+    "ancillary": []
+  }
+}

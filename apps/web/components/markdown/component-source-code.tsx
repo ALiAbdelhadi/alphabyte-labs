@@ -1,5 +1,6 @@
 "use client"
 
+import { LoadingIcon } from "@/components/icons/loading-icon"
 import Pre from "@/components/pre"
 import { REGISTRY } from "@/registry"
 import { fixImport } from "@/scripts/fixImport.mjs"
@@ -7,7 +8,6 @@ import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { CodeBlockWrapper } from "../code-block-wrapper"
-import {LoadingIcon} from "@/components/icons/loading-icon" 
 import MdxBadge from "../markdown/mdx-badge"
 
 export interface ComponentSourceProps {

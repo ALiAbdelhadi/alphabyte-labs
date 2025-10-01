@@ -1,11 +1,11 @@
 "use client"
 
+import { LoadingIcon } from "@/components/icons/loading-icon"
 import Pre from "@/components/pre"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/custom-tabs"
 import { cn } from "@/lib/utils"
 import { REGISTRY } from "@/registry"
 import React, { useEffect, useState } from "react"
-import { LoadingIcon } from "@/components/icons/loading-icon"
 
 export interface ComponentPreviewProps {
   code?: string

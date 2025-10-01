@@ -3,7 +3,7 @@ import fastGlob from "fast-glob"
 import { promises as fs } from "fs"
 import fsExtra from "fs-extra"
 import path from "path"
-import { extractDependencies } from "./extra-dependencies"
+import { extractDependencies, extractInternalImports } from "./extra-dependencies"
 import { BLOCKS_PATH } from "./get-registry"
 
 export async function getBlocks(): Promise<RegistryItem[]> {
@@ -28,6 +28,7 @@ export async function getBlocks(): Promise<RegistryItem[]> {
                 await fs.access(mainFile)
                 const content = fsExtra.readFileSync(mainFile, "utf8")
                 const dependencies = extractDependencies(content)
+                const internalImports = extractInternalImports(content)
 
                 // Get all files in the block directory
                 const blockFiles = await fastGlob("**/*", { cwd: blockPath })
@@ -42,6 +43,18 @@ export async function getBlocks(): Promise<RegistryItem[]> {
                             path: file,
                             content: fileContent,
                         })
+                    }
+                }
+
+                // Attempt to include internal imports resolved to sibling files in registry/ui
+                for (const imp of internalImports) {
+                    const rel = imp.replace(/^@\//, "").replace(/^components\//, "")
+                    const candidateTsx = path.join(BLOCKS_PATH, blockName, `${rel}.tsx`)
+                    const candidateTs = path.join(BLOCKS_PATH, blockName, `${rel}.ts`)
+                    if (fsExtra.existsSync(candidateTsx)) {
+                        files.push({ type: "registry:component", path: path.relative(blockPath, candidateTsx), content: fsExtra.readFileSync(candidateTsx, "utf8") })
+                    } else if (fsExtra.existsSync(candidateTs)) {
+                        files.push({ type: "registry:component", path: path.relative(blockPath, candidateTs), content: fsExtra.readFileSync(candidateTs, "utf8") })
                     }
                 }
 

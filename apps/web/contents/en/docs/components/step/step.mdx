@@ -15,24 +15,7 @@ description: This section provides an overview of Introduction.
 
 <TabsContent value="cli">
 <CliCodeTabs>
-  {(() => {
-    const cmd = {
-      pnpm: `pnpm dlx alphabyte-cli@latest add step`,
-      npm: `npx alphabyte-cli@latest add step`,
-      yarn: `yarn dlx alphabyte-cli@latest add step`,
-      bun: `bunx alphabyte-cli@latest add step`,
-      deno: `deno run -A npm:alphabyte-cli add step`,
-    }
-    return (
-      <CodeCommands
-        __pnpm__={cmd.pnpm}
-        __npm__={cmd.npm}
-        __yarn__={cmd.yarn}
-        __bun__={cmd.bun}
-        __deno__={cmd.deno}
-      />
-    )
-  })()}
+  <CodeCommands componentName="step"/>
 </CliCodeTabs>
 </TabsContent>
 

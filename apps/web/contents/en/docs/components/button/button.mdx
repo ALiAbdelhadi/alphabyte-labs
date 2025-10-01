@@ -14,24 +14,7 @@ description: A button that displays a list of options when clicked.
 </TabsList>
 <TabsContent value="cli">
 <CliCodeTabs>
-  {(() => {
-    const cmd = {
-      pnpm: `pnpm dlx alphabyte-cli@latest add button`,
-      npm: `npx alphabyte-cli@latest add button`,
-      yarn: `yarn dlx alphabyte-cli@latest add button`,
-      bun: `bunx alphabyte-cli@latest add button`,
-      deno: `deno run -A npm:alphabyte-cli add button`,
-    }
-    return (
-      <CodeCommands
-        __pnpm__={cmd.pnpm}
-        __npm__={cmd.npm}
-        __yarn__={cmd.yarn}
-        __bun__={cmd.bun}
-        __deno__={cmd.deno}
-      />
-    )
-  })()}
+  <CodeCommands componentName="button"/>
 </CliCodeTabs>
 </TabsContent>
 

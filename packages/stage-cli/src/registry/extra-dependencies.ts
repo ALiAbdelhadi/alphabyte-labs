@@ -28,3 +28,16 @@ export function extractDependencies(content: string): string[] {
 
     return dependencies
 }
+
+export function extractInternalImports(content: string): string[] {
+    const internal: string[] = []
+    const importRegex = /import\s+.*?\s+from\s+['"]([^'\"]+)['"]/g
+    let match
+    while ((match = importRegex.exec(content)) !== null) {
+        const importPath = match[1]
+        if (importPath.startsWith('@/')) {
+            if (!internal.includes(importPath)) internal.push(importPath)
+        }
+    }
+    return internal
+}

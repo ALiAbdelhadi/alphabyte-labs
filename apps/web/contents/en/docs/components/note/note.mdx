@@ -17,24 +17,7 @@ description: A flexible Note component to highlight important information in you
 
 <TabsContent value="cli">
 <CliCodeTabs>
-  {(() => {
-    const cmd = {
-      pnpm: `pnpm dlx alphabyte-cli@latest add note`,
-      npm: `npx alphabyte-cli@latest add note`,
-      yarn: `yarn dlx alphabyte-cli@latest add note`,
-      bun: `bunx alphabyte-cli@latest add note`,
-      deno: `deno run -A npm:alphabyte-cli add note`,
-    }
-    return (
-      <CodeCommands
-        __pnpm__={cmd.pnpm}
-        __npm__={cmd.npm}
-        __yarn__={cmd.yarn}
-        __bun__={cmd.bun}
-        __deno__={cmd.deno}
-      />
-    )
-  })()}
+  <CodeCommands componentName="note"/>
 </CliCodeTabs>
 </TabsContent>
 <TabsContent value="manual">

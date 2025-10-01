@@ -15,24 +15,7 @@ description: A customizable product card component for displaying product inform
 
 <TabsContent value="cli">
 <CliCodeTabs>
-  {(() => {
-    const cmd = {
-      pnpm: `pnpm dlx alphabyte-cli@latest add product-card`,
-      npm: `npx alphabyte-cli@latest add product-card`,
-      yarn: `yarn dlx alphabyte-cli@latest add product-card`,
-      bun: `bunx alphabyte-cli@latest add product-card`,
-      deno: `deno run -A npm:alphabyte-cli add product-card`,
-    }
-    return (
-      <CodeCommands
-        __pnpm__={cmd.pnpm}
-        __npm__={cmd.npm}
-        __yarn__={cmd.yarn}
-        __bun__={cmd.bun}
-        __deno__={cmd.deno}
-      />
-    )
-  })()}
+  <CodeCommands componentName="product-card"/>
 </CliCodeTabs>
 </TabsContent>
 

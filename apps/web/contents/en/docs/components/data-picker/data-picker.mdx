@@ -19,24 +19,7 @@ for quick installation
 </TabsList>
 <TabsContent value="cli">
 <CliCodeTabs>
-  {(() => {
-    const cmd = {
-      pnpm: `pnpm dlx alphabyte-cli@latest add date-picker`,
-      npm: `npx alphabyte-cli@latest add date-picker`,
-      yarn: `yarn dlx alphabyte-cli@latest add date-picker`,
-      bun: `bunx alphabyte-cli@latest add date-picker`,
-      deno: `deno run -A npm:alphabyte-cli add date-picker`,
-    }
-    return (
-      <CodeCommands
-        __pnpm__={cmd.pnpm}
-        __npm__={cmd.npm}
-        __yarn__={cmd.yarn}
-        __bun__={cmd.bun}
-        __deno__={cmd.deno}
-      />
-    )
-  })()}
+  <CodeCommands componentName="data-picker"/>
 </CliCodeTabs>
 </TabsContent>
 <TabsContent value="manual">
